@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import {
   Hash, Type, Palette, Box, TextCursor, GitMerge,
   LayoutTemplate, List, AlertCircle, Layers, MoreHorizontal,
-  GitCommit, BarChart2, Zap, Activity, TrendingUp,
+  GitCommit, BarChart2, Zap, Activity, TrendingUp, LayoutDashboard,
 } from 'lucide-react';
 
 // Section modules
+import { OverviewSection }                                       from './design/sections/Overview';
 import { ManifestoSection, TypographySection, ColorSection }    from './design/sections/Foundation';
 import { LayoutSection, NavigationSection }                      from './design/sections/Structure';
 import { ButtonsSection, InputsSection }                         from './design/sections/Interaction';
