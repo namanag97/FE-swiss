@@ -289,18 +289,19 @@ export const OverviewSection: React.FC = () => {
             <ComponentCard title="Badges & Tags">
               <div className="space-y-5">
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="default">Default</Badge>
+                  <Badge variant="neutral">Default</Badge>
                   <Badge variant="success">Conformant</Badge>
                   <Badge variant="warning">Borderline</Badge>
                   <Badge variant="error">Breach</Badge>
-                  <Badge variant="info">Pending</Badge>
+                  <Badge variant="outline">Pending</Badge>
+                  <Badge variant="accent">Active</Badge>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <Tag>Process Mining</Tag>
-                  <Tag>v3.2</Tag>
-                  <Tag>KPI</Tag>
-                  <Tag>SLA</Tag>
-                  <Tag>BPMN</Tag>
+                  <Tag label="Process Mining" />
+                  <Tag label="v3.2" />
+                  <Tag label="KPI" />
+                  <Tag label="SLA" />
+                  <Tag label="BPMN" />
                 </div>
                 <div className="flex items-center gap-2">
                   <Avatar initials="AS" size="sm" />
