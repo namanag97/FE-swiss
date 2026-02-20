@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fonts */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "JetBrains Mono", "Fira Code", monospace;
+
+  /* Braun Palette — exact match from process-mining-platform */
+  --color-braun-50:     #fafafa;
+  --color-braun-100:    #f4f4f5;
+  --color-braun-200:    #e4e4e7;
+  --color-braun-300:    #d4d4d8;
+  --color-braun-400:    #a1a1aa;
+  --color-braun-500:    #71717a;
+  --color-braun-600:    #52525b;
+  --color-braun-800:    #27272a;
+  --color-braun-900:    #09090b;
+  --color-braun-orange: #ea580c;
+
+  /* Substrate alias */
+  --color-substrate: #fafafa;
+
+  /* Data visualisation semantic tokens */
+  --color-data-positive: #059669;  /* emerald-600  — conformant, within SLA    */
+  --color-data-warning:  #d97706;  /* amber-600    — borderline, caution        */
+  --color-data-negative: #e11d48;  /* rose-600     — breach, critical           */
+  --color-data-violet:   #7c3aed;  /* violet-700   — automation, secondary      */
+  --color-data-muted:    #a1a1aa;  /* braun-400    — background / disabled      */
+  --color-chart-grid:    #e4e4e7;
+  --color-chart-axis:    #a1a1aa;
+}
+
+/* ── Reset ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-font-smoothing:  antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #fafafa;
+  color: #09090b;
+}
+
+/* ── Selection ───────────────────────────────────────────────────────────── */
+::selection {
+  background-color: #09090b;
+  color: #ffffff;
+}
+
+/* ── Focus visible — keyboard navigation ring ────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #09090b;
+  outline-offset: 2px;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 5px; height: 5px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: #e4e4e7; }
+::-webkit-scrollbar-thumb:hover  { background: #a1a1aa; }
+::-webkit-scrollbar-thumb:active { background: #71717a; }
+
+/* ── animate-in utilities (polyfill — Tailwind v3 compat) ───────────────── */
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform:
+      translate(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0))
+      scale(var(--tw-enter-scale, 1))
+      rotate(var(--tw-enter-rotate, 0));
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(0);
+  }
+}
+
+.animate-in {
+  animation: enter 0.3s ease-out forwards;
+  --tw-enter-opacity: 0;
+  --tw-enter-scale: 1;
+  --tw-enter-rotate: 0;
+  --tw-enter-translate-x: 0;
+  --tw-enter-translate-y: 0;
+}
+
+.fade-in                  { --tw-enter-opacity: 0; }
+.zoom-in-95               { --tw-enter-scale: 0.95; }
+.slide-in-from-bottom-2   { --tw-enter-translate-y:  0.5rem; }
+.slide-in-from-bottom-4   { --tw-enter-translate-y:  1rem;   }
+.slide-in-from-top-2      { --tw-enter-translate-y: -0.5rem; }
+.slide-in-from-right-8    { --tw-enter-translate-x:  2rem;   }
+.slide-in-from-right-full { --tw-enter-translate-x:  100%;   }
+.slide-in-from-left-full  { --tw-enter-translate-x: -100%;   }
+.slide-in-from-left-2     { --tw-enter-translate-x: -0.5rem; }
+.slide-in-from-left-4     { --tw-enter-translate-x: -1rem;   }
+
+/* Duration / delay helpers */
+.duration-200 { animation-duration: 200ms; }
+.duration-300 { animation-duration: 300ms; }
+.duration-500 { animation-duration: 500ms; }
+.duration-700 { animation-duration: 700ms; }
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+
+.fill-mode-both { animation-fill-mode: both; }
+
+/* ── Skeleton pulse ──────────────────────────────────────────────────────── */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* Tailwind's built-in animate-pulse uses the same pattern.
+   Skeleton.tsx uses animate-pulse which Tailwind 4 ships. */
+
+/* ── Indeterminate progress bar (used in Feedback section) ──────────────── */
+@keyframes slide-right {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(400%);  }
+}
+
+.animate-slide-right {
+  animation: slide-right 1.4s ease-in-out infinite;
+}
+
+/* ── Tabular-nums helper (supplement) ───────────────────────────────────── */
+.tabular-nums { font-variant-numeric: tabular-nums; }

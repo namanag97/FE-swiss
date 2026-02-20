@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meridian Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /*
+     * MERIDIAN DESIGN SYSTEM
+     * Principles: Dieter Rams / Bauhaus / Swiss Grid
+     * Shadows: None. Borders: 1px. Radius: 0–2px.
+     * Philosophy: Less, but better.
+     */
+
+    :root {
+      /* Stone neutrals — zinc with 2% warm cast */
+      --stone-50:  #F8F5F2;   /* page ground */
+      --stone-100: #F0ECE8;
+      --stone-200: #E2DDD8;   /* borders */
+      --stone-300: #CCC6BF;
+      --stone-400: #A89E94;
+      --stone-500: #7A6E66;
+      --stone-600: #5A5049;
+      --stone-700: #3E3530;
+      --stone-800: #292118;
+      --stone-900: #18120C;   /* primary text */
+      --stone-950: #0E0A06;
+
+      /* Single accent — Braun orange */
+      --orange:    #D05A08;
+      --orange-lt: #FDF0E8;
+      --orange-bdr:#F0A070;
+
+      /* Semantic */
+      --green:     #176B3A;
+      --green-lt:  #EBF5EF;
+      --amber:     #8A5A00;
+      --amber-lt:  #FBF3E0;
+      --red:       #AA2020;
+      --red-lt:    #FBEDED;
+
+      /* Type */
+      --font:      'Geist', -apple-system, sans-serif;
+      --mono:      'Geist Mono', 'Menlo', monospace;
+
+      --r: 2px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+
+    body {
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--stone-900);
+      background: var(--stone-50);
+      font-variant-numeric: tabular-nums;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--stone-200); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--stone-300); }
+
+    ::selection { background: var(--stone-900); color: #fff; }
+
+    .shell { display: flex; height: 100vh; overflow: hidden; }
+
+    /* ── SIDEBAR ─────────────────────────────────────────────────── */
+    .sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      background: var(--stone-100);
+      border-right: 1px solid var(--stone-200);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sb-head {
+      padding: 20px 24px 18px;
+      border-bottom: 1px solid var(--stone-200);
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    .sb-name {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--stone-900);
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+
+    .sb-ver {
+      font-size: 10px;
+      font-family: var(--mono);
+      color: var(--stone-400);
+      margin-top: 5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .sb-ver span { color: var(--orange); }
+
+    .nav { flex: 1; overflow-y: auto; padding: 8px 0; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 9px 24px;
+      font-size: 10px;
+      font-family: var(--mono);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--stone-400);
+      cursor: pointer;
+      transition: all 150ms ease-out;
+      border-left: 2px solid transparent;
+      background: transparent;
+      border-right: none;
+      border-top: none;
+      border-bottom: none;
+      text-align: left;
+    }
+
+    .nav-item:hover {
+      background: rgba(255,255,255,0.6);
+      color: var(--stone-900);
+      border-left-color: var(--stone-300);
+    }
+
+    .nav-item.active {
+      background: #fff;
+      color: var(--stone-900);
+      border-left-color: var(--stone-900);
+      font-weight: 600;
+    }
+
+    .nav-num {
+      color: var(--stone-300);
+      font-size: 9px;
+      width: 16px;
+      flex-shrink: 0;
+    }
+
+    .nav-item.active .nav-num { color: var(--orange); }
+
+    .sb-principles {
+      padding: 16px 24px;
+      border-top: 1px solid var(--stone-200);
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    .sb-principles div {
+      font-size: 9px;
+      font-family: var(--mono);
+      color: var(--stone-400);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      line-height: 2;
+    }
+
+    /* ── MAIN ────────────────────────────────────────────────────── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    .topbar {
+      height: 48px;
+      background: #fff;
+      border-bottom: 1px solid var(--stone-200);
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+
+    .crumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-family: var(--mono);
+      color: var(--stone-400);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .crumb-sep { color: var(--stone-300); }
+    .crumb-cur { color: var(--stone-900); }
+
+    .topbar-end { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+
+    .content { flex: 1; overflow-y: auto; background: #fff; }
+
+    .content-inner { max-width: none; padding: 48px 64px 80px; }
+
+    /* ── SECTION HEADER ──────────────────────────────────────────── */
+    .sec-head {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .sec-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--orange);
+      letter-spacing: 0.04em;
+    }
+
+    .sec-title {
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--stone-900);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .sec-line {
+      flex: 1;
+      height: 1px;
+      background: var(--stone-200);
+    }
+
+    /* ── SPEC ROW ────────────────────────────────────────────────── */
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--stone-200);
+      padding: 7px 8px;
+      transition: background 100ms;
+    }
+
+    .spec-row:hover { background: var(--stone-50); }
+
+    .spec-label {
+      font-size: 10px;
+      font-family: var(--mono);
+      color: var(--stone-400);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    .spec-val {
+      font-size: 12px;
+      font-family: var(--mono);
+      color: var(--stone-900);
+      text-align: right;
+    }
+
+    /* ── COMP CARD ───────────────────────────────────────────────── */
+    .card {
+      border: 1px solid var(--stone-200);
+      background: #fff;
+      padding: 32px;
+      transition: border-color 150ms;
+    }
+
+    .card:hover { border-color: var(--stone-900); }
+
+    .card-label {
+      font-size: 10px;
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--stone-400);
+      margin-bottom: 24px;
+      transition: color 150ms;
+    }
+
+    .card:hover .card-label { color: var(--stone-900); }
+
+    /* ── GRID ────────────────────────────────────────────────────── */
+    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; }
+    .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; }
+
+    /* Cards in a grid share borders — no gap, use negative margin trick */
+    .card-grid { display: grid; }
+    .card-grid .card { margin-right: -1px; margin-bottom: -1px; }
+
+    /* ── BUTTONS ─────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid;
+      cursor: pointer;
+      transition: all 150ms ease-out;
+      padding: 0;
+    }
+
+    .btn-md  { height: 36px; padding: 0 20px; }
+    .btn-sm  { height: 28px; padding: 0 12px; }
+    .btn-lg  { height: 44px; padding: 0 28px; font-size: 11px; }
+
+    .btn-primary {
+      background: var(--stone-900);
+      color: #fff;
+      border-color: var(--stone-900);
+    }
+    .btn-primary:hover { background: var(--stone-800); border-color: var(--stone-800); }
+    .btn-primary:active { transform: translateY(1px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--stone-900);
+      border-color: var(--stone-200);
+    }
+    .btn-secondary:hover { border-color: var(--stone-900); background: var(--stone-50); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--stone-400);
+      border-color: transparent;
+    }
+    .btn-ghost:hover { color: var(--stone-900); background: var(--stone-100); border-color: transparent; }
+
+    .btn-accent {
+      background: var(--orange);
+      color: #fff;
+      border-color: var(--orange);
+    }
+    .btn-accent:hover { background: #B84E07; border-color: #B84E07; }
+
+    .btn-danger {
+      background: var(--red-lt);
+      color: var(--red);
+      border-color: #F0C0C0;
+    }
+    .btn-danger:hover { background: #F5DADA; border-color: #E09090; }
+
+    /* ── INPUT ───────────────────────────────────────────────────── */
+    .input {
+      font-family: var(--font);
+      font-size: 13px;
+      height: 36px;
+      padding: 0 12px;
+      border: 1px solid var(--stone-200);
+      border-radius: var(--r);
+      background: #fff;
+      color: var(--stone-900);
+      outline: none;
+      transition: border-color 150ms;
+      font-variant-numeric: tabular-nums;
+      width: 100%;
+    }
+
+    .input:hover { border-color: var(--stone-400); }
+
+    .input:focus {
+      border-color: var(--stone-900);
+      box-shadow: 0 0 0 3px rgba(24,18,12,0.07);
+    }
+
+    .input::placeholder { color: var(--stone-300); }
+
+    /* ── BADGE ───────────────────────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: var(--r);
+      padding: 3px 8px;
+      white-space: nowrap;
+    }
+
+    .badge-neutral { background: var(--stone-100); color: var(--stone-600); }
+    .badge-black   { background: var(--stone-900); color: #fff; }
+    .badge-orange  { background: var(--orange); color: #fff; }
+    .badge-outline { border: 1px solid var(--stone-200); color: var(--stone-500); background: transparent; }
+    .badge-green   { background: var(--green-lt); color: var(--green); }
+    .badge-amber   { background: var(--amber-lt); color: var(--amber); }
+    .badge-red     { background: var(--red-lt); color: var(--red); }
+
+    /* Status dot badges */
+    .s-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--stone-600);
+    }
+
+    .s-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .s-dot.ok   { background: var(--green); }
+    .s-dot.warn { background: var(--amber); }
+    .s-dot.err  { background: var(--red); }
+    .s-dot.idle { background: var(--stone-300); }
+
+    /* ── TABLE ───────────────────────────────────────────────────── */
+    table { width: 100%; border-collapse: collapse; }
+
+    thead th {
+      font-size: 10px;
+      font-family: var(--mono);
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--stone-400);
+      text-align: left;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--stone-200);
+      background: var(--stone-50);
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    thead th.r { text-align: right; }
+
+    thead th:first-child { padding-left: 0; }
+    thead th:last-child  { padding-right: 0; }
+
+    tbody tr { border-bottom: 1px solid var(--stone-200); transition: background 100ms; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--stone-50); }
+
+    tbody td { padding: 10px 16px; font-size: 13px; color: var(--stone-900); white-space: nowrap; }
+    tbody td:first-child { padding-left: 0; }
+    tbody td:last-child  { padding-right: 0; }
+
+    td.r    { text-align: right; }
+    td.mono { font-family: var(--mono); font-size: 12px; }
+    td.dim  { color: var(--stone-400); font-size: 12px; }
+    td.ep   { font-family: var(--mono); font-size: 12px; }
+
+    /* ── COLOR SWATCHES ──────────────────────────────────────────── */
+    .sw-row { display: flex; gap: 0; border: 1px solid var(--stone-200); }
+
+    .sw-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sw-chip {
+      height: 48px;
+    }
+
+    .sw-info {
+      padding: 6px 8px;
+      border-top: 1px solid var(--stone-200);
+    }
+
+    .sw-step {
+      font-size: 9px;
+      font-family: var(--mono);
+      color: var(--stone-400);
+      display: block;
+    }
+
+    .sw-pin {
+      font-size: 9px;
+      font-family: var(--mono);
+      color: var(--orange);
+      font-weight: 600;
+      display: block;
+      margin-top: 1px;
+    }
+
+    /* ── TYPE ROWS ───────────────────────────────────────────────── */
+    .type-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 32px;
+      align-items: baseline;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--stone-200);
+    }
+
+    .type-meta {
+      font-size: 10px;
+      font-family: var(--mono);
+      color: var(--stone-400);
+      line-height: 1.6;
+    }
+
+    /* ── GAUGE ───────────────────────────────────────────────────── */
+    .gauge-ring { transition: stroke-dashoffset 0.9s cubic-bezier(0.4,0,0.2,1); }
+
+    .gauge-wrap {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      position: relative;
+    }
+
+    .gauge-val {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--stone-900);
+    }
+
+    .gauge-lbl {
+      font-size: 9px;
+      font-family: var(--mono);
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--stone-400);
+    }
+
+    /* ── PROGRESS ────────────────────────────────────────────────── */
+    .prog { height: 2px; background: var(--stone-200); }
+    .prog-fill { height: 100%; background: var(--stone-900); }
+
+    /* ── SPARK ───────────────────────────────────────────────────── */
+    .spark { display: flex; align-items: flex-end; gap: 2px; height: 20px; }
+    .sp { flex: 1; background: var(--stone-900); opacity: 0.15; min-height: 2px; }
+    .sp.hi { opacity: 0.9; }
+
+    /* ── UTILS ───────────────────────────────────────────────────── */
+    .flex { display: flex; }
+    .items-center { align-items: center; }
+    .ml-auto { margin-left: auto; }
+    .gap-8 { gap: 8px; }
+    .gap-12 { gap: 12px; }
+    .space-y > * + * { margin-top: 12px; }
+    .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .vr { width: 1px; height: 16px; background: var(--stone-200); }
+
+    .n-ok   { color: var(--green); }
+    .n-warn { color: var(--amber); }
+    .n-err  { color: var(--red); }
+    .n-dim  { color: var(--stone-300); }
+
+    .section-block { margin-bottom: 56px; }
+    .sub-head {
+      font-size: 10px;
+      font-family: var(--mono);
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--stone-400);
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ── SIDEBAR ─────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sb-head">
+      <div class="sb-name">Design Sys</div>
+      <div class="sb-ver">v3.2 <span>//</span> Meridian Engine</div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item active">
+        <span class="nav-num">00</span>Manifesto
+      </button>
+      <button class="nav-item">
+        <span class="nav-num">01</span>Typography
+      </button>
+      <button class="nav-item">
+        <span class="nav-num">02</span>Chromatic
+      </button>
+      <button class="nav-item">
+        <span class="nav-num">03</span>Layout
+      </button>
+      <button class="nav-item">
+        <span class="nav-num">04</span>Navigation
+      </button>
+      <button class="nav-item">
+        <span class="nav-num">05</span>Interaction
+      </button>
+      <button class="nav-item">
+        <span class="nav-num">06</span>Inputs
+      </button>
+      <button class="nav-item">
+        <span class="nav-num">07</span>Data Display
+      </button>
+      <button class="nav-item">
+        <span class="nav-num">08</span>Feedback
+      </button>
+      <button class="nav-item">
+        <span class="nav-num">09</span>Overlays
+      </button>
+      <button class="nav-item">
+        <span class="nav-num">10</span>Flows
+      </button>
+      <button class="nav-item">
+        <span class="nav-num">11</span>Gauges
+      </button>
+    </nav>
+
+    <div class="sb-principles">
+      <div>Principle: Clarity</div>
+      <div>Principle: Purity</div>
+      <div>Principle: Honesty</div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ──────────────────────────────────────────────────── -->
+  <div class="main">
+
+    <div class="topbar">
+      <div class="crumb">
+        <span>Meridian</span>
+        <span class="crumb-sep">/</span>
+        <span>Foundation</span>
+        <span class="crumb-sep">/</span>
+        <span class="crumb-cur">Overview</span>
+      </div>
+      <div class="topbar-end">
+        <input class="input" style="width:200px;height:28px;font-size:11px;font-family:var(--mono);" placeholder="Search tokens…">
+        <button class="btn btn-secondary btn-sm">Filter</button>
+        <div class="vr"></div>
+        <button class="btn btn-primary btn-sm">Export Tokens</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="content-inner">
+
+        <!-- ── 00 MANIFESTO ──────────────────────────────────── -->
+        <div class="section-block">
+          <div class="sec-head">
+            <span class="sec-num">00</span>
+            <h2 class="sec-title">System Manifesto</h2>
+            <div class="sec-line"></div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;">
+            <div>
+              <div style="font-size:11px;font-family:var(--mono);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--stone-900);margin-bottom:16px;">// The Philosophy of Less</div>
+              <p style="font-size:14px;color:var(--stone-600);line-height:1.7;margin-bottom:16px;">
+                We adhere to the principles of <strong style="color:var(--stone-900);">Dieter Rams</strong> and the <strong style="color:var(--stone-900);">Bauhaus</strong> movement. An interface is not a canvas for decoration; it is a tool for understanding.
+              </p>
+              <blockquote style="border-left:2px solid var(--orange);padding-left:16px;font-size:14px;font-style:italic;color:var(--stone-700);margin:24px 0;">
+                "Good design is as little design as possible."
+              </blockquote>
+              <p style="font-size:14px;color:var(--stone-600);line-height:1.7;">
+                Every pixel must justify its existence. Confusion is a design failure.
+              </p>
+            </div>
+
+            <div>
+              <div style="font-size:11px;font-family:var(--mono);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--stone-900);margin-bottom:16px;">// Global Invariants</div>
+              <div class="spec-row"><span class="spec-label">Corner Radius</span><span class="spec-val">0px · 2px max</span></div>
+              <div class="spec-row"><span class="spec-label">Border Width</span><span class="spec-val">1px — always</span></div>
+              <div class="spec-row"><span class="spec-label">Shadows</span><span class="spec-val">None. Flat.</span></div>
+              <div class="spec-row"><span class="spec-label">Font UI</span><span class="spec-val">Geist</span></div>
+              <div class="spec-row"><span class="spec-label">Font Data</span><span class="spec-val">Geist Mono</span></div>
+              <div class="spec-row"><span class="spec-label">Animation</span><span class="spec-val">150ms ease-out</span></div>
+              <div class="spec-row"><span class="spec-label">Accent</span><span class="spec-val" style="color:var(--orange);">#D05A08</span></div>
+              <div class="spec-row"><span class="spec-label">Base Spacing</span><span class="spec-val">4px grid</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 01 TYPOGRAPHY ─────────────────────────────────── -->
+        <div class="section-block">
+          <div class="sec-head">
+            <span class="sec-num">01</span>
+            <h2 class="sec-title">Typography</h2>
+            <div class="sec-line"></div>
+          </div>
+
+          <div style="margin-bottom:40px;">
+            <div class="type-row" style="border-bottom:none;padding-top:0;">
+              <div class="type-meta">60px / 300<br>tracking-tight</div>
+              <div style="font-size:52px;font-weight:300;color:var(--stone-900);letter-spacing:-0.025em;line-height:1;">H1. The Grid</div>
+            </div>
+            <div class="type-row">
+              <div class="type-meta">36px / 300<br>tracking-tight</div>
+              <div style="font-size:36px;font-weight:300;color:var(--stone-900);letter-spacing:-0.015em;line-height:1.1;">H2. Modular Systems</div>
+            </div>
+            <div class="type-row">
+              <div class="type-meta">22px / 300<br>tracking-normal</div>
+              <div style="font-size:22px;font-weight:300;color:var(--stone-900);">H3. Function over Form</div>
+            </div>
+            <div class="type-row">
+              <div class="type-meta">14px / 400<br>body default</div>
+              <div style="font-size:14px;color:var(--stone-700);line-height:1.65;">Body text. Information density is not about cramming data — it is about the clarity of the relationship between data points.</div>
+            </div>
+            <div class="type-row">
+              <div class="type-meta">11px / 600<br>mono · uppercase<br>+0.09em tracking</div>
+              <div style="font-size:11px;font-family:var(--mono);font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--stone-400);">Label — Column Header · Section Divider · Status</div>
+            </div>
+            <div class="type-row">
+              <div class="type-meta">12px / 400<br>mono · data</div>
+              <div style="font-size:12px;font-family:var(--mono);color:var(--stone-700);">us-east-1 &ensp; 2026-02-19 &ensp; 09:41:02 UTC &ensp; 12,847 req/min</div>
+            </div>
+            <div class="type-row" style="border-bottom:none;padding-bottom:0;">
+              <div class="type-meta">28px / 300<br>mono · hero metric</div>
+              <div style="font-size:28px;font-family:var(--mono);font-weight:300;letter-spacing:-0.02em;line-height:1;color:var(--stone-900);">94,271.38 <span style="font-size:14px;color:var(--stone-400);font-family:var(--font);font-weight:400;">USD</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 02 CHROMATIC ──────────────────────────────────── -->
+        <div class="section-block">
+          <div class="sec-head">
+            <span class="sec-num">02</span>
+            <h2 class="sec-title">Chromatic</h2>
+            <div class="sec-line"></div>
+          </div>
+
+          <div class="sub-head" style="margin-bottom:8px;">Stone — warm-cast neutral · page ground to ink</div>
+          <div class="sw-row" style="margin-bottom:32px;">
+            <div class="sw-item"><div class="sw-chip" style="background:#F8F5F2;"></div><div class="sw-info"><span class="sw-step">50</span><span class="sw-pin">ground</span></div></div>
+            <div class="sw-item"><div class="sw-chip" style="background:#F0ECE8;"></div><div class="sw-info"><span class="sw-step">100</span></div></div>
+            <div class="sw-item"><div class="sw-chip" style="background:#E2DDD8;"></div><div class="sw-info"><span class="sw-step">200</span><span class="sw-pin">border</span></div></div>
+            <div class="sw-item"><div class="sw-chip" style="background:#CCC6BF;"></div><div class="sw-info"><span class="sw-step">300</span></div></div>
+            <div class="sw-item"><div class="sw-chip" style="background:#A89E94;"></div><div class="sw-info"><span class="sw-step">400</span><span class="sw-pin">faint</span></div></div>
+            <div class="sw-item"><div class="sw-chip" style="background:#7A6E66;"></div><div class="sw-info"><span class="sw-step">500</span></div></div>
+            <div class="sw-item"><div class="sw-chip" style="background:#5A5049;"></div><div class="sw-info"><span class="sw-step">600</span><span class="sw-pin">muted</span></div></div>
+            <div class="sw-item"><div class="sw-chip" style="background:#3E3530;"></div><div class="sw-info"><span class="sw-step">700</span></div></div>
+            <div class="sw-item"><div class="sw-chip" style="background:#292118;"></div><div class="sw-info"><span class="sw-step">800</span></div></div>
+            <div class="sw-item"><div class="sw-chip" style="background:#18120C;"></div><div class="sw-info"><span class="sw-step">900</span><span class="sw-pin">text</span></div></div>
+            <div class="sw-item"><div class="sw-chip" style="background:#0E0A06;"></div><div class="sw-info"><span class="sw-step">950</span></div></div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:16px;">
+            <div>
+              <div class="sub-head" style="margin-bottom:8px;">Orange — single accent · Braun school</div>
+              <div class="sw-row">
+                <div class="sw-item"><div class="sw-chip" style="background:#FDF0E8;"></div><div class="sw-info"><span class="sw-step">lt</span></div></div>
+                <div class="sw-item"><div class="sw-chip" style="background:#F5C090;"></div><div class="sw-info"><span class="sw-step">–</span></div></div>
+                <div class="sw-item"><div class="sw-chip" style="background:#E88040;"></div><div class="sw-info"><span class="sw-step">–</span></div></div>
+                <div class="sw-item"><div class="sw-chip" style="background:#D05A08;outline:2px solid #D05A08;outline-offset:2px;"></div><div class="sw-info"><span class="sw-pin">500 ◆</span></div></div>
+                <div class="sw-item"><div class="sw-chip" style="background:#A84006;"></div><div class="sw-info"><span class="sw-step">dk</span></div></div>
+                <div class="sw-item"><div class="sw-chip" style="background:#782C04;"></div><div class="sw-info"><span class="sw-step">–</span></div></div>
+              </div>
+            </div>
+            <div>
+              <div class="sub-head" style="margin-bottom:8px;">Success</div>
+              <div class="sw-row">
+                <div class="sw-item"><div class="sw-chip" style="background:#EBF5EF;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);"></div><div class="sw-info"><span class="sw-step">bg</span></div></div>
+                <div class="sw-item"><div class="sw-chip" style="background:#176B3A;"></div><div class="sw-info"><span class="sw-pin">●</span></div></div>
+                <div class="sw-item"><div class="sw-chip" style="background:#0C4024;"></div><div class="sw-info"><span class="sw-step">dk</span></div></div>
+              </div>
+            </div>
+            <div>
+              <div class="sub-head" style="margin-bottom:8px;">Warning</div>
+              <div class="sw-row">
+                <div class="sw-item"><div class="sw-chip" style="background:#FBF3E0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);"></div><div class="sw-info"><span class="sw-step">bg</span></div></div>
+                <div class="sw-item"><div class="sw-chip" style="background:#8A5A00;"></div><div class="sw-info"><span class="sw-pin">●</span></div></div>
+                <div class="sw-item"><div class="sw-chip" style="background:#5A3A00;"></div><div class="sw-info"><span class="sw-step">dk</span></div></div>
+              </div>
+            </div>
+            <div>
+              <div class="sub-head" style="margin-bottom:8px;">Danger</div>
+              <div class="sw-row">
+                <div class="sw-item"><div class="sw-chip" style="background:#FBEDED;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);"></div><div class="sw-info"><span class="sw-step">bg</span></div></div>
+                <div class="sw-item"><div class="sw-chip" style="background:#AA2020;"></div><div class="sw-info"><span class="sw-pin">●</span></div></div>
+                <div class="sw-item"><div class="sw-chip" style="background:#701010;"></div><div class="sw-info"><span class="sw-step">dk</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 05 INTERACTION / BUTTONS ──────────────────────── -->
+        <div class="section-block">
+          <div class="sec-head">
+            <span class="sec-num">05</span>
+            <h2 class="sec-title">Interaction</h2>
+            <div class="sec-line"></div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-bottom:32px;">
+
+            <div class="card">
+              <div class="card-label">Buttons — md (36px)</div>
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <div class="row">
+                  <button class="btn btn-primary btn-md">Confirm</button>
+                  <button class="btn btn-secondary btn-md">Cancel</button>
+                  <button class="btn btn-ghost btn-md">Dismiss</button>
+                </div>
+                <div class="row">
+                  <button class="btn btn-accent btn-md">Run Analysis</button>
+                  <button class="btn btn-danger btn-md">Delete</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-label">Size Scale</div>
+              <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
+                <button class="btn btn-secondary" style="height:44px;padding:0 28px;font-size:11px;">Large</button>
+                <button class="btn btn-secondary btn-md">Medium</button>
+                <button class="btn btn-secondary btn-sm">Small</button>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-label">Badges</div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div class="row">
+                  <span class="badge badge-black">Primary</span>
+                  <span class="badge badge-neutral">Neutral</span>
+                  <span class="badge badge-outline">Outline</span>
+                  <span class="badge badge-orange">Accent</span>
+                </div>
+                <div class="row">
+                  <span class="badge badge-green">Success</span>
+                  <span class="badge badge-amber">Warning</span>
+                  <span class="badge badge-red">Error</span>
+                </div>
+                <div class="row">
+                  <span class="s-badge"><span class="s-dot ok"></span>Active</span>
+                  <span class="s-badge"><span class="s-dot warn"></span>Degraded</span>
+                  <span class="s-badge"><span class="s-dot err"></span>Offline</span>
+                  <span class="s-badge"><span class="s-dot idle"></span>Idle</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Inputs -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;">
+            <div class="card">
+              <div class="card-label">Input — Default</div>
+              <div class="space-y">
+                <input class="input" placeholder="Search endpoints…">
+                <input class="input" value="2026-02-19T09:41:02Z">
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-label">Metrics — Progress</div>
+              <div class="space-y">
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:11px;font-family:var(--mono);color:var(--stone-500);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">
+                    <span>Capacity</span><span>73.2%</span>
+                  </div>
+                  <div class="prog"><div class="prog-fill" style="width:73.2%;"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:11px;font-family:var(--mono);color:var(--stone-500);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">
+                    <span>Error rate</span><span style="color:var(--red);">2.14%</span>
+                  </div>
+                  <div class="prog"><div class="prog-fill" style="width:2.14%;background:var(--red);"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:11px;font-family:var(--mono);color:var(--stone-500);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">
+                    <span>Throughput</span><span style="color:var(--green);">98.1%</span>
+                  </div>
+                  <div class="prog"><div class="prog-fill" style="width:98.1%;background:var(--green);"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-label">Gauges — SwissGauge</div>
+              <div style="display:flex;align-items:flex-start;gap:24px;padding-top:4px;">
+                <div class="gauge-wrap">
+                  <svg width="60" height="60" style="transform:rotate(-90deg);">
+                    <circle cx="30" cy="30" r="25" fill="none" stroke="var(--stone-200)" stroke-width="3.5"/>
+                    <circle cx="30" cy="30" r="25" fill="none" stroke="var(--stone-900)" stroke-width="3.5"
+                      stroke-dasharray="157" stroke-dashoffset="42.4" class="gauge-ring" stroke-linecap="butt"/>
+                  </svg>
+                  <div style="position:absolute;top:0;left:0;right:0;bottom:20px;display:flex;align-items:center;justify-content:center;">
+                    <div class="gauge-val">7.3</div>
+                  </div>
+                  <div class="gauge-lbl">Uptime</div>
+                </div>
+                <div class="gauge-wrap">
+                  <svg width="60" height="60" style="transform:rotate(-90deg);">
+                    <circle cx="30" cy="30" r="25" fill="none" stroke="var(--stone-200)" stroke-width="3.5"/>
+                    <circle cx="30" cy="30" r="25" fill="none" stroke="var(--green)" stroke-width="3.5"
+                      stroke-dasharray="157" stroke-dashoffset="14.1" class="gauge-ring" stroke-linecap="butt"/>
+                  </svg>
+                  <div style="position:absolute;top:0;left:0;right:0;bottom:20px;display:flex;align-items:center;justify-content:center;">
+                    <div class="gauge-val">9.1</div>
+                  </div>
+                  <div class="gauge-lbl">Health</div>
+                </div>
+                <div class="gauge-wrap">
+                  <svg width="60" height="60" style="transform:rotate(-90deg);">
+                    <circle cx="30" cy="30" r="25" fill="none" stroke="var(--stone-200)" stroke-width="3.5"/>
+                    <circle cx="30" cy="30" r="25" fill="none" stroke="var(--orange)" stroke-width="3.5"
+                      stroke-dasharray="157" stroke-dashoffset="90.9" class="gauge-ring" stroke-linecap="butt"/>
+                  </svg>
+                  <div style="position:absolute;top:0;left:0;right:0;bottom:20px;display:flex;align-items:center;justify-content:center;">
+                    <div class="gauge-val">4.2</div>
+                  </div>
+                  <div class="gauge-lbl">Capacity</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 07 DATA DISPLAY / TABLE ───────────────────────── -->
+        <div class="section-block">
+          <div class="sec-head">
+            <span class="sec-num">07</span>
+            <h2 class="sec-title">Data Display</h2>
+            <div class="sec-line"></div>
+          </div>
+
+          <div style="border:1px solid var(--stone-200);">
+            <div style="display:flex;align-items:center;padding:12px 0;border-bottom:1px solid var(--stone-200);gap:12px;">
+              <div style="font-size:11px;font-family:var(--mono);font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--stone-900);">System Endpoints</div>
+              <span class="badge badge-neutral">24 rows</span>
+              <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+                <input class="input" style="width:160px;height:28px;font-size:11px;font-family:var(--mono);" placeholder="Filter…">
+                <button class="btn btn-secondary btn-sm">Filter</button>
+                <button class="btn btn-secondary btn-sm">Export</button>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Endpoint</th>
+                  <th>Region</th>
+                  <th>Status</th>
+                  <th class="r">p50</th>
+                  <th class="r">p99</th>
+                  <th class="r">Req / min</th>
+                  <th class="r">Error %</th>
+                  <th>Last seen</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="ep">/api/v2/ingest</td>
+                  <td class="dim">us-east-1</td>
+                  <td><span class="s-badge"><span class="s-dot ok"></span>Active</span></td>
+                  <td class="r mono">12 ms</td>
+                  <td class="r mono">48 ms</td>
+                  <td class="r mono">4,821</td>
+                  <td class="r mono n-ok">0.02%</td>
+                  <td class="dim">09:41:02</td>
+                </tr>
+                <tr>
+                  <td class="ep">/api/v2/query</td>
+                  <td class="dim">us-east-1</td>
+                  <td><span class="s-badge"><span class="s-dot ok"></span>Active</span></td>
+                  <td class="r mono">28 ms</td>
+                  <td class="r mono">142 ms</td>
+                  <td class="r mono">2,109</td>
+                  <td class="r mono n-ok">0.11%</td>
+                  <td class="dim">09:41:02</td>
+                </tr>
+                <tr>
+                  <td class="ep">/api/v2/export</td>
+                  <td class="dim">eu-west-1</td>
+                  <td><span class="s-badge"><span class="s-dot warn"></span>Degraded</span></td>
+                  <td class="r mono">94 ms</td>
+                  <td class="r mono">812 ms</td>
+                  <td class="r mono">387</td>
+                  <td class="r mono n-warn">2.14%</td>
+                  <td class="dim" style="color:var(--amber);">09:38:51</td>
+                </tr>
+                <tr>
+                  <td class="ep">/api/v1/auth</td>
+                  <td class="dim">us-west-2</td>
+                  <td><span class="s-badge"><span class="s-dot ok"></span>Active</span></td>
+                  <td class="r mono">6 ms</td>
+                  <td class="r mono">21 ms</td>
+                  <td class="r mono">11,204</td>
+                  <td class="r mono n-ok">0.00%</td>
+                  <td class="dim">09:41:02</td>
+                </tr>
+                <tr>
+                  <td class="ep">/api/v2/transform</td>
+                  <td class="dim">ap-southeast-1</td>
+                  <td><span class="s-badge"><span class="s-dot err"></span>Offline</span></td>
+                  <td class="r mono n-dim">—</td>
+                  <td class="r mono n-dim">—</td>
+                  <td class="r mono n-dim">0</td>
+                  <td class="r mono n-err">100%</td>
+                  <td class="dim" style="color:var(--red);">09:12:34</td>
+                </tr>
+                <tr>
+                  <td class="ep">/api/v2/webhook</td>
+                  <td class="dim">us-east-1</td>
+                  <td><span class="s-badge"><span class="s-dot idle"></span>Idle</span></td>
+                  <td class="r mono n-dim">—</td>
+                  <td class="r mono n-dim">—</td>
+                  <td class="r mono n-dim">0</td>
+                  <td class="r mono n-dim">—</td>
+                  <td class="dim">09:00:00</td>
+                </tr>
+                <tr>
+                  <td class="ep">/api/v2/stream</td>
+                  <td class="dim">us-east-1</td>
+                  <td><span class="s-badge"><span class="s-dot ok"></span>Active</span></td>
+                  <td class="r mono">4 ms</td>
+                  <td class="r mono">19 ms</td>
+                  <td class="r mono">28,441</td>
+                  <td class="r mono n-ok">0.01%</td>
+                  <td class="dim">09:41:02</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="padding-top:48px;border-top:1px solid var(--stone-200);display:flex;justify-content:space-between;font-size:10px;font-family:var(--mono);color:var(--stone-400);text-transform:uppercase;letter-spacing:.08em;">
+          <span>Meridian Design System</span>
+          <span>End of Section // Overview · v3.2</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
