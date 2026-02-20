@@ -4,7 +4,7 @@ import { SectionHeader, ComponentCard, SpecRule } from '../Shared';
 import { Button, IconButton, ButtonGroup, SegmentedControl } from '../../Button';
 import { Input, TextArea } from '../../Input';
 import { Checkbox, Radio, Switch, Select } from '../../FormControls';
-import { Badge, Tag, Avatar, List } from '../../DataDisplay';
+import { Badge, Tag, Avatar } from '../../DataDisplay';
 import { Skeleton, SkeletonText, SkeletonKPI, SkeletonChart } from '../../Skeleton';
 import { Sparkline, CHART_COLORS } from '../../Charts';
 import { MetricCard } from '../../MetricCard';
