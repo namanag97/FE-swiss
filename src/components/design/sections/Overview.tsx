@@ -11,7 +11,6 @@ import { MetricCard } from '../../MetricCard';
 import {
   Search, Menu, Grid, List as ListIcon, ArrowUpRight,
   Info, AlertTriangle, AlertCircle, CheckCircle,
-  Check, TrendingUp, TrendingDown, Minus,
   Download, Settings, Zap,
 } from 'lucide-react';
 
