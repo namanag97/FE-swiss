@@ -70,7 +70,7 @@ const GROUP_DOT: Record<string, string> = {
 // ─── Controller ───────────────────────────────────────────────────────────────
 
 export const DesignSystem: React.FC = () => {
-  const [activeId, setActiveId] = useState('00');
+  const [activeId, setActiveId] = useState('—');
   const activeSection = SECTIONS.find(s => s.id === activeId) ?? SECTIONS[0];
 
   return (
