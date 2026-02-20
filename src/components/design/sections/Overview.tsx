@@ -261,24 +261,24 @@ export const OverviewSection: React.FC = () => {
             <MetricCard
               label="Cases Processed"
               value="12,843"
-              delta="+8.4%"
-              deltaType="positive"
+              trendValue="+8.4%"
+              trend="up"
               sparkData={spark1}
               sparkColor={CHART_COLORS.positive}
             />
             <MetricCard
               label="Avg. Lead Time"
               value="4.7 d"
-              delta="-12.1%"
-              deltaType="negative"
+              trendValue="-12.1%"
+              trend="down"
               sparkData={spark2}
               sparkColor={CHART_COLORS.negative}
             />
             <MetricCard
               label="SLA Compliance"
               value="91.2%"
-              delta="+0.3%"
-              deltaType="positive"
+              trendValue="+0.3%"
+              trend="up"
               sparkData={spark3}
               sparkColor={CHART_COLORS.accent}
             />
