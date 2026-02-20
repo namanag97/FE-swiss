@@ -31,6 +31,8 @@ interface Section {
 }
 
 const SECTIONS: Section[] = [
+  // Overview
+  { id: '—',  title: 'Overview',       icon: <LayoutDashboard size={12}/>, component: <OverviewSection   />, group: 'Foundation', isNew: true },
   // Foundation
   { id: '00', title: 'Manifesto',      icon: <Hash          size={12}/>, component: <ManifestoSection  />, group: 'Foundation'  },
   { id: '01', title: 'Typography',     icon: <Type          size={12}/>, component: <TypographySection />, group: 'Foundation'  },
