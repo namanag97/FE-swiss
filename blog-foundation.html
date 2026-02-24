@@ -64,8 +64,6 @@ body::before {
 
 /* ═══════════════════════════════════════════
    HUD — Top Plate
-   Leica M top plate: brand mark (red dot),
-   frame counter (section readout), controls
    ═══════════════════════════════════════════ */
 .hud {
   position: sticky; top: 0; z-index: 100;
@@ -96,27 +94,27 @@ body::before {
 
 /* frame counter — centered section readout */
 .hud-readout {
-  position: absolute; left: 50%; transform: translateX(-50%);
+  position: absolute; left: 50%;
+  transform: translateX(-50%);
   font-family: var(--mono); font-size: 10px;
   text-transform: uppercase; letter-spacing: 0.1em;
-  font-weight: 500; color: var(--w400);
-  transition: color var(--dur-normal) var(--ease-out);
+  font-weight: 500; color: var(--w500);
   white-space: nowrap;
   opacity: 0;
-  transition: opacity var(--dur-slow) var(--ease-out), color var(--dur-normal) var(--ease-out);
+  transition: opacity var(--dur-slow) var(--ease-out);
 }
-.hud-readout[data-visible="true"] {
-  opacity: 1; color: var(--w500);
-}
+.hud-readout[data-visible="true"] { opacity: 1; }
 
-/* scroll progress — 2px bar at HUD bottom edge */
+/* scroll progress — 2px bar at HUD bottom edge
+   animated via scaleX transform (GPU-composited) */
 .hud-progress {
   position: absolute;
-  bottom: -1px; left: 0;
+  bottom: -1px; left: 0; right: 0;
   height: 2px;
   background: var(--w900);
-  width: 0%;
-  will-change: width;
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
 }
 
 .hud-nav { display: flex; align-items: center; gap: 24px; }
@@ -131,9 +129,9 @@ body::before {
 
 /* ═══════════════════════════════════════════
    RANGEFINDER — Lens Distance Scale
-   Inspired by the focusing scale on a Leica
-   Summicron: engraved markings, index line,
-   graduated subdivisions, depth-of-field marks
+   Leica Summicron focus ring: engraved marks,
+   index line, graduated subdivisions.
+   All motion uses transform (GPU-composited).
    ═══════════════════════════════════════════ */
 .rangefinder {
   position: fixed;
@@ -146,7 +144,7 @@ body::before {
   align-items: flex-start;
 }
 
-/* the vertical rail — the barrel axis */
+/* the vertical rail — barrel axis */
 .rf-rail {
   position: absolute;
   left: 0; top: 0; bottom: 0;
@@ -154,7 +152,7 @@ body::before {
   background: var(--w300);
 }
 
-/* cross marks at rail extremes — like the end stops on a focus ring */
+/* end stops */
 .rf-cross-top,
 .rf-cross-bottom {
   position: absolute;
@@ -165,57 +163,64 @@ body::before {
 .rf-cross-top { top: -1px; }
 .rf-cross-bottom { bottom: -1px; }
 
-/* infinity symbol — the far end of the distance scale */
+/* ∞ — far end of scale */
 .rf-infinity {
   position: absolute;
-  top: -20px; left: -4px;
-  font-family: var(--mono); font-size: 10px;
-  color: var(--w400); font-weight: 400;
-  letter-spacing: 0;
+  top: -18px; left: -3px;
+  font-family: var(--mono); font-size: 12px;
+  color: var(--w300); font-weight: 400;
   line-height: 1;
 }
 
-/* index line — replaces cursor dot
-   the bright reference mark on a lens barrel */
+/* index line — the bright reference mark
+   NO css transition — JS lerp handles smoothness */
 .rf-index {
   position: absolute;
-  left: -6px;
+  left: -6px; top: 0;
   width: 13px; height: 2px;
   background: var(--w900);
-  transition: top 200ms var(--ease-spring);
+  will-change: transform;
   z-index: 2;
 }
 
-/* graduated marks between sections — subdivisions */
-.rf-grad {
-  position: absolute;
-  left: -2px;
+/* subdivisions between major ticks — in flow */
+.rf-sub {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 48px;
+  align-self: flex-start;
+}
+.rf-mark {
   width: 5px; height: 1px;
+  margin-left: -2px;
   background: var(--w300);
-  opacity: 0.5;
+  opacity: 0.35;
 }
 
-/* section ticks — major graduations on the distance scale */
+/* major ticks — section graduations */
 .rf-tick {
   position: relative;
   padding-left: 20px;
-  display: flex; align-items: center;
+  display: flex; align-items: center; gap: 6px;
   cursor: pointer;
   text-decoration: none;
   height: 14px;
 }
 
-/* the tick mark — a horizontal graduation line */
+/* the tick mark line */
 .rf-tick::before {
   content: "";
   position: absolute;
   left: -4px;
   width: 9px; height: 1px;
   background: var(--w300);
-  transition: all var(--dur-normal) var(--ease-spring);
+  transition: width 300ms var(--ease-spring),
+              height 300ms var(--ease-spring),
+              background-color 250ms var(--ease-out);
 }
 
-/* tick label — engraved section markings */
+/* section number — always visible */
 .rf-tick-num {
   font-family: var(--mono);
   font-size: 10px;
@@ -223,39 +228,40 @@ body::before {
   color: var(--w400);
   letter-spacing: 0.1em;
   white-space: nowrap;
-  transition: all var(--dur-normal) var(--ease-spring);
   line-height: 1;
+  transition: color 250ms var(--ease-out);
 }
 
+/* section title — fades in with GPU-composited opacity + translate */
 .rf-tick-title {
   font-family: var(--mono);
   font-size: 10px;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: transparent;
-  margin-left: 0;
+  color: var(--w500);
   white-space: nowrap;
-  transition: all var(--dur-normal) var(--ease-spring);
   line-height: 1;
-  max-width: 0;
-  overflow: hidden;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 350ms var(--ease-spring),
+              transform 350ms var(--ease-spring);
+  pointer-events: none;
 }
 
-/* active state — "in focus" */
+/* active — "in focus" */
 .rf-tick[data-active="true"]::before {
   background: var(--orange);
   width: 14px;
-  left: -4px;
   height: 2px;
 }
 .rf-tick[data-active="true"] .rf-tick-num {
   color: var(--w900);
 }
 .rf-tick[data-active="true"] .rf-tick-title {
-  color: var(--w500);
-  max-width: 120px;
-  margin-left: 6px;
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
 }
 
 /* hover */
@@ -263,9 +269,8 @@ body::before {
   color: var(--w600);
 }
 .rf-tick:hover .rf-tick-title {
-  color: var(--w400);
-  max-width: 120px;
-  margin-left: 6px;
+  opacity: 0.6;
+  transform: translateX(0);
 }
 
 @media (max-width: 1100px) {
@@ -386,11 +391,12 @@ body::before {
   scroll-margin-top: 68px;
 }
 
-/* blockquote */
+/* blockquote — constrained to prose measure */
 .bq {
   border-left: 2px solid var(--w300);
   padding-left: 24px;
   margin-top: 32px; margin-bottom: 32px;
+  max-width: 580px;
 }
 .bq-text {
   font-size: 16px; font-weight: 300;
@@ -413,10 +419,11 @@ body::before {
   margin-top: 48px; margin-bottom: 48px;
 }
 
-/* lists */
+/* lists — constrained to prose measure */
 .list {
   margin-top: 16px; margin-bottom: 24px;
   padding: 0; list-style: none;
+  max-width: 580px;
 }
 .list li {
   position: relative; padding-left: 20px;
@@ -500,7 +507,7 @@ body::before {
 }
 .tag:hover { border-color: var(--w900); color: var(--w900); }
 
-/* footnotes */
+/* footnotes — constrained to prose measure */
 .footnotes {
   margin-top: 96px;
   padding-top: 32px;
@@ -508,6 +515,7 @@ body::before {
 }
 .footnotes-list {
   list-style: none; padding: 0; counter-reset: fn;
+  max-width: 580px;
 }
 .footnotes-list li {
   position: relative; padding-left: 24px;
@@ -523,10 +531,7 @@ body::before {
 }
 
 
-/* ═══════════════════════════════════════════
-   FOOTER — Bottom Plate
-   Serial number engraving feel
-   ═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════ */
 .site-footer {
   border-top: 1px solid var(--w200);
   padding: 48px 24px;
@@ -581,20 +586,25 @@ body::before {
   <span class="rf-infinity">∞</span>
   <div class="rf-index" id="rf-index"></div>
 
-  <!-- graduated marks — subdivisions between sections -->
-  <div class="rf-grad" style="top: 25%"></div>
-  <div class="rf-grad" style="top: 50%"></div>
-  <div class="rf-grad" style="top: 75%"></div>
-
-  <!-- section ticks — major graduations -->
-  <a class="rf-tick" href="#warm-neutrals" data-section="s01" style="margin-bottom:48px">
+  <!-- major tick → subdivision → major tick → subdivision → major tick -->
+  <a class="rf-tick" href="#warm-neutrals" data-section="s01">
     <span class="rf-tick-num">01</span>
     <span class="rf-tick-title">Foundation</span>
   </a>
-  <a class="rf-tick" href="#type-system" data-section="s02" style="margin-bottom:48px">
+  <div class="rf-sub">
+    <span class="rf-mark"></span>
+    <span class="rf-mark"></span>
+    <span class="rf-mark"></span>
+  </div>
+  <a class="rf-tick" href="#type-system" data-section="s02">
     <span class="rf-tick-num">02</span>
     <span class="rf-tick-title">Typography</span>
   </a>
+  <div class="rf-sub">
+    <span class="rf-mark"></span>
+    <span class="rf-mark"></span>
+    <span class="rf-mark"></span>
+  </div>
   <a class="rf-tick" href="#surface-philosophy" data-section="s03">
     <span class="rf-tick-num">03</span>
     <span class="rf-tick-title">Surface</span>
@@ -778,70 +788,127 @@ code         12px   400   mixed    0</div>
 </footer>
 
 
-<!-- ═══ SCROLL JS ═══ -->
+<!-- ═══ SCROLL ENGINE ═══
+     Lerp-based rAF loop for buttery smooth motion.
+     All visual updates use GPU-composited properties
+     (transform, opacity). Zero layout thrashing. -->
 <script>
 (function() {
-  const sections = document.querySelectorAll('.body-section');
-  const ticks = document.querySelectorAll('.rf-tick');
-  const index = document.getElementById('rf-index');
-  const rangefinder = document.getElementById('rangefinder');
-  const progress = document.getElementById('hud-progress');
-  const readout = document.getElementById('hud-readout');
+  var sections = document.querySelectorAll('.body-section');
+  var ticks    = document.querySelectorAll('.rf-tick');
+  var indexEl  = document.getElementById('rf-index');
+  var rfEl     = document.getElementById('rangefinder');
+  var progEl   = document.getElementById('hud-progress');
+  var readEl   = document.getElementById('hud-readout');
 
-  if (!rangefinder || !index) return;
+  if (!rfEl || !indexEl) return;
 
-  const rfHeight = rangefinder.offsetHeight;
+  // --- state ---
+  var current  = window.scrollY;
+  var target   = current;
+  var running  = false;
+  var activeId = null;
 
-  // section labels for the frame counter readout
-  const sectionLabels = {
+  // damping: 0.12 = ~25 frames to settle at 60fps
+  // feels like a well-oiled mechanical damper
+  var DAMPING  = 0.12;
+  var EPSILON  = 0.5;
+
+  var sectionLabels = {
     s01: '01 · Foundation',
     s02: '02 · Typography',
     s03: '03 · Surface'
   };
 
-  function update() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollFraction = docHeight > 0 ? scrollTop / docHeight : 0;
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
 
-    // move index line along rail
-    index.style.top = (scrollFraction * rfHeight) + 'px';
+  function getDocHeight() {
+    return document.documentElement.scrollHeight - window.innerHeight;
+  }
 
-    // update progress bar
-    if (progress) {
-      progress.style.width = (scrollFraction * 100) + '%';
+  function getRailHeight() {
+    return rfEl.offsetHeight;
+  }
+
+  // cheap — runs on scroll, not in rAF
+  function updateSections() {
+    var newActive = null;
+    var threshold = window.innerHeight * 0.4;
+
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top < threshold) {
+        newActive = sections[i].id;
+      }
     }
 
-    // determine active section
-    let activeId = null;
-    sections.forEach(function(s) {
-      const rect = s.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 0.4) {
-        activeId = s.id;
+    if (newActive !== activeId) {
+      activeId = newActive;
+
+      for (var j = 0; j < ticks.length; j++) {
+        ticks[j].dataset.active =
+          (ticks[j].dataset.section === activeId) ? 'true' : 'false';
       }
-    });
 
-    // update rangefinder ticks
-    ticks.forEach(function(t) {
-      t.dataset.active = (t.dataset.section === activeId) ? 'true' : 'false';
-    });
-
-    // update HUD readout (frame counter)
-    if (readout) {
-      if (activeId && sectionLabels[activeId]) {
-        readout.textContent = sectionLabels[activeId];
-        readout.dataset.visible = 'true';
-      } else {
-        readout.dataset.visible = 'false';
+      if (readEl) {
+        if (activeId && sectionLabels[activeId]) {
+          readEl.textContent = sectionLabels[activeId];
+          readEl.dataset.visible = 'true';
+        } else {
+          readEl.dataset.visible = 'false';
+        }
       }
     }
   }
 
-  window.addEventListener('scroll', update, { passive: true });
+  // smooth — runs in rAF loop
+  function tick() {
+    current = lerp(current, target, DAMPING);
+
+    var docH  = getDocHeight();
+    var railH = getRailHeight();
+    var frac  = docH > 0 ? current / docH : 0;
+
+    // GPU-composited: transform only, no layout
+    indexEl.style.transform = 'translateY(' + (frac * railH) + 'px)';
+
+    if (progEl) {
+      progEl.style.transform = 'scaleX(' + frac + ')';
+    }
+
+    // keep running until settled
+    if (Math.abs(current - target) > EPSILON) {
+      requestAnimationFrame(tick);
+    } else {
+      current = target;
+      running = false;
+    }
+  }
+
+  function onScroll() {
+    target = window.scrollY;
+    updateSections();
+
+    if (!running) {
+      running = true;
+      requestAnimationFrame(tick);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', function() {
-    requestAnimationFrame(update);
+    requestAnimationFrame(onScroll);
   });
-  update();
+
+  // initial paint
+  updateSections();
+  // set initial position without animation
+  var docH  = getDocHeight();
+  var railH = getRailHeight();
+  var frac  = docH > 0 ? current / docH : 0;
+  indexEl.style.transform = 'translateY(' + (frac * railH) + 'px)';
+  if (progEl) progEl.style.transform = 'scaleX(' + frac + ')';
 })();
 </script>
 
