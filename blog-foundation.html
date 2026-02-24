@@ -547,6 +547,53 @@ body::before {
   color: var(--w500); font-weight: 500;
 }
 
+/* ═══════════════════════════════════════════
+   ENTRANCE — sections acquired by the viewfinder
+   ═══════════════════════════════════════════ */
+.article-header,
+.body-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms var(--ease-spring),
+              transform 700ms var(--ease-spring);
+}
+.article-header.in-view,
+.body-section.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* stagger child elements within a section */
+.body-section.in-view .sh {
+  animation: etch-in 500ms var(--ease-spring) both;
+}
+.body-section.in-view .prose:first-of-type {
+  animation: etch-in 500ms var(--ease-spring) 80ms both;
+}
+@keyframes etch-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* progress bar glow — like an LCD backlight */
+.hud-progress {
+  box-shadow: 0 0 6px rgba(26, 25, 20, 0.1);
+}
+
+/* rangefinder: active tick gets a subtle
+   depth-of-field glow behind the index mark */
+.rf-tick[data-active="true"]::after {
+  content: "";
+  position: absolute;
+  left: -6px;
+  width: 13px; height: 14px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(234, 88, 12, 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
   .content-rail { padding: 48px 16px 96px; }
   .article-header { margin-bottom: 64px; }
