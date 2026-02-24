@@ -7,14 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════
-   RESET
-   ═══════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ═══════════════════════════════════════════
-   TOKENS — exact from design language
-   ═══════════════════════════════════════════ */
 :root {
   --w0:   #fefdfb;
   --w50:  #faf9f6;
@@ -29,12 +23,9 @@
   --orange: #ea580c;
   --green:  #059669;
   --red:    #e11d48;
-
   --sans: 'Geist', system-ui, -apple-system, sans-serif;
   --mono: 'JetBrains Mono', 'SF Mono', monospace;
-
   --r-sm: 4px; --r-md: 6px;
-
   --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --dur-fast: 150ms;
@@ -44,7 +35,7 @@
 
 
 /* ═══════════════════════════════════════════
-   GROUND — w100 textured surface
+   GROUND
    ═══════════════════════════════════════════ */
 html { scroll-behavior: smooth; }
 
@@ -54,8 +45,7 @@ body {
   color: var(--w900);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.5;
-  font-size: 14px;
+  line-height: 1.5; font-size: 14px;
 }
 
 body::before {
@@ -73,7 +63,7 @@ body::before {
 
 
 /* ═══════════════════════════════════════════
-   HUD — glass header, exact from design language
+   HUD — glass, content visible through blur
    React: <Hud />
    ═══════════════════════════════════════════ */
 .hud {
@@ -81,16 +71,15 @@ body::before {
   height: 52px;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 24px;
-  background: rgba(250,249,246,0.65);
-  backdrop-filter: blur(12px) brightness(1.12);
-  -webkit-backdrop-filter: blur(12px) brightness(1.12);
+  background: rgba(245, 244, 240, 0.5);
+  backdrop-filter: blur(16px) saturate(1.2) brightness(1.05);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2) brightness(1.05);
   border-bottom: 1px solid var(--w200);
 }
 
 .hud-brand {
   display: flex; align-items: center; gap: 12px;
 }
-
 .hud-mark {
   width: 28px; height: 28px;
   background: var(--w900); color: var(--w0);
@@ -98,17 +87,13 @@ body::before {
   display: flex; align-items: center; justify-content: center;
   font-family: var(--mono); font-size: 12px; font-weight: 700;
 }
-
 .hud-name {
   font-family: var(--mono); font-size: 10px;
   text-transform: uppercase; letter-spacing: 0.1em;
   font-weight: 500; color: var(--w500);
 }
 
-.hud-nav {
-  display: flex; align-items: center; gap: 24px;
-}
-
+.hud-nav { display: flex; align-items: center; gap: 24px; }
 .hud-link {
   font-size: 14px; font-weight: 400;
   color: var(--w400); text-decoration: none;
@@ -117,18 +102,107 @@ body::before {
 .hud-link:hover { color: var(--w600); }
 .hud-link[data-active="true"] { color: var(--w900); font-weight: 500; }
 
-/* scroll progress — thin line at bottom of HUD */
-.hud-progress {
-  position: absolute; bottom: -1px; left: 0;
-  height: 2px; background: var(--w900);
-  width: 0%;
-  transition: width 60ms linear;
+
+/* ═══════════════════════════════════════════
+   RANGEFINDER — Leica-inspired scroll indicator
+   Fixed left rail with measurement marks
+   React: <Rangefinder sections={[]} />
+   ═══════════════════════════════════════════ */
+.rangefinder {
+  position: fixed;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* the vertical rail line */
+.rf-rail {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 1px;
+  background: var(--w300);
+}
+
+/* scroll position indicator — moves along the rail */
+.rf-cursor {
+  position: absolute;
+  left: -2px;
+  width: 5px; height: 5px;
+  background: var(--w900);
+  border-radius: 50%;
+  transition: top 150ms var(--ease-spring);
+  z-index: 2;
+}
+
+/* crosshair marks at top and bottom of rail */
+.rf-cross-top,
+.rf-cross-bottom {
+  position: absolute;
+  left: -4px;
+  width: 9px; height: 1px;
+  background: var(--w300);
+}
+.rf-cross-top { top: -1px; }
+.rf-cross-bottom { bottom: -1px; }
+
+/* each section tick */
+.rf-tick {
+  position: relative;
+  padding-left: 16px;
+  display: flex; align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.rf-tick::before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  width: 7px; height: 1px;
+  background: var(--w300);
+  transition: background var(--dur-normal), width var(--dur-normal);
+}
+
+.rf-tick-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--w400);
+  white-space: nowrap;
+  opacity: 0.6;
+  transition: all var(--dur-normal) var(--ease-spring);
+}
+
+/* active state */
+.rf-tick[data-active="true"]::before {
+  background: var(--orange);
+  width: 12px;
+  left: -3px;
+}
+.rf-tick[data-active="true"] .rf-tick-label {
+  color: var(--w900);
+  opacity: 1;
+  font-weight: 500;
+}
+
+/* hover */
+.rf-tick:hover .rf-tick-label {
+  opacity: 0.85;
+  color: var(--w600);
+}
+
+@media (max-width: 1100px) {
+  .rangefinder { display: none; }
 }
 
 
 /* ═══════════════════════════════════════════
    CONTENT RAIL
-   React: <ContentRail />
    ═══════════════════════════════════════════ */
 .content-rail {
   max-width: 720px;
@@ -138,101 +212,52 @@ body::before {
 
 
 /* ═══════════════════════════════════════════
-   ARTICLE HEADER — matches masthead pattern
-   React: <ArticleHeader />
-
-   Spacing:
-     eyebrow:   mb 20px
-     title:     mb 16px
-     subtitle:  mb 24px
-     byline:    mb 0
-     border:    mt 40px (via padding-bottom + border)
-     gap after: 96px
+   ARTICLE HEADER
    ═══════════════════════════════════════════ */
 .article-header {
   margin-bottom: 96px;
   padding-bottom: 48px;
   border-bottom: 1px solid var(--w200);
 }
-
 .article-meta {
   font-family: var(--mono); font-size: 10px;
   text-transform: uppercase; letter-spacing: 0.14em;
   font-weight: 500; color: var(--orange);
   margin-bottom: 20px;
 }
-
 .article-title {
   font-size: clamp(32px, 5vw, 48px);
   font-weight: 200; letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin-bottom: 16px;
+  line-height: 1.1; margin-bottom: 16px;
 }
-
 .article-subtitle {
   font-size: 20px; font-weight: 300;
   line-height: 1.5; color: var(--w500);
-  max-width: 540px;
-  margin-bottom: 40px;
+  max-width: 540px; margin-bottom: 40px;
 }
-
 .article-byline {
   display: flex; align-items: center; gap: 16px;
-  font-family: var(--mono); font-size: 10px;
-  text-transform: uppercase; letter-spacing: 0.1em;
-  color: var(--w500); font-weight: 500;
 }
-
 .article-author {
-  font-family: var(--sans); font-size: 14px;
-  font-weight: 500; color: var(--w900);
-  text-transform: none; letter-spacing: 0;
+  font-size: 14px; font-weight: 500; color: var(--w900);
 }
-
 .byline-dot { color: var(--w300); }
-
 .article-reading-time {
   font-family: var(--mono); font-size: 12px;
   color: var(--w500); font-weight: 400;
-  text-transform: none; letter-spacing: 0;
 }
 
 
 /* ═══════════════════════════════════════════
-   ARTICLE BODY — prose with proper hierarchy
-
-   SPACING RULES (from design language):
-     section → section:          96px (margin-bottom on .body-section)
-     section-header → content:   48px (margin-bottom on .sh)
-     paragraph → paragraph:      24px
-     paragraph → sub-heading:    48px
-     sub-heading → content:      24px
-     paragraph → minor-heading:  32px
-     minor-heading → content:    16px
-     before blockquote:          32px
-     after blockquote:           32px
-     before pullquote:           48px
-     after pullquote:            48px
-     before code/diagram:        24px
-     after code/diagram:         24px
-     before figure:              48px
-     after figure:               48px
-     list-item → list-item:      8px
-
-   React: <ArticleBody />
+   ARTICLE BODY
    ═══════════════════════════════════════════ */
 
-/* ── SECTION — major content block, 96px apart ── */
-.body-section {
-  margin-bottom: 96px;
-}
+/* section — 96px apart */
+.body-section { margin-bottom: 96px; scroll-margin-top: 68px; }
 .body-section:last-child { margin-bottom: 0; }
 
-/* ── SECTION HEADER — number + title ── */
-/* React: <SectionHeading num="01" label="Foundation" title="..." /> */
-.sh {
-  margin-bottom: 48px;
-}
+/* section header */
+.sh { margin-bottom: 48px; }
 .sh-num {
   font-family: var(--mono); font-size: 10px; font-weight: 500;
   color: var(--orange); text-transform: uppercase; letter-spacing: 0.1em;
@@ -243,7 +268,7 @@ body::before {
   line-height: 1.3; color: var(--w900);
 }
 
-/* ── PROSE BLOCK — paragraphs and inline content ── */
+/* prose */
 .prose {
   font-size: 14px; color: var(--w600);
   line-height: 1.7; max-width: 580px;
@@ -258,16 +283,14 @@ body::before {
   transition: text-decoration-color var(--dur-fast);
 }
 .prose a:hover { text-decoration-color: var(--w900); }
-
-/* inline code */
 .prose code {
   font-family: var(--mono); font-size: 12px;
+  font-feature-settings: "liga" 0, "calt" 0;
   background: var(--w50); border: 1px solid var(--w200);
   border-radius: var(--r-sm); padding: 2px 6px;
   color: var(--w900);
 }
 
-/* footnote ref */
 .fn-ref {
   font-family: var(--mono); font-size: 10px;
   font-weight: 500; color: var(--orange);
@@ -275,26 +298,23 @@ body::before {
   margin-left: 1px;
 }
 
-
-/* ── SUB-HEADING (h3) — within a section ── */
-/* React: <SubHeading /> */
+/* sub-heading (h3) */
 .sub-heading {
   font-size: 20px; font-weight: 500;
   line-height: 1.3; color: var(--w900);
   margin-top: 48px; margin-bottom: 24px;
+  scroll-margin-top: 68px;
 }
 
-/* ── MINOR HEADING (h4) ── */
-/* React: <MinorHeading /> */
+/* minor heading (h4) */
 .minor-heading {
   font-size: 16px; font-weight: 500;
   line-height: 1.5; color: var(--w900);
   margin-top: 32px; margin-bottom: 16px;
+  scroll-margin-top: 68px;
 }
 
-
-/* ── BLOCKQUOTE ── */
-/* React: <Blockquote cite="..." /> */
+/* blockquote */
 .bq {
   border-left: 2px solid var(--w300);
   padding-left: 24px;
@@ -313,9 +333,7 @@ body::before {
   color: var(--w500);
 }
 
-
-/* ── PULLQUOTE ── */
-/* React: <Pullquote /> */
+/* pullquote */
 .pullquote {
   font-size: 24px; font-weight: 200;
   letter-spacing: -0.02em; line-height: 1.3;
@@ -323,9 +341,7 @@ body::before {
   margin-top: 48px; margin-bottom: 48px;
 }
 
-
-/* ── LISTS ── */
-/* React: <List ordered /> or <List /> */
+/* lists */
 .list {
   margin-top: 16px; margin-bottom: 24px;
   padding: 0; list-style: none;
@@ -336,54 +352,47 @@ body::before {
   line-height: 1.7; margin-bottom: 8px;
 }
 .list li:last-child { margin-bottom: 0; }
-
-/* unordered */
 .list--ul li::before {
   content: "–"; position: absolute; left: 0; color: var(--w300);
 }
-
-/* ordered */
 .list--ol { counter-reset: ol; }
 .list--ol li { padding-left: 28px; counter-increment: ol; }
 .list--ol li::before {
   content: counter(ol); position: absolute; left: 0;
   font-family: var(--mono); font-size: 12px;
   font-weight: 500; color: var(--w500); top: 2px;
+  font-feature-settings: "liga" 0;
 }
 
-
-/* ── CODE BLOCK ── */
-/* React: <CodeBlock lang="ts"> ... </CodeBlock> */
+/* code block — inset container */
 .code-block {
-  position: relative;
   background: var(--w50); border: 1px solid var(--w200);
   border-radius: var(--r-sm); padding: 20px;
   font-family: var(--mono); font-size: 12px;
+  font-feature-settings: "liga" 0, "calt" 0;
   color: var(--w900); line-height: 1.7;
   white-space: pre; overflow-x: auto;
   margin-top: 24px; margin-bottom: 24px;
+  tab-size: 4;
 }
 .code-block .kw { color: var(--w900); font-weight: 500; }
 .code-block .str { color: var(--green); }
 .code-block .num { color: var(--orange); }
 .code-block .cmt { color: var(--w400); font-style: italic; }
 
-
-/* ── DIAGRAM — drawn on surface, NO container ── */
-/* React: <Diagram /> */
+/* diagram — drawn on surface, NO container */
 .diagram {
   font-family: var(--mono); font-size: 12px;
+  font-feature-settings: "liga" 0, "calt" 0;
+  -webkit-font-feature-settings: "liga" 0, "calt" 0;
   color: var(--w600); line-height: 1.3;
   white-space: pre; overflow-x: auto;
   margin-top: 24px; margin-bottom: 24px;
+  tab-size: 4;
 }
 
-
-/* ── FIGURE ── */
-/* React: <Figure src={} caption="" /> */
-.fig {
-  margin-top: 48px; margin-bottom: 48px;
-}
+/* figure */
+.fig { margin-top: 48px; margin-bottom: 48px; }
 .fig-area {
   width: 100%; height: 240px;
   background: var(--w200);
@@ -397,18 +406,14 @@ body::before {
   font-size: 12px; color: var(--w500);
 }
 
-
-/* ── SECTION BREAK — ornament ── */
-/* React: <SectionBreak /> */
+/* section break */
 .section-break {
   text-align: center; color: var(--w300);
   font-size: 14px;
   margin-top: 48px; margin-bottom: 48px;
 }
 
-
-/* ── TAGS ── */
-/* React: <TagList tags={[]} /> */
+/* tags */
 .tag-list {
   display: flex; gap: 8px; flex-wrap: wrap;
   margin-top: 48px;
@@ -423,9 +428,7 @@ body::before {
 }
 .tag:hover { border-color: var(--w900); color: var(--w900); }
 
-
-/* ── FOOTNOTES ── */
-/* React: <Footnotes items={[]} /> */
+/* footnotes */
 .footnotes {
   margin-top: 96px;
   padding-top: 32px;
@@ -448,10 +451,7 @@ body::before {
 }
 
 
-/* ═══════════════════════════════════════════
-   FOOTER
-   React: <Footer />
-   ═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════ */
 .site-footer {
   border-top: 1px solid var(--w200);
   padding: 48px 24px;
@@ -467,10 +467,6 @@ body::before {
   color: var(--w500); font-weight: 500;
 }
 
-
-/* ═══════════════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
   .content-rail { padding: 48px 16px 96px; }
   .article-header { margin-bottom: 64px; }
@@ -485,7 +481,7 @@ body::before {
 
 
 <!-- ═══ HUD ═══ -->
-<nav class="hud" id="hud">
+<nav class="hud">
   <div class="hud-brand">
     <div class="hud-mark">M</div>
     <span class="hud-name">Mybap</span>
@@ -495,14 +491,31 @@ body::before {
     <a class="hud-link" href="#">Product</a>
     <a class="hud-link" href="#">Docs</a>
   </div>
-  <div class="hud-progress" id="hud-progress"></div>
+</nav>
+
+
+<!-- ═══ RANGEFINDER — scroll indicator ═══ -->
+<nav class="rangefinder" id="rangefinder">
+  <div class="rf-rail">
+    <div class="rf-cross-top"></div>
+    <div class="rf-cross-bottom"></div>
+  </div>
+  <div class="rf-cursor" id="rf-cursor"></div>
+  <a class="rf-tick" href="#warm-neutrals" data-section="s01" style="margin-bottom:48px">
+    <span class="rf-tick-label">01</span>
+  </a>
+  <a class="rf-tick" href="#type-system" data-section="s02" style="margin-bottom:48px">
+    <span class="rf-tick-label">02</span>
+  </a>
+  <a class="rf-tick" href="#surface-philosophy" data-section="s03">
+    <span class="rf-tick-label">03</span>
+  </a>
 </nav>
 
 
 <!-- ═══ CONTENT ═══ -->
 <main class="content-rail">
 
-  <!-- ── ARTICLE HEADER ── -->
   <header class="article-header">
     <p class="article-meta">February 24, 2026 · Engineering</p>
     <h1 class="article-title">The Instrument<br>Principle</h1>
@@ -514,13 +527,9 @@ body::before {
     </div>
   </header>
 
-
-  <!-- ── ARTICLE BODY ── -->
   <div class="article-body">
 
-
-    <!-- ── SECTION 01 ── -->
-    <section class="body-section">
+    <section class="body-section" id="s01">
       <div class="sh">
         <span class="sh-num">01 — Foundation</span>
         <h2 class="sh-title" id="warm-neutrals">The Case for Warm Neutrals</h2>
@@ -560,8 +569,7 @@ body::before {
     </section>
 
 
-    <!-- ── SECTION 02 ── -->
-    <section class="body-section">
+    <section class="body-section" id="s02">
       <div class="sh">
         <span class="sh-num">02 — Typography</span>
         <h2 class="sh-title" id="type-system">An 8-Step Scale</h2>
@@ -571,21 +579,21 @@ body::before {
 
       <p class="prose">The corrected scale uses 8 sizes on an approximate Minor Third ratio:</p>
 
-<div class="diagram">  48 ━━━━━━━━━━━━━━━━━━  Display
-      ×1.5
-  32 ━━━━━━━━━━━━━━━━    Heading
-      ×1.33
-  24 ━━━━━━━━━━━━        Title
-      ×1.2
-  20 ━━━━━━━━━━          Sub-heading
-      ×1.25
-  16 ━━━━━━━━            Body large
-      ×1.14
-  14 ━━━━━━              Body (anchor)
-      ×1.17
-  12 ━━━━                Small / Data
-      ×1.2
-  10 ━━                  Labels</div>
+<div class="diagram">48 ━━━━━━━━━━━━━━━━━━━━  Display
+     ×1.5
+32 ━━━━━━━━━━━━━━━━━━    Heading
+     ×1.33
+24 ━━━━━━━━━━━━━━        Title
+     ×1.2
+20 ━━━━━━━━━━━━          Sub-heading
+     ×1.25
+16 ━━━━━━━━━━            Body large
+     ×1.14
+14 ━━━━━━━━              Body (anchor)
+     ×1.17
+12 ━━━━━━                Small / Data
+     ×1.2
+10 ━━━━                  Labels</div>
 
       <p class="prose">Every component picks from these 8 sizes. No exceptions. If a new element needs a size, it uses one that exists — the scale doesn't grow to accommodate edge cases.</p>
 
@@ -600,12 +608,12 @@ body::before {
 
       <p class="prose">JetBrains Mono appears in exactly four configurations. Not twelve. Four.</p>
 
-<div class="diagram">  ROLE         SIZE   WT   CASE    TRACKING
-  ─────────────────────────────────────────
-  eyebrow      10px  500  UPPER   0.14em
-  label        10px  500  UPPER   0.10em
-  data         12px  400  mixed   0
-  code         12px  400  mixed   0</div>
+<div class="diagram">ROLE         SIZE   WT    CASE     TRACKING
+─────────────────────────────────────────────
+eyebrow      10px   500   UPPER    0.14em
+label        10px   500   UPPER    0.10em
+data         12px   400   mixed    0
+code         12px   400   mixed    0</div>
 
       <p class="prose">Color is contextual, not baked in. The same <code>mono/label</code> style serves as an input label (in <code>w600</code>), a table header (in <code>w500</code>), a badge (in <code>w500</code>), and an error message (in <code>red</code>). One style, many applications.<a href="#fn2" class="fn-ref">2</a></p>
 
@@ -613,8 +621,7 @@ body::before {
     </section>
 
 
-    <!-- ── SECTION 03 ── -->
-    <section class="body-section">
+    <section class="body-section" id="s03">
       <div class="sh">
         <span class="sh-num">03 — Surface</span>
         <h2 class="sh-title" id="surface-philosophy">The Ground as Reading Surface</h2>
@@ -631,18 +638,18 @@ body::before {
 
       <p class="prose">This changes what "containment" means. Sections aren't cards — they're zones on the instrument face, delineated by hairline borders:</p>
 
-<div class="diagram">  ┌─ hairline (1px w200) ───────────────────┐
-  │                                         │
-  │  Panel — flush with ground surface      │
-  │  padding: 24px                          │
-  │  bg: transparent (ground shows through) │
-  │                                         │
-  ├─ sub-line (1px w100) ──────────────────┤
-  │                                         │
-  │  Inset zone — bg: w50                   │
-  │  For inputs, table headers, code        │
-  │                                         │
-  └─────────────────────────────────────────┘</div>
+<div class="diagram">┌─ hairline (1px w200) ─────────────────────────┐
+│                                               │
+│  Panel — flush with ground surface            │
+│  padding: 24px                                │
+│  bg: transparent (ground shows through)       │
+│                                               │
+├─ sub-line (1px w100) ────────────────────────┤
+│                                               │
+│  Inset zone — bg: w50                         │
+│  For inputs, table headers, code              │
+│                                               │
+└───────────────────────────────────────────────┘</div>
 
       <h3 class="sub-heading" id="active-zones">Active Zones</h3>
 
@@ -656,7 +663,6 @@ body::before {
     </section>
 
 
-    <!-- ── FOOTNOTES ── -->
     <footer class="footnotes">
       <ol class="footnotes-list">
         <li id="fn1">Weber, M. et al. "Color Temperature and Cognitive Load in Data-Dense Interfaces." <em>Journal of Applied Ergonomics</em>, 2024. The study found a 12% reduction in error rates when warm neutrals replaced cool grays in financial dashboards.</li>
@@ -675,7 +681,6 @@ body::before {
 </main>
 
 
-<!-- ═══ FOOTER ═══ -->
 <footer class="site-footer">
   <div class="footer-inner">
     <span class="footer-text">Mybap · 2026</span>
@@ -684,21 +689,51 @@ body::before {
 </footer>
 
 
-<!-- ═══ SCROLL JS — React: useScrollProgress() ═══ -->
+<!-- ═══ SCROLL JS ═══ -->
+<!-- React: useRangefinder(sectionIds) hook -->
 <script>
-const progress = document.getElementById('hud-progress');
+(function() {
+  const sections = document.querySelectorAll('.body-section');
+  const ticks = document.querySelectorAll('.rf-tick');
+  const cursor = document.getElementById('rf-cursor');
+  const rangefinder = document.getElementById('rangefinder');
 
-function onScroll() {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  if (docHeight > 0) {
-    progress.style.width = (scrollTop / docHeight) * 100 + '%';
+  if (!rangefinder || !cursor) return;
+
+  // rangefinder rail height
+  const rfHeight = rangefinder.offsetHeight;
+
+  function update() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollFraction = docHeight > 0 ? scrollTop / docHeight : 0;
+
+    // move cursor along rail
+    cursor.style.top = (scrollFraction * rfHeight) + 'px';
+
+    // determine active section
+    let activeId = null;
+    sections.forEach(function(s) {
+      const rect = s.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.4) {
+        activeId = s.id;
+      }
+    });
+
+    // update ticks
+    ticks.forEach(function(t) {
+      t.dataset.active = (t.dataset.section === activeId) ? 'true' : 'false';
+    });
   }
-}
 
-window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', function() {
+    // recalc after layout
+    requestAnimationFrame(update);
+  });
+  update();
+})();
 </script>
-
 
 </body>
 </html>
