@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mybap — Blog Foundation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   RESET
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ═══════════════════════════════════════════
+   TOKENS
+   ═══════════════════════════════════════════ */
+:root {
+  /* color */
+  --w0:   #fefdfb;
+  --w50:  #faf9f6;
+  --w100: #f5f4f0;
+  --w200: #e5e4df;
+  --w300: #d5d4ce;
+  --w400: #a4a29b;
+  --w500: #74726b;
+  --w600: #55534c;
+  --w700: #3d3b35;
+  --w900: #1a1914;
+  --orange: #ea580c;
+  --green:  #059669;
+  --red:    #e11d48;
+
+  /* font */
+  --sans: 'Geist', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', monospace;
+
+  /* scale: 48 / 32 / 24 / 20 / 16 / 14 / 12 / 10 */
+  --fs-48: 48px; --fs-32: 32px; --fs-24: 24px; --fs-20: 20px;
+  --fs-16: 16px; --fs-14: 14px; --fs-12: 12px; --fs-10: 10px;
+
+  /* line-height */
+  --lh-tight: 1.1; --lh-snug: 1.3; --lh-normal: 1.5; --lh-relaxed: 1.7;
+
+  /* letter-spacing */
+  --ls-tight: -0.02em; --ls-none: 0; --ls-wide: 0.1em; --ls-wider: 0.14em;
+
+  /* spacing (4px base) */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-6: 24px; --sp-8: 32px; --sp-12: 48px; --sp-16: 64px; --sp-24: 96px;
+
+  /* radius */
+  --r-sm: 4px; --r-md: 6px;
+
+  /* surface */
+  --glass-bg: rgba(250, 249, 246, 0.72);
+  --glass-border: rgba(229, 228, 223, 0.6);
+
+  /* motion */
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-normal: 250ms;
+  --dur-slow: 400ms;
+}
+
+/* ═══════════════════════════════════════════
+   GROUND SURFACE — w100 + paper texture
+   ═══════════════════════════════════════════ */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--w100);
+  color: var(--w900);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: var(--lh-normal);
+  font-size: var(--fs-14);
+}
+
+/* paper texture — fixed, covers everything */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 200px;
+  opacity: 0.04; pointer-events: none; z-index: 10000;
+}
+
+::selection { background: var(--w900); color: var(--w0); }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--w300); border-radius: 3px; }
+
+/* ═══════════════════════════════════════════
+   HUD — glass sticky nav
+   React: <Hud />
+   ═══════════════════════════════════════════ */
+.hud {
+  position: sticky; top: 0; z-index: 100;
+  height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--sp-6);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px) brightness(1.12) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) brightness(1.12) saturate(1.1);
+  border-bottom: 1px solid var(--glass-border);
+  transition: box-shadow var(--dur-normal) var(--ease-out);
+}
+
+.hud[data-scrolled="true"] {
+  box-shadow: 0 1px 8px rgba(26,25,20,0.04);
+}
+
+/* React: <HudBrand /> */
+.hud-brand {
+  display: flex; align-items: center; gap: var(--sp-3);
+}
+
+.hud-mark {
+  width: 28px; height: 28px;
+  background: var(--w900); color: var(--w0);
+  border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: var(--fs-12); font-weight: 700;
+}
+
+.hud-name {
+  font-family: var(--mono); font-size: var(--fs-10);
+  text-transform: uppercase; letter-spacing: var(--ls-wide);
+  font-weight: 500; color: var(--w500);
+}
+
+/* React: <HudNav /> */
+.hud-nav {
+  display: flex; align-items: center; gap: var(--sp-6);
+}
+
+.hud-link {
+  font-size: var(--fs-14); font-weight: 500;
+  color: var(--w500); text-decoration: none;
+  transition: color var(--dur-fast);
+}
+.hud-link:hover { color: var(--w900); }
+.hud-link[data-active="true"] { color: var(--w900); }
+
+/* scroll progress bar inside hud */
+.hud-progress {
+  position: absolute; bottom: 0; left: 0;
+  height: 2px; background: var(--w900);
+  width: 0%; transition: width 80ms linear;
+}
+
+/* ═══════════════════════════════════════════
+   CONTENT RAIL — centered, max-width for prose
+   React: <ContentRail />
+   ═══════════════════════════════════════════ */
+.content-rail {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--sp-24) var(--sp-6) var(--sp-24);
+}
+
+/* ═══════════════════════════════════════════
+   ARTICLE HEADER
+   React: <ArticleHeader />
+   ═══════════════════════════════════════════ */
+.article-header {
+  margin-bottom: var(--sp-16);
+  padding-bottom: var(--sp-12);
+  border-bottom: 1px solid var(--w200);
+}
+
+.article-meta {
+  font-family: var(--mono); font-size: var(--fs-10);
+  text-transform: uppercase; letter-spacing: var(--ls-wider);
+  font-weight: 500; color: var(--w500);
+  margin-bottom: var(--sp-4);
+}
+
+.article-title {
+  font-size: clamp(32px, 5vw, var(--fs-48));
+  font-weight: 200; letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
+  margin-bottom: var(--sp-3);
+}
+
+.article-subtitle {
+  font-size: var(--fs-20); font-weight: 300;
+  line-height: var(--lh-normal);
+  color: var(--w500);
+  margin-bottom: var(--sp-6);
+}
+
+.article-byline {
+  display: flex; align-items: center; gap: var(--sp-4);
+}
+
+.article-author {
+  font-size: var(--fs-14); font-weight: 500; color: var(--w900);
+}
+
+.article-reading-time {
+  font-family: var(--mono); font-size: var(--fs-12);
+  color: var(--w500);
+}
+
+.byline-dot { color: var(--w300); }
+
+/* ═══════════════════════════════════════════
+   ARTICLE BODY — prose container
+   React: <ArticleBody />
+   ═══════════════════════════════════════════ */
+.article-body {
+  font-size: var(--fs-14);
+  line-height: var(--lh-relaxed);
+  color: var(--w600);
+}
+
+.article-body > * + * { margin-top: var(--sp-6); }
+
+.article-body p { max-width: 65ch; }
+
+.article-body strong {
+  font-weight: 500; color: var(--w900);
+}
+
+.article-body em { font-style: italic; }
+
+.article-body a {
+  color: var(--w900); font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--w300);
+  transition: text-decoration-color var(--dur-fast);
+}
+.article-body a:hover { text-decoration-color: var(--w900); }
+
+/* ── HEADINGS in article ── */
+/* React: these map to <Heading level={2|3|4} /> */
+.article-body h2 {
+  font-size: var(--fs-24); font-weight: 300;
+  letter-spacing: var(--ls-none); line-height: var(--lh-snug);
+  color: var(--w900);
+  margin-top: var(--sp-16);
+  padding-top: var(--sp-12);
+  border-top: 1px solid var(--w200);
+  scroll-margin-top: 68px; /* hud height + space */
+}
+
+.article-body h3 {
+  font-size: var(--fs-20); font-weight: 500;
+  line-height: var(--lh-snug); color: var(--w900);
+  margin-top: var(--sp-12);
+  scroll-margin-top: 68px;
+}
+
+.article-body h4 {
+  font-size: var(--fs-16); font-weight: 500;
+  line-height: var(--lh-normal); color: var(--w900);
+  margin-top: var(--sp-8);
+  scroll-margin-top: 68px;
+}
+
+/* ── SECTION LABEL — eyebrow above h2 ── */
+/* React: <SectionLabel /> */
+.section-label {
+  font-family: var(--mono); font-size: var(--fs-10);
+  text-transform: uppercase; letter-spacing: var(--ls-wide);
+  font-weight: 500; color: var(--w500);
+  margin-bottom: var(--sp-2);
+  margin-top: 0;
+}
+
+.section-label + h2 {
+  margin-top: var(--sp-2);
+  padding-top: 0; border-top: none;
+}
+
+/* ── BLOCKQUOTE ── */
+/* React: <Blockquote /> */
+.article-body blockquote {
+  border-left: 2px solid var(--w300);
+  padding-left: var(--sp-6);
+  font-size: var(--fs-16); font-weight: 300;
+  font-style: italic; line-height: var(--lh-relaxed);
+  color: var(--w500);
+  margin-top: var(--sp-8);
+  margin-bottom: var(--sp-8);
+}
+
+.article-body blockquote cite {
+  display: block; margin-top: var(--sp-2);
+  font-family: var(--mono); font-size: var(--fs-10);
+  font-style: normal; font-weight: 500;
+  text-transform: uppercase; letter-spacing: var(--ls-wide);
+  color: var(--w500);
+}
+
+/* ── PULLQUOTE ── */
+/* React: <Pullquote /> */
+.pullquote {
+  font-size: var(--fs-24); font-weight: 200;
+  letter-spacing: var(--ls-tight); line-height: var(--lh-snug);
+  color: var(--w700);
+  padding: var(--sp-12) 0;
+  margin-top: var(--sp-8);
+  margin-bottom: var(--sp-8);
+}
+
+/* ── LISTS ── */
+/* React: <List ordered|unordered /> */
+.article-body ul {
+  list-style: none; padding: 0;
+}
+.article-body ul li {
+  position: relative; padding-left: 20px; margin-bottom: var(--sp-2);
+}
+.article-body ul li::before {
+  content: "–"; position: absolute; left: 0; color: var(--w300);
+}
+
+.article-body ol {
+  list-style: none; padding: 0; counter-reset: ol;
+}
+.article-body ol li {
+  position: relative; padding-left: 28px; margin-bottom: var(--sp-2);
+  counter-increment: ol;
+}
+.article-body ol li::before {
+  content: counter(ol); position: absolute; left: 0;
+  font-family: var(--mono); font-size: var(--fs-12);
+  font-weight: 500; color: var(--w500); top: 2px;
+}
+
+/* ── INLINE CODE ── */
+/* React: <Code inline /> */
+.article-body code:not(pre code) {
+  font-family: var(--mono); font-size: var(--fs-12);
+  background: var(--w50); border: 1px solid var(--w200);
+  border-radius: var(--r-sm); padding: 2px 6px;
+  color: var(--w900);
+}
+
+/* ── CODE BLOCK ── */
+/* React: <CodeBlock lang="ts" /> */
+.code-block {
+  position: relative;
+  background: var(--w50); border: 1px solid var(--w200);
+  border-radius: var(--r-sm); padding: 20px;
+  font-family: var(--mono); font-size: var(--fs-12);
+  color: var(--w900); line-height: var(--lh-relaxed);
+  white-space: pre; overflow-x: auto;
+  margin-top: var(--sp-6); margin-bottom: var(--sp-6);
+}
+
+.code-block .kw { color: var(--w900); font-weight: 500; }
+.code-block .str { color: var(--green); }
+.code-block .num { color: var(--orange); }
+.code-block .cmt { color: var(--w400); font-style: italic; }
+
+/* ── ASCII DIAGRAM — drawn on the ground ── */
+/* React: <Diagram /> */
+.diagram {
+  font-family: var(--mono); font-size: var(--fs-12);
+  color: var(--w600); line-height: var(--lh-snug);
+  white-space: pre; overflow-x: auto;
+  padding: var(--sp-4) 0;
+  margin-top: var(--sp-6); margin-bottom: var(--sp-6);
+  /* NO background. NO border. Drawn on the surface. */
+}
+
+/* ── FIGURE + CAPTION ── */
+/* React: <Figure src caption /> */
+.article-body figure {
+  margin-top: var(--sp-8); margin-bottom: var(--sp-8);
+}
+
+.article-body figure .figure-area {
+  width: 100%; height: 240px;
+  background: var(--w50); border: 1px solid var(--w200);
+  border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: var(--fs-10);
+  text-transform: uppercase; letter-spacing: var(--ls-wide);
+  color: var(--w400); font-weight: 500;
+}
+
+.article-body figcaption {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-12); color: var(--w500);
+}
+
+/* ── FOOTNOTES ── */
+/* React: <Footnotes items={[]} /> */
+.footnotes {
+  margin-top: var(--sp-16);
+  padding-top: var(--sp-8);
+  border-top: 1px solid var(--w200);
+}
+
+.footnotes ol {
+  list-style: none; padding: 0; counter-reset: fn;
+}
+
+.footnotes li {
+  position: relative; padding-left: 24px;
+  font-size: var(--fs-12); color: var(--w500);
+  line-height: var(--lh-normal);
+  margin-bottom: var(--sp-2);
+  counter-increment: fn;
+}
+
+.footnotes li::before {
+  content: counter(fn);
+  position: absolute; left: 0;
+  font-family: var(--mono); font-size: var(--fs-10);
+  font-weight: 500; color: var(--orange);
+}
+
+/* footnote ref in body */
+.fn-ref {
+  font-family: var(--mono); font-size: var(--fs-10);
+  font-weight: 500; color: var(--orange);
+  vertical-align: super; text-decoration: none;
+  margin-left: 1px;
+}
+
+/* ── TAGS ── */
+/* React: <TagList tags={[]} /> */
+.tag-list {
+  display: flex; gap: var(--sp-2); flex-wrap: wrap;
+  margin-top: var(--sp-6);
+}
+
+.tag {
+  font-family: var(--mono); font-size: var(--fs-10);
+  text-transform: uppercase; letter-spacing: var(--ls-wide);
+  font-weight: 500; color: var(--w500);
+  border: 1px solid var(--w200); border-radius: var(--r-sm);
+  padding: 3px 8px;
+  text-decoration: none;
+  transition: border-color var(--dur-fast), color var(--dur-fast);
+}
+.tag:hover { border-color: var(--w900); color: var(--w900); }
+
+/* ── HAIRLINE DIVIDER ── */
+/* React: <Divider /> */
+.divider {
+  border: none; border-top: 1px solid var(--w200);
+  margin: var(--sp-12) 0;
+}
+
+/* ── SECTION BREAK — ornamental ── */
+/* React: <SectionBreak /> */
+.section-break {
+  text-align: center;
+  color: var(--w300);
+  font-size: var(--fs-14);
+  padding: var(--sp-8) 0;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   React: <Footer />
+   ═══════════════════════════════════════════ */
+.site-footer {
+  border-top: 1px solid var(--w200);
+  padding: var(--sp-12) var(--sp-6);
+  display: flex; justify-content: center;
+}
+
+.footer-inner {
+  max-width: 720px; width: 100%;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.footer-text {
+  font-family: var(--mono); font-size: var(--fs-10);
+  text-transform: uppercase; letter-spacing: var(--ls-wide);
+  color: var(--w500); font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .content-rail { padding: var(--sp-12) var(--sp-4) var(--sp-16); }
+  .article-title { letter-spacing: -0.01em; }
+  .hud-nav { display: none; }
+  .pullquote { font-size: var(--fs-20); }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HUD ═══ -->
+<nav class="hud" id="hud">
+  <div class="hud-brand">
+    <div class="hud-mark">M</div>
+    <span class="hud-name">Mybap</span>
+  </div>
+  <div class="hud-nav">
+    <a class="hud-link" href="#" data-active="true">Blog</a>
+    <a class="hud-link" href="#">Product</a>
+    <a class="hud-link" href="#">Docs</a>
+  </div>
+  <div class="hud-progress" id="hud-progress"></div>
+</nav>
+
+
+<!-- ═══ CONTENT ═══ -->
+<main class="content-rail">
+
+  <!-- React: <ArticleHeader meta title subtitle author readingTime /> -->
+  <header class="article-header">
+    <p class="article-meta">February 24, 2026 · Engineering</p>
+    <h1 class="article-title">The Instrument Principle</h1>
+    <p class="article-subtitle">Why precision in design systems matters more than aesthetics, and how warm neutrals create trust in data-heavy interfaces.</p>
+    <div class="article-byline">
+      <span class="article-author">Naman Agarwal</span>
+      <span class="byline-dot">·</span>
+      <span class="article-reading-time">8 min read</span>
+    </div>
+  </header>
+
+
+  <!-- React: <ArticleBody> children </ArticleBody> -->
+  <div class="article-body">
+
+    <p>Every interface is an instrument. The moment a user opens your product, they're holding a tool — something that should feel as precise as a <strong>Leica rangefinder</strong> and as warm as handmade paper. The gap between these two qualities is where most design systems fail.</p>
+
+    <p>They optimize for consistency (which is mechanical) or for beauty (which is subjective) but rarely for the thing that actually matters: <a href="#">the quality of the decisions the user makes</a> while using the tool.</p>
+
+
+    <!-- h2 with section label -->
+    <p class="section-label">01 — Foundation</p>
+    <h2 id="warm-neutrals">The Case for Warm Neutrals</h2>
+
+    <p>Cool grays are everywhere. Tailwind's <code>slate</code>, Material's <code>grey</code>, every SaaS product launched since 2019. They're safe. They're also sterile — they signal "I am a generic application" the moment the page loads.</p>
+
+    <p>Warm grays do something different. They carry the visual weight of natural materials — stone, paper, linen. When you read data on a warm surface, your eye relaxes. The cognitive load of parsing numbers, scanning tables, and comparing metrics drops measurably.<a href="#fn1" class="fn-ref">1</a></p>
+
+    <blockquote>
+      Good design is as little design as possible. Less, but better — because it concentrates on the essential aspects, and the products are not burdened with non-essentials.
+      <cite>Dieter Rams</cite>
+    </blockquote>
+
+    <p>This isn't sentimentality. It's physiology. Warm tones reduce the perceived harshness of high-contrast text, which means users can spend longer reading data without fatigue. In a process mining tool where analysts stare at conformance matrices for hours, this is a material advantage.</p>
+
+
+    <h3 id="building-the-scale">Building the Warm Scale</h3>
+
+    <p>The scale starts at <code>#fefdfb</code> (paper white) and terminates at <code>#1a1914</code> (near-black with warm undertone). Every step carries the same yellow-brown bias:</p>
+
+    <ol>
+      <li>Start with a pure neutral at the midpoint</li>
+      <li>Bias the lightness curve toward yellow by 3-4%</li>
+      <li>Ensure each step passes WCAG AA against its adjacent backgrounds</li>
+      <li>Test at 1x and 2x density — warm grays shift perception on low-DPI</li>
+    </ol>
+
+    <p>The result is a 10-step scale where <strong>no two adjacent steps are used for the same purpose</strong>. Primary text is always <code>w900</code>. Secondary is always <code>w600</code>. Muted is <code>w500</code>. There's no ambiguity.</p>
+
+
+    <h4>Why Not Just Use Oklch?</h4>
+
+    <p>Oklch would give perceptually uniform steps, which sounds ideal. But the warm bias needs to be hand-tuned — the midtones (w400–w600) need slightly more warmth than a linear interpolation provides, because that's where the eye spends most of its time.</p>
+
+
+    <!-- section break -->
+    <div class="section-break">— ✦ —</div>
+
+
+    <p class="section-label">02 — Typography</p>
+    <h2 id="type-system">An 8-Step Scale</h2>
+
+    <p>The original system had 16 font sizes. Fifteen-pixel body text sat between 14 and 16 with no mathematical justification. Thirteen-pixel UI text was everywhere — an arbitrary choice that made the scale incoherent.</p>
+
+    <p>The corrected scale uses 8 sizes on an approximate Minor Third ratio:</p>
+
+    <div class="diagram">  48 ━━━━━━━━━━━━━━━━━━  Display
+      ×1.5
+  32 ━━━━━━━━━━━━━━━━    Heading
+      ×1.33
+  24 ━━━━━━━━━━━━        Title
+      ×1.2
+  20 ━━━━━━━━━━          Sub-heading
+      ×1.25
+  16 ━━━━━━━━            Body large
+      ×1.14
+  14 ━━━━━━              Body (anchor)
+      ×1.17
+  12 ━━━━                Small / Data
+      ×1.2
+  10 ━━                  Labels</div>
+
+    <p>Every component picks from these 8 sizes. No exceptions. If a new element needs a size, it uses one that exists — the scale doesn't grow to accommodate edge cases.</p>
+
+    <ul>
+      <li>Display type uses weight 200 — thin, commanding, retina-dependent</li>
+      <li>Headings use weight 300 — light but legible on any screen</li>
+      <li>Body uses weight 400 — the workhorse</li>
+      <li>UI emphasis and labels use weight 500 — medium, not bold</li>
+    </ul>
+
+
+    <h3 id="mono-discipline">Mono Discipline</h3>
+
+    <p>JetBrains Mono appears in exactly four configurations. Not twelve. Four.</p>
+
+    <div class="diagram">  ROLE         SIZE   WT   CASE    TRACKING
+  ─────────────────────────────────────────
+  eyebrow      10px  500  UPPER   0.14em
+  label        10px  500  UPPER   0.10em
+  data         12px  400  mixed   0
+  code         12px  400  mixed   0</div>
+
+    <p>Color is contextual, not baked in. The same <code>mono/label</code> style serves as an input label (in <code>w600</code>), a table header (in <code>w500</code>), a badge (in <code>w500</code>), and an error message (in <code>red</code>). One style, many applications.<a href="#fn2" class="fn-ref">2</a></p>
+
+
+    <!-- pullquote -->
+    <p class="pullquote">Every pixel earns its place. If an element doesn't serve the user's current task, it shouldn't be on screen.</p>
+
+
+    <p class="section-label">03 — Surface</p>
+    <h2 id="surface-philosophy">The Ground as Reading Surface</h2>
+
+    <p>Most design systems put content on white panels that float above a gray background. This creates a layered metaphor — you're reading a document that sits on a desk.</p>
+
+    <p>This system does the opposite. <strong>The textured ground is the reading surface.</strong> Content sits directly on it. There are no floating white panels, no card shadows, no elevation hierarchy for basic content.</p>
+
+    <figure>
+      <div class="figure-area">IMAGE — CROSS-SECTION OF SURFACE LAYERS</div>
+      <figcaption>Fig. 1 — The surface model. Text sits on the textured ground (w100). White (w0) is reserved for active zones like input fields.</figcaption>
+    </figure>
+
+    <p>This changes what "containment" means. Sections aren't cards — they're zones on the instrument face, delineated by hairline borders:</p>
+
+    <div class="diagram">  ┌─ hairline (1px w200) ───────────────────┐
+  │                                         │
+  │  Panel — flush with ground surface      │
+  │  padding: 24px                          │
+  │  bg: transparent (ground shows through) │
+  │                                         │
+  ├─ sub-line (1px w100) ──────────────────┤
+  │                                         │
+  │  Inset zone — bg: w50                   │
+  │  For inputs, table headers, code        │
+  │                                         │
+  └─────────────────────────────────────────┘</div>
+
+
+    <h3 id="active-zones">Active Zones</h3>
+
+    <p>White (<code>w0</code>) is reserved for interactive surfaces. An input field glows white when focused. A selected row brightens. This is the bright viewfield of the microscope — the one area that draws the eye.</p>
+
+    <p>Everything else stays on the ground. The warmth of the texture, the grain of the noise — these are always present under the text. The content is etched into the surface, not printed on paper above it.</p>
+
+
+    <h4>Readout Panels</h4>
+
+    <p>Metrics and KPIs use dark recessed panels (<code>w900</code>) — like the LCD display on a Braun calculator. Numbers glow on dark. This creates the strongest possible contrast within the system, reserved for the data that matters most.</p>
+
+
+    <!-- footnotes -->
+    <footer class="footnotes">
+      <ol>
+        <li id="fn1">Weber, M. et al. "Color Temperature and Cognitive Load in Data-Dense Interfaces." <em>Journal of Applied Ergonomics</em>, 2024. The study found a 12% reduction in error rates when warm neutrals replaced cool grays in financial dashboards.</li>
+        <li id="fn2">This is the Figma approach — text styles define the typographic properties, fill colors are applied separately. It reduces the style count from 40+ to under 10.</li>
+      </ol>
+    </footer>
+
+
+    <!-- tags -->
+    <div class="tag-list">
+      <a href="#" class="tag">Design Systems</a>
+      <a href="#" class="tag">Typography</a>
+      <a href="#" class="tag">Color Theory</a>
+      <a href="#" class="tag">Engineering</a>
+    </div>
+
+  </div>
+
+</main>
+
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span class="footer-text">Mybap · 2026</span>
+    <span class="footer-text">Instrument Modernism v4.1</span>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════
+     SCROLL BEHAVIOR — minimal JS
+     React: useScrollProgress() + useScrollSpy()
+     ═══════════════════════════════════════════ -->
+<script>
+// scroll progress bar
+const progress = document.getElementById('hud-progress');
+const hud = document.getElementById('hud');
+
+function updateScroll() {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+  progress.style.width = scrollPercent + '%';
+  hud.dataset.scrolled = scrollTop > 10 ? 'true' : 'false';
+}
+
+window.addEventListener('scroll', updateScroll, { passive: true });
+updateScroll();
+</script>
+
+</body>
+</html>
