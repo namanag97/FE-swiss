@@ -63,17 +63,18 @@ body::before {
 
 
 /* ═══════════════════════════════════════════
-   HUD — glass, content visible through blur
-   React: <Hud />
+   HUD — Top Plate
+   Leica M top plate: brand mark (red dot),
+   frame counter (section readout), controls
    ═══════════════════════════════════════════ */
 .hud {
   position: sticky; top: 0; z-index: 100;
   height: 52px;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 24px;
-  background: rgba(245, 244, 240, 0.5);
-  backdrop-filter: blur(16px) saturate(1.2) brightness(1.05);
-  -webkit-backdrop-filter: blur(16px) saturate(1.2) brightness(1.05);
+  background: rgba(250, 249, 246, 0.65);
+  backdrop-filter: blur(12px) brightness(1.12);
+  -webkit-backdrop-filter: blur(12px) brightness(1.12);
   border-bottom: 1px solid var(--w200);
 }
 
@@ -93,6 +94,31 @@ body::before {
   font-weight: 500; color: var(--w500);
 }
 
+/* frame counter — centered section readout */
+.hud-readout {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  font-weight: 500; color: var(--w400);
+  transition: color var(--dur-normal) var(--ease-out);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out), color var(--dur-normal) var(--ease-out);
+}
+.hud-readout[data-visible="true"] {
+  opacity: 1; color: var(--w500);
+}
+
+/* scroll progress — 2px bar at HUD bottom edge */
+.hud-progress {
+  position: absolute;
+  bottom: -1px; left: 0;
+  height: 2px;
+  background: var(--w900);
+  width: 0%;
+  will-change: width;
+}
+
 .hud-nav { display: flex; align-items: center; gap: 24px; }
 .hud-link {
   font-size: 14px; font-weight: 400;
@@ -104,13 +130,14 @@ body::before {
 
 
 /* ═══════════════════════════════════════════
-   RANGEFINDER — Leica-inspired scroll indicator
-   Fixed left rail with measurement marks
-   React: <Rangefinder sections={[]} />
+   RANGEFINDER — Lens Distance Scale
+   Inspired by the focusing scale on a Leica
+   Summicron: engraved markings, index line,
+   graduated subdivisions, depth-of-field marks
    ═══════════════════════════════════════════ */
 .rangefinder {
   position: fixed;
-  left: 28px;
+  left: 32px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 99;
@@ -119,7 +146,7 @@ body::before {
   align-items: flex-start;
 }
 
-/* the vertical rail line */
+/* the vertical rail — the barrel axis */
 .rf-rail {
   position: absolute;
   left: 0; top: 0; bottom: 0;
@@ -127,18 +154,7 @@ body::before {
   background: var(--w300);
 }
 
-/* scroll position indicator — moves along the rail */
-.rf-cursor {
-  position: absolute;
-  left: -2px;
-  width: 5px; height: 5px;
-  background: var(--w900);
-  border-radius: 50%;
-  transition: top 150ms var(--ease-spring);
-  z-index: 2;
-}
-
-/* crosshair marks at top and bottom of rail */
+/* cross marks at rail extremes — like the end stops on a focus ring */
 .rf-cross-top,
 .rf-cross-bottom {
   position: absolute;
@@ -149,51 +165,107 @@ body::before {
 .rf-cross-top { top: -1px; }
 .rf-cross-bottom { bottom: -1px; }
 
-/* each section tick */
+/* infinity symbol — the far end of the distance scale */
+.rf-infinity {
+  position: absolute;
+  top: -20px; left: -4px;
+  font-family: var(--mono); font-size: 10px;
+  color: var(--w400); font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+/* index line — replaces cursor dot
+   the bright reference mark on a lens barrel */
+.rf-index {
+  position: absolute;
+  left: -6px;
+  width: 13px; height: 2px;
+  background: var(--w900);
+  transition: top 200ms var(--ease-spring);
+  z-index: 2;
+}
+
+/* graduated marks between sections — subdivisions */
+.rf-grad {
+  position: absolute;
+  left: -2px;
+  width: 5px; height: 1px;
+  background: var(--w300);
+  opacity: 0.5;
+}
+
+/* section ticks — major graduations on the distance scale */
 .rf-tick {
   position: relative;
-  padding-left: 16px;
+  padding-left: 20px;
   display: flex; align-items: center;
   cursor: pointer;
   text-decoration: none;
+  height: 14px;
 }
 
+/* the tick mark — a horizontal graduation line */
 .rf-tick::before {
   content: "";
   position: absolute;
-  left: -3px;
-  width: 7px; height: 1px;
+  left: -4px;
+  width: 9px; height: 1px;
   background: var(--w300);
-  transition: background var(--dur-normal), width var(--dur-normal);
-}
-
-.rf-tick-label {
-  font-family: var(--mono);
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--w400);
-  white-space: nowrap;
-  opacity: 0.6;
   transition: all var(--dur-normal) var(--ease-spring);
 }
 
-/* active state */
+/* tick label — engraved section markings */
+.rf-tick-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--w400);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  transition: all var(--dur-normal) var(--ease-spring);
+  line-height: 1;
+}
+
+.rf-tick-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: transparent;
+  margin-left: 0;
+  white-space: nowrap;
+  transition: all var(--dur-normal) var(--ease-spring);
+  line-height: 1;
+  max-width: 0;
+  overflow: hidden;
+}
+
+/* active state — "in focus" */
 .rf-tick[data-active="true"]::before {
   background: var(--orange);
-  width: 12px;
-  left: -3px;
+  width: 14px;
+  left: -4px;
+  height: 2px;
 }
-.rf-tick[data-active="true"] .rf-tick-label {
+.rf-tick[data-active="true"] .rf-tick-num {
   color: var(--w900);
-  opacity: 1;
-  font-weight: 500;
+}
+.rf-tick[data-active="true"] .rf-tick-title {
+  color: var(--w500);
+  max-width: 120px;
+  margin-left: 6px;
 }
 
 /* hover */
-.rf-tick:hover .rf-tick-label {
-  opacity: 0.85;
+.rf-tick:hover .rf-tick-num {
   color: var(--w600);
+}
+.rf-tick:hover .rf-tick-title {
+  color: var(--w400);
+  max-width: 120px;
+  margin-left: 6px;
 }
 
 @media (max-width: 1100px) {
@@ -451,7 +523,10 @@ body::before {
 }
 
 
-/* ═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════
+   FOOTER — Bottom Plate
+   Serial number engraving feel
+   ═══════════════════════════════════════════ */
 .site-footer {
   border-top: 1px solid var(--w200);
   padding: 48px 24px;
@@ -473,6 +548,7 @@ body::before {
   .body-section { margin-bottom: 64px; }
   .sh { margin-bottom: 32px; }
   .hud-nav { display: none; }
+  .hud-readout { display: none; }
   .pullquote { font-size: 20px; }
 }
 </style>
@@ -480,35 +556,48 @@ body::before {
 <body>
 
 
-<!-- ═══ HUD ═══ -->
+<!-- ═══ HUD — Top Plate ═══ -->
 <nav class="hud">
   <div class="hud-brand">
     <div class="hud-mark">M</div>
     <span class="hud-name">Mybap</span>
   </div>
+  <span class="hud-readout" id="hud-readout"></span>
   <div class="hud-nav">
     <a class="hud-link" href="#" data-active="true">Blog</a>
     <a class="hud-link" href="#">Product</a>
     <a class="hud-link" href="#">Docs</a>
   </div>
+  <div class="hud-progress" id="hud-progress"></div>
 </nav>
 
 
-<!-- ═══ RANGEFINDER — scroll indicator ═══ -->
+<!-- ═══ RANGEFINDER — Lens Distance Scale ═══ -->
 <nav class="rangefinder" id="rangefinder">
   <div class="rf-rail">
     <div class="rf-cross-top"></div>
     <div class="rf-cross-bottom"></div>
   </div>
-  <div class="rf-cursor" id="rf-cursor"></div>
+  <span class="rf-infinity">∞</span>
+  <div class="rf-index" id="rf-index"></div>
+
+  <!-- graduated marks — subdivisions between sections -->
+  <div class="rf-grad" style="top: 25%"></div>
+  <div class="rf-grad" style="top: 50%"></div>
+  <div class="rf-grad" style="top: 75%"></div>
+
+  <!-- section ticks — major graduations -->
   <a class="rf-tick" href="#warm-neutrals" data-section="s01" style="margin-bottom:48px">
-    <span class="rf-tick-label">01</span>
+    <span class="rf-tick-num">01</span>
+    <span class="rf-tick-title">Foundation</span>
   </a>
   <a class="rf-tick" href="#type-system" data-section="s02" style="margin-bottom:48px">
-    <span class="rf-tick-label">02</span>
+    <span class="rf-tick-num">02</span>
+    <span class="rf-tick-title">Typography</span>
   </a>
   <a class="rf-tick" href="#surface-philosophy" data-section="s03">
-    <span class="rf-tick-label">03</span>
+    <span class="rf-tick-num">03</span>
+    <span class="rf-tick-title">Surface</span>
   </a>
 </nav>
 
@@ -690,26 +779,38 @@ code         12px   400   mixed    0</div>
 
 
 <!-- ═══ SCROLL JS ═══ -->
-<!-- React: useRangefinder(sectionIds) hook -->
 <script>
 (function() {
   const sections = document.querySelectorAll('.body-section');
   const ticks = document.querySelectorAll('.rf-tick');
-  const cursor = document.getElementById('rf-cursor');
+  const index = document.getElementById('rf-index');
   const rangefinder = document.getElementById('rangefinder');
+  const progress = document.getElementById('hud-progress');
+  const readout = document.getElementById('hud-readout');
 
-  if (!rangefinder || !cursor) return;
+  if (!rangefinder || !index) return;
 
-  // rangefinder rail height
   const rfHeight = rangefinder.offsetHeight;
+
+  // section labels for the frame counter readout
+  const sectionLabels = {
+    s01: '01 · Foundation',
+    s02: '02 · Typography',
+    s03: '03 · Surface'
+  };
 
   function update() {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const scrollFraction = docHeight > 0 ? scrollTop / docHeight : 0;
 
-    // move cursor along rail
-    cursor.style.top = (scrollFraction * rfHeight) + 'px';
+    // move index line along rail
+    index.style.top = (scrollFraction * rfHeight) + 'px';
+
+    // update progress bar
+    if (progress) {
+      progress.style.width = (scrollFraction * 100) + '%';
+    }
 
     // determine active section
     let activeId = null;
@@ -720,15 +821,24 @@ code         12px   400   mixed    0</div>
       }
     });
 
-    // update ticks
+    // update rangefinder ticks
     ticks.forEach(function(t) {
       t.dataset.active = (t.dataset.section === activeId) ? 'true' : 'false';
     });
+
+    // update HUD readout (frame counter)
+    if (readout) {
+      if (activeId && sectionLabels[activeId]) {
+        readout.textContent = sectionLabels[activeId];
+        readout.dataset.visible = 'true';
+      } else {
+        readout.dataset.visible = 'false';
+      }
+    }
   }
 
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', function() {
-    // recalc after layout
     requestAnimationFrame(update);
   });
   update();
