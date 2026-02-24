@@ -318,7 +318,8 @@
 
     /* ══════════════════════════════════════════════════════════
        SECTION LABEL / EYEBROW
-       GeistMono, 10px, uppercase, letter-spacing .10em, muted
+       Key pattern: literal [ Text ] brackets in GeistMono
+       Confirmed from screenshot: "[ Flexible and Secure ]"
        ══════════════════════════════════════════════════════════ */
     .eyebrow {
       font-family: var(--mono);
@@ -333,6 +334,10 @@
       line-height: 89%;
       opacity: .85;
     }
+
+    /* The [ bracket ] wrapper — used when NOT paired with pulse dot */
+    .eyebrow-bracket::before { content: "[ "; }
+    .eyebrow-bracket::after  { content: " ]"; }
 
     /* Pulse dot — their exact animation with scale + glow */
     .pulse {
