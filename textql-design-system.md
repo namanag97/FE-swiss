@@ -36,13 +36,25 @@ info:    #0ea5e9  bg #dbeafe  dark #2563eb
 ### Font families
 | Name | Usage | Weights |
 |------|-------|---------|
-| `Geist` | Headings, general UI | 100–900 variable |
-| `Inter Variable` | Body text, descriptions | 100–900 variable; typically **260** (ultra-light) |
-| `GeistMono` | Labels, tags, code, button text | 300, 400 |
+| `GeistMono` | **Headings (h1, h2, h3), labels, tags, code, buttons** | 300, 400 |
+| `Inter Variable` | Body text, descriptions, nav links | 100–900 variable; typically **260** (ultra-light) |
 | `LibreCaslon` (Condensed Medium Italic) | Italic accent word in hero headings only | 500 italic |
 | `JetBrainsMono` | Mono italic variant | 400 italic |
 
+> **Critical correction (from product screenshots):** Section headings like "Deploys to meet your compliance needs" are in **GeistMono** (monospace), NOT Geist sans. The uniform letter width is clearly visible. All display headings use GeistMono.
+
 > Key detail: Inter Variable at **weight 260** — lighter than "light" (300). This creates the characteristically delicate body text.
+
+### Eyebrow / section label — `[ bracket ]` pattern
+Confirmed from screenshot: `[ Flexible and Secure ]` — the literal bracket characters are part of the text.
+```
+Font: GeistMono, 10px, uppercase, letter-spacing .10em
+Color: #6B7268 (muted)
+Pattern: "[ " + LABEL TEXT + " ]"
+```
+Two variants:
+1. With pulse dot (blog/live sections): `● BLOG`
+2. With brackets (marketing sections): `[ FLEXIBLE AND SECURE ]`
 
 ### Font size scale
 ```
