@@ -5,555 +5,687 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TextQL — Blog</title>
 
+  <!--
+    Exact font stack from source:
+    Geist (100–900) · GeistMono (300,400) · Inter Variable (260 body) · Libre Caslon Text (italic accent)
+    TextQL serves Geist/GeistMono from their own CDN — we use Google Fonts equivalents.
+  -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Geist is on Google Fonts; Libre Caslon Text for serif italic accents -->
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Libre+Caslon+Text:ital,wght@1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Caslon+Text:ital,wght@1,400&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─── TOKENS ─────────────────────────────────────────────────── */
+    /* ══════════════════════════════════════════════════════════
+       DESIGN TOKENS — all extracted verbatim from textql.com CSS
+       ══════════════════════════════════════════════════════════ */
     :root {
-      /* brand */
-      --ink:        #2E3B36;
-      --ink-dark:   #072A20;
-      --ink-mid:    #43625A;
-      --ink-muted:  #6B7268;
-      --emerald:    #047A55;
-      --bg:         #FAFBF8;
-      --border:     rgba(46,59,54,.10);
-      --border-nav: #9EA397;
+      /* colors */
+      --ink:          #2E3B36;
+      --ink-dark:     #072A20;
+      --ink-mid:      #3D5D55;
+      --ink-light:    #628C82;
+      --ink-muted:    #6B7268;
+      --ink-faint:    #7C7E7B;
+      --emerald:      #047A55;
+      --bg:           #FAFBF8;
+      --white:        #FFFFFF;
+      --border:       rgba(46, 59, 54, .10);
+      --border-nav:   #9EA397;
 
-      /* type */
-      --sans: 'Geist', sans-serif;
-      --mono: 'Geist Mono', monospace;
-      --serif-italic: 'Libre Caslon Text', Georgia, serif;
+      /* spacing (exact from --_1mitjyc* vars) */
+      --sp-1:   4px;    /* .25rem */
+      --sp-2:   6px;    /* .375rem */
+      --sp-3:  12px;    /* .75rem  */
+      --sp-4:  18px;    /* 1.125rem */
+      --sp-5:  30px;    /* 1.875rem */
+      --sp-6:  48px;    /* 3rem */
+      --sp-7:  64px;    /* 4rem */
 
-      /* radii */
-      --r-sm:  4px;
-      --r-md:  12px;
+      /* font sizes */
+      --fs-xs:  10px;   /* .625rem — labels */
+      --fs-sm:  12px;   /* .75rem  — captions */
+      --fs-md:  14px;   /* .875rem — body */
+      --fs-base:16px;   /* 1rem */
+      --fs-lg:  20px;   /* 1.25rem */
+      --fs-xl:  32px;   /* 2rem */
+      --fs-2xl: 48px;   /* 3rem */
+      --fs-3xl: 64px;   /* 4rem — hero */
+
+      /* fonts */
+      --sans:    'Geist', sans-serif;
+      --body:    'Inter', sans-serif;      /* Inter Variable — used at weight 260 */
+      --mono:    'Geist Mono', monospace;
+      --caslon:  'Libre Caslon Text', Georgia, serif;
 
       /* transitions */
       --t-fast: .15s ease;
       --t-std:  .20s ease;
       --t-slow: .30s ease;
+
+      /* layout */
+      --max-w:  1400px;
+      --nav-h:  40px;
     }
 
-    /* ─── RESET ──────────────────────────────────────────────────── */
+    /* ══════════════════════════════════════════════════════════
+       RESET
+       ══════════════════════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+    html { -webkit-font-smoothing: antialiased; }
     a    { text-decoration: none; color: inherit; }
     ul   { list-style: none; }
+    button { cursor: pointer; }
 
-    /* ─── BASE ───────────────────────────────────────────────────── */
+    /* ══════════════════════════════════════════════════════════
+       PAGE BACKGROUND
+       Exact: #FAFBF8 + their public CDN texture, fixed attachment
+       ══════════════════════════════════════════════════════════ */
     body {
-      font-family: var(--sans);
-      background-color: var(--bg);
-      /* Repeating grain texture — close approximation of their webp */
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
+      font-family: var(--body);
+      font-weight: 260;          /* their specific ultra-light weight */
       color: var(--ink);
+      background-color: var(--bg);
+      background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');
+      background-size: auto;
+      background-repeat: repeat;
+      background-attachment: fixed;
       min-height: 100vh;
     }
 
-    /* ─── GRID STRUCTURE LINES ───────────────────────────────────── */
-    /* The full-width horizontal / vertical rule system TextQL uses */
-    .grid-row {
-      position: relative;
+    /* ══════════════════════════════════════════════════════════
+       PAGE WRAPPER — max-width 1400px, centered
+       ══════════════════════════════════════════════════════════ */
+    .page {
       width: 100%;
-    }
-
-    /* left + right vertical rails */
-    .grid-row::before,
-    .grid-row::after {
-      content: '';
-      position: absolute;
-      top: 0; bottom: 0;
-      width: 1px;
-      background: var(--border);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .grid-row::before { left: calc((100% - 1160px) / 2); }
-    .grid-row::after  { right: calc((100% - 1160px) / 2); }
-
-    .grid-inner {
-      max-width: 1160px;
+      max-width: var(--max-w);
       margin: 0 auto;
-      padding: 0 40px;
+      min-height: 100%;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       GRID STRUCTURE SYSTEM
+       - .gr = grid-row: position:relative container for rails + h-rules
+       - .gr::before / ::after = left/right 1px vertical rails
+       - .h-rule inside .gr = full-viewport-width horizontal divider
+       - .gi = grid-inner: padded content zone
+       ══════════════════════════════════════════════════════════ */
+    .gr {
+      position: relative;
+    }
+
+    /* Left vertical rail */
+    .gr::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 1px; height: 100%;
+      background: var(--border);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Right vertical rail */
+    .gr::after {
+      content: "";
+      position: absolute;
+      top: 0; right: 0;
+      width: 1px; height: 100%;
+      background: var(--border);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Full-viewport-width horizontal rule — their exact technique */
+    .h-rule {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 1px;
+      background: var(--border);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .h-rule--top    { top: 0; }
+    .h-rule--bottom { bottom: 0; }
+
+    /* Grid inner: padded content, z:1 to sit above rails */
+    .gi {
+      padding: 0 var(--sp-5);    /* 0 30px horizontal */
       position: relative;
       z-index: 1;
     }
 
-    /* horizontal rule that spans full viewport */
-    .h-rule {
-      width: 100%;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* ─── NAV ────────────────────────────────────────────────────── */
-    header {
+    /* ══════════════════════════════════════════════════════════
+       NAV — 40px, sticky, left+right rails via ::before/::after
+       ══════════════════════════════════════════════════════════ */
+    .nav-wrap {
       position: sticky;
       top: 0;
       z-index: 200;
-      background: rgba(250,251,248,.92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(250, 251, 248, .94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-nav);
     }
 
     nav {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 0 40px;
-      height: 44px;
+      height: var(--nav-h);      /* 40px exactly */
+      padding: 0 var(--sp-4);    /* 0 18px */
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: relative;        /* for ::before/::after rails */
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0;
+    /* nav vertical rails — they use left/right border on the nav element */
+    nav::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 1px; height: 100%;
+      background: var(--border);
+    }
+    nav::after {
+      content: "";
+      position: absolute;
+      top: 0; right: 0;
+      width: 1px; height: 100%;
+      background: var(--border);
     }
 
-    /* TextQL's logo is just the wordmark in dark forest green */
-    .logo svg {
-      width: 88px;
-      height: 20px;
-      transform: translateY(1px);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 0;
-    }
-
-    .nav-links li a {
+    .nav-logo {
       font-family: var(--sans);
-      font-size: .875rem;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--ink-dark);
+      letter-spacing: -.03em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Logo mark — small square with emerald dot */
+    .nav-logo-mark {
+      width: 18px; height: 18px;
+      border: 1.5px solid var(--ink-dark);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-mark span {
+      width: 6px; height: 6px;
+      background: var(--emerald);
+      border-radius: 50%;
+    }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-center a {
+      font-family: var(--body);
       font-weight: 400;
+      font-size: var(--fs-md);   /* 14px */
       color: var(--ink);
-      padding: 0 .75rem;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      letter-spacing: -.01em;
+      padding: 0 var(--sp-4);    /* 0 18px */
+      height: var(--nav-h);
+      display: flex; align-items: center;
+      letter-spacing: -.015em;
+      border-left: 1px solid var(--border);
       transition: color var(--t-std);
-      border-right: 1px solid var(--border);
     }
+    .nav-center a:last-child { border-right: 1px solid var(--border); }
+    .nav-center a:hover { color: var(--emerald); }
 
-    .nav-links li:first-child a { border-left: 1px solid var(--border); }
+    .nav-actions { display: flex; align-items: center; gap: var(--sp-2); }
 
-    .nav-links li a:hover { color: var(--emerald); }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* ─── BUTTONS ────────────────────────────────────────────────── */
-    /* TextQL's signature: diagonal stripe, corner markers on hover */
+    /* ══════════════════════════════════════════════════════════
+       BUTTONS
+       Exact anatomy: square corners, diagonal stripe, corner markers
+       Primary bg: #3D5D55 (mid) → hover #047A55 (emerald)
+       ══════════════════════════════════════════════════════════ */
     .btn {
       position: relative;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
       font-family: var(--mono);
-      font-size: .75rem;
-      font-weight: 500;
-      letter-spacing: .05em;
+      font-size: var(--fs-xs);   /* 10px */
+      font-weight: 400;
       text-transform: uppercase;
-      padding: .375rem 1.125rem;
-      border-radius: 0;
-      cursor: pointer;
+      letter-spacing: .06em;
+      padding: var(--sp-3) var(--sp-4);  /* 12px 18px */
+      border-radius: 0;                   /* SQUARE */
       border: none;
       outline: none;
-      transition: background var(--t-std), color var(--t-std);
-      overflow: hidden;
+      transition: background-color var(--t-std), border-color var(--t-std);
+      text-decoration: none;
+      white-space: nowrap;
     }
 
-    /* corner markers — TextQL's signature hover effect */
-    .btn::before,
-    .btn::after {
-      content: '';
-      position: absolute;
-      width: 5px; height: 5px;
-      opacity: 0;
-      transition: opacity var(--t-fast);
-    }
-    .btn::before {
-      top: -1px; left: -1px;
-      border-top: 1px solid currentColor;
-      border-left: 1px solid currentColor;
-    }
-    .btn::after {
-      bottom: -1px; right: -1px;
-      border-bottom: 1px solid currentColor;
-      border-right: 1px solid currentColor;
-    }
-    .btn:hover::before,
-    .btn:hover::after { opacity: 1; }
-
+    /* Diagonal stripe on ALL buttons */
     .btn-primary {
-      background: var(--emerald);
-      color: #fff;
+      background-color: var(--ink-mid);   /* #3D5D55 */
+      color: var(--white);
+      border: 1px solid transparent;
       background-image: repeating-linear-gradient(
         45deg,
-        transparent 0, transparent 2px,
+        transparent, transparent 2px,
         rgba(255,255,255,.03) 2px, rgba(255,255,255,.03) 4px
       );
     }
-    .btn-primary:hover { background-color: var(--ink-dark); }
+    .btn-primary:hover { background-color: var(--emerald); }  /* #047A55 */
 
     .btn-ghost {
-      background: transparent;
+      background-color: transparent;
       color: var(--ink);
       border: 1px solid var(--ink);
       background-image: repeating-linear-gradient(
         45deg,
-        transparent 0, transparent 2px,
-        rgba(0,0,0,.015) 2px, rgba(0,0,0,.015) 4px
+        transparent, transparent 2px,
+        rgba(0,0,0,.025) 2px, rgba(0,0,0,.025) 4px
       );
     }
     .btn-ghost:hover { border-color: var(--ink-dark); color: var(--ink-dark); }
 
-    /* ─── HERO ───────────────────────────────────────────────────── */
-    .hero-wrap {
-      padding: 64px 0 56px;
+    /* Corner markers — top-left */
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: -4px; left: -4px;
+      width: 5px; height: 5px;
+      opacity: 0;
+      border-top: 1px solid currentColor;
+      border-left: 1px solid currentColor;
+      transition: opacity var(--t-fast);
+      pointer-events: none;
     }
+    /* Corner markers — top-right */
+    .btn::after {
+      content: "";
+      position: absolute;
+      top: -4px; right: -4px;
+      width: 5px; height: 5px;
+      opacity: 0;
+      border-top: 1px solid currentColor;
+      border-right: 1px solid currentColor;
+      transition: opacity var(--t-fast);
+      pointer-events: none;
+    }
+    .btn:hover::before, .btn:hover::after,
+    .btn:focus::before, .btn:focus::after { opacity: 1; }
 
-    .section-eyebrow {
+    /* ══════════════════════════════════════════════════════════
+       SECTION LABEL / EYEBROW
+       GeistMono, 10px, uppercase, letter-spacing .10em, muted
+       ══════════════════════════════════════════════════════════ */
+    .eyebrow {
       font-family: var(--mono);
-      font-size: .625rem;
-      font-weight: 600;
+      font-size: var(--fs-xs);
+      font-weight: 400;
       text-transform: uppercase;
-      letter-spacing: .1em;
+      letter-spacing: .10em;
       color: var(--ink-muted);
-      margin-bottom: 24px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      line-height: 89%;
+      opacity: .85;
     }
 
-    /* the tiny pulse dot TextQL uses */
-    .pulse-dot {
-      width: 6px; height: 6px;
+    /* Pulse dot — their exact animation with scale + glow */
+    .pulse {
+      width: 8px; height: 8px;
       border-radius: 50%;
       background: var(--emerald);
-      box-shadow: 0 0 4px 2px rgba(4,122,85,.3);
-      animation: pulse 2s ease-in-out infinite;
       flex-shrink: 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 4px 2px rgba(4,122,85,.3);
+      }
+      50% {
+        opacity: .6;
+        transform: scale(.85);
+        box-shadow: 0 0 8px 4px rgba(4,122,85,.5);
+      }
     }
 
-    @keyframes pulse {
-      0%, 50%  { opacity: 1; }
-      51%, 100%{ opacity: .25; }
+    /* ══════════════════════════════════════════════════════════
+       TAG / BADGE
+       GeistMono, 9px, uppercase, rounded 3px
+       ══════════════════════════════════════════════════════════ */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+    .tag-neutral { background: rgba(46,59,54,.07); color: var(--ink-muted); }
+    .tag-active  { background: rgba(4,122,85,.12);  color: var(--emerald); }
+
+    /* ══════════════════════════════════════════════════════════
+       HERO SECTION
+       ══════════════════════════════════════════════════════════ */
+    .hero-section {
+      padding: var(--sp-7) 0 var(--sp-6);   /* 64px top, 48px bottom */
     }
 
     .hero-heading {
       font-family: var(--sans);
-      font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 400;
+      font-size: max(var(--fs-3xl), 4vw);    /* 64px or 4vw */
+      word-spacing: -.20em;
+      letter-spacing: -.025em;
+      line-height: .89;                       /* TIGHT — below 1.0 */
       color: var(--ink);
-      line-height: .93;
-      letter-spacing: -.03em;
-      word-spacing: -.15em;
-      max-width: 640px;
+      max-width: 680px;
+      margin-top: var(--sp-4);
     }
 
-    /* The italic serif accent word — LibreCaslon */
+    /* LibreCaslon italic accent — their exact spec */
     .hero-heading em {
-      font-family: var(--serif-italic);
+      font-family: var(--caslon);
       font-style: italic;
       font-weight: 400;
       color: var(--emerald);
       text-decoration: underline;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 8px;
-      word-spacing: 0;
+      text-decoration-color: var(--emerald);
+      text-decoration-thickness: 3px;
+      text-underline-offset: 10px;
+      text-decoration-skip-ink: none;
+      word-spacing: 0;                        /* reset compressed word-spacing */
     }
 
     .hero-sub {
-      margin-top: 20px;
-      font-size: .9375rem;
+      margin-top: var(--sp-4);               /* 18px */
+      font-family: var(--body);
+      font-weight: 260;
+      font-size: var(--fs-md);               /* 14px */
+      line-height: 1.6;
+      letter-spacing: -.015em;
       color: var(--ink-muted);
-      line-height: 1.55;
-      font-weight: 400;
-      max-width: 420px;
-      letter-spacing: -.01em;
+      max-width: 400px;
     }
 
-    /* ─── DOT DECORATION ─────────────────────────────────────────── */
-    /* TextQL's radial dot pattern in hero */
+    .hero-actions {
+      margin-top: var(--sp-5);              /* 30px */
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+    }
+
+    /* Radial dot field decoration — from their hero CSS */
     .dot-field {
       position: absolute;
-      right: 0; top: 0;
-      width: 320px; height: 200px;
-      background-image: radial-gradient(var(--ink-muted) 1px, transparent 1px);
+      width: 200px; height: 160px;
+      background-image: radial-gradient(var(--ink-muted) 1.5px, transparent 1.5px);
       background-size: 12px 12px;
-      opacity: .18;
+      opacity: .25;
       pointer-events: none;
-      mask-image: radial-gradient(ellipse 70% 80% at 80% 40%, black, transparent);
+      mask-image: radial-gradient(ellipse 80% 80% at 80% 50%, black, transparent);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 80% 50%, black, transparent);
     }
 
-    /* ─── FILTER TABS ────────────────────────────────────────────── */
+    /* ══════════════════════════════════════════════════════════
+       FILTER BAR
+       GeistMono tabs, bottom-border active state
+       ══════════════════════════════════════════════════════════ */
     .filter-bar {
       display: flex;
       align-items: center;
-      gap: 0;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 0;
     }
 
     .filter-tab {
       font-family: var(--mono);
-      font-size: .625rem;
-      font-weight: 600;
+      font-size: var(--fs-xs);
+      font-weight: 400;
       text-transform: uppercase;
-      letter-spacing: .1em;
+      letter-spacing: .10em;
       color: var(--ink-muted);
-      padding: .75rem 1.25rem;
-      cursor: pointer;
+      padding: var(--sp-3) var(--sp-4);    /* 12px 18px */
+      height: 40px;
+      background: none;
+      border: none;
       border-bottom: 2px solid transparent;
       margin-bottom: -1px;
+      cursor: pointer;
       transition: color var(--t-std), border-color var(--t-std);
-      background: none;
-      border-top: none;
-      border-left: none;
-      border-right: none;
+      border-right: 1px solid var(--border);
     }
-
+    .filter-tab:first-child { border-left: 1px solid var(--border); }
     .filter-tab.active {
       color: var(--ink);
       border-bottom-color: var(--emerald);
     }
+    .filter-tab:hover:not(.active) { color: var(--ink); }
 
-    .filter-tab:hover { color: var(--ink); }
-
-    /* ─── FEATURED POST ──────────────────────────────────────────── */
-    .featured-wrap {
-      padding: 40px 0 0;
+    /* ══════════════════════════════════════════════════════════
+       FEATURED POST CARD
+       Dark green bg, diagonal stripe, monet overlay, anatomy exact
+       ══════════════════════════════════════════════════════════ */
+    .featured {
+      padding: var(--sp-5) 0 0;            /* 30px top, flush bottom (h-rule handles it) */
     }
 
     .featured-card {
       display: grid;
-      grid-template-columns: 1fr 400px;
-      border: 1px solid var(--border);
-      border-radius: var(--r-md);
+      grid-template-columns: 1fr 380px;
+      border-radius: 12px;
+      border: 1px solid rgba(46,59,54,.15);
       overflow: hidden;
-      background: var(--ink-dark);
+      position: relative;
       cursor: pointer;
       transition: transform var(--t-slow), box-shadow var(--t-slow);
     }
-
     .featured-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(0,0,0,.12);
+      box-shadow: 0 10px 40px rgba(0,0,0,.12);
     }
 
-    .featured-text {
-      padding: 44px 44px 40px;
+    /* Text panel */
+    .fc-text {
+      background-color: var(--ink-dark);   /* #072A20 */
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent, transparent 3px,
+        rgba(255,255,255,.012) 3px, rgba(255,255,255,.012) 6px
+      );
+      padding: var(--sp-5) var(--sp-5) var(--sp-4);  /* 30px / 18px */
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      background-image: repeating-linear-gradient(
-        45deg,
-        transparent 0, transparent 3px,
-        rgba(255,255,255,.008) 3px, rgba(255,255,255,.008) 6px
-      );
+      position: relative;
     }
 
-    .post-tag {
-      display: inline-flex;
-      align-items: center;
-      font-family: var(--mono);
-      font-size: .625rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--emerald);
-      background: rgba(4,122,85,.12);
-      padding: 3px 8px;
-      border-radius: var(--r-sm);
-      width: fit-content;
+    /* Monet overlay on dark panel */
+    .fc-text::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/monet/2bg.webp');
+      background-size: cover;
+      background-position: center;
+      opacity: .05;
+      pointer-events: none;
     }
 
-    .featured-title {
+    .fc-body { position: relative; z-index: 1; }
+    .fc-foot { position: relative; z-index: 1; }
+
+    .fc-title {
       font-family: var(--sans);
-      font-size: clamp(1.4rem, 2.5vw, 2rem);
       font-weight: 400;
-      color: #fff;
-      line-height: 1.08;
+      font-size: clamp(1.5rem, 2.8vw, 2.2rem);
       letter-spacing: -.025em;
       word-spacing: -.05em;
-      margin-top: 18px;
+      line-height: .96;
+      color: var(--white);
+      margin-top: var(--sp-3);
     }
 
-    .featured-title em {
-      font-family: var(--serif-italic);
+    .fc-title em {
+      font-family: var(--caslon);
       font-style: italic;
-      color: rgba(255,255,255,.65);
+      color: rgba(255,255,255,.55);
     }
 
-    .featured-excerpt {
-      font-size: .875rem;
-      color: rgba(255,255,255,.45);
-      line-height: 1.6;
-      font-weight: 300;
-      margin-top: 16px;
+    .fc-excerpt {
+      margin-top: var(--sp-3);
+      font-family: var(--body);
+      font-weight: 260;
+      font-size: var(--fs-md);
+      line-height: 1.65;
       letter-spacing: -.01em;
+      color: rgba(255,255,255,.4);
     }
 
-    .featured-meta {
-      margin-top: 36px;
+    .fc-meta {
+      margin-top: var(--sp-5);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .author-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      display: flex; align-items: center; gap: var(--sp-3);
     }
 
     .avatar {
-      width: 30px; height: 30px;
+      width: 28px; height: 28px;
       border-radius: 50%;
-      background: var(--ink-mid);
-      border: 1px solid rgba(255,255,255,.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      display: flex; align-items: center; justify-content: center;
       font-family: var(--mono);
-      font-size: .625rem;
-      font-weight: 600;
-      color: rgba(255,255,255,.8);
+      font-size: 8px; font-weight: 600;
+      color: rgba(255,255,255,.7);
       flex-shrink: 0;
     }
 
     .author-name {
-      font-size: .8125rem;
-      font-weight: 500;
-      color: rgba(255,255,255,.75);
+      font-family: var(--body);
+      font-size: var(--fs-sm); /* 12px */
+      font-weight: 400;
+      color: rgba(255,255,255,.65);
       letter-spacing: -.01em;
     }
 
     .post-date {
       font-family: var(--mono);
-      font-size: .625rem;
-      color: rgba(255,255,255,.3);
-      letter-spacing: .05em;
-      margin-top: 1px;
+      font-size: var(--fs-xs); /* 10px */
+      color: rgba(255,255,255,.28);
+      letter-spacing: .04em;
+      margin-top: 2px;
     }
 
+    /* Arrow link — their exact hover: gap widens */
     .arrow-link {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       font-family: var(--mono);
-      font-size: .625rem;
-      font-weight: 600;
+      font-size: var(--fs-xs);
+      font-weight: 400;
       text-transform: uppercase;
-      letter-spacing: .1em;
+      letter-spacing: .10em;
       color: var(--emerald);
       transition: gap var(--t-std);
     }
+    .arrow-link:hover { gap: 9px; }
 
-    .arrow-link:hover { gap: 10px; }
-
-    /* featured right panel — visual */
-    .featured-panel {
-      background: var(--ink-mid);
+    /* Visual panel */
+    .fc-visual {
+      background: var(--ink-mid);          /* #3D5D55 */
       position: relative;
       overflow: hidden;
-      padding: 28px;
+      padding: var(--sp-4);               /* 18px */
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: var(--sp-3);
     }
 
-    /* monet overlay — exact technique */
-    .featured-panel::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(4,122,85,.15) 0%, transparent 60%);
+    /* Monet overlay on visual panel */
+    .fc-visual::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/monet/4bg.webp');
+      background-size: cover;
+      background-position: center;
+      opacity: .08;
       pointer-events: none;
     }
 
     .panel-block {
       background: rgba(0,0,0,.2);
-      border: 1px solid rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.07);
       border-radius: 8px;
-      padding: 16px;
+      padding: var(--sp-4);               /* 18px */
       position: relative;
       z-index: 1;
     }
 
-    .panel-label {
+    .panel-eyebrow {
       font-family: var(--mono);
-      font-size: .5625rem;
+      font-size: 9px;
       text-transform: uppercase;
       letter-spacing: .08em;
-      color: rgba(255,255,255,.3);
-      margin-bottom: 12px;
+      color: rgba(255,255,255,.28);
+      margin-bottom: var(--sp-3);
     }
 
-    /* mini bar chart */
-    .mini-chart {
+    /* Mini bar chart */
+    .mini-bars {
       display: flex;
       align-items: flex-end;
-      gap: 4px;
-      height: 44px;
+      gap: 3px;
+      height: 40px;
     }
-
     .mini-bar {
       flex: 1;
       border-radius: 2px 2px 0 0;
       background: var(--emerald);
     }
 
-    /* animated stroke SVG */
-    .panel-svg {
-      position: relative;
-      z-index: 1;
-    }
-
+    /* Animated SVG sparkline — strokeDash animation */
     .panel-svg path {
       stroke-dasharray: 30;
       stroke-dashoffset: 30;
       animation: strokeDash 2.5s linear infinite;
+      filter: drop-shadow(0 0 3px rgba(4,122,85,.5));
     }
-
     @keyframes strokeDash {
-      0%   { stroke-dashoffset: 30; }
-      100% { stroke-dashoffset: -100; }
+      from { stroke-dashoffset: 30; }
+      to   { stroke-dashoffset: -100; }
     }
 
-    /* query block */
+    /* Code block */
     .code-block {
       font-family: var(--mono);
-      font-size: .6875rem;
+      font-size: 11px;
       line-height: 1.75;
       position: relative;
       z-index: 1;
     }
+    .cm { color: rgba(255,255,255,.2); }
+    .kw { color: rgba(167,218,200,.9); }
+    .fd { color: rgba(255,255,255,.6); }
+    .st { color: rgba(100,190,160,.9); }
 
-    .code-block .cm  { color: rgba(255,255,255,.22); }
-    .code-block .kw  { color: rgba(167,218,199,1); }
-    .code-block .fd  { color: rgba(255,255,255,.65); }
-    .code-block .st  { color: rgba(100,190,160,1); }
-
-    /* ─── POSTS GRID ─────────────────────────────────────────────── */
-    .posts-section {
-      padding: 0 0 56px;
-    }
+    /* ══════════════════════════════════════════════════════════
+       POSTS GRID
+       Seamless border system: container sets left+top,
+       each cell adds right+bottom. No doubled borders.
+       ══════════════════════════════════════════════════════════ */
+    .posts-section { padding: var(--sp-5) 0 var(--sp-6); }
 
     .posts-grid {
       display: grid;
@@ -562,50 +694,50 @@
       border-top: 1px solid var(--border);
     }
 
-    .post-card {
+    .post-cell {
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 28px 28px 24px;
-      cursor: pointer;
+      padding: var(--sp-5);              /* 30px — their standard section pad */
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      transition: background var(--t-std);
+      gap: var(--sp-3);
+      cursor: pointer;
       position: relative;
+      transition: background var(--t-std);
+      overflow: hidden;
     }
 
-    /* monet overlay on hover */
-    .post-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(4,122,85,.04) 0%, transparent 70%);
+    /* Monet overlay on hover — their exact technique */
+    .post-cell::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/monet/1bg.webp');
+      background-size: cover;
+      background-position: center;
       opacity: 0;
-      transition: opacity var(--t-std);
+      transition: opacity var(--t-slow);
       pointer-events: none;
+      z-index: 0;
     }
+    .post-cell:hover::before { opacity: .05; }
 
-    .post-card:hover::before { opacity: 1; }
-
-    .post-card .post-tag {
-      color: var(--ink-muted);
-      background: rgba(46,59,54,.06);
-    }
+    .post-cell > * { position: relative; z-index: 1; }
 
     .post-title {
       font-family: var(--sans);
-      font-size: 1.0625rem;
       font-weight: 500;
+      font-size: var(--fs-base);         /* 16px */
       color: var(--ink);
-      line-height: 1.2;
+      line-height: 1.25;
       letter-spacing: -.02em;
     }
 
     .post-excerpt {
-      font-size: .8125rem;
+      font-family: var(--body);
+      font-weight: 260;
+      font-size: var(--fs-md);           /* 14px */
       color: var(--ink-muted);
       line-height: 1.6;
-      font-weight: 400;
       letter-spacing: -.01em;
       flex: 1;
     }
@@ -614,142 +746,140 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 14px;
+      padding-top: var(--sp-3);
       border-top: 1px solid var(--border);
     }
 
-    .post-author-row {
+    .post-author {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: var(--sp-2);
     }
 
     .post-avatar {
-      width: 24px; height: 24px;
+      width: 22px; height: 22px;
       border-radius: 50%;
-      background: rgba(46,59,54,.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: rgba(46,59,54,.10);
+      display: flex; align-items: center; justify-content: center;
       font-family: var(--mono);
-      font-size: .5rem;
-      font-weight: 600;
+      font-size: 7px; font-weight: 600;
       color: var(--ink);
     }
 
     .post-author-name {
-      font-size: .75rem;
-      font-weight: 500;
+      font-family: var(--body);
+      font-size: var(--fs-sm);           /* 12px */
+      font-weight: 400;
       color: var(--ink);
       letter-spacing: -.01em;
     }
 
     .post-date-sm {
       font-family: var(--mono);
-      font-size: .5625rem;
+      font-size: 9px;
       color: var(--ink-muted);
       letter-spacing: .05em;
     }
 
-    /* ─── NEWSLETTER BANNER ──────────────────────────────────────── */
-    /* TextQL's CTA banner with diagonal stripes */
+    /* ══════════════════════════════════════════════════════════
+       NEWSLETTER BANNER
+       Emerald bg + diagonal stripe (their banner pattern)
+       Input: square, GeistMono, transparent bg
+       ══════════════════════════════════════════════════════════ */
     .newsletter-wrap {
-      background: var(--emerald);
+      background-color: var(--emerald);
       background-image: repeating-linear-gradient(
         45deg,
-        transparent 0, transparent 3px,
-        rgba(0,0,0,.04) 3px, rgba(0,0,0,.04) 6px
+        transparent, transparent 3px,
+        rgba(0,0,0,.05) 3px, rgba(0,0,0,.05) 6px
       );
-      padding: 56px 0;
-      border-top: 1px solid rgba(4,122,85,.4);
-      border-bottom: 1px solid rgba(4,122,85,.4);
+      position: relative;
     }
 
     .newsletter-inner {
+      padding: var(--sp-6) 0;            /* 48px vertical */
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 48px;
+      gap: var(--sp-7);
     }
 
-    .newsletter-copy h2 {
+    .nl-copy h2 {
       font-family: var(--sans);
-      font-size: 1.75rem;
       font-weight: 400;
-      color: #fff;
+      font-size: var(--fs-xl);           /* 32px */
+      color: var(--white);
       letter-spacing: -.03em;
-      line-height: 1.05;
+      line-height: .93;
     }
 
-    .newsletter-copy h2 em {
-      font-family: var(--serif-italic);
+    .nl-copy h2 em {
+      font-family: var(--caslon);
       font-style: italic;
     }
 
-    .newsletter-copy p {
-      margin-top: 8px;
-      font-size: .875rem;
-      color: rgba(255,255,255,.6);
-      font-weight: 300;
+    .nl-copy p {
+      margin-top: var(--sp-2);
+      font-family: var(--body);
+      font-weight: 260;
+      font-size: var(--fs-md);
+      color: rgba(255,255,255,.55);
       letter-spacing: -.01em;
     }
 
-    .newsletter-form {
+    /* Input field — exact spec: square, transparent, GeistMono */
+    .nl-form {
       display: flex;
-      gap: 0;
       flex-shrink: 0;
       border: 1px solid rgba(255,255,255,.25);
     }
 
-    /* TextQL inputs: border-radius 0, Geist Mono */
-    .email-input {
+    .nl-input {
       background: rgba(0,0,0,.15);
       border: none;
       border-right: 1px solid rgba(255,255,255,.25);
       outline: none;
-      padding: .625rem 1rem;
+      padding: var(--sp-3) var(--sp-4);  /* 12px 18px */
       font-family: var(--mono);
-      font-size: .75rem;
-      color: #fff;
-      width: 240px;
-      border-radius: 0;
-      letter-spacing: .01em;
-    }
-
-    .email-input::placeholder { color: rgba(255,255,255,.35); }
-    .email-input:focus { background: rgba(0,0,0,.22); }
-
-    .newsletter-btn {
-      background: rgba(0,0,0,.25);
-      border: none;
-      padding: .625rem 1.25rem;
-      font-family: var(--mono);
-      font-size: .625rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: #fff;
-      cursor: pointer;
-      border-radius: 0;
+      font-size: var(--fs-xs);
+      letter-spacing: .03em;
+      color: var(--white);
+      border-radius: 0;                  /* SQUARE */
+      width: 220px;
       transition: background var(--t-std);
     }
+    .nl-input::placeholder { color: rgba(255,255,255,.35); }
+    .nl-input:focus { background: rgba(0,0,0,.22); }
 
-    .newsletter-btn:hover { background: rgba(0,0,0,.4); }
-
-    /* ─── FOOTER ─────────────────────────────────────────────────── */
-    footer {
-      padding: 36px 0;
+    .nl-submit {
+      background: rgba(0,0,0,.2);
+      border: none;
+      padding: var(--sp-3) var(--sp-4);
+      font-family: var(--mono);
+      font-size: var(--fs-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .10em;
+      color: var(--white);
+      border-radius: 0;
+      cursor: pointer;
+      transition: background var(--t-std);
     }
+    .nl-submit:hover { background: rgba(0,0,0,.35); }
 
+    /* ══════════════════════════════════════════════════════════
+       FOOTER
+       ══════════════════════════════════════════════════════════ */
     .footer-inner {
+      padding: var(--sp-5) 0;            /* 30px */
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .footer-logo {
+    .footer-brand {
       font-family: var(--mono);
-      font-size: .6875rem;
+      font-size: var(--fs-xs);
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: .12em;
@@ -757,61 +887,69 @@
     }
 
     .footer-links {
-      display: flex;
-      gap: 28px;
+      display: flex; gap: var(--sp-5);
     }
-
     .footer-links a {
-      font-size: .8125rem;
+      font-family: var(--body);
+      font-size: var(--fs-md);
+      font-weight: 400;
       color: var(--ink-muted);
-      transition: color var(--t-std);
       letter-spacing: -.01em;
+      transition: color var(--t-std);
     }
-
     .footer-links a:hover { color: var(--ink); }
 
     .footer-copy {
       font-family: var(--mono);
-      font-size: .5625rem;
-      color: var(--ink-muted);
-      letter-spacing: .08em;
+      font-size: 9px;
       text-transform: uppercase;
+      letter-spacing: .10em;
+      color: var(--ink-faint);
     }
   </style>
 </head>
 <body>
 
-  <!-- ── NAV ───────────────────────────────────────────────── -->
-  <header>
+<div class="page">
+
+  <!-- ═══════════════════════════════════════════════════════
+       NAV — 40px, left+right vertical rails, sticky
+       ═══════════════════════════════════════════════════════ -->
+  <div class="nav-wrap">
     <nav>
-      <a href="#" class="logo" aria-label="TextQL">
-        <!-- Wordmark SVG matching TextQL's logo style / color -->
-        <svg viewBox="0 0 88 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="16" font-family="Geist, sans-serif" font-size="16" font-weight="600" fill="#072A20" letter-spacing="-0.5">textql</text>
-        </svg>
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-mark"><span></span></div>
+        textql
       </a>
 
-      <ul class="nav-links">
-        <li><a href="#">Product</a></li>
-        <li><a href="#">Industries</a></li>
-        <li><a href="#">Company</a></li>
-      </ul>
+      <div class="nav-center">
+        <a href="#">Product</a>
+        <a href="#">Industries</a>
+        <a href="#">Company</a>
+      </div>
 
       <div class="nav-actions">
         <a href="#" class="btn btn-ghost">Get started</a>
         <a href="#" class="btn btn-primary">Request demo</a>
       </div>
     </nav>
-  </header>
+  </div>
 
-  <!-- ── HERO ──────────────────────────────────────────────── -->
-  <div class="grid-row">
-    <div class="grid-inner">
-      <div class="hero-wrap" style="position:relative">
-        <div class="dot-field"></div>
 
-        <div class="section-eyebrow">
-          <span class="pulse-dot"></span>
+  <!-- ═══════════════════════════════════════════════════════
+       HERO
+       - .gr wraps all sections with left+right vertical rails
+       - .h-rule spans 100vw for horizontal section dividers
+       ═══════════════════════════════════════════════════════ -->
+  <div class="gr">
+    <div class="gi">
+      <section class="hero-section" style="position:relative; overflow:visible">
+
+        <!-- Radial dot decoration (right side) -->
+        <div class="dot-field" style="position:absolute; right:60px; top:40px;"></div>
+
+        <div class="eyebrow">
+          <span class="pulse"></span>
           Blog
         </div>
 
@@ -820,89 +958,96 @@
         </h1>
 
         <p class="hero-sub">
-          Engineering insights, product thinking, and stories<br/>
-          from building Ana — the AI analyst your team trusts.
+          Engineering insights, product thinking, and stories from building Ana — the AI analyst your team actually trusts.
         </p>
 
-        <div style="margin-top:32px; display:flex; align-items:center; gap:12px">
+        <div class="hero-actions">
           <a href="#" class="btn btn-primary">All posts</a>
           <a href="#" class="btn btn-ghost">Engineering</a>
         </div>
-      </div>
+      </section>
     </div>
-  </div>
 
-  <div class="h-rule"></div>
+    <!-- Horizontal rule — full 100vw -->
+    <div style="position:relative; height:1px">
+      <div class="h-rule h-rule--top"></div>
+    </div>
 
-  <!-- ── FILTER BAR ─────────────────────────────────────────── -->
-  <div class="grid-row">
-    <div class="grid-inner" style="padding-top:0; padding-bottom:0">
+    <!-- Filter bar -->
+    <div class="gi" style="padding-top:0; padding-bottom:0">
       <div class="filter-bar">
-        <button class="filter-tab active">All</button>
-        <button class="filter-tab">Engineering</button>
-        <button class="filter-tab">Product</button>
-        <button class="filter-tab">Announcements</button>
-        <button class="filter-tab">Team</button>
+        <button class="filter-tab active" onclick="setTab(this)">All</button>
+        <button class="filter-tab" onclick="setTab(this)">Engineering</button>
+        <button class="filter-tab" onclick="setTab(this)">Product</button>
+        <button class="filter-tab" onclick="setTab(this)">Announcements</button>
+        <button class="filter-tab" onclick="setTab(this)">Team</button>
       </div>
     </div>
-  </div>
 
-  <!-- ── FEATURED ───────────────────────────────────────────── -->
-  <div class="grid-row">
-    <div class="grid-inner">
-      <div class="featured-wrap">
+    <!-- Horizontal rule -->
+    <div style="position:relative; height:1px">
+      <div class="h-rule h-rule--top"></div>
+    </div>
+
+    <!-- Featured post -->
+    <div class="gi">
+      <div class="featured">
         <div class="featured-card">
 
-          <!-- text side -->
-          <div class="featured-text">
-            <div>
-              <span class="post-tag">Announcements</span>
-              <h2 class="featured-title">
+          <!-- Text panel -->
+          <div class="fc-text">
+            <div class="fc-body">
+              <span class="tag tag-active">Announcements</span>
+              <h2 class="fc-title">
                 Why we built Ana to say<br/>"<em>I don't know</em>" more often
               </h2>
-              <p class="featured-excerpt">
+              <p class="fc-excerpt">
                 Trust in AI analytics is brittle. One wrong answer poisons the well. Here's how we designed Ana to be honest about uncertainty — and why that counterintuitively makes her far more useful.
               </p>
             </div>
-            <div class="featured-meta">
-              <div class="author-row">
-                <div class="avatar">SL</div>
-                <div>
-                  <div class="author-name">Soren Liu</div>
-                  <div class="post-date">Feb 18 · 8 min</div>
+
+            <div class="fc-foot">
+              <div class="fc-meta">
+                <div class="author-row">
+                  <div class="avatar">SL</div>
+                  <div>
+                    <div class="author-name">Soren Liu</div>
+                    <div class="post-date">Feb 18 · 8 min read</div>
+                  </div>
                 </div>
+                <a href="#" class="arrow-link">
+                  Read
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
               </div>
-              <a href="#" class="arrow-link">
-                Read
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </a>
             </div>
           </div>
 
-          <!-- visual side -->
-          <div class="featured-panel">
+          <!-- Visual panel -->
+          <div class="fc-visual">
+
             <div class="panel-block">
-              <div class="panel-label">Revenue by segment · Q4</div>
-              <div class="mini-chart">
-                <div class="mini-bar" style="height:72%;opacity:.9"></div>
-                <div class="mini-bar" style="height:48%;opacity:.55"></div>
-                <div class="mini-bar" style="height:100%;opacity:.85"></div>
-                <div class="mini-bar" style="height:60%;opacity:.65"></div>
-                <div class="mini-bar" style="height:82%;opacity:.8"></div>
-                <div class="mini-bar" style="height:38%;opacity:.45"></div>
-                <div class="mini-bar" style="height:90%;opacity:.9"></div>
+              <div class="panel-eyebrow">Revenue by segment · Q4</div>
+              <div class="mini-bars">
+                <div class="mini-bar" style="height:72%; opacity:.85"></div>
+                <div class="mini-bar" style="height:45%; opacity:.5"></div>
+                <div class="mini-bar" style="height:100%;opacity:.9"></div>
+                <div class="mini-bar" style="height:60%; opacity:.65"></div>
+                <div class="mini-bar" style="height:80%; opacity:.8"></div>
+                <div class="mini-bar" style="height:35%; opacity:.45"></div>
+                <div class="mini-bar" style="height:90%; opacity:.9"></div>
               </div>
             </div>
 
-            <!-- animated SVG line -->
-            <div class="panel-block panel-svg">
-              <svg width="100%" height="32" viewBox="0 0 340 32" fill="none">
-                <path d="M0 16 C40 4, 80 28, 120 16 C160 4, 200 28, 240 16 C280 4, 320 28, 340 16"
-                  stroke="#047A55" stroke-width="1.5" fill="none" opacity=".7"/>
-                <path d="M0 22 C40 10, 80 34, 120 22 C160 10, 200 34, 240 22 C280 10, 320 34, 340 22"
-                  stroke="rgba(255,255,255,.15)" stroke-width="1" fill="none"/>
+            <!-- Animated stroke sparkline -->
+            <div class="panel-block panel-svg" style="padding: 14px 18px">
+              <svg width="100%" height="28" viewBox="0 0 320 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 14 C40 4, 80 24, 120 14 C160 4, 200 24, 240 14 C280 4, 310 22, 320 14"
+                  stroke="#047A55" stroke-width="1.5" fill="none"/>
+                <path d="M0 20 C40 10, 80 30, 120 20 C160 10, 200 30, 240 20 C280 10, 310 28, 320 20"
+                  stroke="rgba(255,255,255,.1)" stroke-width="1" fill="none"/>
               </svg>
             </div>
 
@@ -916,28 +1061,28 @@
                 <div><span class="kw">GROUP BY</span> <span class="fd">segment</span></div>
               </div>
             </div>
-          </div>
 
-        </div>
-      </div>
+          </div><!-- /fc-visual -->
+        </div><!-- /featured-card -->
+      </div><!-- /featured -->
     </div>
-  </div>
 
-  <div class="h-rule" style="margin-top:40px"></div>
+    <!-- Horizontal rule -->
+    <div style="position:relative; height:1px; margin-top: var(--sp-5)">
+      <div class="h-rule h-rule--top"></div>
+    </div>
 
-  <!-- ── POSTS GRID ─────────────────────────────────────────── -->
-  <div class="grid-row">
-    <div class="grid-inner">
-      <div class="posts-section" style="padding-top:0">
+    <!-- Posts grid -->
+    <div class="gi">
+      <div class="posts-section">
         <div class="posts-grid">
 
-          <!-- post 1 -->
-          <div class="post-card">
-            <span class="post-tag">Engineering</span>
+          <div class="post-cell">
+            <span class="tag tag-neutral">Engineering</span>
             <div class="post-title">How we cut SQL generation latency by 60%</div>
             <p class="post-excerpt">A deep look at the caching strategy and prompt optimization that made Ana dramatically faster on repeat query patterns.</p>
             <div class="post-footer">
-              <div class="post-author-row">
+              <div class="post-author">
                 <div class="post-avatar">MK</div>
                 <span class="post-author-name">Maya Kim</span>
               </div>
@@ -945,13 +1090,12 @@
             </div>
           </div>
 
-          <!-- post 2 -->
-          <div class="post-card">
-            <span class="post-tag">Product</span>
+          <div class="post-cell">
+            <span class="tag tag-neutral">Product</span>
             <div class="post-title">The analyst handoff problem — and how we solve it</div>
-            <p class="post-excerpt">Business users want answers. Analysts want to be trusted. We built a workflow that makes both possible.</p>
+            <p class="post-excerpt">Business users want answers. Analysts want to be trusted. We built a workflow that makes both possible without anyone feeling replaced.</p>
             <div class="post-footer">
-              <div class="post-author-row">
+              <div class="post-author">
                 <div class="post-avatar">DR</div>
                 <span class="post-author-name">David Rossi</span>
               </div>
@@ -959,13 +1103,12 @@
             </div>
           </div>
 
-          <!-- post 3 -->
-          <div class="post-card">
-            <span class="post-tag">Team</span>
-            <div class="post-title">Why I left my quant role to build AI analytics</div>
-            <p class="post-excerpt">A personal reflection on building for data teams in 2026, and what surprised me most in my first 90 days.</p>
+          <div class="post-cell">
+            <span class="tag tag-neutral">Team</span>
+            <div class="post-title">Why I left my quant role to build AI analytics tools</div>
+            <p class="post-excerpt">A personal reflection on what it means to build for data teams in 2026, and what surprised me in my first 90 days.</p>
             <div class="post-footer">
-              <div class="post-author-row">
+              <div class="post-author">
                 <div class="post-avatar">AP</div>
                 <span class="post-author-name">Arjun Patel</span>
               </div>
@@ -973,13 +1116,12 @@
             </div>
           </div>
 
-          <!-- post 4 -->
-          <div class="post-card">
-            <span class="post-tag">Engineering</span>
-            <div class="post-title">Schema-aware prompting: giving LLMs better table context</div>
-            <p class="post-excerpt">Raw schema dumps are noisy. We built a semantic layer that compresses table relationships into dense, LLM-readable blocks.</p>
+          <div class="post-cell">
+            <span class="tag tag-neutral">Engineering</span>
+            <div class="post-title">Schema-aware prompting: better table context for LLMs</div>
+            <p class="post-excerpt">Raw schema dumps are noisy. We built a semantic layer that compresses table relationships into dense, model-readable context blocks.</p>
             <div class="post-footer">
-              <div class="post-author-row">
+              <div class="post-author">
                 <div class="post-avatar">SL</div>
                 <span class="post-author-name">Soren Liu</span>
               </div>
@@ -987,13 +1129,12 @@
             </div>
           </div>
 
-          <!-- post 5 -->
-          <div class="post-card">
-            <span class="post-tag">Product</span>
+          <div class="post-cell">
+            <span class="tag tag-neutral">Product</span>
             <div class="post-title">One query interface for Snowflake, BigQuery, and Databricks</div>
-            <p class="post-excerpt">What we learned building a truly warehouse-agnostic natural language query layer that doesn't sacrifice precision.</p>
+            <p class="post-excerpt">What we learned building a warehouse-agnostic NL query layer that doesn't sacrifice precision or performance.</p>
             <div class="post-footer">
-              <div class="post-author-row">
+              <div class="post-author">
                 <div class="post-avatar">MK</div>
                 <span class="post-author-name">Maya Kim</span>
               </div>
@@ -1001,13 +1142,12 @@
             </div>
           </div>
 
-          <!-- post 6 -->
-          <div class="post-card">
-            <span class="post-tag">Announcements</span>
-            <div class="post-title">TextQL raises $23M Series A</div>
+          <div class="post-cell">
+            <span class="tag tag-neutral">Announcements</span>
+            <div class="post-title">TextQL raises $23M Series A to expand enterprise AI analytics</div>
             <p class="post-excerpt">We're doubling down on the belief that every business user deserves direct, trustworthy access to their data.</p>
             <div class="post-footer">
-              <div class="post-author-row">
+              <div class="post-author">
                 <div class="post-avatar">JW</div>
                 <span class="post-author-name">James Wu</span>
               </div>
@@ -1018,51 +1158,59 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- ── NEWSLETTER ──────────────────────────────────────────── -->
-  <div class="newsletter-wrap">
-    <div class="grid-inner">
-      <div class="newsletter-inner">
-        <div class="newsletter-copy">
-          <h2>Stay in the <em>loop.</em></h2>
-          <p>Engineering posts, product updates, and thinking from the team — no noise.</p>
+  </div><!-- /.gr -->
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       NEWSLETTER — emerald bg, diagonal stripe, square input
+       ═══════════════════════════════════════════════════════ -->
+  <div class="gr">
+    <div class="h-rule h-rule--top" style="position:relative"></div>
+    <div class="gi">
+      <div class="newsletter-wrap" style="margin: 0 calc(-1 * var(--sp-5))">
+        <div class="newsletter-inner" style="padding-left: var(--sp-5); padding-right: var(--sp-5)">
+          <div class="nl-copy">
+            <h2>Stay in the <em>loop.</em></h2>
+            <p>Engineering posts, product updates, and team thinking — no noise.</p>
+          </div>
+          <form class="nl-form" onsubmit="return false">
+            <input class="nl-input" type="email" placeholder="you@company.com" />
+            <button class="nl-submit">Subscribe</button>
+          </form>
         </div>
-        <form class="newsletter-form" onsubmit="return false">
-          <input class="email-input" type="email" placeholder="you@company.com" />
-          <button class="newsletter-btn">Subscribe</button>
-        </form>
       </div>
     </div>
   </div>
 
-  <!-- ── FOOTER ─────────────────────────────────────────────── -->
-  <div class="grid-row">
-    <div class="grid-inner">
-      <footer>
-        <div class="footer-inner">
-          <span class="footer-logo">TextQL</span>
-          <ul class="footer-links">
-            <li><a href="#">Product</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Privacy</a></li>
-          </ul>
-          <span class="footer-copy">© 2026 TextQL, Inc.</span>
-        </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════ -->
+  <div class="gr">
+    <div class="h-rule h-rule--top" style="position:relative"></div>
+    <div class="gi">
+      <footer class="footer-inner">
+        <span class="footer-brand">TextQL</span>
+        <ul class="footer-links">
+          <li><a href="#">Product</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Privacy</a></li>
+        </ul>
+        <span class="footer-copy">© 2026 TextQL, Inc.</span>
       </footer>
     </div>
   </div>
 
-  <!-- filter tab interaction -->
-  <script>
-    document.querySelectorAll('.filter-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-      });
-    });
-  </script>
+</div><!-- /.page -->
+
+<script>
+  function setTab(el) {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+</script>
 
 </body>
 </html>
