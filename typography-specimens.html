@@ -563,6 +563,40 @@ body::before {
     <p style="font-size:14px;font-weight:400;line-height:1.65;color:var(--w200)">— ✦ —</p>
     <div class="spec-line">blog/section-divider — centered ornament or thin rule / w200</div>
   </div>
+
+  <hr class="divider">
+  <p class="sub mb-24">ASCII diagram</p>
+
+  <div class="specimen mb-32">
+    <div style="background:var(--w50);border:1px solid var(--w200);border-radius:var(--r-sm);padding:24px;font-family:var(--mono);font-size:12px;color:var(--w600);line-height:1.4;white-space:pre;overflow-x:auto">┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   Ingest     │────▶│   Process    │────▶│   Output     │
+│              │     │              │     │              │
+│  raw events  │     │  transform   │     │  dashboard   │
+│  API calls   │     │  validate    │     │  alerts      │
+└─────────────┘     └─────────────┘     └─────────────┘
+       │                    │                    │
+       ▼                    ▼                    ▼
+  ┌─────────┐        ┌─────────┐          ┌─────────┐
+  │  Queue   │        │  Store   │          │  Cache   │
+  └─────────┘        └─────────┘          └─────────┘</div>
+    <div class="spec-line">mono/diagram — JBM 400 / 12px / lh 1.4 / w600 / bg w50 / border w200 / radius 4px / pad 24px / white-space: pre / no lang tag</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <div style="background:var(--w50);border:1px solid var(--w200);border-radius:var(--r-sm);padding:24px;font-family:var(--mono);font-size:12px;color:var(--w600);line-height:1.4;white-space:pre;overflow-x:auto">  User Request
+       │
+       ▼
+  ┌──────────┐    yes    ┌───────────┐
+  │ Cached?  │──────────▶│  Return   │
+  └──────────┘           └───────────┘
+       │ no
+       ▼
+  ┌──────────┐
+  │  Fetch   │
+  │  + Store │
+  └──────────┘</div>
+    <div class="spec-line">mono/diagram (compact) — same token, smaller diagram. Flows, decision trees, architecture.</div>
+  </div>
 </section>
 
 
