@@ -448,9 +448,9 @@ body::before {
   <div class="spec-line mb-16">mono/code — 12px / 400 / lh relaxed / primary / bg subtle / border default</div>
   <div class="spec-line mb-32">syntax: keywords = primary + 500 · strings = green · numbers = orange</div>
 
-  <p class="sub mb-24">mono/code (diagram) — same token, lh snug</p>
+  <p class="sub mb-24">mono/diagram — drawn on the page, no container</p>
 
-  <div style="background:var(--w50);border:1px solid var(--w200);border-radius:var(--r-sm);padding:24px;font-family:var(--mono);font-size:12px;color:var(--w600);line-height:1.3;white-space:pre;overflow-x:auto;margin-bottom:8px">┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+  <div style="font-family:var(--mono);font-size:12px;color:var(--w600);line-height:1.3;white-space:pre;overflow-x:auto;margin-bottom:8px;padding:16px 0">┌─────────────┐     ┌─────────────┐     ┌─────────────┐
 │   Ingest     │────▶│   Process    │────▶│   Output     │
 │              │     │              │     │              │
 │  raw events  │     │  transform   │     │  dashboard   │
@@ -461,7 +461,21 @@ body::before {
   ┌─────────┐        ┌─────────┐          ┌─────────┐
   │  Queue   │        │  Store   │          │  Cache   │
   └─────────┘        └─────────┘          └─────────┘</div>
-  <div class="spec-line mb-32">mono/code (diagram) — 12px / 400 / lh snug / secondary / same container / no syntax / no lang tag</div>
+  <div class="spec-line mb-24">mono/diagram — 12px / 400 / lh snug / secondary / NO bg, NO border, NO radius — sits on page surface, texture bleeds through</div>
+
+  <div style="font-family:var(--mono);font-size:12px;color:var(--w600);line-height:1.3;white-space:pre;overflow-x:auto;margin-bottom:8px;padding:16px 0">  User Request
+       │
+       ▼
+  ┌──────────┐    yes    ┌───────────┐
+  │ Cached?  │──────────▶│  Return   │
+  └──────────┘           └───────────┘
+       │ no
+       ▼
+  ┌──────────┐
+  │  Fetch   │
+  │  + Store │
+  └──────────┘</div>
+  <div class="spec-line mb-32">mono/diagram — same treatment. Flows, decision trees, architecture — all drawn directly on surface</div>
 
   <hr class="divider">
   <p class="sub mb-24">mono/brand — 12px / 700</p>
