@@ -28,14 +28,11 @@
   --r-sm: 4px; --r-md: 6px;
   --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
-  --dur-fast: 150ms;
-  --dur-normal: 250ms;
-  --dur-slow: 400ms;
 }
 
 
 /* ═══════════════════════════════════════════
-   GROUND
+   GROUND — the instrument surface
    ═══════════════════════════════════════════ */
 html { scroll-behavior: smooth; }
 
@@ -48,6 +45,7 @@ body {
   line-height: 1.5; font-size: 14px;
 }
 
+/* paper noise — fixed above everything */
 body::before {
   content: "";
   position: fixed; inset: 0;
@@ -76,9 +74,7 @@ body::before {
   border-bottom: 1px solid var(--w200);
 }
 
-.hud-brand {
-  display: flex; align-items: center; gap: 12px;
-}
+.hud-brand { display: flex; align-items: center; gap: 12px; }
 .hud-mark {
   width: 28px; height: 28px;
   background: var(--w900); color: var(--w0);
@@ -92,27 +88,25 @@ body::before {
   font-weight: 500; color: var(--w500);
 }
 
-/* frame counter — centered section readout */
+/* frame counter — centered */
 .hud-readout {
-  position: absolute; left: 50%;
-  transform: translateX(-50%);
+  position: absolute; left: 50%; transform: translateX(-50%);
   font-family: var(--mono); font-size: 10px;
   text-transform: uppercase; letter-spacing: 0.1em;
   font-weight: 500; color: var(--w500);
   white-space: nowrap;
   opacity: 0;
-  transition: opacity var(--dur-slow) var(--ease-out);
+  transition: opacity 400ms var(--ease-out);
 }
-.hud-readout[data-visible="true"] { opacity: 1; }
+.hud-readout.visible { opacity: 1; }
 
-/* scroll progress — 2px bar at HUD bottom edge
-   animated via scaleX transform (GPU-composited) */
+/* scroll progress — 2px w900 bar */
 .hud-progress {
   position: absolute;
   bottom: -1px; left: 0; right: 0;
   height: 2px;
   background: var(--w900);
-  transform-origin: left center;
+  transform-origin: left;
   transform: scaleX(0);
   will-change: transform;
 }
@@ -121,7 +115,7 @@ body::before {
 .hud-link {
   font-size: 14px; font-weight: 400;
   color: var(--w400); text-decoration: none;
-  transition: color var(--dur-normal) var(--ease-spring);
+  transition: color 250ms var(--ease-spring);
 }
 .hud-link:hover { color: var(--w600); }
 .hud-link[data-active="true"] { color: var(--w900); font-weight: 500; }
@@ -129,9 +123,8 @@ body::before {
 
 /* ═══════════════════════════════════════════
    RANGEFINDER — Lens Distance Scale
-   Leica Summicron focus ring: engraved marks,
-   index line, graduated subdivisions.
-   All motion uses transform (GPU-composited).
+   Index line snaps to active tick position.
+   Lerp-based rAF loop. GPU transforms only.
    ═══════════════════════════════════════════ */
 .rangefinder {
   position: fixed;
@@ -144,36 +137,28 @@ body::before {
   align-items: flex-start;
 }
 
-/* the vertical rail — barrel axis */
 .rf-rail {
   position: absolute;
   left: 0; top: 0; bottom: 0;
   width: 1px;
   background: var(--w300);
 }
-
-/* end stops */
-.rf-cross-top,
-.rf-cross-bottom {
-  position: absolute;
-  left: -4px;
+.rf-cross-top, .rf-cross-bottom {
+  position: absolute; left: -4px;
   width: 9px; height: 1px;
   background: var(--w300);
 }
 .rf-cross-top { top: -1px; }
 .rf-cross-bottom { bottom: -1px; }
 
-/* ∞ — far end of scale */
 .rf-infinity {
   position: absolute;
   top: -18px; left: -3px;
   font-family: var(--mono); font-size: 12px;
-  color: var(--w300); font-weight: 400;
-  line-height: 1;
+  color: var(--w300); line-height: 1;
 }
 
-/* index line — the bright reference mark
-   NO css transition — JS lerp handles smoothness */
+/* index line — NO css transition, JS lerp drives it */
 .rf-index {
   position: absolute;
   left: -6px; top: 0;
@@ -183,13 +168,11 @@ body::before {
   z-index: 2;
 }
 
-/* subdivisions between major ticks — in flow */
+/* subdivisions between major ticks */
 .rf-sub {
-  display: flex;
-  flex-direction: column;
+  display: flex; flex-direction: column;
   justify-content: space-evenly;
   height: 48px;
-  align-self: flex-start;
 }
 .rf-mark {
   width: 5px; height: 1px;
@@ -198,84 +181,53 @@ body::before {
   opacity: 0.35;
 }
 
-/* major ticks — section graduations */
+/* major ticks */
 .rf-tick {
   position: relative;
   padding-left: 20px;
   display: flex; align-items: center; gap: 6px;
-  cursor: pointer;
-  text-decoration: none;
+  cursor: pointer; text-decoration: none;
   height: 14px;
 }
-
-/* the tick mark line */
 .rf-tick::before {
   content: "";
-  position: absolute;
-  left: -4px;
+  position: absolute; left: -4px;
   width: 9px; height: 1px;
   background: var(--w300);
   transition: width 300ms var(--ease-spring),
-              height 300ms var(--ease-spring),
+              height 200ms var(--ease-spring),
               background-color 250ms var(--ease-out);
 }
-
-/* section number — always visible */
 .rf-tick-num {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--w400);
-  letter-spacing: 0.1em;
-  white-space: nowrap;
-  line-height: 1;
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  color: var(--w400); letter-spacing: 0.1em;
+  white-space: nowrap; line-height: 1;
   transition: color 250ms var(--ease-out);
 }
-
-/* section title — fades in with GPU-composited opacity + translate */
 .rf-tick-title {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--w500);
-  white-space: nowrap;
-  line-height: 1;
-  opacity: 0;
-  transform: translateX(-4px);
+  font-family: var(--mono); font-size: 10px; font-weight: 400;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--w500); white-space: nowrap; line-height: 1;
+  opacity: 0; transform: translateX(-4px);
   transition: opacity 350ms var(--ease-spring),
               transform 350ms var(--ease-spring);
-  pointer-events: none;
 }
 
-/* active — "in focus" */
-.rf-tick[data-active="true"]::before {
-  background: var(--orange);
-  width: 14px;
-  height: 2px;
+/* active — in focus */
+.rf-tick.active::before {
+  background: var(--orange); width: 14px; height: 2px;
 }
-.rf-tick[data-active="true"] .rf-tick-num {
-  color: var(--w900);
+.rf-tick.active .rf-tick-num { color: var(--w900); }
+.rf-tick.active .rf-tick-title {
+  opacity: 1; transform: translateX(0);
 }
-.rf-tick[data-active="true"] .rf-tick-title {
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: auto;
-}
-
 /* hover */
-.rf-tick:hover .rf-tick-num {
-  color: var(--w600);
-}
+.rf-tick:hover .rf-tick-num { color: var(--w600); }
 .rf-tick:hover .rf-tick-title {
-  opacity: 0.6;
-  transform: translateX(0);
+  opacity: 0.5; transform: translateX(0);
 }
 
-@media (max-width: 1100px) {
-  .rangefinder { display: none; }
-}
+@media (max-width: 1100px) { .rangefinder { display: none; } }
 
 
 /* ═══════════════════════════════════════════
@@ -312,12 +264,8 @@ body::before {
   line-height: 1.5; color: var(--w500);
   max-width: 540px; margin-bottom: 40px;
 }
-.article-byline {
-  display: flex; align-items: center; gap: 16px;
-}
-.article-author {
-  font-size: 14px; font-weight: 500; color: var(--w900);
-}
+.article-byline { display: flex; align-items: center; gap: 16px; }
+.article-author { font-size: 14px; font-weight: 500; color: var(--w900); }
 .byline-dot { color: var(--w300); }
 .article-reading-time {
   font-family: var(--mono); font-size: 12px;
@@ -327,17 +275,44 @@ body::before {
 
 /* ═══════════════════════════════════════════
    ARTICLE BODY
+   Measurement rail runs down the left margin —
+   calibration marks at each section, like
+   distance markings on a lens barrel.
    ═══════════════════════════════════════════ */
+.article-body {
+  position: relative;
+}
 
-/* section — 96px apart */
+/* vertical measurement rail in left margin */
+.article-body::before {
+  content: "";
+  position: absolute;
+  left: -20px; top: 0; bottom: 0;
+  width: 1px;
+  background: var(--w200);
+}
+
+/* sections */
 .body-section { margin-bottom: 96px; scroll-margin-top: 68px; }
 .body-section:last-child { margin-bottom: 0; }
 
 /* section header */
-.sh { margin-bottom: 48px; }
+.sh {
+  margin-bottom: 48px;
+  position: relative;
+}
+/* crossmark — connects section number to the measurement rail */
+.sh::before {
+  content: "";
+  position: absolute;
+  left: -20px; top: 4px;
+  width: 16px; height: 2px;
+  background: var(--orange);
+}
+
 .sh-num {
   font-family: var(--mono); font-size: 10px; font-weight: 500;
-  color: var(--orange); text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--orange); text-transform: uppercase; letter-spacing: 0.14em;
   display: block; margin-bottom: 12px;
 }
 .sh-title {
@@ -357,7 +332,7 @@ body::before {
   color: var(--w900); font-weight: 500;
   text-decoration: underline; text-underline-offset: 3px;
   text-decoration-color: var(--w300);
-  transition: text-decoration-color var(--dur-fast);
+  transition: text-decoration-color 150ms;
 }
 .prose a:hover { text-decoration-color: var(--w900); }
 .prose code {
@@ -391,7 +366,7 @@ body::before {
   scroll-margin-top: 68px;
 }
 
-/* blockquote — constrained to prose measure */
+/* blockquote */
 .bq {
   border-left: 2px solid var(--w300);
   padding-left: 24px;
@@ -419,7 +394,7 @@ body::before {
   margin-top: 48px; margin-bottom: 48px;
 }
 
-/* lists — constrained to prose measure */
+/* lists */
 .list {
   margin-top: 16px; margin-bottom: 24px;
   padding: 0; list-style: none;
@@ -443,7 +418,7 @@ body::before {
   font-feature-settings: "liga" 0;
 }
 
-/* code block — inset container */
+/* code block */
 .code-block {
   background: var(--w50); border: 1px solid var(--w200);
   border-radius: var(--r-sm); padding: 20px;
@@ -459,7 +434,7 @@ body::before {
 .code-block .num { color: var(--orange); }
 .code-block .cmt { color: var(--w400); font-style: italic; }
 
-/* diagram — drawn on surface, NO container */
+/* diagram — NO container, etched into surface */
 .diagram {
   font-family: var(--mono); font-size: 12px;
   font-feature-settings: "liga" 0, "calt" 0;
@@ -503,14 +478,13 @@ body::before {
   font-weight: 500; color: var(--w500);
   border: 1px solid var(--w200); border-radius: var(--r-sm);
   padding: 3px 8px; text-decoration: none;
-  transition: border-color var(--dur-fast), color var(--dur-fast);
+  transition: border-color 150ms, color 150ms;
 }
 .tag:hover { border-color: var(--w900); color: var(--w900); }
 
-/* footnotes — constrained to prose measure */
+/* footnotes */
 .footnotes {
-  margin-top: 96px;
-  padding-top: 32px;
+  margin-top: 96px; padding-top: 32px;
   border-top: 1px solid var(--w200);
 }
 .footnotes-list {
@@ -547,53 +521,6 @@ body::before {
   color: var(--w500); font-weight: 500;
 }
 
-/* ═══════════════════════════════════════════
-   ENTRANCE — sections acquired by the viewfinder
-   ═══════════════════════════════════════════ */
-.article-header,
-.body-section {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 700ms var(--ease-spring),
-              transform 700ms var(--ease-spring);
-}
-.article-header.in-view,
-.body-section.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
-/* stagger child elements within a section */
-.body-section.in-view .sh {
-  animation: etch-in 500ms var(--ease-spring) both;
-}
-.body-section.in-view .prose:first-of-type {
-  animation: etch-in 500ms var(--ease-spring) 80ms both;
-}
-@keyframes etch-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* progress bar glow — like an LCD backlight */
-.hud-progress {
-  box-shadow: 0 0 6px rgba(26, 25, 20, 0.1);
-}
-
-/* rangefinder: active tick gets a subtle
-   depth-of-field glow behind the index mark */
-.rf-tick[data-active="true"]::after {
-  content: "";
-  position: absolute;
-  left: -6px;
-  width: 13px; height: 14px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(234, 88, 12, 0.08) 0%,
-    transparent 70%
-  );
-  pointer-events: none;
-}
-
 @media (max-width: 768px) {
   .content-rail { padding: 48px 16px 96px; }
   .article-header { margin-bottom: 64px; }
@@ -602,13 +529,15 @@ body::before {
   .hud-nav { display: none; }
   .hud-readout { display: none; }
   .pullquote { font-size: 20px; }
+  .article-body::before { display: none; }
+  .sh::before { display: none; }
 }
 </style>
 </head>
 <body>
 
 
-<!-- ═══ HUD — Top Plate ═══ -->
+<!-- ═══ HUD ═══ -->
 <nav class="hud">
   <div class="hud-brand">
     <div class="hud-mark">M</div>
@@ -624,7 +553,7 @@ body::before {
 </nav>
 
 
-<!-- ═══ RANGEFINDER — Lens Distance Scale ═══ -->
+<!-- ═══ RANGEFINDER ═══ -->
 <nav class="rangefinder" id="rangefinder">
   <div class="rf-rail">
     <div class="rf-cross-top"></div>
@@ -633,25 +562,16 @@ body::before {
   <span class="rf-infinity">∞</span>
   <div class="rf-index" id="rf-index"></div>
 
-  <!-- major tick → subdivision → major tick → subdivision → major tick -->
   <a class="rf-tick" href="#warm-neutrals" data-section="s01">
     <span class="rf-tick-num">01</span>
     <span class="rf-tick-title">Foundation</span>
   </a>
-  <div class="rf-sub">
-    <span class="rf-mark"></span>
-    <span class="rf-mark"></span>
-    <span class="rf-mark"></span>
-  </div>
+  <div class="rf-sub"><span class="rf-mark"></span><span class="rf-mark"></span><span class="rf-mark"></span></div>
   <a class="rf-tick" href="#type-system" data-section="s02">
     <span class="rf-tick-num">02</span>
     <span class="rf-tick-title">Typography</span>
   </a>
-  <div class="rf-sub">
-    <span class="rf-mark"></span>
-    <span class="rf-mark"></span>
-    <span class="rf-mark"></span>
-  </div>
+  <div class="rf-sub"><span class="rf-mark"></span><span class="rf-mark"></span><span class="rf-mark"></span></div>
   <a class="rf-tick" href="#surface-philosophy" data-section="s03">
     <span class="rf-tick-num">03</span>
     <span class="rf-tick-title">Surface</span>
@@ -835,10 +755,7 @@ code         12px   400   mixed    0</div>
 </footer>
 
 
-<!-- ═══ SCROLL ENGINE ═══
-     Lerp-based rAF loop for buttery smooth motion.
-     All visual updates use GPU-composited properties
-     (transform, opacity). Zero layout thrashing. -->
+<!-- ═══ SCROLL ENGINE ═══ -->
 <script>
 (function() {
   var sections = document.querySelectorAll('.body-section');
@@ -850,130 +767,114 @@ code         12px   400   mixed    0</div>
 
   if (!rfEl || !indexEl) return;
 
-  // --- state ---
-  var current  = window.scrollY;
-  var target   = current;
-  var running  = false;
-  var activeId = null;
+  // --- lerp state ---
+  var indexPos    = 0;   // current index Y (lerped)
+  var indexTarget = 0;   // target index Y (tick center)
+  var scrollPos   = 0;   // current scroll (lerped for progress)
+  var scrollTarget= 0;
+  var running     = false;
+  var activeId    = null;
 
-  // damping: 0.12 = ~25 frames to settle at 60fps
-  // feels like a well-oiled mechanical damper
-  var DAMPING  = 0.12;
-  var EPSILON  = 0.5;
+  var INDEX_DAMP  = 0.1;   // index: slower, deliberate snap
+  var SCROLL_DAMP = 0.14;  // progress: faster, responsive
+  var EPSILON     = 0.4;
 
-  var sectionLabels = {
-    s01: '01 · Foundation',
-    s02: '02 · Typography',
-    s03: '03 · Surface'
-  };
+  var labels = { s01:'01 · Foundation', s02:'02 · Typography', s03:'03 · Surface' };
 
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function docH() { return document.documentElement.scrollHeight - window.innerHeight; }
+
+  // --- compute tick centers (relative to rangefinder top) ---
+  var tickY = {};
+  function measureTicks() {
+    for (var i = 0; i < ticks.length; i++) {
+      tickY[ticks[i].dataset.section] =
+        ticks[i].offsetTop + ticks[i].offsetHeight / 2 - 1;
+    }
   }
+  measureTicks();
 
-  function getDocHeight() {
-    return document.documentElement.scrollHeight - window.innerHeight;
-  }
+  // start index at first tick
+  indexPos = indexTarget = tickY.s01 || 0;
+  scrollPos = scrollTarget = window.scrollY;
 
-  function getRailHeight() {
-    return rfEl.offsetHeight;
-  }
+  // set initial position
+  indexEl.style.transform = 'translateY(' + indexPos + 'px)';
+  var d = docH();
+  if (progEl && d > 0) progEl.style.transform = 'scaleX(' + (scrollPos / d) + ')';
 
-  // cheap — runs on scroll, not in rAF
+  // --- section detection ---
   function updateSections() {
-    var newActive = null;
-    var threshold = window.innerHeight * 0.4;
-
+    var next = null;
+    var thr  = window.innerHeight * 0.4;
     for (var i = 0; i < sections.length; i++) {
-      if (sections[i].getBoundingClientRect().top < threshold) {
-        newActive = sections[i].id;
+      if (sections[i].getBoundingClientRect().top < thr) next = sections[i].id;
+    }
+    if (next === activeId) return;
+    activeId = next;
+
+    // snap index to active tick
+    if (activeId && tickY[activeId] !== undefined) {
+      indexTarget = tickY[activeId];
+    }
+
+    // update tick classes
+    for (var j = 0; j < ticks.length; j++) {
+      if (ticks[j].dataset.section === activeId) {
+        ticks[j].classList.add('active');
+      } else {
+        ticks[j].classList.remove('active');
       }
     }
 
-    if (newActive !== activeId) {
-      activeId = newActive;
-
-      for (var j = 0; j < ticks.length; j++) {
-        ticks[j].dataset.active =
-          (ticks[j].dataset.section === activeId) ? 'true' : 'false';
-      }
-
-      if (readEl) {
-        if (activeId && sectionLabels[activeId]) {
-          readEl.textContent = sectionLabels[activeId];
-          readEl.dataset.visible = 'true';
-        } else {
-          readEl.dataset.visible = 'false';
-        }
+    // frame counter
+    if (readEl) {
+      if (activeId && labels[activeId]) {
+        readEl.textContent = labels[activeId];
+        readEl.classList.add('visible');
+      } else {
+        readEl.classList.remove('visible');
       }
     }
   }
 
-  // smooth — runs in rAF loop
+  // --- animation loop ---
   function tick() {
-    current = lerp(current, target, DAMPING);
+    indexPos  = lerp(indexPos,  indexTarget,  INDEX_DAMP);
+    scrollPos = lerp(scrollPos, scrollTarget, SCROLL_DAMP);
 
-    var docH  = getDocHeight();
-    var railH = getRailHeight();
-    var frac  = docH > 0 ? current / docH : 0;
+    indexEl.style.transform = 'translateY(' + indexPos + 'px)';
 
-    // GPU-composited: transform only, no layout
-    indexEl.style.transform = 'translateY(' + (frac * railH) + 'px)';
-
-    if (progEl) {
-      progEl.style.transform = 'scaleX(' + frac + ')';
+    var dh = docH();
+    if (progEl && dh > 0) {
+      progEl.style.transform = 'scaleX(' + (scrollPos / dh) + ')';
     }
 
-    // keep running until settled
-    if (Math.abs(current - target) > EPSILON) {
+    var settled = Math.abs(indexPos - indexTarget) < EPSILON
+               && Math.abs(scrollPos - scrollTarget) < EPSILON;
+
+    if (!settled) {
       requestAnimationFrame(tick);
     } else {
-      current = target;
-      running = false;
+      indexPos  = indexTarget;
+      scrollPos = scrollTarget;
+      running   = false;
     }
   }
 
   function onScroll() {
-    target = window.scrollY;
+    scrollTarget = window.scrollY;
     updateSections();
-
-    if (!running) {
-      running = true;
-      requestAnimationFrame(tick);
-    }
+    if (!running) { running = true; requestAnimationFrame(tick); }
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', function() {
+    measureTicks();
     requestAnimationFrame(onScroll);
   });
 
-  // initial paint
   updateSections();
-  // set initial position without animation
-  var docH  = getDocHeight();
-  var railH = getRailHeight();
-  var frac  = docH > 0 ? current / docH : 0;
-  indexEl.style.transform = 'translateY(' + (frac * railH) + 'px)';
-  if (progEl) progEl.style.transform = 'scaleX(' + frac + ')';
-
-  // --- entrance animations ---
-  // sections are "acquired" by the viewfinder as you scroll
-  var entranceObserver = new IntersectionObserver(
-    function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          entranceObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-  );
-
-  document.querySelectorAll('.article-header, .body-section').forEach(function(el) {
-    entranceObserver.observe(el);
-  });
 })();
 </script>
 
