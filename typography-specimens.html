@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mybap — Typography Specimens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --w0:   #fefdfb;
+  --w50:  #faf9f6;
+  --w100: #f5f4f0;
+  --w200: #e5e4df;
+  --w300: #d5d4ce;
+  --w400: #a4a29b;
+  --w500: #74726b;
+  --w600: #55534c;
+  --w700: #3d3b35;
+  --w800: #2a2923;
+  --w900: #1a1914;
+
+  --orange: #ea580c;
+  --orange-light: #fed7aa;
+  --orange-bg: #fff7ed;
+
+  --green: #059669;
+  --amber: #d97706;
+  --red:   #e11d48;
+
+  --sans: 'Geist', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', monospace;
+
+  --r-sm: 4px;
+  --r-md: 6px;
+
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-slow: 400ms;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--w100);
+  color: var(--w900);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+/* paper texture */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 200px;
+  opacity: 0.04; pointer-events: none; z-index: 10000;
+}
+
+::selection { background: var(--w900); color: var(--w0); }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--w300); }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.anim-up { animation: fadeUp var(--dur-slow) var(--ease-spring) both; }
+.d1 { animation-delay: 80ms; } .d2 { animation-delay: 160ms; }
+.d3 { animation-delay: 240ms; } .d4 { animation-delay: 320ms; }
+
+.page {
+  max-width: 1000px; margin: 0 auto;
+  background: var(--w0);
+  padding: 80px 80px 160px;
+  box-shadow: 0 1px 2px rgba(26,25,20,0.04), 0 8px 32px rgba(26,25,20,0.06);
+}
+
+/* masthead */
+.masthead { margin-bottom: 96px; padding-bottom: 48px; border-bottom: 1px solid var(--w200); }
+.eyebrow { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--orange); margin-bottom: 20px; font-weight: 500; }
+.masthead h1 { font-size: 52px; font-weight: 200; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 16px; }
+.masthead p { font-size: 15px; font-weight: 400; color: var(--w600); line-height: 1.65; max-width: 540px; }
+.meta-row { margin-top: 40px; display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--w400); }
+
+/* section header */
+.section { margin-bottom: 96px; }
+.sh { margin-bottom: 48px; }
+.sh-num { font-family: var(--mono); font-size: 10px; font-weight: 500; color: var(--orange); text-transform: uppercase; letter-spacing: 0.12em; display: block; margin-bottom: 12px; }
+.sh-title { font-size: 28px; font-weight: 300; letter-spacing: -0.01em; color: var(--w900); }
+
+/* shared */
+.sub { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--w400); margin-bottom: 20px; font-weight: 500; }
+.spec-line { font-family: var(--mono); font-size: 9px; color: var(--w400); margin-top: 8px; font-weight: 400; }
+.mb-12 { margin-bottom: 12px; } .mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; } .mb-32 { margin-bottom: 32px; }
+.mb-48 { margin-bottom: 48px; } .mb-64 { margin-bottom: 64px; }
+.mb-96 { margin-bottom: 96px; }
+
+.specimen { margin-bottom: 32px; }
+.specimen-row { display: flex; gap: 32px; margin-bottom: 32px; }
+.specimen-row > div { flex: 1; }
+.divider { border: none; border-top: 1px solid var(--w200); margin: 48px 0; }
+
+/* dark panel for inverse specimens */
+.dark-panel {
+  background: var(--w900); padding: 32px; border-radius: var(--r-sm); position: relative; overflow: hidden;
+}
+.dark-panel::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 200px;
+  opacity: 0.03; pointer-events: none;
+}
+
+/* blog-specific */
+.blockquote-specimen { border-left: 2px solid var(--w300); padding-left: 24px; }
+.inline-code {
+  font-family: var(--mono); font-size: 13px; background: var(--w50);
+  border: 1px solid var(--w200); border-radius: var(--r-sm);
+  padding: 2px 6px; color: var(--w800);
+}
+.link-specimen {
+  text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: var(--w300); font-weight: 500; color: var(--w900);
+}
+.link-specimen:hover { text-decoration-color: var(--w900); }
+.list-specimen { padding-left: 0; list-style: none; }
+.list-specimen li { position: relative; padding-left: 20px; font-size: 14px; color: var(--w600); line-height: 1.65; margin-bottom: 8px; }
+.list-specimen li::before { content: "–"; position: absolute; left: 0; color: var(--w300); }
+.ol-specimen { padding-left: 0; list-style: none; counter-reset: ol; }
+.ol-specimen li { position: relative; padding-left: 28px; font-size: 14px; color: var(--w600); line-height: 1.65; margin-bottom: 8px; counter-increment: ol; }
+.ol-specimen li::before { content: counter(ol); position: absolute; left: 0; font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--w400); top: 1px; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<!-- ═══ MASTHEAD ═══ -->
+<header class="masthead anim-up">
+  <p class="eyebrow">Mybap // Typography Specimens</p>
+  <h1>Type System</h1>
+  <p>Every text treatment in the design language. Extracted for Figma componentisation — primitives, styles, composites.</p>
+  <div class="meta-row"><span>v4.0 // Geist + JetBrains Mono</span><span>2026-02-24</span></div>
+</header>
+
+
+<!-- ═══ 01 DISPLAY — GEIST SANS ═══ -->
+<section class="section">
+  <div class="sh"><span class="sh-num">01 — Display</span><h2 class="sh-title">Display Type</h2></div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:52px;font-weight:200;letter-spacing:-0.03em;line-height:1.05;color:var(--w900)">Instrument Modernism</span>
+    <div class="spec-line">display/h1 — Geist 200 / 52px / -0.03em / lh 1.05 / w900</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:48px;font-weight:200;letter-spacing:-0.02em;line-height:1.1;color:var(--w900)">Hero Section Title</span>
+    <div class="spec-line">display/hero — Geist 200 / 48px / -0.02em / lh 1.1 / w900 (or w0 on dark)</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:40px;font-weight:300;letter-spacing:-0.02em;line-height:1.1;color:var(--w900)">Section Heading</span>
+    <div class="spec-line">display/h2 — Geist 300 / 40px / -0.02em / lh 1.1 / w900</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:28px;font-weight:300;letter-spacing:-0.01em;line-height:1.3;color:var(--w900)">Section Title</span>
+    <div class="spec-line">display/h3 — Geist 300 / 28px / -0.01em / lh 1.3 / w900</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:36px;font-weight:200;letter-spacing:-0.02em;color:var(--w900);border-bottom:1px solid var(--w200);padding-bottom:12px;display:inline-block">What is your company name?</span>
+    <div class="spec-line">display/input — Geist 200 / 36px / -0.02em / w900 / bottom border w200</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:20px;font-weight:300;color:var(--w900);border-bottom:1px solid var(--w200);padding-bottom:8px;display:inline-block">Search or filter...</span>
+    <div class="spec-line">display/underline — Geist 300 / 20px / w900 / bottom border w200</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:18px;font-weight:400;color:var(--w900)">Confirm deletion</span>
+    <div class="spec-line">display/dialog — Geist 400 / 18px / w900</div>
+  </div>
+
+  <p class="sub mb-24">Display on dark</p>
+  <div class="dark-panel">
+    <div style="position:relative;z-index:1">
+      <span style="font-size:48px;font-weight:200;letter-spacing:-0.02em;line-height:1.1;color:var(--w0)">Built for Precision</span>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--w400);margin-top:8px">display/hero — Geist 200 / 48px / -0.02em / lh 1.1 / w0 on w900</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ 02 BODY — GEIST SANS ═══ -->
+<section class="section">
+  <div class="sh"><span class="sh-num">02 — Body</span><h2 class="sh-title">Body Type</h2></div>
+
+  <div class="specimen-row mb-32">
+    <div>
+      <p style="font-size:16px;font-weight:400;line-height:1.6;color:var(--w600)">Information density is not about cramming. It's the clarity of relationships between data points that creates understanding.</p>
+      <div class="spec-line">body/large — Geist 400 / 16px / lh 1.6 / w600</div>
+    </div>
+    <div>
+      <p style="font-size:15px;font-weight:400;line-height:1.65;color:var(--w600)">Precision of a Leica. Warmth of handmade paper. Every decision has a reason behind it.</p>
+      <div class="spec-line">body/masthead — Geist 400 / 15px / lh 1.65 / w600</div>
+    </div>
+  </div>
+
+  <div class="specimen-row mb-32">
+    <div>
+      <p style="font-size:14px;font-weight:400;line-height:1.5;color:var(--w900)">Standard interface text at the default body size. Used for form content, descriptions, and general reading.</p>
+      <div class="spec-line">body/default — Geist 400 / 14px / lh 1.5 / w900</div>
+    </div>
+    <div>
+      <p style="font-size:14px;font-weight:400;line-height:1.65;color:var(--w600)">Long-form prose with relaxed leading. <strong style="color:var(--w900);font-weight:500">Bold emphasis</strong> uses weight 500 and primary color. Descriptions, explanations, documentation.</p>
+      <div class="spec-line">body/prose — Geist 400 / 14px / lh 1.65 / w600. Strong: w900 / 500</div>
+    </div>
+  </div>
+
+  <div class="specimen mb-32">
+    <p style="font-size:14px;font-weight:400;line-height:1.65;color:var(--w600);font-style:italic">Emphasis text rendered in italic. Same metrics as prose, used for quotations or soft emphasis within body copy.</p>
+    <div class="spec-line">body/emphasis — Geist 400 / 14px / italic / lh 1.65 / w600</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <p style="font-size:14px;font-weight:500;line-height:1.65;color:var(--w900)">Strong emphasis rendered at weight 500. Used inline within prose for key terms or important phrases.</p>
+    <div class="spec-line">body/strong — Geist 500 / 14px / lh 1.65 / w900</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <p style="font-size:14px;line-height:1.65;color:var(--w600)">Body text with an <a href="#" class="link-specimen" style="font-size:inherit">inline link</a> embedded naturally. Links use weight 500, underline offset 3px, decoration color w300 → w900 on hover.</p>
+    <div class="spec-line">body/link — Geist 500 / inherit size / w900 / underline w300 / offset 3px / hover: underline w900</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <p style="font-size:14px;font-weight:400;line-height:1.65;color:var(--w400);text-decoration:line-through">Deprecated or removed content rendered with strikethrough and muted color.</p>
+    <div class="spec-line">body/strikethrough — Geist 400 / 14px / line-through / lh 1.65 / w400</div>
+  </div>
+
+  <p class="sub mb-24">Body on dark</p>
+  <div class="dark-panel mb-32">
+    <div style="position:relative;z-index:1">
+      <p style="font-size:15px;font-weight:400;line-height:1.65;color:var(--w400);max-width:480px">Body text on dark backgrounds uses w400 for comfortable contrast without harsh white. The substrate texture applies here too.</p>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--w500);margin-top:8px">body/masthead (dark) — Geist 400 / 15px / lh 1.65 / w400 on w900</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ 03 UI TEXT — GEIST SANS ═══ -->
+<section class="section">
+  <div class="sh"><span class="sh-num">03 — Interface</span><h2 class="sh-title">UI Text</h2></div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:13px;font-weight:500;color:var(--w900)">Card Title / Tab Active / Breadcrumb Active</span>
+    <div class="spec-line">ui/primary — Geist 500 / 13px / w900</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:13px;font-weight:400;color:var(--w600);line-height:1.65">Table cell content, card body text, dialog description, breadcrumb inactive segment.</span>
+    <div class="spec-line">ui/secondary — Geist 400 / 13px / lh 1.65 / w600</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:13px;font-weight:500;color:var(--w500)">KPI label text, upload prompt</span>
+    <div class="spec-line">ui/muted — Geist 500 / 13px / w500</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:13px;font-weight:500;color:var(--w900);line-height:1.6">Spec value: Controls get 4px. Containers stay 0px on edges.</span>
+    <div class="spec-line">ui/spec-value — Geist 400 / 13px / lh 1.6 / w900 (used in spec rows)</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:13px;font-weight:400;color:var(--w400)">Inactive breadcrumb · Tab inactive · Radio label</span>
+    <div class="spec-line">ui/inactive — Geist 400 / 13px / w400</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:13px;font-weight:500;color:var(--w800)">Toggle text, checkbox label, form control label</span>
+    <div class="spec-line">ui/control-label — Geist 400 / 13px / w800</div>
+  </div>
+
+  <div class="specimen-row mb-32">
+    <div>
+      <span style="font-size:12px;font-weight:500;color:var(--w900)">Tooltip text on dark</span>
+      <div class="spec-line">ui/small — Geist 500 / 12px / w0 on w900</div>
+    </div>
+    <div>
+      <span style="font-size:12px;font-weight:400;color:var(--w600)">Alert description, small body text</span>
+      <div class="spec-line">ui/caption — Geist 400 / 12px / w600</div>
+    </div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:12px;font-weight:400;color:var(--w400)">Upload hint text, toast action label</span>
+    <div class="spec-line">ui/hint — Geist 400 / 12px / w400</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:13px;font-weight:500;color:var(--w600)">Upload prompt text</span>
+    <div class="spec-line">ui/upload — Geist 500 / 13px / w600</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:13px;font-weight:500;color:var(--w900)">Domain cell name</span>
+    <div class="spec-line">ui/domain — Geist 500 / 13px / w900 (grid selection)</div>
+  </div>
+
+  <p class="sub mb-24">Inverse UI text</p>
+  <div class="dark-panel mb-32">
+    <div style="position:relative;z-index:1;display:flex;gap:32px;align-items:center">
+      <div>
+        <span style="font-size:13px;font-weight:500;color:var(--w0)">Toast message text</span>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--w500);margin-top:8px">ui/primary (inverse) — 13px / 500 / w0</div>
+      </div>
+      <div>
+        <span style="font-size:12px;color:var(--w400)">Undo action</span>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--w500);margin-top:8px">ui/caption (inverse) — 12px / 400 / w400</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ 04 MONO LABELS — JETBRAINS MONO ═══ -->
+<section class="section">
+  <div class="sh"><span class="sh-num">04 — Labels</span><h2 class="sh-title">Mono Labels</h2></div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.15em;font-weight:500;color:var(--orange)">MYBAP // DESIGN LANGUAGE V4</span>
+    <div class="spec-line">mono/eyebrow — JBM 500 / 10px / upper / 0.15em / orange</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.12em;font-weight:500;color:var(--orange)">01 — Foundation</span>
+    <div class="spec-line">mono/section-num — JBM 500 / 10px / upper / 0.12em / orange</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.12em;font-weight:500;color:var(--w400)">V4.0 // GEIST + WARM + 4PX CONTROLS</span>
+    <div class="spec-line">mono/meta — JBM 500 / 10px / upper / 0.12em / w400</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.1em;font-weight:500;color:var(--w600)">EMAIL ADDRESS</span>
+    <div class="spec-line">mono/label — JBM 500 / 10px / upper / 0.1em / w600</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;font-weight:500;color:var(--w500)">ENTITY NAME</span>
+    <div class="spec-line">mono/table-header — JBM 500 / 10px / upper / 0.08em / w500</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:10px;letter-spacing:0.05em;font-weight:400;color:var(--w600)">Page 1 of 12</span>
+    <div class="spec-line">mono/pagination — JBM 400 / 10px / 0.05em / w600</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.1em;font-weight:500;color:var(--w400)">STEP 2 OF 4</span>
+    <div class="spec-line">mono/wizard-step — JBM 500 / 10px / upper / 0.1em / w400</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.15em;font-weight:500;color:var(--w400)">WARM GRAY SCALE</span>
+    <div class="spec-line">mono/sub — JBM 500 / 9px / upper / 0.15em / w400</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.12em;font-weight:500;color:var(--w500)">BUTTON FAMILY — SENTENCE CASE</span>
+    <div class="spec-line">mono/preview — JBM 500 / 9px / upper / 0.12em / w500</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.12em;font-weight:500;color:var(--w400)">ALL SYSTEMS NORMAL</span>
+    <div class="spec-line">mono/status — JBM 500 / 9px / upper / 0.12em / w400</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;font-weight:500;color:var(--w400)">ACTIVE · PENDING · DRAFT</span>
+    <div class="spec-line">mono/micro — JBM 500 / 9px / upper / 0.1em / varies (badge, step, progress label)</div>
+  </div>
+
+  <div class="specimen-row mb-32">
+    <div>
+      <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;font-weight:500;color:var(--w500)">PROCESSING</span>
+      <div class="spec-line">mono/progress-label — JBM 500 / 9px / upper / 0.1em / w500</div>
+    </div>
+    <div>
+      <span style="font-family:var(--mono);font-size:9px;font-weight:500;color:var(--w900)">72%</span>
+      <div class="spec-line">mono/progress-value — JBM 500 / 9px / w900</div>
+    </div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;font-weight:500;color:var(--red)">THIS FIELD IS REQUIRED</span>
+    <div class="spec-line">mono/error — JBM 500 / 9px / upper / 0.1em / red (#e11d48)</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:9px;font-weight:400;color:var(--w500)">+12.4% vs last period</span>
+    <div class="spec-line">mono/metric-sub — JBM 400 / 9px / w500</div>
+  </div>
+</section>
+
+
+<!-- ═══ 05 MONO DATA — JETBRAINS MONO ═══ -->
+<section class="section">
+  <div class="sh"><span class="sh-num">05 — Data</span><h2 class="sh-title">Mono Data</h2></div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:13px;font-weight:500;color:var(--w900)">€1,247,890</span>
+    <div class="spec-line">mono/kpi — JBM 500 / 13px / w900</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:12px;font-weight:400;color:var(--w600)">e_00421 · 2026-02-24T14:32:00Z</span>
+    <div class="spec-line">mono/data — JBM 400 / 12px / w600</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--w0);background:var(--w900);padding:6px 8px;border-radius:var(--r-sm);display:inline-block">M</span>
+    <div class="spec-line">mono/brand — JBM 700 / 12px / w0 on w900 / 28×28 rounded sm</div>
+  </div>
+
+  <p class="sub mb-24">Code block</p>
+  <div style="position:relative;background:var(--w50);border:1px solid var(--w200);border-radius:var(--r-sm);padding:20px;font-family:var(--mono);font-size:11px;color:var(--w800);line-height:1.7;white-space:pre;overflow-x:auto;margin-bottom:8px"><span style="position:absolute;top:0;left:0;padding:2px 8px;background:var(--w200);font-size:8px;text-transform:uppercase;letter-spacing:0.1em;color:var(--w600);border-radius:0 0 var(--r-sm) 0">typescript</span>
+<span style="color:var(--w900);font-weight:500">const</span> processId = <span style="color:var(--green)">"e_00421"</span>;
+<span style="color:var(--w900);font-weight:500">const</span> threshold = <span style="color:var(--orange)">0.85</span>;</div>
+  <div class="spec-line mb-16">mono/code — JBM 400 / 11px / lh 1.7 / w800 / bg w50 / border w200</div>
+  <div class="spec-line mb-16">mono/code keywords — w900 / 500</div>
+  <div class="spec-line mb-16">mono/code strings — green (#059669)</div>
+  <div class="spec-line mb-16">mono/code numbers — orange (#ea580c)</div>
+  <div class="spec-line">mono/code-tag — JBM 400 / 8px / upper / 0.1em / w600 / bg w200</div>
+</section>
+
+
+<!-- ═══ 06 METRIC — GEIST SANS ═══ -->
+<section class="section">
+  <div class="sh"><span class="sh-num">06 — Metric</span><h2 class="sh-title">Metric Display</h2></div>
+
+  <div class="specimen mb-32">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.15em;font-weight:500;color:var(--w400)">TOTAL REVENUE</span>
+      <span style="font-size:28px;font-weight:300;letter-spacing:-0.02em;line-height:1;color:var(--w900)">€4,127,340</span>
+      <span style="font-family:var(--mono);font-size:9px;color:var(--w500)">+12.4% vs last quarter</span>
+    </div>
+    <div class="spec-line">Composite: mono/sub (w400) + metric/value (Geist 300 / 28px / -0.02em / lh 1 / w900) + mono/metric-sub (w500)</div>
+  </div>
+</section>
+
+
+<!-- ═══ 07 BLOG — GEIST SANS + JETBRAINS MONO ═══ -->
+<section class="section">
+  <div class="sh"><span class="sh-num">07 — Blog</span><h2 class="sh-title">Blog Typography</h2></div>
+
+  <p class="sub mb-24">Article heading hierarchy</p>
+
+  <div class="specimen mb-32">
+    <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.12em;font-weight:500;color:var(--w400)">FEBRUARY 24, 2026 · ENGINEERING</span>
+    <div class="spec-line">blog/meta — JBM 500 / 10px / upper / 0.12em / w400</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:40px;font-weight:300;letter-spacing:-0.02em;line-height:1.1;color:var(--w900)">Building Systems That Last</span>
+    <div class="spec-line">blog/title — Geist 300 / 40px / -0.02em / lh 1.1 / w900</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:20px;font-weight:300;line-height:1.5;color:var(--w500)">On the philosophy of instrument design and why precision matters more than novelty.</span>
+    <div class="spec-line">blog/subtitle — Geist 300 / 20px / lh 1.5 / w500</div>
+  </div>
+
+  <div class="specimen-row mb-32">
+    <div>
+      <span style="font-size:13px;font-weight:500;color:var(--w900)">Naman Agarwal</span>
+      <div class="spec-line">blog/author — Geist 500 / 13px / w900</div>
+    </div>
+    <div>
+      <span style="font-family:var(--mono);font-size:9px;font-weight:400;color:var(--w400)">8 min read</span>
+      <div class="spec-line">blog/reading-time — JBM 400 / 9px / w400</div>
+    </div>
+    <div>
+      <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;font-weight:500;color:var(--w400)">DESIGN · SYSTEMS</span>
+      <div class="spec-line">blog/tag — JBM 500 / 9px / upper / 0.1em / w400</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <p class="sub mb-24">In-article headings</p>
+
+  <div class="specimen mb-32">
+    <span style="font-size:20px;font-weight:500;line-height:1.4;color:var(--w900)">The Case for Warm Neutrals</span>
+    <div class="spec-line">blog/h3 — Geist 500 / 20px / lh 1.4 / w900</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <span style="font-size:16px;font-weight:500;line-height:1.5;color:var(--w900)">Understanding the gray scale</span>
+    <div class="spec-line">blog/h4 — Geist 500 / 16px / lh 1.5 / w900</div>
+  </div>
+
+  <hr class="divider">
+  <p class="sub mb-24">Blog body treatments</p>
+
+  <div class="specimen mb-32">
+    <div class="blockquote-specimen">
+      <p style="font-size:16px;font-weight:300;font-style:italic;line-height:1.7;color:var(--w500)">Good design is as little design as possible. Less, but better — because it concentrates on the essential aspects.</p>
+    </div>
+    <div class="spec-line">blog/blockquote — Geist 300 / 16px / italic / lh 1.7 / w500 / left border 2px w300</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <p style="font-size:28px;font-weight:200;letter-spacing:-0.02em;line-height:1.4;color:var(--w700)">Every pixel earns its place.</p>
+    <div class="spec-line">blog/pullquote — Geist 200 / 28px / -0.02em / lh 1.4 / w700</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <p style="font-size:14px;line-height:1.65;color:var(--w600)">Inline code like <span class="inline-code">processId</span> or <span class="inline-code">--w900</span> appears within prose using mono at body size.</p>
+    <div class="spec-line">mono/inline-code — JBM 400 / 13px / w800 / bg w50 / border w200 / radius 4px / pad 2px 6px</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <p style="font-size:12px;font-weight:400;color:var(--w400)">Fig. 1 — The warm gray scale rendered at full width, showing the progression from paper white to near-black.</p>
+    <div class="spec-line">blog/caption — Geist 400 / 12px / w400</div>
+  </div>
+
+  <div class="specimen mb-32">
+    <p style="font-size:11px;font-weight:400;color:var(--w500);line-height:1.6"><span style="font-family:var(--mono);font-size:9px;font-weight:500;color:var(--orange);vertical-align:super">1</span> Dieter Rams, "Ten Principles for Good Design," 1976. The influence on modern interface design is well documented.</p>
+    <div class="spec-line">blog/footnote — Geist 400 / 11px / lh 1.6 / w500. Ref: mono/footnote-ref — JBM 500 / 9px / orange / superscript</div>
+  </div>
+
+  <hr class="divider">
+  <p class="sub mb-24">Lists</p>
+
+  <div class="specimen-row mb-32">
+    <div>
+      <ul class="list-specimen">
+        <li>Warm grays derived from natural pigments</li>
+        <li>Paper texture at 4% opacity</li>
+        <li>Hairline borders for structure</li>
+      </ul>
+      <div class="spec-line">blog/list (unordered) — bullet: en-dash in w300 / text: body/prose (14px / w600 / lh 1.65)</div>
+    </div>
+    <div>
+      <ol class="ol-specimen">
+        <li>Define the color primitives</li>
+        <li>Build semantic aliases</li>
+        <li>Create text style tokens</li>
+      </ol>
+      <div class="spec-line">blog/list (ordered) — number: JBM 500 / 12px / w400 / text: body/prose</div>
+    </div>
+  </div>
+
+  <div class="specimen mb-32">
+    <p style="font-size:14px;font-weight:400;line-height:1.65;color:var(--w200)">— ✦ —</p>
+    <div class="spec-line">blog/section-divider — centered ornament or thin rule / w200</div>
+  </div>
+</section>
+
+
+<!-- ═══ 08 COMPOSITES ═══ -->
+<section class="section">
+  <div class="sh"><span class="sh-num">08 — Composites</span><h2 class="sh-title">Section Patterns</h2></div>
+
+  <p class="sub mb-24">Section header</p>
+  <div class="specimen mb-48">
+    <div>
+      <span style="font-family:var(--mono);font-size:10px;font-weight:500;color:var(--orange);text-transform:uppercase;letter-spacing:0.12em;display:block;margin-bottom:12px">03 — Interaction</span>
+      <span style="font-size:28px;font-weight:300;letter-spacing:-0.01em;color:var(--w900)">Buttons</span>
+    </div>
+    <div class="spec-line">Composite: mono/section-num (orange) + display/h3 (w900) / gap: 12px</div>
+  </div>
+
+  <p class="sub mb-24">Spec row</p>
+  <div class="specimen mb-48">
+    <div style="display:grid;grid-template-columns:140px 1fr">
+      <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--w500);padding:10px 16px 10px 0;border-bottom:1px solid var(--w100);font-weight:500">Controls</div>
+      <div style="font-size:13px;color:var(--w900);padding:10px 0;border-bottom:1px solid var(--w100);line-height:1.6">4px — buttons, inputs, cards, badges, code blocks</div>
+      <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--w500);padding:10px 16px 10px 0;border-bottom:1px solid var(--w100);font-weight:500">Containers</div>
+      <div style="font-size:13px;color:var(--w900);padding:10px 0;border-bottom:1px solid var(--w100);line-height:1.6">0px — page edges, dashboard frame, sidebar</div>
+    </div>
+    <div class="spec-line">Composite: mono/table-header (w500, 140px col) + ui/spec-value (w900) / divider: w100</div>
+  </div>
+
+  <p class="sub mb-24">Masthead</p>
+  <div class="specimen mb-48">
+    <div>
+      <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.15em;color:var(--orange);font-weight:500;display:block;margin-bottom:20px">MYBAP // PRODUCT</span>
+      <span style="font-size:52px;font-weight:200;letter-spacing:-0.03em;line-height:1.05;display:block;margin-bottom:16px">Page Title</span>
+      <span style="font-size:15px;font-weight:400;color:var(--w600);line-height:1.65;display:block;max-width:540px;margin-bottom:40px">Descriptive subtitle text that explains the purpose of this page or section. Concise but complete.</span>
+      <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--w400)"><span>V4.0 // IDENTIFIER</span><span>2026-02-24</span></div>
+    </div>
+    <div class="spec-line">Composite: mono/eyebrow (orange) + display/h1 (w900) + body/masthead (w600) + mono/meta row (w400)</div>
+  </div>
+
+  <p class="sub mb-24">Blog article header</p>
+  <div class="specimen mb-48">
+    <div>
+      <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.12em;font-weight:500;color:var(--w400);display:block;margin-bottom:16px">FEBRUARY 24, 2026 · ENGINEERING</span>
+      <span style="font-size:40px;font-weight:300;letter-spacing:-0.02em;line-height:1.1;display:block;margin-bottom:12px;color:var(--w900)">Building Systems That Last</span>
+      <span style="font-size:20px;font-weight:300;line-height:1.5;color:var(--w500);display:block;margin-bottom:24px">On the philosophy of instrument design and why precision matters more than novelty.</span>
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="font-size:13px;font-weight:500;color:var(--w900)">Naman Agarwal</span>
+        <span style="color:var(--w200)">·</span>
+        <span style="font-family:var(--mono);font-size:9px;font-weight:400;color:var(--w400)">8 min read</span>
+      </div>
+    </div>
+    <div class="spec-line">Composite: blog/meta + blog/title + blog/subtitle + blog/author + blog/reading-time</div>
+  </div>
+</section>
+
+
+</div>
+</body>
+</html>
