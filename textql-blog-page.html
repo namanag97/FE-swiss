@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TextQL — Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Caslon+Text:ital,wght@1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:#2E3B36;--ink-dark:#072A20;--ink-mid:#3D5D55;--ink-light:#628C82;
+      --ink-muted:#6B7268;--ink-faint:#7C7E7B;--emerald:#047A55;
+      --bg:#FAFBF8;--white:#FFFFFF;
+      --border:rgba(46,59,54,.10);--border-mid:rgba(46,59,54,.18);--border-nav:#9EA397;
+      --sp-1:4px;--sp-2:6px;--sp-3:12px;--sp-4:18px;--sp-5:30px;--sp-6:48px;--sp-7:64px;
+      --fs-xs:10px;--fs-sm:12px;--fs-md:14px;--fs-base:16px;--fs-lg:20px;--fs-xl:32px;--fs-2xl:48px;--fs-3xl:64px;
+      --sans:'Geist Mono',monospace;--body:'Inter',sans-serif;--caslon:'Libre Caslon Text',Georgia,serif;
+      --t-fast:.15s ease;--t-std:.20s ease;
+      --max-w:1400px;--nav-h:40px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{-webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit}ul{list-style:none}
+    button{cursor:pointer;font:inherit;border:none}
+    body{
+      font-family:var(--body);font-weight:260;color:var(--ink);
+      background-color:var(--bg);
+      background-image:url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');
+      background-size:auto;background-repeat:repeat;background-attachment:fixed;
+    }
+
+    /* ── BANNER + NAV (identical across all pages) ── */
+    .banner{background:var(--ink-dark);height:36px;display:flex;align-items:center;justify-content:center;gap:var(--sp-3)}
+    .banner-text{font-family:var(--sans);font-size:var(--fs-xs);font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+    .banner-dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
+    .banner-link{font-family:var(--sans);font-size:var(--fs-xs);font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:4px;transition:color var(--t-fast)}
+    .banner-link:hover{color:#fff}
+    .nav-wrap{background:rgba(250,251,248,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border-nav);position:sticky;top:0;z-index:100}
+    nav{height:var(--nav-h);padding:0 var(--sp-4);display:flex;align-items:center;justify-content:space-between;max-width:var(--max-w);margin:0 auto;position:relative}
+    nav::before{content:"";position:absolute;top:0;left:0;width:1px;height:100%;background:var(--border)}
+    nav::after{content:"";position:absolute;top:0;right:0;width:1px;height:100%;background:var(--border)}
+    .nav-logo{font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:-.03em;color:var(--ink-dark);display:flex;align-items:center;gap:6px}
+    .nav-logo-mark{width:18px;height:18px;border:1.5px solid var(--ink-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .nav-logo-mark span{width:6px;height:6px;background:var(--emerald);border-radius:50%}
+    .nav-links{display:flex;align-items:center}
+    .nav-link{font-family:var(--body);font-weight:400;font-size:var(--fs-md);color:var(--ink);padding:0 var(--sp-4);height:var(--nav-h);display:flex;align-items:center;gap:4px;letter-spacing:-.015em;border-left:1px solid var(--border);transition:color var(--t-std);white-space:nowrap}
+    .nav-link:last-child{border-right:1px solid var(--border)}
+    .nav-link:hover{color:var(--emerald)}
+    .nav-link svg{opacity:.4}
+    .nav-actions{display:flex;align-items:center;gap:var(--sp-2)}
+    .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--sans);font-size:var(--fs-xs);font-weight:400;text-transform:uppercase;letter-spacing:.06em;padding:var(--sp-3) var(--sp-4);border-radius:0;outline:none;transition:background-color var(--t-std),border-color var(--t-std),color var(--t-std);white-space:nowrap}
+    .btn-primary{background-color:var(--ink-mid);color:var(--white);border:1px solid transparent;background-image:repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(255,255,255,.03) 2px,rgba(255,255,255,.03) 4px)}
+    .btn-primary:hover{background-color:var(--emerald)}
+    .btn-ghost{background-color:transparent;color:var(--ink);border:1px solid var(--ink);background-image:repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(0,0,0,.025) 2px,rgba(0,0,0,.025) 4px)}
+    .btn-ghost:hover{border-color:var(--ink-dark);color:var(--ink-dark)}
+
+    /* ── PAGE CONTAINER ── */
+    .page{max-width:var(--max-w);margin:0 auto;position:relative;padding:0 var(--sp-5)}
+    .page::before{content:"";position:absolute;top:0;left:0;width:1px;height:100%;background:var(--border);pointer-events:none}
+    .page::after{content:"";position:absolute;top:0;right:0;width:1px;height:100%;background:var(--border);pointer-events:none}
+
+    /* ── BLOG HERO ── */
+    .blog-hero{padding:var(--sp-7) 0 var(--sp-5)}
+    .blog-hero h1{
+      font-family:var(--sans);font-size:var(--fs-3xl);font-weight:400;
+      line-height:.89;letter-spacing:-.03em;color:var(--ink);
+    }
+
+    /* ── FILTER TABS ── */
+    .filter-row{
+      display:flex;align-items:center;gap:0;
+      border-bottom:1px solid var(--border);margin-bottom:var(--sp-5);
+    }
+    .filter-tab{
+      font-family:var(--sans);font-size:var(--fs-xs);font-weight:400;
+      letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);
+      padding:var(--sp-3) var(--sp-4);border-bottom:2px solid transparent;
+      background:none;cursor:pointer;transition:color var(--t-std),border-color var(--t-std);
+      white-space:nowrap;
+    }
+    .filter-tab:hover{color:var(--ink)}
+    .filter-tab--active{color:var(--ink);border-bottom-color:var(--ink)}
+
+    /* ── BLOG LIST ── */
+    .blog-list{display:flex;flex-direction:column}
+    .blog-entry{
+      display:grid;grid-template-columns:1fr auto;gap:var(--sp-5);
+      align-items:start;
+      padding:var(--sp-5) 0;border-bottom:1px solid var(--border);
+      transition:background var(--t-fast);
+    }
+    .blog-entry:hover{background:rgba(46,59,54,.02);margin:0 calc(var(--sp-5) * -1);padding-left:var(--sp-5);padding-right:var(--sp-5)}
+    .blog-entry-content{display:flex;flex-direction:column;gap:var(--sp-2)}
+    .blog-entry-title{
+      font-family:var(--sans);font-size:var(--fs-lg);font-weight:400;
+      letter-spacing:-.02em;line-height:1.15;color:var(--ink);
+    }
+    .blog-entry-meta{
+      display:flex;align-items:center;gap:var(--sp-3);flex-wrap:wrap;
+    }
+    .blog-entry-author{
+      font-family:var(--body);font-size:var(--fs-sm);font-weight:260;
+      letter-spacing:-.01em;color:var(--ink-muted);
+    }
+    .blog-entry-date{
+      font-family:var(--sans);font-size:var(--fs-xs);font-weight:400;
+      letter-spacing:.04em;color:var(--ink-faint);
+    }
+    .blog-tag{
+      display:inline-flex;align-items:center;
+      font-family:var(--sans);font-size:9px;font-weight:500;
+      text-transform:uppercase;letter-spacing:.08em;
+      padding:2px 6px;border-radius:3px;
+    }
+    .blog-tag--announcements{background:rgba(4,122,85,.12);color:var(--emerald)}
+    .blog-tag--engineering{background:rgba(46,59,54,.07);color:var(--ink-muted)}
+    .blog-tag--team{background:rgba(217,119,6,.08);color:#B45309}
+    .blog-tag--research{background:rgba(99,102,241,.08);color:#4F46E5}
+    .blog-tag--insights{background:rgba(46,59,54,.07);color:var(--ink-mid)}
+    .blog-tag--alternatives{background:rgba(46,59,54,.05);color:var(--ink-faint)}
+
+    .blog-entry-right{
+      display:flex;align-items:center;
+      font-family:var(--sans);font-size:var(--fs-xs);font-weight:400;
+      letter-spacing:.04em;color:var(--ink-faint);white-space:nowrap;
+    }
+
+    /* ── FOOTER (same as pricing) ── */
+    .footer{background-color:var(--ink-dark);background-image:url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp'),repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(255,255,255,.007) 3px,rgba(255,255,255,.007) 6px);background-size:auto,auto;background-repeat:repeat,repeat;padding:var(--sp-7) 0 var(--sp-5)}
+    .footer-inner{max-width:var(--max-w);margin:0 auto;padding:0 var(--sp-5);position:relative;z-index:1}
+    .footer-grid{display:grid;grid-template-columns:1.8fr repeat(4,1fr);gap:var(--sp-7);padding-bottom:var(--sp-6);border-bottom:1px solid rgba(255,255,255,.08)}
+    .footer-brand{display:flex;flex-direction:column;gap:var(--sp-4)}
+    .footer-logo{font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:-.03em;color:var(--white);display:flex;align-items:center;gap:6px}
+    .footer-logo-mark{width:18px;height:18px;border:1.5px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center}
+    .footer-logo-mark span{width:6px;height:6px;background:var(--emerald);border-radius:50%}
+    .footer-newsletter{display:flex;flex-direction:column;gap:var(--sp-3)}
+    .footer-nl-title{font-family:var(--sans);font-size:var(--fs-sm);font-weight:400;letter-spacing:-.01em;color:rgba(255,255,255,.7)}
+    .footer-nl-desc{font-family:var(--body);font-size:var(--fs-xs);font-weight:260;line-height:1.5;color:rgba(255,255,255,.35)}
+    .footer-nl-row{display:flex}
+    .input-dark{font-family:var(--body);font-size:var(--fs-sm);font-weight:400;color:rgba(255,255,255,.7);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:0;padding:var(--sp-2) var(--sp-3);outline:none;width:180px}
+    .input-dark::placeholder{color:rgba(255,255,255,.25)}
+    .btn-footer{font-family:var(--sans);font-size:var(--fs-xs);font-weight:400;text-transform:uppercase;letter-spacing:.06em;padding:var(--sp-2) var(--sp-3);border-radius:0;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.12);border-left:none;cursor:pointer}
+    .footer-col{display:flex;flex-direction:column;gap:var(--sp-4)}
+    .footer-col-title{font-family:var(--sans);font-size:var(--fs-xs);font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+    .footer-links{display:flex;flex-direction:column;gap:var(--sp-2)}
+    .footer-link{font-family:var(--body);font-size:var(--fs-sm);font-weight:260;letter-spacing:-.01em;color:rgba(255,255,255,.55);transition:color var(--t-fast)}
+    .footer-link:hover{color:rgba(255,255,255,.9)}
+    .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:var(--sp-5)}
+    .footer-copy{font-family:var(--sans);font-size:var(--fs-xs);font-weight:400;letter-spacing:.04em;color:rgba(255,255,255,.2)}
+  </style>
+</head>
+<body>
+
+<!-- BANNER -->
+<div class="banner">
+  <span class="banner-text">Meet us at Gartner 2026 — Mar 9-11 in Orlando</span>
+  <div class="banner-dot"></div>
+  <a class="banner-link" href="#">Learn more <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2.5L7.5 5 5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <nav>
+    <a class="nav-logo" href="#"><div class="nav-logo-mark"><span></span></div>TextQL</a>
+    <div class="nav-links">
+      <a class="nav-link" href="#">Products <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="nav-link" href="#">Industries <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="nav-link" href="#">Company <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="nav-link" href="#">Pricing</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-ghost" href="#">Get Started</a>
+      <a class="btn btn-primary" href="#">Request Demo</a>
+    </div>
+  </nav>
+</div>
+
+<!-- BLOG CONTENT -->
+<div class="page">
+  <div class="blog-hero">
+    <h1>Blog</h1>
+  </div>
+
+  <!-- FILTER TABS -->
+  <div class="filter-row">
+    <button class="filter-tab filter-tab--active">All</button>
+    <button class="filter-tab">Engineering</button>
+    <button class="filter-tab">Announcements</button>
+    <button class="filter-tab">Research</button>
+    <button class="filter-tab">Team</button>
+  </div>
+
+  <!-- BLOG ENTRIES — exact from textql.com/blog -->
+  <div class="blog-list">
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Ana Just Got 25% Cheaper</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">TextQL Team</span>
+          <span class="blog-tag blog-tag--announcements">Announcements</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">January 15, 2026</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Introducing Sandcastles — the Sandbox for Analytical Workloads</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Mark Hay, Gabriel Tomitsuka, Rodney Shen, Brian Bickell</span>
+          <span class="blog-tag blog-tag--engineering">Engineering</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">December 17, 2025</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Why I'm Joining TextQL</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Brian Bickell</span>
+          <span class="blog-tag blog-tag--team">Team</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">October 29, 2025</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">TextQL Launches into Healthcare Vertical</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Ethan Ding</span>
+          <span class="blog-tag blog-tag--announcements">Announcements</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">October 9, 2025</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Ivy Teng: From McKinsey to TextQL</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Ivy Teng</span>
+          <span class="blog-tag blog-tag--team">Team</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">September 19, 2025</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Ana in Slack</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Ivy Teng</span>
+          <span class="blog-tag blog-tag--announcements">Announcements</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">September 16, 2025</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Playbooks Launch: Ana Now Runs Autonomously</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Ivy Teng</span>
+          <span class="blog-tag blog-tag--announcements">Announcements</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">September 2, 2025</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Ana Launch</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Ivy Teng</span>
+          <span class="blog-tag blog-tag--announcements">Announcements</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">August 26, 2025</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Making AI That Can Process 1,000,000x More Data</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Ethan Ding</span>
+          <span class="blog-tag blog-tag--announcements">Announcements</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">August 6, 2025</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Guide to Analytics Agent Levels for CIOs</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Ethan Ding</span>
+          <span class="blog-tag blog-tag--insights">Insights</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">June 16, 2025</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Beyond Guesswork</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Matt Abate</span>
+          <span class="blog-tag blog-tag--research">Research</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">May 22, 2025</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Benchmarking AI Vision with Puzzles</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Matt Abate</span>
+          <span class="blog-tag blog-tag--research">Research</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">May 13, 2025</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Open-Sourcing State of the Art Text-to-SQL</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Spencer Hubert</span>
+          <span class="blog-tag blog-tag--announcements">Announcements</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">March 10, 2025</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Our Ontology-Based Text to SQL Generation Process</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Ethan Ding</span>
+          <span class="blog-tag blog-tag--engineering">Engineering</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">October 18, 2024</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Why We Use an Ontology for Text to SQL</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Ethan Ding</span>
+          <span class="blog-tag blog-tag--engineering">Engineering</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">October 17, 2024</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Haskell in Production: TextQL's Ontology Service</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Mark Hay</span>
+          <span class="blog-tag blog-tag--engineering">Engineering</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">February 7, 2024</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">Announcing TextQL's SOC II Report</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Gabriel Tomitsuka</span>
+          <span class="blog-tag blog-tag--announcements">Announcements</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">January 29, 2024</span>
+    </a>
+
+    <a class="blog-entry" href="#">
+      <div class="blog-entry-content">
+        <h2 class="blog-entry-title">TextQL Joins NBA Launchpad to Revolutionize Fan Data Analytics</h2>
+        <div class="blog-entry-meta">
+          <span class="blog-entry-author">Gabriel Tomitsuka</span>
+          <span class="blog-tag blog-tag--announcements">Announcements</span>
+        </div>
+      </div>
+      <span class="blog-entry-right">January 25, 2024</span>
+    </a>
+  </div>
+
+  <div style="height:var(--sp-7)"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="footer-logo" href="#"><div class="footer-logo-mark"><span></span></div>TextQL</a>
+        <div class="footer-newsletter">
+          <span class="footer-nl-title">TextQL Product Newsletter</span>
+          <span class="footer-nl-desc">What we shipped this week. Every Thursday.</span>
+          <div class="footer-nl-row">
+            <input class="input-dark" type="email" placeholder="you@company.com" />
+            <button class="btn-footer">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="footer-col"><span class="footer-col-title">Product</span><div class="footer-links"><a class="footer-link" href="#">Threads</a><a class="footer-link" href="#">Ontology</a><a class="footer-link" href="#">Playbooks</a><a class="footer-link" href="#">Dashboards</a><a class="footer-link" href="#">Slack</a></div></div>
+      <div class="footer-col"><span class="footer-col-title">Solutions</span><div class="footer-links"><a class="footer-link" href="#">Healthcare</a><a class="footer-link" href="#">Financial Services</a><a class="footer-link" href="#">Manufacturing</a><a class="footer-link" href="#">Retail</a><a class="footer-link" href="#">Media</a></div></div>
+      <div class="footer-col"><span class="footer-col-title">Company</span><div class="footer-links"><a class="footer-link" href="#">Careers</a><a class="footer-link" href="#">Blog</a><a class="footer-link" href="#">LinkedIn</a><a class="footer-link" href="#">X / Twitter</a><a class="footer-link" href="#">About</a><a class="footer-link" href="#">Versus</a></div></div>
+      <div class="footer-col"><span class="footer-col-title">Resources</span><div class="footer-links"><a class="footer-link" href="#">Pricing</a><a class="footer-link" href="#">Partners</a><a class="footer-link" href="#">Documentation</a><a class="footer-link" href="#">Log In</a><a class="footer-link" href="#">Terms</a><a class="footer-link" href="#">Privacy</a></div></div>
+    </div>
+    <div class="footer-bottom"><span class="footer-copy">&copy; 2026 TextQL, Inc. All rights reserved.</span></div>
+  </div>
+</footer>
+
+</body>
+</html>
