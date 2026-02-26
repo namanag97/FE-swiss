@@ -1,0 +1,2451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TextQL Design System — Inner Page Components</title>
+
+  <!-- TextQL's exact font stack -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Caslon+Text:ital,wght@1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       TOKENS — exact from textql.com source (same across all pages)
+    ═══════════════════════════════════════════════════════════════ */
+    :root {
+      --ink:        #2E3B36;
+      --ink-dark:   #072A20;
+      --ink-mid:    #3D5D55;
+      --ink-light:  #628C82;
+      --ink-muted:  #6B7268;
+      --ink-faint:  #7C7E7B;
+      --emerald:    #047A55;
+      --bg:         #FAFBF8;
+      --white:      #FFFFFF;
+      --border:     rgba(46,59,54,.10);
+      --border-mid: rgba(46,59,54,.18);
+      --border-nav: #9EA397;
+
+      /* Additional colors found on inner pages */
+      --red:        #B91C1C;
+      --red-bg:     rgba(220,38,38,.08);
+      --amber:      #B45309;
+      --amber-bg:   rgba(217,119,6,.08);
+
+      --sp-1:4px; --sp-2:6px; --sp-3:12px; --sp-4:18px;
+      --sp-5:30px; --sp-6:48px; --sp-7:64px;
+      --fs-xs:10px; --fs-sm:12px; --fs-md:14px; --fs-base:16px;
+      --fs-lg:20px; --fs-xl:32px; --fs-2xl:48px; --fs-3xl:64px;
+      --sans:   'Geist Mono', monospace;
+      --body:   'Inter', sans-serif;
+      --caslon: 'Libre Caslon Text', Georgia, serif;
+      --t-fast:.15s ease; --t-std:.20s ease; --t-slow:.30s ease;
+      --max-w: 1400px;
+      --nav-h: 40px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RESET
+    ═══════════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { cursor: pointer; font: inherit; border: none; }
+
+    body {
+      font-family: var(--body);
+      font-weight: 260;
+      color: var(--ink);
+      background-color: var(--bg);
+      background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');
+      background-size: auto;
+      background-repeat: repeat;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       LIBRARY CHROME — section labels (not part of design)
+    ═══════════════════════════════════════════════════════════════ */
+    .lib-section { padding: 48px 0 0; }
+    .lib-section:last-child { padding-bottom: 120px; }
+    .lib-label {
+      max-width: var(--max-w);
+      margin: 0 auto 16px;
+      padding: 0 var(--sp-5);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .lib-tag {
+      font-family: var(--sans);
+      font-size: 8px; font-weight: 600;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(46,59,54,.4);
+      background: rgba(46,59,54,.06);
+      border: 1px solid rgba(46,59,54,.10);
+      padding: 2px 7px; border-radius: 3px;
+    }
+    .lib-name {
+      font-family: var(--sans);
+      font-size: 10px; font-weight: 400;
+      letter-spacing: .04em; color: rgba(46,59,54,.4);
+    }
+    .lib-rule { flex: 1; height: 1px; background: rgba(46,59,54,.08); }
+
+    /* Grid rails */
+    .gr {
+      position: relative;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .gr::before {
+      content: ""; position: absolute; top: 0; left: 0;
+      width: 1px; height: 100%; background: var(--border);
+      pointer-events: none;
+    }
+    .gr::after {
+      content: ""; position: absolute; top: 0; right: 0;
+      width: 1px; height: 100%; background: var(--border);
+      pointer-events: none;
+    }
+    .h-rule {
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+      width: 100vw; height: 1px;
+      background: var(--border);
+      pointer-events: none;
+    }
+    .h-rule--top { top: 0; }
+    .h-rule--bottom { bottom: 0; }
+
+    /* Showcase wrappers */
+    .preview {
+      display: flex; flex-wrap: wrap;
+      align-items: flex-start; gap: var(--sp-5);
+      padding: var(--sp-6) var(--sp-5);
+    }
+    .preview-col {
+      display: flex; flex-direction: column;
+      gap: var(--sp-5);
+      padding: var(--sp-6) var(--sp-5);
+    }
+    .item { display: flex; flex-direction: column; gap: 8px; }
+    .item-label {
+      font-family: var(--sans);
+      font-size: 8.5px; font-weight: 500;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SHARED COMPONENTS (reused from base, needed here too)
+    ═══════════════════════════════════════════════════════════════ */
+    .btn {
+      position: relative;
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      text-transform: uppercase; letter-spacing: .06em;
+      padding: var(--sp-3) var(--sp-4);
+      border-radius: 0; outline: none;
+      transition: background-color var(--t-std), border-color var(--t-std), color var(--t-std);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background-color: var(--ink-mid);
+      color: var(--white);
+      border: 1px solid transparent;
+      background-image: repeating-linear-gradient(
+        45deg, transparent, transparent 2px,
+        rgba(255,255,255,.03) 2px, rgba(255,255,255,.03) 4px
+      );
+    }
+    .btn-primary:hover { background-color: var(--emerald); }
+    .btn-ghost {
+      background-color: transparent;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      background-image: repeating-linear-gradient(
+        45deg, transparent, transparent 2px,
+        rgba(0,0,0,.025) 2px, rgba(0,0,0,.025) 4px
+      );
+    }
+    .btn-ghost:hover { border-color: var(--ink-dark); color: var(--ink-dark); }
+    .btn::before {
+      content: ""; position: absolute;
+      top: -4px; left: -4px; width: 5px; height: 5px; opacity: 0;
+      border-top: 1px solid currentColor; border-left: 1px solid currentColor;
+      transition: opacity var(--t-fast);
+    }
+    .btn::after {
+      content: ""; position: absolute;
+      top: -4px; right: -4px; width: 5px; height: 5px; opacity: 0;
+      border-top: 1px solid currentColor; border-right: 1px solid currentColor;
+      transition: opacity var(--t-fast);
+    }
+    .btn:hover::before, .btn:hover::after { opacity: 1; }
+
+    .eyebrow {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      text-transform: uppercase; letter-spacing: .10em;
+      color: var(--ink-muted);
+      display: inline-flex; align-items: center; gap: 8px;
+      line-height: 1; opacity: .85;
+    }
+    .eyebrow-bracket::before { content: "[ "; }
+    .eyebrow-bracket::after  { content: " ]"; }
+
+    .tag {
+      display: inline-flex; align-items: center;
+      font-family: var(--sans);
+      font-size: 9px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: .08em;
+      padding: 2px 6px; border-radius: 3px;
+    }
+    .tag-neutral { background: rgba(46,59,54,.07); color: var(--ink-muted); }
+    .tag-active  { background: rgba(4,122,85,.12); color: var(--emerald); }
+
+    .divider-h { width: 100%; height: 1px; background: var(--border); }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       1. PRODUCT PAGE HERO — centered, narrower, eyebrow + H1 + body + 2-btn
+    ═══════════════════════════════════════════════════════════════ */
+    .product-hero {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--sp-7) var(--sp-5);
+      text-align: center;
+      display: flex; flex-direction: column;
+      align-items: center; gap: var(--sp-4);
+    }
+    .product-hero .eyebrow { margin-bottom: var(--sp-2); }
+    .product-hero-title {
+      font-family: var(--sans);
+      font-size: clamp(36px, 4vw, var(--fs-3xl));
+      font-weight: 400;
+      line-height: .89;
+      letter-spacing: -.03em;
+      word-spacing: -.20em;
+      color: var(--ink);
+      max-width: 800px;
+    }
+    .product-hero-title em {
+      font-family: var(--caslon);
+      font-style: italic; font-weight: 400;
+      color: var(--emerald);
+      text-decoration: underline;
+      text-decoration-color: var(--emerald);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 8px;
+      text-decoration-skip-ink: none;
+      word-spacing: 0;
+    }
+    .product-hero-body {
+      font-family: var(--body);
+      font-size: var(--fs-md);
+      font-weight: 260;
+      line-height: 1.65;
+      letter-spacing: -.015em;
+      color: var(--ink-muted);
+      max-width: 540px;
+    }
+    .product-hero-actions {
+      display: flex; gap: var(--sp-3);
+      margin-top: var(--sp-3);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       2. PRICING CARD — 3-tier layout with MOST POPULAR badge
+    ═══════════════════════════════════════════════════════════════ */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      margin-left: -1px;
+      padding: var(--sp-6) var(--sp-5);
+      display: flex; flex-direction: column;
+      gap: var(--sp-4);
+      position: relative;
+    }
+    .pricing-card:first-child { margin-left: 0; }
+    .pricing-card--featured {
+      border-color: var(--ink-mid);
+      z-index: 1;
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -1px; left: 50%; transform: translate(-50%, -50%);
+      font-family: var(--sans);
+      font-size: 8px; font-weight: 600;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--white);
+      background: var(--ink-mid);
+      padding: 3px 10px;
+      white-space: nowrap;
+    }
+    .pricing-tier {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 600;
+      letter-spacing: .10em; text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .pricing-desc {
+      font-family: var(--body);
+      font-size: var(--fs-sm); font-weight: 260;
+      line-height: 1.5; letter-spacing: -.01em;
+      color: var(--ink-muted);
+    }
+    .pricing-price {
+      display: flex; align-items: baseline; gap: 4px;
+    }
+    .pricing-amount {
+      font-family: var(--sans);
+      font-size: var(--fs-2xl); font-weight: 400;
+      letter-spacing: -.04em; line-height: 1;
+      color: var(--ink-dark);
+    }
+    .pricing-period {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      letter-spacing: .04em;
+      color: var(--ink-faint);
+    }
+    .pricing-compute {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      letter-spacing: .04em;
+      color: var(--ink-muted);
+    }
+    .pricing-features {
+      display: flex; flex-direction: column;
+      gap: var(--sp-2);
+      padding-top: var(--sp-3);
+      border-top: 1px solid var(--border);
+      flex: 1;
+    }
+    .pricing-feature {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-family: var(--body);
+      font-size: var(--fs-sm); font-weight: 260;
+      line-height: 1.5; letter-spacing: -.01em;
+      color: var(--ink-muted);
+    }
+    .pricing-check {
+      width: 14px; height: 14px; flex-shrink: 0;
+      margin-top: 1px;
+      color: var(--emerald);
+    }
+    .pricing-cta { margin-top: auto; }
+    .pricing-cta .btn { width: 100%; }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       3. FEATURE SECTION — eyebrow + H2 + body + visual region
+       (used on Threads, Ontology, Playbooks, Dashboards pages)
+    ═══════════════════════════════════════════════════════════════ */
+    .feature-section {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--sp-7) var(--sp-5);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-7);
+      align-items: center;
+    }
+    .feature-section--reversed { direction: rtl; }
+    .feature-section--reversed > * { direction: ltr; }
+    .feature-text {
+      display: flex; flex-direction: column;
+      gap: var(--sp-3);
+    }
+    .feature-title {
+      font-family: var(--sans);
+      font-size: clamp(24px, 2.5vw, 36px);
+      font-weight: 400;
+      line-height: .95;
+      letter-spacing: -.025em;
+      color: var(--ink);
+    }
+    .feature-body {
+      font-family: var(--body);
+      font-size: var(--fs-md);
+      font-weight: 260;
+      line-height: 1.65;
+      letter-spacing: -.015em;
+      color: var(--ink-muted);
+      max-width: 440px;
+    }
+    .feature-visual {
+      background: var(--white);
+      border: 1px solid var(--border);
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-visual-placeholder {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       4. THREE-STEP WORKFLOW — "Prompt. Schedule. Deliver." pattern
+       (found on Playbooks page)
+    ═══════════════════════════════════════════════════════════════ */
+    .steps-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .step-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      margin-left: -1px;
+      padding: var(--sp-6) var(--sp-5);
+      display: flex; flex-direction: column;
+      gap: var(--sp-3);
+    }
+    .step-card:first-child { margin-left: 0; }
+    .step-number {
+      font-family: var(--sans);
+      font-size: var(--fs-2xl); font-weight: 400;
+      letter-spacing: -.04em; line-height: 1;
+      color: var(--border-mid);
+    }
+    .step-title {
+      font-family: var(--sans);
+      font-size: var(--fs-lg); font-weight: 400;
+      letter-spacing: -.02em; line-height: 1.1;
+      color: var(--ink);
+    }
+    .step-body {
+      font-family: var(--body);
+      font-size: var(--fs-md); font-weight: 260;
+      line-height: 1.6; letter-spacing: -.015em;
+      color: var(--ink-muted);
+    }
+    /* Connector line between steps */
+    .step-card + .step-card::before {
+      content: "";
+      position: absolute; top: 50%; left: -1px;
+      width: 1px; height: 40%;
+      transform: translateY(-50%);
+      background: var(--emerald);
+      opacity: .3;
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       5. STAT ROW — horizontal metric bar (300 hrs / 140x / 98.8%)
+       (found on Dashboards, Product pages)
+    ═══════════════════════════════════════════════════════════════ */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      border: 1px solid var(--border);
+    }
+    .stat-cell {
+      padding: var(--sp-5);
+      display: flex; flex-direction: column;
+      gap: var(--sp-2);
+      border-right: 1px solid var(--border);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-cell-value {
+      font-family: var(--sans);
+      font-size: var(--fs-2xl); font-weight: 400;
+      letter-spacing: -.04em; line-height: 1;
+      color: var(--ink-dark);
+    }
+    .stat-cell-unit {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .stat-cell-label {
+      font-family: var(--body);
+      font-size: var(--fs-sm); font-weight: 260;
+      line-height: 1.5; letter-spacing: -.01em;
+      color: var(--ink-muted);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       6. BLOG CARD — vertical stack (Announcements, Engineering, etc.)
+    ═══════════════════════════════════════════════════════════════ */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .blog-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      margin-left: -1px; margin-top: -1px;
+      padding: var(--sp-5);
+      display: flex; flex-direction: column;
+      gap: var(--sp-3);
+      transition: border-color var(--t-std);
+    }
+    .blog-card:hover { border-color: var(--border-mid); }
+    .blog-card-image {
+      width: 100%; aspect-ratio: 16/9;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .blog-card-image-placeholder {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-faint);
+      opacity: .6;
+    }
+    .blog-card-meta {
+      display: flex; align-items: center; gap: var(--sp-3);
+    }
+    .blog-card-date {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      letter-spacing: .04em;
+      color: var(--ink-faint);
+    }
+    .blog-card-title {
+      font-family: var(--sans);
+      font-size: var(--fs-base); font-weight: 400;
+      letter-spacing: -.02em; line-height: 1.2;
+      color: var(--ink);
+    }
+    .blog-card-excerpt {
+      font-family: var(--body);
+      font-size: var(--fs-sm); font-weight: 260;
+      line-height: 1.6; letter-spacing: -.01em;
+      color: var(--ink-muted);
+    }
+    .blog-card-author {
+      display: flex; align-items: center; gap: 8px;
+      padding-top: var(--sp-3);
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+    .blog-author-avatar {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--ink-dark); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--sans); font-size: 8px; font-weight: 600;
+      color: rgba(255,255,255,.7);
+    }
+    .blog-author-info {
+      display: flex; flex-direction: column; gap: 1px;
+    }
+    .blog-author-name {
+      font-family: var(--body); font-size: var(--fs-xs);
+      font-weight: 500; color: var(--ink-dark);
+      letter-spacing: -.01em;
+    }
+    .blog-author-role {
+      font-family: var(--sans); font-size: 8px;
+      font-weight: 400; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       7. COMPARISON / VERSUS CARD — grid of competitor cards
+    ═══════════════════════════════════════════════════════════════ */
+    .versus-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .versus-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      margin-left: -1px; margin-top: -1px;
+      padding: var(--sp-5);
+      display: flex; flex-direction: column;
+      align-items: center; text-align: center;
+      gap: var(--sp-3);
+      transition: border-color var(--t-std);
+      cursor: pointer;
+    }
+    .versus-card:hover { border-color: var(--border-mid); }
+    .versus-icon {
+      width: 40px; height: 40px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .versus-icon-inner {
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--ink-light);
+      opacity: .5;
+    }
+    .versus-name {
+      font-family: var(--sans);
+      font-size: var(--fs-sm); font-weight: 400;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+    .versus-desc {
+      font-family: var(--body);
+      font-size: var(--fs-xs); font-weight: 260;
+      line-height: 1.5; letter-spacing: -.01em;
+      color: var(--ink-faint);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       8. FAQ ACCORDION — found on Pricing page
+    ═══════════════════════════════════════════════════════════════ */
+    .faq-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 var(--sp-5);
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-trigger {
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--sp-4);
+      padding: var(--sp-4) 0;
+      background: transparent; border: none;
+      cursor: pointer;
+      font-family: var(--sans);
+      font-size: var(--fs-md); font-weight: 400;
+      letter-spacing: -.015em;
+      color: var(--ink);
+      text-align: left;
+    }
+    .faq-trigger:hover { color: var(--ink-dark); }
+    .faq-icon {
+      width: 16px; height: 16px; flex-shrink: 0;
+      color: var(--ink-faint);
+      transition: transform var(--t-std);
+    }
+    .faq-item.is-open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      font-family: var(--body);
+      font-size: var(--fs-sm); font-weight: 260;
+      line-height: 1.65; letter-spacing: -.01em;
+      color: var(--ink-muted);
+      padding-bottom: var(--sp-4);
+      max-width: 580px;
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       9. DEPLOYMENT / CLOUD CARD — BYOC badges (AWS, Azure, GCP)
+    ═══════════════════════════════════════════════════════════════ */
+    .deploy-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: var(--sp-6) var(--sp-5);
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex; flex-direction: column;
+      gap: var(--sp-5);
+    }
+    .deploy-title {
+      font-family: var(--sans);
+      font-size: var(--fs-lg); font-weight: 400;
+      letter-spacing: -.02em;
+      color: var(--ink);
+    }
+    .deploy-body {
+      font-family: var(--body);
+      font-size: var(--fs-md); font-weight: 260;
+      line-height: 1.6; letter-spacing: -.015em;
+      color: var(--ink-muted);
+    }
+    .deploy-badges {
+      display: flex; flex-wrap: wrap; gap: var(--sp-3);
+    }
+    .deploy-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: var(--sp-2) var(--sp-3);
+      border: 1px solid var(--border);
+      background: var(--bg);
+      transition: border-color var(--t-std);
+    }
+    .deploy-badge:hover { border-color: var(--border-mid); }
+    .deploy-badge-icon {
+      width: 16px; height: 16px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .deploy-badge-name {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 500;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--ink-mid);
+    }
+    /* Compliance badge variant */
+    .deploy-badge--compliance {
+      border-color: rgba(4,122,85,.18);
+      background: rgba(4,122,85,.04);
+    }
+    .deploy-badge--compliance .deploy-badge-name {
+      color: var(--emerald);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       10. DEMO FORM — centered card with testimonial sidebar
+    ═══════════════════════════════════════════════════════════════ */
+    .demo-layout {
+      max-width: 920px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .demo-social-proof {
+      background: var(--ink-dark);
+      padding: var(--sp-6) var(--sp-5);
+      display: flex; flex-direction: column;
+      justify-content: center; gap: var(--sp-5);
+      position: relative;
+      overflow: hidden;
+    }
+    .demo-social-proof::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg, transparent, transparent 3px,
+        rgba(255,255,255,.007) 3px, rgba(255,255,255,.007) 6px
+      );
+      pointer-events: none;
+    }
+    .demo-quote {
+      font-family: var(--body);
+      font-size: var(--fs-md); font-weight: 260;
+      line-height: 1.65; letter-spacing: -.015em;
+      color: rgba(255,255,255,.7);
+      position: relative; z-index: 1;
+    }
+    .demo-quote::before { content: '"'; }
+    .demo-quote::after  { content: '"'; }
+    .demo-attrib {
+      display: flex; flex-direction: column; gap: 2px;
+      position: relative; z-index: 1;
+    }
+    .demo-attrib-name {
+      font-family: var(--body); font-size: var(--fs-sm);
+      font-weight: 500; color: rgba(255,255,255,.85);
+      letter-spacing: -.01em;
+    }
+    .demo-attrib-role {
+      font-family: var(--sans); font-size: var(--fs-xs);
+      font-weight: 400; letter-spacing: .06em;
+      text-transform: uppercase; color: rgba(255,255,255,.35);
+    }
+    .demo-logos {
+      display: flex; gap: var(--sp-3);
+      position: relative; z-index: 1;
+      padding-top: var(--sp-4);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .demo-logo-chip {
+      font-family: var(--sans); font-size: var(--fs-xs);
+      font-weight: 500; letter-spacing: .06em;
+      text-transform: uppercase; color: rgba(255,255,255,.3);
+    }
+    /* Form side */
+    .demo-form-side {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: var(--sp-6) var(--sp-5);
+      display: flex; flex-direction: column;
+      gap: var(--sp-4);
+    }
+    .demo-form-title {
+      font-family: var(--sans);
+      font-size: var(--fs-lg); font-weight: 400;
+      letter-spacing: -.02em;
+      color: var(--ink);
+    }
+    .demo-form-desc {
+      font-family: var(--body);
+      font-size: var(--fs-sm); font-weight: 260;
+      line-height: 1.6; letter-spacing: -.01em;
+      color: var(--ink-muted);
+    }
+    .demo-input-group {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .demo-input-label {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 500;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .demo-input {
+      font-family: var(--body);
+      font-size: var(--fs-md); font-weight: 400;
+      color: var(--ink);
+      background: var(--bg);
+      border: 1px solid var(--border-mid);
+      border-radius: 0;
+      padding: var(--sp-3) var(--sp-4);
+      outline: none;
+      transition: border-color var(--t-std);
+      width: 100%;
+    }
+    .demo-input::placeholder { color: var(--ink-faint); }
+    .demo-input:focus { border-color: var(--ink); }
+    .demo-select {
+      font-family: var(--body);
+      font-size: var(--fs-md); font-weight: 400;
+      color: var(--ink);
+      background: var(--bg);
+      border: 1px solid var(--border-mid);
+      border-radius: 0;
+      padding: var(--sp-3) var(--sp-4);
+      outline: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 4l2.5 2.5L7.5 4' stroke='%237C7E7B' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right var(--sp-4) center;
+      cursor: pointer;
+      transition: border-color var(--t-std);
+      width: 100%;
+    }
+    .demo-select:focus { border-color: var(--ink); }
+    .demo-legal {
+      font-family: var(--body);
+      font-size: var(--fs-xs); font-weight: 260;
+      line-height: 1.5; letter-spacing: -.01em;
+      color: var(--ink-faint);
+    }
+    .demo-legal a {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       11. SLACK INTEGRATION — message bubble pattern
+    ═══════════════════════════════════════════════════════════════ */
+    .slack-container {
+      background: var(--white);
+      border: 1px solid var(--border);
+      max-width: 560px;
+      overflow: hidden;
+    }
+    .slack-sidebar {
+      background: var(--ink-dark);
+      padding: var(--sp-4);
+      display: flex; flex-direction: column;
+      gap: var(--sp-2);
+    }
+    .slack-channel {
+      font-family: var(--body);
+      font-size: var(--fs-sm); font-weight: 400;
+      color: rgba(255,255,255,.55);
+      padding: 4px var(--sp-3);
+      display: flex; align-items: center; gap: 6px;
+      transition: background var(--t-fast);
+    }
+    .slack-channel:hover { background: rgba(255,255,255,.08); }
+    .slack-channel--active {
+      background: rgba(255,255,255,.12);
+      color: rgba(255,255,255,.9);
+      font-weight: 500;
+    }
+    .slack-channel-hash {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      opacity: .5;
+    }
+    .slack-messages {
+      padding: var(--sp-4);
+      display: flex; flex-direction: column;
+      gap: var(--sp-4);
+    }
+    .slack-msg {
+      display: flex; gap: var(--sp-3);
+    }
+    .slack-avatar {
+      width: 32px; height: 32px; border-radius: 4px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--sans); font-size: 10px; font-weight: 600;
+    }
+    .slack-avatar--user {
+      background: var(--ink-mid);
+      color: rgba(255,255,255,.8);
+    }
+    .slack-avatar--bot {
+      background: rgba(4,122,85,.15);
+      color: var(--emerald);
+    }
+    .slack-msg-content {
+      display: flex; flex-direction: column;
+      gap: 2px; flex: 1;
+    }
+    .slack-msg-header {
+      display: flex; align-items: baseline; gap: 8px;
+    }
+    .slack-msg-name {
+      font-family: var(--body); font-size: var(--fs-sm);
+      font-weight: 600; color: var(--ink);
+      letter-spacing: -.01em;
+    }
+    .slack-msg-tag {
+      font-family: var(--sans); font-size: 8px;
+      font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase;
+      background: rgba(4,122,85,.10);
+      color: var(--emerald);
+      padding: 1px 4px; border-radius: 2px;
+    }
+    .slack-msg-time {
+      font-family: var(--sans); font-size: var(--fs-xs);
+      font-weight: 400; color: var(--ink-faint);
+      letter-spacing: .02em;
+    }
+    .slack-msg-text {
+      font-family: var(--body);
+      font-size: var(--fs-md); font-weight: 260;
+      line-height: 1.55; letter-spacing: -.015em;
+      color: var(--ink);
+    }
+    .slack-msg-text strong { font-weight: 600; }
+    .slack-thread-link {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      letter-spacing: .04em;
+      color: var(--emerald);
+      padding-top: 4px;
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       12. CONNECTOR / INTEGRATION GRID
+    ═══════════════════════════════════════════════════════════════ */
+    .connector-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .connector-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      margin-left: -1px; margin-top: -1px;
+      padding: var(--sp-5);
+      display: flex; align-items: center;
+      gap: var(--sp-3);
+      transition: border-color var(--t-std);
+    }
+    .connector-card:hover { border-color: var(--border-mid); }
+    .connector-icon {
+      width: 32px; height: 32px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .connector-icon-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .connector-info {
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .connector-title {
+      font-family: var(--sans);
+      font-size: var(--fs-sm); font-weight: 400;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+    .connector-type {
+      font-family: var(--sans);
+      font-size: 8px; font-weight: 400;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       13. PLAYBOOK BUILDER CARD — mock interface (Playbooks page)
+    ═══════════════════════════════════════════════════════════════ */
+    .playbook-builder {
+      background: var(--white);
+      border: 1px solid var(--border);
+      max-width: 480px;
+      overflow: hidden;
+    }
+    .playbook-header {
+      padding: var(--sp-3) var(--sp-4);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .playbook-header-title {
+      font-family: var(--sans);
+      font-size: var(--fs-sm); font-weight: 400;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+    .playbook-header-tag {
+      font-family: var(--sans);
+      font-size: 8px; font-weight: 500;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--emerald);
+      background: rgba(4,122,85,.10);
+      padding: 1px 5px; border-radius: 2px;
+    }
+    .playbook-body {
+      padding: var(--sp-4);
+      display: flex; flex-direction: column;
+      gap: var(--sp-3);
+    }
+    .playbook-trigger {
+      display: flex; align-items: center; gap: var(--sp-3);
+      padding: var(--sp-3);
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+    .playbook-trigger-icon {
+      width: 24px; height: 24px; flex-shrink: 0;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .playbook-trigger-text {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      letter-spacing: .04em;
+      color: var(--ink-muted);
+    }
+    .playbook-divider {
+      display: flex; align-items: center; gap: var(--sp-3);
+    }
+    .playbook-divider-line {
+      flex: 1; height: 1px;
+      background: var(--border);
+    }
+    .playbook-divider-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--border-mid);
+    }
+    .playbook-actions {
+      display: flex; gap: var(--sp-2);
+    }
+    .playbook-action-btn {
+      font-family: var(--sans);
+      font-size: 9px; font-weight: 400;
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: var(--sp-2) var(--sp-3);
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--ink-muted);
+      cursor: pointer;
+      transition: border-color var(--t-std), color var(--t-std);
+    }
+    .playbook-action-btn:hover { border-color: var(--ink); color: var(--ink); }
+    .playbook-action-btn--active {
+      border-color: var(--ink-mid);
+      background: var(--ink-mid);
+      color: var(--white);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       14. ONTOLOGY VISUALIZATION — node/entity card
+    ═══════════════════════════════════════════════════════════════ */
+    .ontology-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      max-width: 320px;
+      overflow: hidden;
+    }
+    .ontology-header {
+      padding: var(--sp-3) var(--sp-4);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .ontology-entity-name {
+      font-family: var(--sans);
+      font-size: var(--fs-sm); font-weight: 400;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+    .ontology-meta {
+      font-family: var(--sans);
+      font-size: 8px; font-weight: 400;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .ontology-fields {
+      padding: var(--sp-3) var(--sp-4);
+      display: flex; flex-direction: column;
+      gap: var(--sp-2);
+    }
+    .ontology-field {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--sp-3);
+      padding: 4px 0;
+    }
+    .ontology-field-name {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      letter-spacing: .02em;
+      color: var(--ink-mid);
+    }
+    .ontology-field-type {
+      font-family: var(--sans);
+      font-size: 8px; font-weight: 400;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--ink-faint);
+      background: var(--bg);
+      padding: 1px 5px;
+    }
+    .ontology-stats {
+      padding: var(--sp-3) var(--sp-4);
+      border-top: 1px solid var(--border);
+      display: flex; gap: var(--sp-4);
+    }
+    .ontology-stat {
+      display: flex; flex-direction: column; gap: 1px;
+    }
+    .ontology-stat-value {
+      font-family: var(--sans);
+      font-size: var(--fs-base); font-weight: 400;
+      letter-spacing: -.02em;
+      color: var(--ink);
+    }
+    .ontology-stat-label {
+      font-family: var(--sans);
+      font-size: 8px; font-weight: 400;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       15. DATA TABLE — thread results / analysis output
+    ═══════════════════════════════════════════════════════════════ */
+    .data-table-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      overflow-x: auto;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--body);
+    }
+    .data-table thead { border-bottom: 1px solid var(--border); }
+    .data-table th {
+      font-family: var(--sans);
+      font-size: 9px; font-weight: 500;
+      letter-spacing: .10em; text-transform: uppercase;
+      color: var(--ink-faint);
+      padding: var(--sp-3) var(--sp-4);
+      text-align: left;
+      white-space: nowrap;
+    }
+    .data-table td {
+      font-family: var(--body);
+      font-size: var(--fs-sm); font-weight: 260;
+      letter-spacing: -.01em;
+      color: var(--ink);
+      padding: var(--sp-3) var(--sp-4);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .data-table tbody tr:last-child td { border-bottom: none; }
+    .data-table tbody tr:hover { background: rgba(46,59,54,.02); }
+    .data-table .mono-cell {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      letter-spacing: .02em;
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       16. DASHBOARD PREVIEW — placeholder for embedded dashboard
+    ═══════════════════════════════════════════════════════════════ */
+    .dashboard-preview {
+      background: var(--white);
+      border: 1px solid var(--border);
+      max-width: var(--max-w);
+      margin: 0 auto;
+      aspect-ratio: 16/9;
+      position: relative;
+      overflow: hidden;
+    }
+    .dashboard-topbar {
+      padding: var(--sp-2) var(--sp-4);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .dashboard-topbar-title {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 500;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--ink-mid);
+    }
+    .dashboard-topbar-actions {
+      display: flex; gap: var(--sp-2);
+    }
+    .dashboard-refresh-badge {
+      font-family: var(--sans);
+      font-size: 8px; font-weight: 400;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--emerald);
+      background: rgba(4,122,85,.08);
+      padding: 2px 6px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .dashboard-refresh-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--emerald);
+    }
+    .dashboard-body {
+      padding: var(--sp-4);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto 1fr;
+      gap: var(--sp-3);
+      height: calc(100% - 32px);
+    }
+    .dashboard-kpi {
+      padding: var(--sp-3);
+      border: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      gap: var(--sp-1);
+    }
+    .dashboard-kpi-label {
+      font-family: var(--sans); font-size: 8px;
+      font-weight: 400; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--ink-faint);
+    }
+    .dashboard-kpi-value {
+      font-family: var(--sans); font-size: var(--fs-lg);
+      font-weight: 400; letter-spacing: -.03em;
+      color: var(--ink-dark);
+    }
+    .dashboard-chart-area {
+      grid-column: 1 / -1;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dashboard-chart-placeholder {
+      font-family: var(--sans); font-size: var(--fs-xs);
+      font-weight: 400; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--ink-faint);
+      opacity: .5;
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       17. CTA SECTION — wide dark band with heading + 2 buttons
+    ═══════════════════════════════════════════════════════════════ */
+    .cta-band {
+      background-color: var(--ink-dark);
+      background-image:
+        url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp'),
+        repeating-linear-gradient(
+          45deg, transparent, transparent 3px,
+          rgba(255,255,255,.007) 3px, rgba(255,255,255,.007) 6px
+        );
+      background-size: auto, auto;
+      background-repeat: repeat, repeat;
+      padding: var(--sp-7) var(--sp-5);
+      text-align: center;
+      display: flex; flex-direction: column;
+      align-items: center; gap: var(--sp-4);
+    }
+    .cta-title {
+      font-family: var(--sans);
+      font-size: clamp(28px, 3vw, var(--fs-2xl));
+      font-weight: 400;
+      line-height: .95;
+      letter-spacing: -.03em;
+      color: var(--white);
+    }
+    .cta-title em {
+      font-family: var(--caslon);
+      font-style: italic;
+      color: var(--emerald);
+    }
+    .cta-body {
+      font-family: var(--body);
+      font-size: var(--fs-md); font-weight: 260;
+      line-height: 1.6; letter-spacing: -.015em;
+      color: rgba(255,255,255,.5);
+      max-width: 480px;
+    }
+    .cta-actions {
+      display: flex; gap: var(--sp-3);
+      margin-top: var(--sp-2);
+    }
+    .btn-light {
+      background: var(--white);
+      color: var(--ink-dark);
+      border: 1px solid var(--white);
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      text-transform: uppercase; letter-spacing: .06em;
+      padding: var(--sp-3) var(--sp-4);
+      border-radius: 0; cursor: pointer;
+      transition: background var(--t-std), color var(--t-std);
+    }
+    .btn-light:hover { background: transparent; color: var(--white); }
+    .btn-ghost-light {
+      background: transparent;
+      color: rgba(255,255,255,.7);
+      border: 1px solid rgba(255,255,255,.25);
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      text-transform: uppercase; letter-spacing: .06em;
+      padding: var(--sp-3) var(--sp-4);
+      border-radius: 0; cursor: pointer;
+      transition: border-color var(--t-std), color var(--t-std);
+    }
+    .btn-ghost-light:hover { border-color: rgba(255,255,255,.6); color: var(--white); }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       18. NAVIGATION DROPDOWN — mega-menu panel
+    ═══════════════════════════════════════════════════════════════ */
+    .nav-dropdown {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: var(--sp-4);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-3);
+      max-width: 560px;
+      box-shadow: 0 4px 24px rgba(46,59,54,.08);
+    }
+    .nav-dropdown-item {
+      padding: var(--sp-3);
+      display: flex; gap: var(--sp-3);
+      transition: background var(--t-fast);
+    }
+    .nav-dropdown-item:hover { background: var(--bg); }
+    .nav-dropdown-icon {
+      width: 28px; height: 28px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-dropdown-icon svg { color: var(--ink-mid); width: 14px; height: 14px; }
+    .nav-dropdown-text {
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .nav-dropdown-name {
+      font-family: var(--sans);
+      font-size: var(--fs-sm); font-weight: 400;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+    .nav-dropdown-desc {
+      font-family: var(--body);
+      font-size: var(--fs-xs); font-weight: 260;
+      line-height: 1.5; letter-spacing: -.01em;
+      color: var(--ink-faint);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       19. SECTION HEADING — page-level centered header
+    ═══════════════════════════════════════════════════════════════ */
+    .section-heading {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--sp-7) var(--sp-5) var(--sp-5);
+      text-align: center;
+      display: flex; flex-direction: column;
+      align-items: center; gap: var(--sp-3);
+    }
+    .section-heading-title {
+      font-family: var(--sans);
+      font-size: clamp(28px, 2.8vw, 40px);
+      font-weight: 400;
+      line-height: .95;
+      letter-spacing: -.025em;
+      color: var(--ink);
+    }
+    .section-heading-body {
+      font-family: var(--body);
+      font-size: var(--fs-md); font-weight: 260;
+      line-height: 1.6; letter-spacing: -.015em;
+      color: var(--ink-muted);
+      max-width: 520px;
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       20. SPACING SCALE VISUALIZATION
+    ═══════════════════════════════════════════════════════════════ */
+    .spacing-item {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .spacing-bar {
+      height: 12px;
+      background: var(--emerald);
+      opacity: .25;
+    }
+    .spacing-val {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      letter-spacing: .04em; color: var(--ink-muted);
+      min-width: 80px;
+    }
+
+  </style>
+</head>
+<body>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       PRODUCT PAGE HERO
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Layout</span>
+      <span class="lib-name">Product Hero — centered, eyebrow + display + body + dual CTA</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="product-hero">
+        <span class="eyebrow eyebrow-bracket">Product Name</span>
+        <h1 class="product-hero-title">Product heading with <em>italic</em> accent</h1>
+        <p class="product-hero-body">A brief product description goes here. This explains the key value proposition in one or two sentences.</p>
+        <div class="product-hero-actions">
+          <button class="btn btn-primary">Get Started</button>
+          <button class="btn btn-ghost">Request Demo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       PRICING CARDS
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Pricing Cards — 3-tier, collapsing borders, MOST POPULAR badge</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) var(--sp-5);">
+        <div class="pricing-grid">
+          <!-- Tier 1 -->
+          <div class="pricing-card">
+            <span class="pricing-tier">Starter</span>
+            <p class="pricing-desc">For individuals exploring the platform</p>
+            <div class="pricing-price">
+              <span class="pricing-amount">$0</span>
+              <span class="pricing-period">+ compute / mo</span>
+            </div>
+            <p class="pricing-compute">Includes free credits per month</p>
+            <div class="pricing-features">
+              <div class="pricing-feature">
+                <svg class="pricing-check" viewBox="0 0 14 14" fill="none"><path d="M3 7.5l2.5 2.5L11 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Feature one included
+              </div>
+              <div class="pricing-feature">
+                <svg class="pricing-check" viewBox="0 0 14 14" fill="none"><path d="M3 7.5l2.5 2.5L11 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Feature two included
+              </div>
+              <div class="pricing-feature">
+                <svg class="pricing-check" viewBox="0 0 14 14" fill="none"><path d="M3 7.5l2.5 2.5L11 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Limited seats
+              </div>
+            </div>
+            <div class="pricing-cta">
+              <button class="btn btn-ghost">Get Started</button>
+            </div>
+          </div>
+          <!-- Tier 2 (Featured) -->
+          <div class="pricing-card pricing-card--featured">
+            <div class="pricing-badge">Most Popular</div>
+            <span class="pricing-tier">Team</span>
+            <p class="pricing-desc">For growing teams with collaboration needs</p>
+            <div class="pricing-price">
+              <span class="pricing-amount">$250</span>
+              <span class="pricing-period">+ compute / mo</span>
+            </div>
+            <p class="pricing-compute">Everything in Starter, plus:</p>
+            <div class="pricing-features">
+              <div class="pricing-feature">
+                <svg class="pricing-check" viewBox="0 0 14 14" fill="none"><path d="M3 7.5l2.5 2.5L11 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Unlimited seats
+              </div>
+              <div class="pricing-feature">
+                <svg class="pricing-check" viewBox="0 0 14 14" fill="none"><path d="M3 7.5l2.5 2.5L11 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Concurrent agents
+              </div>
+              <div class="pricing-feature">
+                <svg class="pricing-check" viewBox="0 0 14 14" fill="none"><path d="M3 7.5l2.5 2.5L11 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Priority support
+              </div>
+              <div class="pricing-feature">
+                <svg class="pricing-check" viewBox="0 0 14 14" fill="none"><path d="M3 7.5l2.5 2.5L11 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Advanced integrations
+              </div>
+            </div>
+            <div class="pricing-cta">
+              <button class="btn btn-primary">Get Started</button>
+            </div>
+          </div>
+          <!-- Tier 3 -->
+          <div class="pricing-card">
+            <span class="pricing-tier">Enterprise</span>
+            <p class="pricing-desc">Custom solutions for large organizations</p>
+            <div class="pricing-price">
+              <span class="pricing-amount">Custom</span>
+            </div>
+            <p class="pricing-compute">Everything in Team, plus:</p>
+            <div class="pricing-features">
+              <div class="pricing-feature">
+                <svg class="pricing-check" viewBox="0 0 14 14" fill="none"><path d="M3 7.5l2.5 2.5L11 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                SOC2, HIPAA compliance
+              </div>
+              <div class="pricing-feature">
+                <svg class="pricing-check" viewBox="0 0 14 14" fill="none"><path d="M3 7.5l2.5 2.5L11 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Dedicated support
+              </div>
+              <div class="pricing-feature">
+                <svg class="pricing-check" viewBox="0 0 14 14" fill="none"><path d="M3 7.5l2.5 2.5L11 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Custom deployment
+              </div>
+              <div class="pricing-feature">
+                <svg class="pricing-check" viewBox="0 0 14 14" fill="none"><path d="M3 7.5l2.5 2.5L11 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                SLA guarantee
+              </div>
+            </div>
+            <div class="pricing-cta">
+              <button class="btn btn-ghost">Contact Sales</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       FEATURE SECTION (2-col: text + visual)
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Layout</span>
+      <span class="lib-name">Feature Section — 2-col: text left, visual right (reversible)</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="feature-section">
+        <div class="feature-text">
+          <span class="eyebrow eyebrow-bracket">Feature Name</span>
+          <h2 class="feature-title">Feature heading goes here</h2>
+          <p class="feature-body">Feature description explaining the key benefit. This is the standard layout used across all product pages for feature breakdowns.</p>
+          <div style="margin-top: var(--sp-3);">
+            <button class="btn btn-ghost">Learn More
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2.5L7.5 5 5 7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="feature-visual">
+          <span class="feature-visual-placeholder">Product Screenshot</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Section REVERSED -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Layout</span>
+      <span class="lib-name">Feature Section — reversed (visual left, text right)</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="feature-section feature-section--reversed">
+        <div class="feature-text">
+          <span class="eyebrow eyebrow-bracket">Another Feature</span>
+          <h2 class="feature-title">Reversed layout heading</h2>
+          <p class="feature-body">Alternating feature sections create visual rhythm on product pages. The visual and text sides swap.</p>
+        </div>
+        <div class="feature-visual">
+          <span class="feature-visual-placeholder">Product Screenshot</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       THREE-STEP WORKFLOW
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Layout</span>
+      <span class="lib-name">3-Step Workflow — numbered steps with connector pattern</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) var(--sp-5);">
+        <div class="steps-row">
+          <div class="step-card">
+            <span class="step-number">01</span>
+            <h3 class="step-title">First Step</h3>
+            <p class="step-body">Description of the first step in the workflow. Keep it brief and action-oriented.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-number">02</span>
+            <h3 class="step-title">Second Step</h3>
+            <p class="step-body">Description of the second step. Shows how the process continues naturally.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-number">03</span>
+            <h3 class="step-title">Third Step</h3>
+            <p class="step-body">Description of the final step. The outcome or result is delivered here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       STAT ROW
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Stat Row — horizontal metric band, bordered cells</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) var(--sp-5);">
+        <div class="stat-row">
+          <div class="stat-cell">
+            <span class="stat-cell-value">300</span>
+            <span class="stat-cell-unit">Hours Saved</span>
+            <span class="stat-cell-label">Manual work saved per quarter</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-cell-value">140x</span>
+            <span class="stat-cell-unit">Faster</span>
+            <span class="stat-cell-label">Delivery speed per question</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-cell-value">98.8%</span>
+            <span class="stat-cell-unit">Reduction</span>
+            <span class="stat-cell-label">Dashboard build time savings</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       BLOG CARDS
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Blog Card Grid — 3-col, image + meta + title + excerpt + author</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) var(--sp-5);">
+        <div class="blog-grid">
+          <div class="blog-card">
+            <div class="blog-card-image"><span class="blog-card-image-placeholder">Cover Image</span></div>
+            <div class="blog-card-meta">
+              <span class="tag tag-active">Announcements</span>
+              <span class="blog-card-date">Feb 15, 2026</span>
+            </div>
+            <h3 class="blog-card-title">Blog post title goes here</h3>
+            <p class="blog-card-excerpt">A brief excerpt from the blog post. Two to three lines maximum for the card view.</p>
+            <div class="blog-card-author">
+              <div class="blog-author-avatar">JD</div>
+              <div class="blog-author-info">
+                <span class="blog-author-name">Author Name</span>
+                <span class="blog-author-role">Engineering</span>
+              </div>
+            </div>
+          </div>
+          <div class="blog-card">
+            <div class="blog-card-image"><span class="blog-card-image-placeholder">Cover Image</span></div>
+            <div class="blog-card-meta">
+              <span class="tag tag-neutral">Engineering</span>
+              <span class="blog-card-date">Feb 10, 2026</span>
+            </div>
+            <h3 class="blog-card-title">Another post with a longer title spanning two lines</h3>
+            <p class="blog-card-excerpt">Brief excerpt text for the second blog card entry.</p>
+            <div class="blog-card-author">
+              <div class="blog-author-avatar">AK</div>
+              <div class="blog-author-info">
+                <span class="blog-author-name">Author Name</span>
+                <span class="blog-author-role">Research</span>
+              </div>
+            </div>
+          </div>
+          <div class="blog-card">
+            <div class="blog-card-image"><span class="blog-card-image-placeholder">Cover Image</span></div>
+            <div class="blog-card-meta">
+              <span class="tag tag-neutral">Insights</span>
+              <span class="blog-card-date">Jan 28, 2026</span>
+            </div>
+            <h3 class="blog-card-title">Third blog post title</h3>
+            <p class="blog-card-excerpt">Short excerpt for the third card in the grid.</p>
+            <div class="blog-card-author">
+              <div class="blog-author-avatar">MR</div>
+              <div class="blog-author-info">
+                <span class="blog-author-name">Author Name</span>
+                <span class="blog-author-role">Team</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       VERSUS / COMPARISON GRID
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Versus Grid — 4-col competitor cards with icon + name + desc</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) var(--sp-5);">
+        <div class="versus-grid">
+          <div class="versus-card">
+            <div class="versus-icon"><div class="versus-icon-inner"></div></div>
+            <span class="versus-name">Competitor A</span>
+            <span class="versus-desc">Legacy BI tool with manual setup</span>
+          </div>
+          <div class="versus-card">
+            <div class="versus-icon"><div class="versus-icon-inner" style="background: var(--emerald);"></div></div>
+            <span class="versus-name">Competitor B</span>
+            <span class="versus-desc">AI-powered analytics assistant</span>
+          </div>
+          <div class="versus-card">
+            <div class="versus-icon"><div class="versus-icon-inner" style="background: var(--ink-mid);"></div></div>
+            <span class="versus-name">Competitor C</span>
+            <span class="versus-desc">General-purpose AI chat tool</span>
+          </div>
+          <div class="versus-card">
+            <div class="versus-icon"><div class="versus-icon-inner" style="background: var(--ink-muted);"></div></div>
+            <span class="versus-name">Competitor D</span>
+            <span class="versus-desc">Cloud analytics platform</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       FAQ ACCORDION
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">FAQ Accordion — bottom-bordered items, + icon rotates on open</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) 0;">
+        <div class="faq-section">
+          <div class="faq-item is-open">
+            <button class="faq-trigger">
+              How does the pricing model work?
+              <svg class="faq-icon" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="faq-answer">Answer text goes here. This is the expanded state of the FAQ item showing how the answer content is displayed below the question.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-trigger">
+              What happens if credits are exceeded?
+              <svg class="faq-icon" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="faq-item">
+            <button class="faq-trigger">
+              How does this compare to alternatives?
+              <svg class="faq-icon" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="faq-item">
+            <button class="faq-trigger">
+              Can I upgrade or downgrade anytime?
+              <svg class="faq-icon" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       DEPLOYMENT / CLOUD BADGES
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Deployment Card — BYOC with cloud + compliance badges</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) var(--sp-5);">
+        <div class="deploy-card">
+          <h3 class="deploy-title">Bring Your Own Cloud</h3>
+          <p class="deploy-body">Deploy within your existing infrastructure. Full data sovereignty with your cloud provider of choice.</p>
+          <div>
+            <div class="item-label" style="margin-bottom: 8px;">Cloud Providers</div>
+            <div class="deploy-badges">
+              <div class="deploy-badge">
+                <div class="deploy-badge-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/></svg></div>
+                <span class="deploy-badge-name">AWS</span>
+              </div>
+              <div class="deploy-badge">
+                <div class="deploy-badge-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/></svg></div>
+                <span class="deploy-badge-name">Azure</span>
+              </div>
+              <div class="deploy-badge">
+                <div class="deploy-badge-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/></svg></div>
+                <span class="deploy-badge-name">GCP</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="item-label" style="margin-bottom: 8px;">Compliance</div>
+            <div class="deploy-badges">
+              <div class="deploy-badge deploy-badge--compliance">
+                <span class="deploy-badge-name">SOC2</span>
+              </div>
+              <div class="deploy-badge deploy-badge--compliance">
+                <span class="deploy-badge-name">HIPAA</span>
+              </div>
+              <div class="deploy-badge deploy-badge--compliance">
+                <span class="deploy-badge-name">GDPR</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       DEMO FORM WITH SOCIAL PROOF
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Layout</span>
+      <span class="lib-name">Demo Request — 2-col: dark social proof left, form right</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) var(--sp-5);">
+        <div class="demo-layout">
+          <div class="demo-social-proof">
+            <p class="demo-quote">The speed and accuracy of insights we get is unmatched. It changed how our team makes decisions.</p>
+            <div class="demo-attrib">
+              <span class="demo-attrib-name">Person Name</span>
+              <span class="demo-attrib-role">Director of Revenue, Company</span>
+            </div>
+            <div class="demo-logos">
+              <span class="demo-logo-chip">Company A</span>
+              <span class="demo-logo-chip">Company B</span>
+              <span class="demo-logo-chip">Company C</span>
+              <span class="demo-logo-chip">Company D</span>
+            </div>
+          </div>
+          <div class="demo-form-side">
+            <h2 class="demo-form-title">Request Your Demo</h2>
+            <p class="demo-form-desc">Fill out the form below to schedule a personalized demo with our team.</p>
+            <div class="demo-input-group">
+              <label class="demo-input-label">Work Email</label>
+              <input class="demo-input" type="email" placeholder="you@company.com" />
+            </div>
+            <div class="demo-input-group">
+              <label class="demo-input-label">Company Name</label>
+              <input class="demo-input" type="text" placeholder="Your company" />
+            </div>
+            <div class="demo-input-group">
+              <label class="demo-input-label">How did you hear about us?</label>
+              <select class="demo-select">
+                <option value="">Select an option</option>
+                <option>Google Search</option>
+                <option>Social Media</option>
+                <option>Referral</option>
+                <option>Conference / Event</option>
+                <option>Blog / Article</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" style="width: 100%; margin-top: var(--sp-2);">Submit</button>
+            <p class="demo-legal">By submitting this form you agree to the processing of your personal data as described in our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       SLACK INTEGRATION PATTERN
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Slack Interface — channel sidebar + message thread with bot tag</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) var(--sp-5);">
+        <div class="slack-container" style="display: grid; grid-template-columns: 160px 1fr;">
+          <div class="slack-sidebar">
+            <div class="slack-channel slack-channel--active"><span class="slack-channel-hash">#</span> data-team</div>
+            <div class="slack-channel"><span class="slack-channel-hash">#</span> general</div>
+            <div class="slack-channel"><span class="slack-channel-hash">#</span> analytics</div>
+            <div class="slack-channel"><span class="slack-channel-hash">#</span> reports</div>
+          </div>
+          <div class="slack-messages">
+            <div class="slack-msg">
+              <div class="slack-avatar slack-avatar--user">JD</div>
+              <div class="slack-msg-content">
+                <div class="slack-msg-header">
+                  <span class="slack-msg-name">User Name</span>
+                  <span class="slack-msg-time">9:42 AM</span>
+                </div>
+                <p class="slack-msg-text">What were the top performing categories last quarter?</p>
+              </div>
+            </div>
+            <div class="slack-msg">
+              <div class="slack-avatar slack-avatar--bot">A</div>
+              <div class="slack-msg-content">
+                <div class="slack-msg-header">
+                  <span class="slack-msg-name">Bot Name</span>
+                  <span class="slack-msg-tag">App</span>
+                  <span class="slack-msg-time">9:42 AM</span>
+                </div>
+                <p class="slack-msg-text">Analyzing your data now. Here are the top 3 categories by revenue:</p>
+                <p class="slack-msg-text" style="margin-top: 4px;">&bull; <strong>Category A</strong> — $2.4M (+12%)<br/>&bull; <strong>Category B</strong> — $1.8M (+8%)<br/>&bull; <strong>Category C</strong> — $1.2M (+15%)</p>
+                <span class="slack-thread-link">3 replies · Last reply 2 minutes ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       CONNECTOR / INTEGRATION GRID
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Connector Grid — 4-col, icon + name + type label</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) var(--sp-5);">
+        <div class="connector-grid">
+          <div class="connector-card">
+            <div class="connector-icon"><div class="connector-icon-dot" style="background: #E25F2C;"></div></div>
+            <div class="connector-info">
+              <span class="connector-title">Snowflake</span>
+              <span class="connector-type">Data Warehouse</span>
+            </div>
+          </div>
+          <div class="connector-card">
+            <div class="connector-icon"><div class="connector-icon-dot" style="background: #4285F4;"></div></div>
+            <div class="connector-info">
+              <span class="connector-title">BigQuery</span>
+              <span class="connector-type">Data Warehouse</span>
+            </div>
+          </div>
+          <div class="connector-card">
+            <div class="connector-icon"><div class="connector-icon-dot" style="background: #C74634;"></div></div>
+            <div class="connector-info">
+              <span class="connector-title">Databricks</span>
+              <span class="connector-type">Lakehouse</span>
+            </div>
+          </div>
+          <div class="connector-card">
+            <div class="connector-icon"><div class="connector-icon-dot" style="background: #47A248;"></div></div>
+            <div class="connector-info">
+              <span class="connector-title">PostgreSQL</span>
+              <span class="connector-type">Database</span>
+            </div>
+          </div>
+          <div class="connector-card">
+            <div class="connector-icon"><div class="connector-icon-dot" style="background: #FF9900;"></div></div>
+            <div class="connector-info">
+              <span class="connector-title">Redshift</span>
+              <span class="connector-type">Data Warehouse</span>
+            </div>
+          </div>
+          <div class="connector-card">
+            <div class="connector-icon"><div class="connector-icon-dot" style="background: #00BCF2;"></div></div>
+            <div class="connector-info">
+              <span class="connector-title">Azure SQL</span>
+              <span class="connector-type">Database</span>
+            </div>
+          </div>
+          <div class="connector-card">
+            <div class="connector-icon"><div class="connector-icon-dot" style="background: #336791;"></div></div>
+            <div class="connector-info">
+              <span class="connector-title">MySQL</span>
+              <span class="connector-type">Database</span>
+            </div>
+          </div>
+          <div class="connector-card">
+            <div class="connector-icon"><div class="connector-icon-dot" style="background: var(--ink-light);"></div></div>
+            <div class="connector-info">
+              <span class="connector-title">Custom API</span>
+              <span class="connector-type">Integration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       PLAYBOOK BUILDER
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Playbook Builder — scheduled trigger + data source + action buttons</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) var(--sp-5);">
+        <div class="playbook-builder">
+          <div class="playbook-header">
+            <span class="playbook-header-title">Playbook Name</span>
+            <span class="playbook-header-tag">Active</span>
+          </div>
+          <div class="playbook-body">
+            <div class="playbook-trigger">
+              <div class="playbook-trigger-icon">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l2 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              </div>
+              <span class="playbook-trigger-text">Runs at 9:00 AM daily</span>
+            </div>
+            <div class="playbook-divider">
+              <div class="playbook-divider-line"></div>
+              <div class="playbook-divider-dot"></div>
+              <div class="playbook-divider-line"></div>
+            </div>
+            <div class="playbook-trigger">
+              <div class="playbook-trigger-icon">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="3" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 3V2M8 3V2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              </div>
+              <span class="playbook-trigger-text">Source: Sales Database</span>
+            </div>
+            <div class="playbook-divider">
+              <div class="playbook-divider-line"></div>
+              <div class="playbook-divider-dot"></div>
+              <div class="playbook-divider-line"></div>
+            </div>
+            <div class="playbook-actions">
+              <button class="playbook-action-btn playbook-action-btn--active">Run Playbook</button>
+              <button class="playbook-action-btn">Current Status</button>
+              <button class="playbook-action-btn">Previous Reports</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       ONTOLOGY ENTITY CARD
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Ontology Card — entity with fields, types, stats</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) var(--sp-5);">
+        <div class="ontology-card">
+          <div class="ontology-header">
+            <span class="ontology-entity-name">Entity Name</span>
+            <span class="ontology-meta">Semantic Layer</span>
+          </div>
+          <div class="ontology-fields">
+            <div class="ontology-field">
+              <span class="ontology-field-name">field_name</span>
+              <span class="ontology-field-type">String</span>
+            </div>
+            <div class="ontology-field">
+              <span class="ontology-field-name">revenue_amount</span>
+              <span class="ontology-field-type">Float</span>
+            </div>
+            <div class="ontology-field">
+              <span class="ontology-field-name">created_at</span>
+              <span class="ontology-field-type">Timestamp</span>
+            </div>
+            <div class="ontology-field">
+              <span class="ontology-field-name">is_active</span>
+              <span class="ontology-field-type">Boolean</span>
+            </div>
+          </div>
+          <div class="ontology-stats">
+            <div class="ontology-stat">
+              <span class="ontology-stat-value">7</span>
+              <span class="ontology-stat-label">Objects</span>
+            </div>
+            <div class="ontology-stat">
+              <span class="ontology-stat-value">88</span>
+              <span class="ontology-stat-label">Attributes</span>
+            </div>
+            <div class="ontology-stat">
+              <span class="ontology-stat-value">6</span>
+              <span class="ontology-stat-label">Links</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       DATA TABLE
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Data Table — analysis output with mono header, hover rows</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) var(--sp-5);">
+        <div class="data-table-wrap" style="max-width: 720px;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Entity</th>
+                <th>Category</th>
+                <th>Value</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Row item one</td>
+                <td class="mono-cell">category_a</td>
+                <td>$2,450,000</td>
+                <td><span class="tag tag-active">Active</span></td>
+              </tr>
+              <tr>
+                <td>Row item two</td>
+                <td class="mono-cell">category_b</td>
+                <td>$1,820,000</td>
+                <td><span class="tag tag-active">Active</span></td>
+              </tr>
+              <tr>
+                <td>Row item three</td>
+                <td class="mono-cell">category_c</td>
+                <td>$980,000</td>
+                <td><span class="tag tag-neutral">Pending</span></td>
+              </tr>
+              <tr>
+                <td>Row item four</td>
+                <td class="mono-cell">category_d</td>
+                <td>$645,000</td>
+                <td><span class="tag tag-active">Active</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       DASHBOARD PREVIEW
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Dashboard Preview — topbar with auto-refresh, KPI row + chart area</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) var(--sp-5);">
+        <div class="dashboard-preview" style="max-width: 800px; margin: 0;">
+          <div class="dashboard-topbar">
+            <span class="dashboard-topbar-title">Dashboard Title</span>
+            <div class="dashboard-topbar-actions">
+              <div class="dashboard-refresh-badge">
+                <div class="dashboard-refresh-dot"></div>
+                Auto-Refresh
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-body">
+            <div class="dashboard-kpi">
+              <span class="dashboard-kpi-label">Metric A</span>
+              <span class="dashboard-kpi-value">12.4K</span>
+            </div>
+            <div class="dashboard-kpi">
+              <span class="dashboard-kpi-label">Metric B</span>
+              <span class="dashboard-kpi-value">$2.8M</span>
+            </div>
+            <div class="dashboard-kpi">
+              <span class="dashboard-kpi-label">Metric C</span>
+              <span class="dashboard-kpi-value">94.2%</span>
+            </div>
+            <div class="dashboard-chart-area">
+              <span class="dashboard-chart-placeholder">Chart Area</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       NAVIGATION DROPDOWN (MEGA MENU)
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Nav Dropdown — 3-col mega menu with icon + name + desc</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div style="padding: var(--sp-6) var(--sp-5);">
+        <div class="nav-dropdown">
+          <div class="nav-dropdown-item">
+            <div class="nav-dropdown-icon">
+              <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.2"/></svg>
+            </div>
+            <div class="nav-dropdown-text">
+              <span class="nav-dropdown-name">Feature One</span>
+              <span class="nav-dropdown-desc">Brief description of the feature</span>
+            </div>
+          </div>
+          <div class="nav-dropdown-item">
+            <div class="nav-dropdown-icon">
+              <svg viewBox="0 0 14 14" fill="none"><rect x="3" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
+            </div>
+            <div class="nav-dropdown-text">
+              <span class="nav-dropdown-name">Feature Two</span>
+              <span class="nav-dropdown-desc">Another feature description</span>
+            </div>
+          </div>
+          <div class="nav-dropdown-item">
+            <div class="nav-dropdown-icon">
+              <svg viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="nav-dropdown-text">
+              <span class="nav-dropdown-name">Feature Three</span>
+              <span class="nav-dropdown-desc">Third feature description</span>
+            </div>
+          </div>
+          <div class="nav-dropdown-item">
+            <div class="nav-dropdown-icon">
+              <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2v10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            </div>
+            <div class="nav-dropdown-text">
+              <span class="nav-dropdown-name">Feature Four</span>
+              <span class="nav-dropdown-desc">Fourth feature description</span>
+            </div>
+          </div>
+          <div class="nav-dropdown-item">
+            <div class="nav-dropdown-icon">
+              <svg viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            </div>
+            <div class="nav-dropdown-text">
+              <span class="nav-dropdown-name">Feature Five</span>
+              <span class="nav-dropdown-desc">Fifth feature description</span>
+            </div>
+          </div>
+          <div class="nav-dropdown-item">
+            <div class="nav-dropdown-icon">
+              <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="4" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M3 12c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="currentColor" stroke-width="1.2"/></svg>
+            </div>
+            <div class="nav-dropdown-text">
+              <span class="nav-dropdown-name">Feature Six</span>
+              <span class="nav-dropdown-desc">Sixth feature description</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       CTA BAND (dark)
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Layout</span>
+      <span class="lib-name">CTA Band — dark, centered heading + body + dual buttons</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="cta-band">
+      <h2 class="cta-title">Ready to get <em>started</em>?</h2>
+      <p class="cta-body">A call-to-action subheading that encourages the user to take the next step.</p>
+      <div class="cta-actions">
+        <button class="btn-light">Get Started</button>
+        <button class="btn-ghost-light">Request Demo</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       SECTION HEADING (centered)
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Layout</span>
+      <span class="lib-name">Section Heading — centered eyebrow + H2 + body, precedes content grids</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="section-heading">
+        <span class="eyebrow eyebrow-bracket">Section Label</span>
+        <h2 class="section-heading-title">Section heading goes here</h2>
+        <p class="section-heading-body">Supporting text that provides context for the content section that follows below.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       SPACING SCALE
+  ════════════════════════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Tokens</span>
+      <span class="lib-name">Spacing Scale — 7 steps from 4px to 64px</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="preview-col">
+        <div class="spacing-item">
+          <span class="spacing-val">sp-1 · 4px</span>
+          <div class="spacing-bar" style="width: 4px;"></div>
+        </div>
+        <div class="spacing-item">
+          <span class="spacing-val">sp-2 · 6px</span>
+          <div class="spacing-bar" style="width: 6px;"></div>
+        </div>
+        <div class="spacing-item">
+          <span class="spacing-val">sp-3 · 12px</span>
+          <div class="spacing-bar" style="width: 12px;"></div>
+        </div>
+        <div class="spacing-item">
+          <span class="spacing-val">sp-4 · 18px</span>
+          <div class="spacing-bar" style="width: 18px;"></div>
+        </div>
+        <div class="spacing-item">
+          <span class="spacing-val">sp-5 · 30px</span>
+          <div class="spacing-bar" style="width: 30px;"></div>
+        </div>
+        <div class="spacing-item">
+          <span class="spacing-val">sp-6 · 48px</span>
+          <div class="spacing-bar" style="width: 48px;"></div>
+        </div>
+        <div class="spacing-item">
+          <span class="spacing-val">sp-7 · 64px</span>
+          <div class="spacing-bar" style="width: 64px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>
