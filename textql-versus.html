@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TextQL — Versus / Compare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Caslon+Text:ital,wght@1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root{--ink:#2E3B36;--ink-dark:#072A20;--ink-mid:#3D5D55;--ink-light:#628C82;--ink-muted:#6B7268;--ink-faint:#7C7E7B;--emerald:#047A55;--bg:#FAFBF8;--white:#FFFFFF;--border:rgba(46,59,54,.10);--border-mid:rgba(46,59,54,.18);--border-nav:#9EA397;--sp-1:4px;--sp-2:6px;--sp-3:12px;--sp-4:18px;--sp-5:30px;--sp-6:48px;--sp-7:64px;--fs-xs:10px;--fs-sm:12px;--fs-md:14px;--fs-base:16px;--fs-lg:20px;--fs-xl:32px;--fs-2xl:48px;--fs-3xl:64px;--sans:'Geist Mono',monospace;--body:'Inter',sans-serif;--caslon:'Libre Caslon Text',Georgia,serif;--t-fast:.15s ease;--t-std:.20s ease;--max-w:1400px;--nav-h:40px}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{-webkit-font-smoothing:antialiased}a{text-decoration:none;color:inherit}ul{list-style:none}button{cursor:pointer;font:inherit;border:none}
+    body{font-family:var(--body);font-weight:260;color:var(--ink);background-color:var(--bg);background-image:url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');background-size:auto;background-repeat:repeat;background-attachment:fixed}
+
+    .banner{background:var(--ink-dark);height:36px;display:flex;align-items:center;justify-content:center;gap:var(--sp-3)}
+    .banner-text{font-family:var(--sans);font-size:var(--fs-xs);font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+    .banner-dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.2)}
+    .banner-link{font-family:var(--sans);font-size:var(--fs-xs);font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:4px}
+    .nav-wrap{background:rgba(250,251,248,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-nav);position:sticky;top:0;z-index:100}
+    nav{height:var(--nav-h);padding:0 var(--sp-4);display:flex;align-items:center;justify-content:space-between;max-width:var(--max-w);margin:0 auto;position:relative}
+    nav::before{content:"";position:absolute;top:0;left:0;width:1px;height:100%;background:var(--border)}
+    nav::after{content:"";position:absolute;top:0;right:0;width:1px;height:100%;background:var(--border)}
+    .nav-logo{font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:-.03em;color:var(--ink-dark);display:flex;align-items:center;gap:6px}
+    .nav-logo-mark{width:18px;height:18px;border:1.5px solid var(--ink-dark);display:flex;align-items:center;justify-content:center}
+    .nav-logo-mark span{width:6px;height:6px;background:var(--emerald);border-radius:50%}
+    .nav-links{display:flex;align-items:center}
+    .nav-link{font-family:var(--body);font-weight:400;font-size:var(--fs-md);color:var(--ink);padding:0 var(--sp-4);height:var(--nav-h);display:flex;align-items:center;gap:4px;letter-spacing:-.015em;border-left:1px solid var(--border);transition:color var(--t-std)}
+    .nav-link:last-child{border-right:1px solid var(--border)}
+    .nav-link:hover{color:var(--emerald)}
+    .nav-link svg{opacity:.4}
+    .nav-actions{display:flex;align-items:center;gap:var(--sp-2)}
+    .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--sans);font-size:var(--fs-xs);font-weight:400;text-transform:uppercase;letter-spacing:.06em;padding:var(--sp-3) var(--sp-4);border-radius:0;outline:none;transition:background-color var(--t-std),border-color var(--t-std),color var(--t-std);white-space:nowrap}
+    .btn-primary{background-color:var(--ink-mid);color:var(--white);border:1px solid transparent;background-image:repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(255,255,255,.03) 2px,rgba(255,255,255,.03) 4px)}
+    .btn-primary:hover{background-color:var(--emerald)}
+    .btn-ghost{background-color:transparent;color:var(--ink);border:1px solid var(--ink);background-image:repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(0,0,0,.025) 2px,rgba(0,0,0,.025) 4px)}
+
+    .page{max-width:var(--max-w);margin:0 auto;position:relative;overflow:hidden}
+    .page::before{content:"";position:absolute;top:0;left:0;width:1px;height:100%;background:var(--border);pointer-events:none;z-index:2}
+    .page::after{content:"";position:absolute;top:0;right:0;width:1px;height:100%;background:var(--border);pointer-events:none;z-index:2}
+    .page-waves{position:absolute;top:0;right:0;width:300px;height:100%;pointer-events:none;color:var(--ink-faint);overflow:hidden;z-index:0}
+    .page-waves svg{width:100%;height:400px}
+
+    .versus-hero{padding:var(--sp-7) var(--sp-5) var(--sp-6);text-align:center;display:flex;flex-direction:column;align-items:center;gap:var(--sp-3);position:relative;z-index:1}
+    .versus-hero h1{font-family:var(--sans);font-size:clamp(32px,3vw,var(--fs-2xl));font-weight:400;line-height:.92;letter-spacing:-.03em;color:var(--ink);max-width:700px}
+    .versus-hero p{font-family:var(--body);font-size:var(--fs-md);font-weight:260;line-height:1.6;letter-spacing:-.015em;color:var(--ink-muted)}
+
+    /* COMPETITOR CARD GRID */
+    .compare-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+      padding:0 var(--sp-5) var(--sp-7);position:relative;z-index:1;
+    }
+    .compare-card{
+      background:var(--white);border:1px solid var(--border);margin-left:-1px;margin-top:-1px;
+      padding:var(--sp-5);display:flex;flex-direction:column;align-items:center;text-align:center;
+      gap:var(--sp-3);transition:border-color var(--t-std);cursor:pointer;
+    }
+    .compare-card:hover{border-color:var(--border-mid)}
+    .compare-icon{
+      width:48px;height:48px;border:1px solid var(--border);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .compare-icon-dot{width:18px;height:18px;border-radius:50%;opacity:.5}
+    .compare-name{font-family:var(--sans);font-size:var(--fs-base);font-weight:400;letter-spacing:-.02em;color:var(--ink)}
+    .compare-desc{font-family:var(--body);font-size:var(--fs-sm);font-weight:260;line-height:1.5;letter-spacing:-.01em;color:var(--ink-faint)}
+    .compare-arrow{
+      font-family:var(--sans);font-size:var(--fs-xs);font-weight:400;
+      letter-spacing:.06em;text-transform:uppercase;color:var(--emerald);
+      margin-top:auto;padding-top:var(--sp-3);
+      display:flex;align-items:center;gap:4px;
+    }
+
+    .section-divider{position:relative;height:1px}.section-divider::before{content:"";position:absolute;left:50%;transform:translateX(-50%);width:100vw;height:1px;background:var(--border)}
+
+    .cta-band{background-color:var(--ink-dark);background-image:url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp'),repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(255,255,255,.007) 3px,rgba(255,255,255,.007) 6px);background-size:auto,auto;background-repeat:repeat,repeat;padding:var(--sp-7) var(--sp-5);text-align:center;display:flex;flex-direction:column;align-items:center;gap:var(--sp-4)}
+    .cta-band h2{font-family:var(--sans);font-size:clamp(28px,3vw,var(--fs-2xl));font-weight:400;line-height:.95;letter-spacing:-.03em;color:var(--white)}
+    .cta-band h2 em{font-family:var(--caslon);font-style:italic;color:var(--emerald)}
+    .cta-band p{font-family:var(--body);font-size:var(--fs-md);font-weight:260;line-height:1.6;letter-spacing:-.015em;color:rgba(255,255,255,.5);max-width:480px}
+    .cta-actions{display:flex;gap:var(--sp-3);margin-top:var(--sp-2)}
+    .btn-light{background:var(--white);color:var(--ink-dark);border:1px solid var(--white);font-family:var(--sans);font-size:var(--fs-xs);font-weight:400;text-transform:uppercase;letter-spacing:.06em;padding:var(--sp-3) var(--sp-4);border-radius:0;cursor:pointer}
+    .btn-ghost-light{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.25);font-family:var(--sans);font-size:var(--fs-xs);font-weight:400;text-transform:uppercase;letter-spacing:.06em;padding:var(--sp-3) var(--sp-4);border-radius:0;cursor:pointer}
+
+    .footer{background-color:var(--ink-dark);background-image:url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp'),repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(255,255,255,.007) 3px,rgba(255,255,255,.007) 6px);background-size:auto,auto;background-repeat:repeat,repeat;padding:var(--sp-7) 0 var(--sp-5)}
+    .footer-inner{max-width:var(--max-w);margin:0 auto;padding:0 var(--sp-5)}
+    .footer-grid{display:grid;grid-template-columns:1.8fr repeat(4,1fr);gap:var(--sp-7);padding-bottom:var(--sp-6);border-bottom:1px solid rgba(255,255,255,.08)}
+    .footer-brand{display:flex;flex-direction:column;gap:var(--sp-4)}
+    .footer-logo{font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:-.03em;color:var(--white);display:flex;align-items:center;gap:6px}
+    .footer-logo-mark{width:18px;height:18px;border:1.5px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center}
+    .footer-logo-mark span{width:6px;height:6px;background:var(--emerald);border-radius:50%}
+    .footer-newsletter{display:flex;flex-direction:column;gap:var(--sp-3)}
+    .footer-nl-title{font-family:var(--sans);font-size:var(--fs-sm);font-weight:400;letter-spacing:-.01em;color:rgba(255,255,255,.7)}
+    .footer-nl-desc{font-family:var(--body);font-size:var(--fs-xs);font-weight:260;line-height:1.5;color:rgba(255,255,255,.35)}
+    .footer-nl-row{display:flex}
+    .input-dark{font-family:var(--body);font-size:var(--fs-sm);font-weight:400;color:rgba(255,255,255,.7);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:0;padding:var(--sp-2) var(--sp-3);outline:none;width:180px}
+    .input-dark::placeholder{color:rgba(255,255,255,.25)}
+    .btn-footer{font-family:var(--sans);font-size:var(--fs-xs);font-weight:400;text-transform:uppercase;letter-spacing:.06em;padding:var(--sp-2) var(--sp-3);border-radius:0;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.12);border-left:none;cursor:pointer}
+    .footer-col{display:flex;flex-direction:column;gap:var(--sp-4)}
+    .footer-col-title{font-family:var(--sans);font-size:var(--fs-xs);font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+    .footer-links{display:flex;flex-direction:column;gap:var(--sp-2)}
+    .footer-link{font-family:var(--body);font-size:var(--fs-sm);font-weight:260;letter-spacing:-.01em;color:rgba(255,255,255,.55);transition:color var(--t-fast)}
+    .footer-link:hover{color:rgba(255,255,255,.9)}
+    .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:var(--sp-5)}
+    .footer-copy{font-family:var(--sans);font-size:var(--fs-xs);font-weight:400;letter-spacing:.04em;color:rgba(255,255,255,.2)}
+  </style>
+</head>
+<body>
+
+<div class="banner">
+  <span class="banner-text">Meet us at Gartner 2026 — Mar 9-11 in Orlando</span>
+  <div class="banner-dot"></div>
+  <a class="banner-link" href="#">Learn more <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2.5L7.5 5 5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</div>
+
+<div class="nav-wrap">
+  <nav>
+    <a class="nav-logo" href="#"><div class="nav-logo-mark"><span></span></div>TextQL</a>
+    <div class="nav-links">
+      <a class="nav-link" href="#">Products <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="nav-link" href="#">Industries <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="nav-link" href="#">Company <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="nav-link" href="#">Pricing</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-ghost" href="#">Get Started</a>
+      <a class="btn btn-primary" href="#">Request Demo</a>
+    </div>
+  </nav>
+</div>
+
+<div class="page">
+  <div class="page-waves">
+    <svg width="300" height="400" viewBox="0 0 300 400" fill="none" preserveAspectRatio="xMidYMid slice">
+      <g opacity="0.4">
+        <path d="M-50 50C-30 50 20 120 80 118C140 116 100 200 50 280C0 360 250 400 320 420" stroke="currentColor" stroke-width="0.5"/>
+        <path d="M200 0C160 60 80 250 180 300C280 350 400 50 380 220" stroke="currentColor" stroke-width="0.5"/>
+        <path d="M-30 45C-20 50 30 120 90 125C150 130 110 210 70 285C30 360 270 380 330 410" stroke="currentColor" stroke-width="0.5"/>
+        <path d="M-10 40C5 50 40 120 100 130C160 140 120 220 90 290C60 360 290 360 340 400" stroke="currentColor" stroke-width="0.5"/>
+        <path d="M10 35C30 50 50 120 110 135C170 150 130 230 110 295C90 360 310 340 350 390" stroke="currentColor" stroke-width="0.5"/>
+        <path d="M30 30C55 50 60 120 120 140C180 160 140 240 130 300C120 360 330 320 360 380" stroke="currentColor" stroke-width="0.5"/>
+        <path d="M50 25C80 50 70 120 130 145C190 170 150 250 150 305C150 360 350 300 370 370" stroke="currentColor" stroke-width="0.5"/>
+        <path d="M70 20C105 50 80 120 140 150C200 180 160 260 170 310C180 360 370 280 380 360" stroke="currentColor" stroke-width="0.5"/>
+        <path d="M90 15C130 50 90 120 150 155C210 190 170 270 190 315C210 360 390 260 390 350" stroke="currentColor" stroke-width="0.5"/>
+        <path d="M110 10C155 50 100 120 160 160C220 200 180 280 210 320C240 360 410 240 400 340" stroke="currentColor" stroke-width="0.5"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="versus-hero">
+    <h1>Compare TextQL to Other Data Analytics Platforms</h1>
+    <p>See why teams choose TextQL over legacy BI and general-purpose AI</p>
+  </div>
+
+  <div class="compare-grid">
+    <a class="compare-card" href="#">
+      <div class="compare-icon"><div class="compare-icon-dot" style="background:#FF6F00"></div></div>
+      <span class="compare-name">Databricks Genie</span>
+      <span class="compare-desc">AI-powered analytics assistant</span>
+      <span class="compare-arrow">Compare <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2.5L7.5 5 5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+    <a class="compare-card" href="#">
+      <div class="compare-icon"><div class="compare-icon-dot" style="background:#29B5E8"></div></div>
+      <span class="compare-name">Snowflake Cortex</span>
+      <span class="compare-desc">Built-in AI and ML capabilities</span>
+      <span class="compare-arrow">Compare <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2.5L7.5 5 5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+    <a class="compare-card" href="#">
+      <div class="compare-icon"><div class="compare-icon-dot" style="background:#10A37F"></div></div>
+      <span class="compare-name">ChatGPT</span>
+      <span class="compare-desc">General-purpose AI chatbot</span>
+      <span class="compare-arrow">Compare <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2.5L7.5 5 5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+    <a class="compare-card" href="#">
+      <div class="compare-icon"><div class="compare-icon-dot" style="background:#D97757"></div></div>
+      <span class="compare-name">Claude</span>
+      <span class="compare-desc">AI assistant for analysis</span>
+      <span class="compare-arrow">Compare <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2.5L7.5 5 5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+    <a class="compare-card" href="#">
+      <div class="compare-icon"><div class="compare-icon-dot" style="background:#6366F1"></div></div>
+      <span class="compare-name">Hex</span>
+      <span class="compare-desc">Collaborative data workspace</span>
+      <span class="compare-arrow">Compare <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2.5L7.5 5 5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+    <a class="compare-card" href="#">
+      <div class="compare-icon"><div class="compare-icon-dot" style="background:#4285F4"></div></div>
+      <span class="compare-name">Gemini</span>
+      <span class="compare-desc">Google AI for enterprise</span>
+      <span class="compare-arrow">Compare <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2.5L7.5 5 5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+    <a class="compare-card" href="#">
+      <div class="compare-icon"><div class="compare-icon-dot" style="background:#E97627"></div></div>
+      <span class="compare-name">Tableau</span>
+      <span class="compare-desc">Traditional BI with manual setup</span>
+      <span class="compare-arrow">Compare <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2.5L7.5 5 5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+    <a class="compare-card" href="#">
+      <div class="compare-icon"><div class="compare-icon-dot" style="background:#F2C811"></div></div>
+      <span class="compare-name">Power BI</span>
+      <span class="compare-desc">Microsoft-centric analytics</span>
+      <span class="compare-arrow">Compare <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2.5L7.5 5 5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+    <a class="compare-card" href="#">
+      <div class="compare-icon"><div class="compare-icon-dot" style="background:#4285F4"></div></div>
+      <span class="compare-name">Looker</span>
+      <span class="compare-desc">SQL-first business intelligence</span>
+      <span class="compare-arrow">Compare <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2.5L7.5 5 5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+  </div>
+
+  <div class="section-divider"></div>
+</div>
+
+<div class="cta-band">
+  <h2>Go from question to <em>conviction</em></h2>
+  <p>in minutes, not weeks.</p>
+  <div class="cta-actions">
+    <a class="btn-light" href="#">Get Started</a>
+    <a class="btn-ghost-light" href="#">Request Demo</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="footer-logo" href="#"><div class="footer-logo-mark"><span></span></div>TextQL</a>
+        <div class="footer-newsletter">
+          <span class="footer-nl-title">TextQL Product Newsletter</span>
+          <span class="footer-nl-desc">What we shipped this week. Every Thursday.</span>
+          <div class="footer-nl-row"><input class="input-dark" type="email" placeholder="you@company.com" /><button class="btn-footer">Subscribe</button></div>
+        </div>
+      </div>
+      <div class="footer-col"><span class="footer-col-title">Product</span><div class="footer-links"><a class="footer-link" href="#">Threads</a><a class="footer-link" href="#">Ontology</a><a class="footer-link" href="#">Playbooks</a><a class="footer-link" href="#">Dashboards</a><a class="footer-link" href="#">Slack</a></div></div>
+      <div class="footer-col"><span class="footer-col-title">Solutions</span><div class="footer-links"><a class="footer-link" href="#">Healthcare</a><a class="footer-link" href="#">Financial Services</a><a class="footer-link" href="#">Manufacturing</a><a class="footer-link" href="#">Retail</a><a class="footer-link" href="#">Media</a></div></div>
+      <div class="footer-col"><span class="footer-col-title">Company</span><div class="footer-links"><a class="footer-link" href="#">Careers</a><a class="footer-link" href="#">Blog</a><a class="footer-link" href="#">LinkedIn</a><a class="footer-link" href="#">X / Twitter</a><a class="footer-link" href="#">About</a><a class="footer-link" href="#">Versus</a></div></div>
+      <div class="footer-col"><span class="footer-col-title">Resources</span><div class="footer-links"><a class="footer-link" href="#">Pricing</a><a class="footer-link" href="#">Partners</a><a class="footer-link" href="#">Documentation</a><a class="footer-link" href="#">Log In</a><a class="footer-link" href="#">Terms</a><a class="footer-link" href="#">Privacy</a></div></div>
+    </div>
+    <div class="footer-bottom"><span class="footer-copy">&copy; 2026 TextQL, Inc. All rights reserved.</span></div>
+  </div>
+</footer>
+
+</body>
+</html>
