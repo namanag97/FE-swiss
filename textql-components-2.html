@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TextQL — Extended Component Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Caslon+Text:ital,wght@1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --ink:        #2E3B36;
+      --ink-dark:   #072A20;
+      --ink-mid:    #3D5D55;
+      --ink-light:  #628C82;
+      --ink-muted:  #6B7268;
+      --ink-faint:  #7C7E7B;
+      --emerald:    #047A55;
+      --bg:         #FAFBF8;
+      --white:      #FFFFFF;
+      --border:     rgba(46,59,54,.10);
+      --border-mid: rgba(46,59,54,.18);
+      --border-nav: #9EA397;
+      --sp-1:4px; --sp-2:6px; --sp-3:12px; --sp-4:18px;
+      --sp-5:30px; --sp-6:48px; --sp-7:64px;
+      --fs-xs:10px; --fs-sm:12px; --fs-md:14px; --fs-base:16px;
+      --fs-lg:20px; --fs-xl:32px; --fs-2xl:48px; --fs-3xl:64px;
+      --sans:   'Geist Mono', monospace;
+      --body:   'Inter', sans-serif;
+      --caslon: 'Libre Caslon Text', Georgia, serif;
+      --t-fast:.15s ease; --t-std:.20s ease; --t-slow:.30s ease;
+      --max-w: 1400px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--body); font-weight: 260; color: var(--ink);
+      background-color: var(--bg);
+      background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');
+      background-size: auto; background-repeat: repeat; background-attachment: fixed;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { cursor: pointer; border: none; font: inherit; }
+
+    /* ── GRID SYSTEM ────────────────────────────────────────── */
+    .gr { position: relative; max-width: var(--max-w); margin: 0 auto; }
+    .gr::before { content:""; position:absolute; top:0; left:0; width:1px; height:100%; background:var(--border); pointer-events:none; }
+    .gr::after  { content:""; position:absolute; top:0; right:0; width:1px; height:100%; background:var(--border); pointer-events:none; }
+    .h-rule { position:absolute; left:50%; transform:translateX(-50%); width:100vw; height:1px; background:var(--border); pointer-events:none; }
+    .h-rule--top { top:0; } .h-rule--bottom { bottom:0; }
+    .gi { padding:0 var(--sp-5); position:relative; z-index:1; }
+
+    /* ── CANVAS LABELS ──────────────────────────────────────── */
+    .lib-section { padding: 48px 0 0; }
+    .lib-section:last-child { padding-bottom: 120px; }
+    .lib-label { max-width:var(--max-w); margin:0 auto 16px; padding:0 var(--sp-5); display:flex; align-items:center; gap:10px; }
+    .lib-tag { font-family:var(--sans); font-size:8px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:rgba(46,59,54,.4); background:rgba(46,59,54,.06); border:1px solid rgba(46,59,54,.10); padding:2px 7px; border-radius:3px; }
+    .lib-name { font-family:var(--sans); font-size:10px; font-weight:400; letter-spacing:.04em; color:rgba(46,59,54,.4); }
+    .lib-rule { flex:1; height:1px; background:rgba(46,59,54,.08); }
+    .preview { display:flex; flex-wrap:wrap; align-items:flex-start; gap:var(--sp-5); padding:var(--sp-6) var(--sp-5); }
+    .preview-col { display:flex; flex-direction:column; gap:var(--sp-5); padding:var(--sp-6) var(--sp-5); }
+    .item { display:flex; flex-direction:column; gap:8px; }
+    .item-label { font-family:var(--sans); font-size:8.5px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); }
+
+    /* ── SHARED BUTTON ──────────────────────────────────────── */
+    .btn { position:relative; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-family:var(--sans); font-size:var(--fs-xs); font-weight:400; text-transform:uppercase; letter-spacing:.06em; padding:var(--sp-3) var(--sp-4); border-radius:0; outline:none; transition:background-color var(--t-std),border-color var(--t-std),color var(--t-std); white-space:nowrap; }
+    .btn-primary { background-color:var(--ink-mid); color:var(--white); border:1px solid transparent; background-image:repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(255,255,255,.03) 2px,rgba(255,255,255,.03) 4px); }
+    .btn-primary:hover { background-color:var(--emerald); }
+    .btn-ghost { background-color:transparent; color:var(--ink); border:1px solid var(--ink); background-image:repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(0,0,0,.025) 2px,rgba(0,0,0,.025) 4px); }
+    .btn-ghost:hover { border-color:var(--ink-dark); color:var(--ink-dark); }
+    .btn::before { content:""; position:absolute; top:-4px; left:-4px; width:5px; height:5px; opacity:0; border-top:1px solid currentColor; border-left:1px solid currentColor; transition:opacity var(--t-fast); }
+    .btn::after  { content:""; position:absolute; top:-4px; right:-4px; width:5px; height:5px; opacity:0; border-top:1px solid currentColor; border-right:1px solid currentColor; transition:opacity var(--t-fast); }
+    .btn:hover::before, .btn:hover::after { opacity:1; }
+
+    /* ── SHARED TAG ─────────────────────────────────────────── */
+    .tag { display:inline-flex; align-items:center; font-family:var(--sans); font-size:9px; font-weight:500; text-transform:uppercase; letter-spacing:.08em; padding:2px 6px; border-radius:3px; }
+    .tag-neutral { background:rgba(46,59,54,.07); color:var(--ink-muted); }
+    .tag-active  { background:rgba(4,122,85,.12); color:var(--emerald); }
+    .eyebrow { font-family:var(--sans); font-size:var(--fs-xs); font-weight:400; text-transform:uppercase; letter-spacing:.10em; color:var(--ink-muted); display:inline-flex; align-items:center; gap:8px; line-height:1; opacity:.85; }
+    .eyebrow-bracket::before { content:"[ "; } .eyebrow-bracket::after { content:" ]"; }
+    .pulse { width:8px; height:8px; border-radius:50%; background:var(--emerald); flex-shrink:0; animation:pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);box-shadow:0 0 4px 2px rgba(4,122,85,.3);} 50%{opacity:.6;transform:scale(.85);box-shadow:0 0 8px 4px rgba(4,122,85,.5);} }
+
+
+    /* ══════════════════════════════════════════════════════════
+       1. LOGO MARQUEE / TICKER
+       Horizontal scrolling trusted-by strip
+    ══════════════════════════════════════════════════════════ */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: var(--sp-4) 0;
+      position: relative;
+    }
+    .marquee-wrap::before,
+    .marquee-wrap::after {
+      content: "";
+      position: absolute; top: 0; width: 120px; height: 100%; z-index: 2;
+      pointer-events: none;
+    }
+    .marquee-wrap::before { left:0; background:linear-gradient(to right, var(--bg), transparent); }
+    .marquee-wrap::after  { right:0; background:linear-gradient(to left, var(--bg), transparent); }
+    .marquee-heading {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      letter-spacing: .10em; text-transform: uppercase;
+      color: var(--ink-faint);
+      text-align: center;
+      margin-bottom: var(--sp-3);
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-item {
+      font-family: var(--sans);
+      font-size: 12px; font-weight: 600;
+      letter-spacing: .04em;
+      color: var(--ink-faint);
+      padding: 0 var(--sp-6);
+      border-right: 1px solid var(--border);
+      white-space: nowrap;
+      display: flex; align-items: center;
+      height: 28px;
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       2. ECOSYSTEM GRID
+       Storage / Sources / Presentation categories
+    ══════════════════════════════════════════════════════════ */
+    .ecosystem-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+    .eco-col {
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: var(--sp-4);
+      display: flex; flex-direction: column; gap: var(--sp-3);
+    }
+    .eco-col-label {
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--ink-faint);
+      padding-bottom: var(--sp-3);
+      border-bottom: 1px solid var(--border);
+    }
+    .eco-items { display: flex; flex-direction: column; gap: var(--sp-2); }
+    .eco-item {
+      display: flex; align-items: center; gap: var(--sp-2);
+      font-family: var(--sans);
+      font-size: var(--fs-xs); font-weight: 400;
+      letter-spacing: .04em;
+      color: var(--ink-mid);
+    }
+    .eco-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+
+
+    /* ══════════════════════════════════════════════════════════
+       3. FEATURE SPLIT SECTION
+       Text left + dark demo panel right — homepage product pattern
+    ══════════════════════════════════════════════════════════ */
+    .feature-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 420px;
+      border: 1px solid var(--border);
+    }
+    .feature-split-text {
+      padding: var(--sp-7) var(--sp-5);
+      display: flex; flex-direction: column;
+      justify-content: center; gap: var(--sp-4);
+      border-right: 1px solid var(--border);
+    }
+    .feature-split-h2 {
+      font-family: var(--sans);
+      font-size: clamp(24px, 2.5vw, 36px);
+      font-weight: 400;
+      line-height: .95;
+      letter-spacing: -.025em;
+      word-spacing: -.10em;
+      color: var(--ink);
+      margin-top: var(--sp-3);
+    }
+    .feature-split-h2 em { font-family:var(--caslon); font-style:italic; color:var(--emerald); word-spacing:0; }
+    .feature-split-body {
+      font-family: var(--body);
+      font-size: var(--fs-md); font-weight:260;
+      line-height: 1.6; letter-spacing:-.015em;
+      color: var(--ink-muted);
+      max-width: 360px;
+    }
+    .feature-split-actions { display:flex; gap:var(--sp-3); }
+    .feature-split-visual {
+      background-color: var(--ink-dark);
+      background-image: repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(255,255,255,.012) 3px,rgba(255,255,255,.012) 6px);
+      position: relative; overflow: hidden;
+      padding: var(--sp-5);
+      display: flex; flex-direction: column; gap: var(--sp-3);
+    }
+    .feature-split-visual::before {
+      content:""; position:absolute; inset:0;
+      background-image:url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/monet/4bg.webp');
+      background-size:cover; background-position:center;
+      opacity:.06; pointer-events:none;
+    }
+    /* Dark panel block inside visual */
+    .panel-block {
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 8px;
+      padding: var(--sp-4);
+      position: relative; z-index: 1;
+    }
+    .panel-eyebrow {
+      font-family: var(--sans); font-size:9px;
+      text-transform:uppercase; letter-spacing:.08em;
+      color: rgba(255,255,255,.28);
+      margin-bottom: var(--sp-3);
+    }
+    /* Mini bar chart */
+    .mini-bars { display:flex; align-items:flex-end; gap:3px; height:40px; }
+    .mini-bar { flex:1; border-radius:2px 2px 0 0; background:var(--emerald); }
+    /* Animated sparkline */
+    .panel-svg path {
+      stroke-dasharray: 30; stroke-dashoffset: 30;
+      animation: strokeDash 2.5s linear infinite;
+      filter: drop-shadow(0 0 3px rgba(4,122,85,.5));
+    }
+    @keyframes strokeDash { from{stroke-dashoffset:30;} to{stroke-dashoffset:-100;} }
+    /* Code block */
+    .code-block { font-family:var(--sans); font-size:11px; line-height:1.75; position:relative; z-index:1; }
+    .cm { color:rgba(255,255,255,.22); }
+    .kw { color:rgba(167,218,200,.9); }
+    .fd { color:rgba(255,255,255,.6); }
+    .st { color:rgba(100,190,160,.9); }
+    /* Arrow link — gap widens on hover */
+    .arrow-link { display:inline-flex; align-items:center; gap:5px; font-family:var(--sans); font-size:var(--fs-xs); font-weight:400; text-transform:uppercase; letter-spacing:.10em; color:var(--emerald); transition:gap var(--t-std); }
+    .arrow-link:hover { gap:9px; }
+
+
+    /* ══════════════════════════════════════════════════════════
+       4. SLACK THREAD COMPONENT
+    ══════════════════════════════════════════════════════════ */
+    .slack-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      max-width: 520px;
+    }
+    .slack-header {
+      background: #3F0E40;
+      padding: var(--sp-3) var(--sp-4);
+      display: flex; align-items: center; gap: var(--sp-2);
+    }
+    .slack-header-text { font-family:var(--sans); font-size:11px; font-weight:600; color:rgba(255,255,255,.9); letter-spacing:.02em; }
+    .slack-header-hash { font-family:var(--sans); font-size:13px; color:rgba(255,255,255,.5); }
+    .slack-body { padding: var(--sp-4); display:flex; flex-direction:column; gap:var(--sp-4); }
+    .slack-msg { display:flex; gap:var(--sp-3); align-items:flex-start; }
+    .slack-avatar {
+      width: 32px; height: 32px; border-radius:6px; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--sans); font-size:10px; font-weight:700;
+    }
+    .slack-avatar.user { background:#E8622A; color:#fff; }
+    .slack-avatar.bot  {
+      background: linear-gradient(135deg, var(--emerald), var(--ink-dark));
+      color: rgba(255,255,255,.9);
+    }
+    .slack-msg-body { flex:1; }
+    .slack-msg-meta {
+      display:flex; align-items:baseline; gap:6px; margin-bottom:3px;
+    }
+    .slack-name { font-family:var(--sans); font-size:12px; font-weight:700; color:var(--ink-dark); }
+    .slack-time { font-family:var(--sans); font-size:9px; color:var(--ink-faint); letter-spacing:.03em; }
+    .slack-text { font-family:var(--body); font-size:13px; font-weight:350; line-height:1.5; color:var(--ink); }
+    .slack-text .mention { color:#1264A3; font-weight:500; }
+    .slack-bot-card {
+      margin-top: var(--sp-2);
+      background: #F8F8F6;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--emerald);
+      border-radius: 4px;
+      padding: var(--sp-2) var(--sp-3);
+    }
+    .slack-bot-label { font-family:var(--sans); font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--emerald); margin-bottom:4px; }
+    .slack-bot-text { font-family:var(--body); font-size:12.5px; font-weight:350; line-height:1.55; color:var(--ink-mid); }
+    .slack-divider { display:flex; align-items:center; gap:var(--sp-2); }
+    .slack-divider-line { flex:1; height:1px; background:var(--border); }
+    .slack-divider-text { font-family:var(--sans); font-size:9px; color:var(--ink-faint); letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; }
+
+
+    /* ══════════════════════════════════════════════════════════
+       5. CONNECTOR TABLE WITH TABS
+    ══════════════════════════════════════════════════════════ */
+    .connector-section { border:1px solid var(--border); }
+    /* Tab bar */
+    .tab-bar { display:flex; border-bottom:1px solid var(--border); }
+    .tab {
+      font-family:var(--sans); font-size:var(--fs-xs); font-weight:400;
+      text-transform:uppercase; letter-spacing:.10em; color:var(--ink-muted);
+      padding:var(--sp-3) var(--sp-4); height:40px;
+      background:none; border:none; border-bottom:2px solid transparent;
+      margin-bottom:-1px; cursor:pointer;
+      transition:color var(--t-std), border-color var(--t-std);
+      border-right:1px solid var(--border);
+    }
+    .tab:first-child { border-left:1px solid var(--border); }
+    .tab.active { color:var(--ink); border-bottom-color:var(--emerald); }
+    .tab:hover:not(.active) { color:var(--ink); }
+    /* Connector table */
+    .conn-table { width:100%; border-collapse:collapse; font-family:var(--sans); }
+    .conn-table th {
+      text-align:left; font-size:var(--fs-xs); font-weight:600;
+      letter-spacing:.10em; text-transform:uppercase; color:var(--ink-faint);
+      padding:var(--sp-3) var(--sp-4); border-bottom:1px solid var(--border);
+      background:rgba(46,59,54,.02);
+    }
+    .conn-table td { font-size:var(--fs-md); color:var(--ink); padding:var(--sp-3) var(--sp-4); border-bottom:1px solid var(--border); }
+    .conn-table tr:last-child td { border-bottom:none; }
+    .conn-table tr:hover td { background:rgba(46,59,54,.02); }
+    .conn-status { display:inline-flex; align-items:center; gap:5px; font-family:var(--sans); font-size:9px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; }
+    .conn-status-dot { width:5px; height:5px; border-radius:50%; }
+    .conn-status.active .conn-status-dot { background:var(--emerald); }
+    .conn-status.active { color:var(--emerald); }
+    .conn-status.pending .conn-status-dot { background:#D97706; }
+    .conn-status.pending { color:#D97706; }
+    .conn-name-row { display:flex; align-items:center; gap:var(--sp-2); }
+    .conn-logo-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+    /* Add more grid */
+    .conn-add-grid {
+      display:flex; flex-wrap:wrap; gap:0;
+      border-top:1px solid var(--border);
+    }
+    .conn-add-item {
+      display:flex; align-items:center; gap:var(--sp-2);
+      padding:var(--sp-3) var(--sp-4);
+      border-right:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+      font-family:var(--sans); font-size:var(--fs-xs); font-weight:400;
+      letter-spacing:.04em; color:var(--ink-mid);
+      cursor:pointer; transition:background var(--t-std), color var(--t-std);
+    }
+    .conn-add-item:hover { background:rgba(46,59,54,.03); color:var(--ink-dark); }
+
+
+    /* ══════════════════════════════════════════════════════════
+       6. COMPLIANCE SPLIT SECTION
+       Dark left panel + Light right panel
+    ══════════════════════════════════════════════════════════ */
+    .compliance-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+      min-height: 320px;
+    }
+    /* Dark left */
+    .compliance-dark {
+      background-color: var(--ink-dark);
+      background-image: repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(255,255,255,.012) 3px,rgba(255,255,255,.012) 6px);
+      padding: var(--sp-6) var(--sp-5);
+      display: flex; flex-direction: column; gap: var(--sp-5);
+      position: relative; overflow: hidden;
+      border-right: 1px solid rgba(255,255,255,.06);
+    }
+    .compliance-dark::before {
+      content:""; position:absolute; inset:0;
+      background-image:url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/monet/2bg.webp');
+      background-size:cover; opacity:.04; pointer-events:none;
+    }
+    .compliance-dark-content { position:relative; z-index:1; }
+    .compliance-heading {
+      font-family: var(--sans); font-size:clamp(20px,2vw,28px);
+      font-weight:400; line-height:.95; letter-spacing:-.025em;
+      color: var(--white); word-spacing:-.10em;
+    }
+    .compliance-sub {
+      font-family:var(--body); font-size:var(--fs-md); font-weight:260;
+      line-height:1.6; letter-spacing:-.01em;
+      color:rgba(255,255,255,.4); margin-top:var(--sp-3);
+    }
+    /* Compliance badge row */
+    .badge-row { display:flex; align-items:center; gap:var(--sp-3); flex-wrap:wrap; }
+    .compliance-badge {
+      display:inline-flex; align-items:center; gap:5px;
+      padding:var(--sp-2) var(--sp-3);
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:4px;
+      font-family:var(--sans); font-size:9px; font-weight:600;
+      letter-spacing:.08em; text-transform:uppercase;
+      color:rgba(255,255,255,.6);
+    }
+    .compliance-badge-dot { width:5px; height:5px; border-radius:50%; }
+    /* Light right */
+    .compliance-light {
+      background: var(--bg);
+      padding: var(--sp-6) var(--sp-5);
+      display: flex; flex-direction: column; gap: var(--sp-5);
+    }
+    .deploy-label {
+      font-family:var(--sans); font-size:var(--fs-xs); font-weight:600;
+      letter-spacing:.10em; text-transform:uppercase; color:var(--ink-faint);
+    }
+    .deploy-heading {
+      font-family:var(--sans); font-size:clamp(18px,1.8vw,24px);
+      font-weight:400; line-height:1; letter-spacing:-.025em;
+      color:var(--ink-dark); margin-top:var(--sp-2);
+    }
+    /* Cloud provider logos */
+    .cloud-row { display:flex; align-items:center; gap:0; }
+    .cloud-item {
+      font-family:var(--sans); font-size:9px; font-weight:600;
+      letter-spacing:.06em; text-transform:uppercase;
+      color:var(--ink-mid); padding:0 var(--sp-3);
+      border-right:1px solid var(--border);
+      height:28px; display:flex; align-items:center; gap:5px;
+    }
+    .cloud-item:first-child { padding-left:0; }
+    /* LLM logos */
+    .llm-row { display:flex; align-items:center; gap:var(--sp-3); flex-wrap:wrap; }
+    .llm-chip {
+      display:inline-flex; align-items:center; gap:5px;
+      padding:var(--sp-2) var(--sp-3);
+      background:var(--white); border:1px solid var(--border);
+      font-family:var(--sans); font-size:9px; font-weight:500;
+      letter-spacing:.06em; text-transform:uppercase; color:var(--ink-mid);
+    }
+    .llm-dot { width:6px; height:6px; border-radius:50%; }
+    /* Capability labels */
+    .cap-row { display:flex; align-items:center; gap:0; }
+    .cap-item {
+      font-family:var(--sans); font-size:var(--fs-xs); font-weight:400;
+      letter-spacing:.06em; text-transform:uppercase;
+      color:var(--ink-faint); padding:0 var(--sp-3);
+      border-right:1px solid var(--border);
+      height:28px; display:flex; align-items:center;
+    }
+    .cap-item:first-child { padding-left:0; }
+
+
+    /* ══════════════════════════════════════════════════════════
+       7. TIMELINE — horizontal steps
+    ══════════════════════════════════════════════════════════ */
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      position: relative;
+    }
+    /* Connector line */
+    .timeline::before {
+      content:"";
+      position:absolute;
+      top: 19px; left: calc(var(--sp-5) + 8px);
+      right: calc(var(--sp-5) + 8px);
+      height: 1px;
+      background: var(--border-mid);
+      z-index: 0;
+    }
+    .timeline-step {
+      padding: var(--sp-5);
+      display: flex; flex-direction: column; gap: var(--sp-3);
+      position: relative;
+      border-right: 1px solid var(--border);
+    }
+    .timeline-step:last-child { border-right: none; }
+    .timeline-marker {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid var(--ink-dark);
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 1;
+      flex-shrink: 0;
+    }
+    .timeline-marker-fill { width:7px; height:7px; border-radius:50%; background:var(--ink-dark); }
+    .timeline-marker.active { border-color:var(--emerald); }
+    .timeline-marker.active .timeline-marker-fill { background:var(--emerald); }
+    .timeline-marker.future { border-color:var(--border-mid); }
+    .timeline-marker.future .timeline-marker-fill { background:var(--border-mid); }
+    .timeline-step-label {
+      font-family:var(--sans); font-size:var(--fs-xs); font-weight:600;
+      letter-spacing:.10em; text-transform:uppercase; color:var(--emerald);
+    }
+    .timeline-step-label.future { color:var(--ink-faint); }
+    .timeline-step-title {
+      font-family:var(--sans); font-size:var(--fs-base); font-weight:400;
+      letter-spacing:-.02em; line-height:1.2; color:var(--ink-dark);
+    }
+    .timeline-step-body {
+      font-family:var(--body); font-size:var(--fs-sm); font-weight:260;
+      line-height:1.6; letter-spacing:-.01em; color:var(--ink-muted);
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       8. FEATURED POST CARD
+       Dark text panel + visual data panel (from blog)
+    ══════════════════════════════════════════════════════════ */
+    .featured-card {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      border-radius: 12px;
+      border: 1px solid rgba(46,59,54,.15);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform var(--t-slow), box-shadow var(--t-slow);
+    }
+    .featured-card:hover { transform:translateY(-2px); box-shadow:0 10px 40px rgba(0,0,0,.12); }
+    .fc-text {
+      background-color: var(--ink-dark);
+      background-image: repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(255,255,255,.012) 3px,rgba(255,255,255,.012) 6px);
+      padding: var(--sp-5) var(--sp-5) var(--sp-4);
+      display: flex; flex-direction: column; justify-content: space-between;
+      position: relative; min-height: 320px;
+    }
+    .fc-text::before {
+      content:""; position:absolute; inset:0;
+      background-image:url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/monet/2bg.webp');
+      background-size:cover; background-position:center;
+      opacity:.05; pointer-events:none;
+    }
+    .fc-body { position:relative; z-index:1; }
+    .fc-foot { position:relative; z-index:1; }
+    .fc-title {
+      font-family:var(--sans); font-weight:400;
+      font-size:clamp(1.5rem, 2.8vw, 2.2rem);
+      letter-spacing:-.025em; word-spacing:-.05em; line-height:.96;
+      color:var(--white); margin-top:var(--sp-3);
+    }
+    .fc-title em { font-family:var(--caslon); font-style:italic; color:rgba(255,255,255,.55); }
+    .fc-excerpt {
+      margin-top:var(--sp-3); font-family:var(--body); font-weight:260;
+      font-size:var(--fs-md); line-height:1.65; letter-spacing:-.01em;
+      color:rgba(255,255,255,.4);
+    }
+    .fc-meta { margin-top:var(--sp-5); display:flex; align-items:center; justify-content:space-between; }
+    .author-row { display:flex; align-items:center; gap:var(--sp-3); }
+    .fc-avatar { width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14); display:flex; align-items:center; justify-content:center; font-family:var(--sans); font-size:8px; font-weight:600; color:rgba(255,255,255,.7); flex-shrink:0; }
+    .fc-author-name { font-family:var(--body); font-size:var(--fs-sm); font-weight:400; color:rgba(255,255,255,.65); letter-spacing:-.01em; }
+    .fc-date { font-family:var(--sans); font-size:var(--fs-xs); color:rgba(255,255,255,.28); letter-spacing:.04em; margin-top:2px; }
+    .fc-visual {
+      background:var(--ink-mid);
+      position:relative; overflow:hidden;
+      padding:var(--sp-4);
+      display:flex; flex-direction:column; gap:var(--sp-3);
+    }
+    .fc-visual::before {
+      content:""; position:absolute; inset:0;
+      background-image:url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/monet/4bg.webp');
+      background-size:cover; background-position:center;
+      opacity:.08; pointer-events:none;
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       9. FILTER TAB BAR (blog category tabs)
+    ══════════════════════════════════════════════════════════ */
+    .filter-bar { display:flex; align-items:center; }
+    .filter-tab {
+      font-family:var(--sans); font-size:var(--fs-xs); font-weight:400;
+      text-transform:uppercase; letter-spacing:.10em; color:var(--ink-muted);
+      padding:var(--sp-3) var(--sp-4); height:40px;
+      background:none; border:none;
+      border-bottom:2px solid transparent; margin-bottom:-1px;
+      cursor:pointer; transition:color var(--t-std), border-color var(--t-std);
+      border-right:1px solid var(--border);
+    }
+    .filter-tab:first-child { border-left:1px solid var(--border); }
+    .filter-tab.active { color:var(--ink); border-bottom-color:var(--emerald); }
+    .filter-tab:hover:not(.active) { color:var(--ink); }
+
+
+    /* ══════════════════════════════════════════════════════════
+       10. POST GRID (3-column seamless border)
+    ══════════════════════════════════════════════════════════ */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+    .post-cell {
+      border-right:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+      padding:var(--sp-5);
+      display:flex; flex-direction:column; gap:var(--sp-3);
+      cursor:pointer; position:relative;
+      transition:background var(--t-std); overflow:hidden;
+    }
+    .post-cell::before {
+      content:""; position:absolute; inset:0;
+      background-image:url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/monet/1bg.webp');
+      background-size:cover; background-position:center;
+      opacity:0; transition:opacity var(--t-slow); pointer-events:none; z-index:0;
+    }
+    .post-cell:hover::before { opacity:.05; }
+    .post-cell > * { position:relative; z-index:1; }
+    .post-title { font-family:var(--sans); font-weight:400; font-size:var(--fs-base); color:var(--ink); line-height:1.25; letter-spacing:-.02em; }
+    .post-excerpt { font-family:var(--body); font-weight:260; font-size:var(--fs-md); color:var(--ink-muted); line-height:1.6; letter-spacing:-.01em; flex:1; }
+    .post-footer { display:flex; align-items:center; justify-content:space-between; padding-top:var(--sp-3); border-top:1px solid var(--border); }
+    .post-author-row { display:flex; align-items:center; gap:var(--sp-2); }
+    .post-avatar { width:22px; height:22px; border-radius:50%; background:rgba(46,59,54,.10); display:flex; align-items:center; justify-content:center; font-family:var(--sans); font-size:7px; font-weight:600; color:var(--ink); }
+    .post-author-name { font-family:var(--body); font-size:var(--fs-sm); font-weight:400; color:var(--ink); letter-spacing:-.01em; }
+    .post-date { font-family:var(--sans); font-size:9px; color:var(--ink-muted); letter-spacing:.05em; }
+
+
+    /* ══════════════════════════════════════════════════════════
+       11. NEWSLETTER BANNER (emerald, diagonal stripe)
+    ══════════════════════════════════════════════════════════ */
+    .newsletter-wrap {
+      background-color: var(--emerald);
+      background-image: repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(0,0,0,.05) 3px,rgba(0,0,0,.05) 6px);
+    }
+    .newsletter-inner {
+      padding: var(--sp-6) var(--sp-5);
+      display: flex; align-items: center; justify-content: space-between; gap: var(--sp-7);
+    }
+    .nl-h2 { font-family:var(--sans); font-weight:400; font-size:var(--fs-xl); color:var(--white); letter-spacing:-.03em; line-height:.93; }
+    .nl-h2 em { font-family:var(--caslon); font-style:italic; }
+    .nl-p { margin-top:var(--sp-2); font-family:var(--body); font-weight:260; font-size:var(--fs-md); color:rgba(255,255,255,.55); letter-spacing:-.01em; }
+    .nl-form { display:flex; flex-shrink:0; border:1px solid rgba(255,255,255,.25); }
+    .nl-input { background:rgba(0,0,0,.15); border:none; border-right:1px solid rgba(255,255,255,.25); outline:none; padding:var(--sp-3) var(--sp-4); font-family:var(--sans); font-size:var(--fs-xs); letter-spacing:.03em; color:var(--white); border-radius:0; width:220px; }
+    .nl-input::placeholder { color:rgba(255,255,255,.35); }
+    .nl-submit { background:rgba(0,0,0,.2); border:none; padding:var(--sp-3) var(--sp-4); font-family:var(--sans); font-size:var(--fs-xs); font-weight:600; text-transform:uppercase; letter-spacing:.10em; color:var(--white); border-radius:0; cursor:pointer; }
+    .nl-submit:hover { background:rgba(0,0,0,.35); }
+
+
+    /* ══════════════════════════════════════════════════════════
+       12. CTA BANNER SECTION
+    ══════════════════════════════════════════════════════════ */
+    .cta-banner {
+      padding: var(--sp-7) var(--sp-5);
+      display: flex; flex-direction: column;
+      align-items: center; text-align: center; gap: var(--sp-5);
+    }
+    .cta-banner-heading {
+      font-family:var(--sans); font-weight:400;
+      font-size:clamp(28px,3vw,48px);
+      letter-spacing:-.03em; line-height:.93;
+      word-spacing:-.15em; color:var(--ink);
+      max-width:640px;
+    }
+    .cta-banner-heading em { font-family:var(--caslon); font-style:italic; color:var(--emerald); word-spacing:0; }
+    .cta-banner-sub { font-family:var(--body); font-size:var(--fs-md); font-weight:260; line-height:1.6; color:var(--ink-muted); max-width:480px; }
+
+
+    /* ══════════════════════════════════════════════════════════
+       13. PRICING TIER CARDS
+    ══════════════════════════════════════════════════════════ */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+    .pricing-card {
+      border-right:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+      padding:var(--sp-5);
+      display:flex; flex-direction:column; gap:var(--sp-4);
+      position:relative;
+    }
+    .pricing-card.featured {
+      background: var(--ink-dark);
+      background-image: repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(255,255,255,.012) 3px,rgba(255,255,255,.012) 6px);
+    }
+    .pricing-card.featured::before {
+      content:""; position:absolute; inset:0;
+      background-image:url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/monet/2bg.webp');
+      background-size:cover; opacity:.04; pointer-events:none;
+    }
+    .pricing-card.featured > * { position:relative; z-index:1; }
+    .pricing-tier-label {
+      font-family:var(--sans); font-size:var(--fs-xs); font-weight:600;
+      letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);
+    }
+    .pricing-card.featured .pricing-tier-label { color:rgba(255,255,255,.35); }
+    .pricing-popular {
+      display:inline-flex; align-items:center;
+      font-family:var(--sans); font-size:9px; font-weight:600;
+      letter-spacing:.08em; text-transform:uppercase;
+      color:var(--emerald);
+      background:rgba(4,122,85,.12);
+      border:1px solid rgba(4,122,85,.2);
+      border-radius:3px; padding:2px 6px;
+    }
+    .pricing-price {
+      font-family:var(--sans); font-size:clamp(28px,2.8vw,40px);
+      font-weight:400; letter-spacing:-.04em; line-height:1; color:var(--ink-dark);
+    }
+    .pricing-card.featured .pricing-price { color:var(--white); }
+    .pricing-price-period { font-family:var(--sans); font-size:var(--fs-xs); font-weight:400; letter-spacing:.04em; color:var(--ink-faint); margin-top:3px; }
+    .pricing-card.featured .pricing-price-period { color:rgba(255,255,255,.3); }
+    .pricing-desc { font-family:var(--body); font-size:var(--fs-sm); font-weight:260; line-height:1.55; letter-spacing:-.01em; color:var(--ink-muted); }
+    .pricing-card.featured .pricing-desc { color:rgba(255,255,255,.4); }
+    .pricing-divider { height:1px; background:var(--border); }
+    .pricing-card.featured .pricing-divider { background:rgba(255,255,255,.08); }
+    .pricing-features { display:flex; flex-direction:column; gap:var(--sp-2); }
+    .pricing-feature { display:flex; align-items:flex-start; gap:var(--sp-2); font-family:var(--body); font-size:var(--fs-sm); font-weight:260; line-height:1.5; letter-spacing:-.01em; color:var(--ink-mid); }
+    .pricing-card.featured .pricing-feature { color:rgba(255,255,255,.55); }
+    .pricing-check { font-family:var(--sans); font-size:10px; color:var(--emerald); flex-shrink:0; margin-top:1px; }
+    .pricing-card.featured .pricing-check { color:rgba(167,218,200,.8); }
+
+
+    /* ══════════════════════════════════════════════════════════
+       14. FAQ ACCORDION
+    ══════════════════════════════════════════════════════════ */
+    .faq-list { display:flex; flex-direction:column; }
+    .faq-item { border-bottom:1px solid var(--border); }
+    .faq-item:first-child { border-top:1px solid var(--border); }
+    .faq-q {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:var(--sp-4) 0; cursor:pointer;
+      font-family:var(--sans); font-size:var(--fs-md); font-weight:400;
+      letter-spacing:-.01em; color:var(--ink-dark);
+      gap:var(--sp-5);
+      background:none; border:none; width:100%; text-align:left;
+    }
+    .faq-q:hover { color:var(--ink-dark); }
+    .faq-icon { flex-shrink:0; width:16px; height:16px; position:relative; }
+    .faq-icon::before { content:""; position:absolute; top:50%; left:0; right:0; height:1px; background:var(--ink); transform:translateY(-50%); }
+    .faq-icon::after  { content:""; position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--ink); transform:translateX(-50%); transition:opacity var(--t-std); }
+    .faq-item.open .faq-icon::after { opacity:0; }
+    .faq-a {
+      max-height:0; overflow:hidden;
+      transition:max-height var(--t-slow), padding var(--t-std);
+      font-family:var(--body); font-size:var(--fs-md); font-weight:260;
+      line-height:1.65; letter-spacing:-.015em; color:var(--ink-muted);
+    }
+    .faq-item.open .faq-a { max-height:200px; padding-bottom:var(--sp-4); }
+
+  </style>
+</head>
+<body>
+
+
+  <!-- ══ 1. LOGO MARQUEE ══════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Logo Marquee / Trusted By Ticker — auto-scrolling, fade edges</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="gi" style="padding-top:var(--sp-4); padding-bottom:var(--sp-3);">
+        <p class="marquee-heading">They asked, Ana delivered</p>
+      </div>
+      <div class="marquee-wrap">
+        <div class="marquee-track">
+          <!-- duplicated for seamless loop -->
+          <span class="marquee-item">Amazon</span>
+          <span class="marquee-item">Dropbox</span>
+          <span class="marquee-item">NBA</span>
+          <span class="marquee-item">Lumeris</span>
+          <span class="marquee-item">Amazon Ring</span>
+          <span class="marquee-item">Tackle</span>
+          <span class="marquee-item">Quantivly</span>
+          <span class="marquee-item">ATG</span>
+          <span class="marquee-item">Slash</span>
+          <span class="marquee-item">RxB</span>
+          <span class="marquee-item">Amazon</span>
+          <span class="marquee-item">Dropbox</span>
+          <span class="marquee-item">NBA</span>
+          <span class="marquee-item">Lumeris</span>
+          <span class="marquee-item">Amazon Ring</span>
+          <span class="marquee-item">Tackle</span>
+          <span class="marquee-item">Quantivly</span>
+          <span class="marquee-item">ATG</span>
+          <span class="marquee-item">Slash</span>
+          <span class="marquee-item">RxB</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 2. ECOSYSTEM GRID ═════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Ecosystem Grid — categorised connector columns</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="gi" style="padding-top:var(--sp-5); padding-bottom:var(--sp-5);">
+        <div class="ecosystem-grid">
+          <div class="eco-col">
+            <div class="eco-col-label">Storage</div>
+            <div class="eco-items">
+              <div class="eco-item"><div class="eco-dot" style="background:#29B5E8;"></div>Snowflake</div>
+              <div class="eco-item"><div class="eco-dot" style="background:#4285F4;"></div>BigQuery</div>
+              <div class="eco-item"><div class="eco-dot" style="background:#8C4FFF;"></div>Redshift</div>
+              <div class="eco-item"><div class="eco-dot" style="background:#336791;"></div>PostgreSQL</div>
+            </div>
+          </div>
+          <div class="eco-col">
+            <div class="eco-col-label">Sources</div>
+            <div class="eco-items">
+              <div class="eco-item"><div class="eco-dot" style="background:#4A154B;"></div>Slack</div>
+              <div class="eco-item"><div class="eco-dot" style="background:#24292e;"></div>GitHub</div>
+              <div class="eco-item"><div class="eco-dot" style="background:#0F9D58;"></div>Google Drive</div>
+              <div class="eco-item"><div class="eco-dot" style="background:#F84B6A;"></div>Linear</div>
+            </div>
+          </div>
+          <div class="eco-col">
+            <div class="eco-col-label">Presentation</div>
+            <div class="eco-items">
+              <div class="eco-item"><div class="eco-dot" style="background:#E97627;"></div>Tableau</div>
+              <div class="eco-item"><div class="eco-dot" style="background:#F2C811;"></div>Power BI</div>
+              <div class="eco-item"><div class="eco-dot" style="background:#333;"></div>Hex</div>
+            </div>
+          </div>
+          <div class="eco-col">
+            <div class="eco-col-label">Transformation</div>
+            <div class="eco-items">
+              <div class="eco-item"><div class="eco-dot" style="background:#FF6B35;"></div>dbt</div>
+              <div class="eco-item"><div class="eco-dot" style="background:#017CEE;"></div>Airflow</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 3. FEATURE SPLIT SECTION ═════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Feature Split — text left / dark demo panel right (homepage product pattern)</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="gi" style="padding-top:var(--sp-5); padding-bottom:var(--sp-5);">
+        <div class="feature-split">
+          <div class="feature-split-text">
+            <span class="eyebrow eyebrow-bracket">Feature Name</span>
+            <h2 class="feature-split-h2">Section heading with an <em>italic</em> accent word</h2>
+            <p class="feature-split-body">Describe the feature in two to three sentences. Keep it focused on the benefit, not the mechanism. Inter 260 weight, 14px, ink-muted.</p>
+            <div class="feature-split-actions">
+              <button class="btn btn-primary">Primary CTA</button>
+              <button class="btn btn-ghost">Learn More</button>
+            </div>
+          </div>
+          <div class="feature-split-visual">
+            <div class="panel-block">
+              <div class="panel-eyebrow">Data panel label · subtitle</div>
+              <div class="mini-bars">
+                <div class="mini-bar" style="height:72%;opacity:.85"></div>
+                <div class="mini-bar" style="height:45%;opacity:.5"></div>
+                <div class="mini-bar" style="height:100%;opacity:.9"></div>
+                <div class="mini-bar" style="height:60%;opacity:.65"></div>
+                <div class="mini-bar" style="height:80%;opacity:.8"></div>
+                <div class="mini-bar" style="height:35%;opacity:.45"></div>
+                <div class="mini-bar" style="height:90%;opacity:.9"></div>
+              </div>
+            </div>
+            <div class="panel-block panel-svg" style="padding:14px 18px;">
+              <svg width="100%" height="28" viewBox="0 0 320 28" fill="none">
+                <path d="M0 14 C40 4,80 24,120 14 C160 4,200 24,240 14 C280 4,310 22,320 14" stroke="#047A55" stroke-width="1.5" fill="none"/>
+                <path d="M0 20 C40 10,80 30,120 20 C160 10,200 30,240 20 C280 10,310 28,320 20" stroke="rgba(255,255,255,.08)" stroke-width="1" fill="none"/>
+              </svg>
+            </div>
+            <div class="panel-block">
+              <div class="code-block">
+                <div class="cm">-- Agent query · confidence 94%</div>
+                <div><span class="kw">SELECT</span> <span class="fd">segment</span>,</div>
+                <div>&nbsp;&nbsp;<span class="kw">SUM</span>(<span class="fd">revenue</span>) <span class="kw">AS</span> total</div>
+                <div><span class="kw">FROM</span> <span class="st">orders</span></div>
+                <div><span class="kw">GROUP BY</span> <span class="fd">segment</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 4. SLACK THREAD ══════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Slack Thread — channel header, user msg, bot response card</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="preview">
+        <div class="slack-wrap">
+          <div class="slack-header">
+            <span class="slack-header-hash">#</span>
+            <span class="slack-header-text">data-questions</span>
+          </div>
+          <div class="slack-body">
+            <div class="slack-msg">
+              <div class="slack-avatar user">JD</div>
+              <div class="slack-msg-body">
+                <div class="slack-msg-meta">
+                  <span class="slack-name">Jane Doe</span>
+                  <span class="slack-time">9:41 AM</span>
+                </div>
+                <div class="slack-text"><span class="mention">@Ana</span> what was our top performing region last quarter?</div>
+              </div>
+            </div>
+            <div class="slack-divider">
+              <div class="slack-divider-line"></div>
+              <span class="slack-divider-text">Ana replied</span>
+              <div class="slack-divider-line"></div>
+            </div>
+            <div class="slack-msg">
+              <div class="slack-avatar bot">A</div>
+              <div class="slack-msg-body">
+                <div class="slack-msg-meta">
+                  <span class="slack-name">Ana</span>
+                  <span class="slack-time">9:41 AM</span>
+                </div>
+                <div class="slack-bot-card">
+                  <div class="slack-bot-label">Ana · TextQL Agent</div>
+                  <div class="slack-bot-text">The Northeast region led Q4 with $4.2M in revenue — up 23% YoY. Mid-Atlantic was second at $3.1M. Full breakdown →</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 5. CONNECTOR TABLE WITH TABS ═════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Connector Table — tabs + active connections + add-more grid</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="gi" style="padding-top:var(--sp-5); padding-bottom:var(--sp-5);">
+        <div class="connector-section">
+          <div class="tab-bar">
+            <button class="tab active">Connectors</button>
+            <button class="tab">Environments</button>
+            <button class="tab">Slack</button>
+            <button class="tab">MCP</button>
+          </div>
+          <table class="conn-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Connected</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="conn-name-row"><div class="conn-logo-dot" style="background:#29B5E8;"></div>Production Warehouse</div></td>
+                <td>Snowflake</td>
+                <td>Jan 12, 2025</td>
+                <td><span class="conn-status active"><span class="conn-status-dot"></span>Active</span></td>
+              </tr>
+              <tr>
+                <td><div class="conn-name-row"><div class="conn-logo-dot" style="background:#4285F4;"></div>Analytics DWH</div></td>
+                <td>BigQuery</td>
+                <td>Feb 3, 2025</td>
+                <td><span class="conn-status active"><span class="conn-status-dot"></span>Active</span></td>
+              </tr>
+              <tr>
+                <td><div class="conn-name-row"><div class="conn-logo-dot" style="background:#8C4FFF;"></div>Staging DB</div></td>
+                <td>Redshift</td>
+                <td>Feb 20, 2025</td>
+                <td><span class="conn-status pending"><span class="conn-status-dot"></span>Pending</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="conn-add-grid">
+            <div class="conn-add-item"><div class="eco-dot" style="background:#17A589;width:6px;height:6px;border-radius:50%;flex-shrink:0;"></div>Supabase</div>
+            <div class="conn-add-item"><div class="eco-dot" style="background:#FFCC01;width:6px;height:6px;border-radius:50%;flex-shrink:0;"></div>ClickHouse</div>
+            <div class="conn-add-item"><div class="eco-dot" style="background:#336791;width:6px;height:6px;border-radius:50%;flex-shrink:0;"></div>PostgreSQL</div>
+            <div class="conn-add-item"><div class="eco-dot" style="background:#E97627;width:6px;height:6px;border-radius:50%;flex-shrink:0;"></div>Tableau</div>
+            <div class="conn-add-item"><div class="eco-dot" style="background:#F2C811;width:6px;height:6px;border-radius:50%;flex-shrink:0;"></div>Power BI</div>
+            <div class="conn-add-item"><div class="eco-dot" style="background:#E8622A;width:6px;height:6px;border-radius:50%;flex-shrink:0;"></div>Databricks</div>
+            <div class="conn-add-item" style="color:var(--ink-light);">+ Add source</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 6. COMPLIANCE SPLIT ══════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Compliance Split — dark left (badges) / light right (cloud + LLM providers)</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="gi" style="padding-top:var(--sp-5); padding-bottom:var(--sp-5);">
+        <div class="compliance-split">
+          <div class="compliance-dark">
+            <div class="compliance-dark-content">
+              <span class="eyebrow" style="color:rgba(255,255,255,.3);">[ Flexible and Secure ]</span>
+              <h2 class="compliance-heading" style="margin-top:var(--sp-3);">Enterprise-grade<br>security by default</h2>
+              <p class="compliance-sub">Built for regulated industries. Every deployment meets the compliance standards your team requires.</p>
+            </div>
+            <div class="compliance-dark-content">
+              <div class="badge-row">
+                <div class="compliance-badge"><div class="compliance-badge-dot" style="background:#3B82F6;"></div>HIPAA</div>
+                <div class="compliance-badge"><div class="compliance-badge-dot" style="background:var(--emerald);"></div>SOC 2</div>
+                <div class="compliance-badge"><div class="compliance-badge-dot" style="background:#8B5CF6;"></div>GDPR</div>
+                <div class="compliance-badge"><div class="compliance-badge-dot" style="background:#F59E0B;"></div>ISO 27001</div>
+              </div>
+            </div>
+          </div>
+          <div class="compliance-light">
+            <div>
+              <div class="deploy-label">Deployment</div>
+              <div class="deploy-heading">Your air-gapped<br>environment</div>
+            </div>
+            <div>
+              <div class="deploy-label" style="margin-bottom:var(--sp-2);">Cloud</div>
+              <div class="cloud-row">
+                <div class="cloud-item">AWS</div>
+                <div class="cloud-item">Azure</div>
+                <div class="cloud-item">GCP</div>
+              </div>
+            </div>
+            <div>
+              <div class="deploy-label" style="margin-bottom:var(--sp-2);">LLM Providers</div>
+              <div class="llm-row">
+                <div class="llm-chip"><div class="llm-dot" style="background:#D4872A;"></div>Claude</div>
+                <div class="llm-chip"><div class="llm-dot" style="background:#4285F4;"></div>Gemini</div>
+                <div class="llm-chip"><div class="llm-dot" style="background:#10A37F;"></div>OpenAI</div>
+              </div>
+            </div>
+            <div>
+              <div class="deploy-label" style="margin-bottom:var(--sp-2);">Your control</div>
+              <div class="cap-row">
+                <div class="cap-item">Compute</div>
+                <div class="cap-item">Storage</div>
+                <div class="cap-item">Database</div>
+                <div class="cap-item">LLMs</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 7. TIMELINE ══════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Timeline — horizontal steps, dot connector, Day 1 → Month 1</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="gi" style="padding-top:var(--sp-5); padding-bottom:var(--sp-5);">
+        <div class="timeline">
+          <div class="timeline-step">
+            <div class="timeline-marker active"><div class="timeline-marker-fill"></div></div>
+            <div class="timeline-step-label">Day 1</div>
+            <div class="timeline-step-title">Answers in minutes</div>
+            <div class="timeline-step-body">Connect your warehouse and ask your first question. No SQL, no setup, no waiting for a data analyst.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-marker active"><div class="timeline-marker-fill"></div></div>
+            <div class="timeline-step-label">Week 1</div>
+            <div class="timeline-step-title">Bring everyone in</div>
+            <div class="timeline-step-body">Invite your team. Business users get self-serve. Analysts get their time back. Everyone trusts the same source.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-marker future"><div class="timeline-marker-fill"></div></div>
+            <div class="timeline-step-label active" style="color:var(--ink-faint);">Month 1</div>
+            <div class="timeline-step-title">Scale to full autonomy</div>
+            <div class="timeline-step-body">Playbooks run on schedule. Dashboards refresh automatically. Ana handles reporting so your team handles decisions.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-marker future"><div class="timeline-marker-fill"></div></div>
+            <div class="timeline-step-label" style="color:var(--ink-faint);">Ongoing</div>
+            <div class="timeline-step-title">Continuous intelligence</div>
+            <div class="timeline-step-body">Your ontology learns. Your agents improve. Data that used to take weeks to surface takes seconds.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 8. FEATURED POST CARD ════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Featured Post Card — dark text panel + visual data panel, Monet overlay</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="gi" style="padding-top:var(--sp-5); padding-bottom:var(--sp-5);">
+        <div class="featured-card">
+          <div class="fc-text">
+            <div class="fc-body">
+              <span class="tag tag-active">Announcements</span>
+              <h2 class="fc-title">Post title with an <em>italic</em> accent word that spans two lines</h2>
+              <p class="fc-excerpt">Short excerpt copy. Two to three sentences describing the post. Inter 260 weight at 14px with 65% white opacity on the dark panel background.</p>
+            </div>
+            <div class="fc-foot">
+              <div class="fc-meta">
+                <div class="author-row">
+                  <div class="fc-avatar">AB</div>
+                  <div>
+                    <div class="fc-author-name">Author Name</div>
+                    <div class="fc-date">Mar 4 · 6 min read</div>
+                  </div>
+                </div>
+                <a href="#" class="arrow-link">
+                  Read
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="fc-visual">
+            <div class="panel-block">
+              <div class="panel-eyebrow">Chart label · period</div>
+              <div class="mini-bars">
+                <div class="mini-bar" style="height:72%;opacity:.85"></div>
+                <div class="mini-bar" style="height:45%;opacity:.5"></div>
+                <div class="mini-bar" style="height:100%;opacity:.9"></div>
+                <div class="mini-bar" style="height:60%;opacity:.65"></div>
+                <div class="mini-bar" style="height:80%;opacity:.8"></div>
+                <div class="mini-bar" style="height:35%;opacity:.45"></div>
+                <div class="mini-bar" style="height:90%;opacity:.9"></div>
+              </div>
+            </div>
+            <div class="panel-block panel-svg" style="padding:14px 18px;">
+              <svg width="100%" height="28" viewBox="0 0 320 28" fill="none">
+                <path d="M0 14 C40 4,80 24,120 14 C160 4,200 24,240 14 C280 4,310 22,320 14" stroke="#047A55" stroke-width="1.5" fill="none"/>
+              </svg>
+            </div>
+            <div class="panel-block">
+              <div class="code-block">
+                <div class="cm">-- Query · confidence 94%</div>
+                <div><span class="kw">SELECT</span> <span class="fd">segment</span>, <span class="kw">SUM</span>(<span class="fd">revenue</span>)</div>
+                <div><span class="kw">FROM</span> <span class="st">orders</span> <span class="kw">WHERE</span> <span class="fd">quarter</span> = <span class="st">'Q4'</span></div>
+                <div><span class="kw">GROUP BY</span> <span class="fd">segment</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 9. FILTER TAB BAR ════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Filter Tab Bar — Geist Mono, hairline borders, emerald active underline</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="gi" style="padding-top:0; padding-bottom:0;">
+        <div class="filter-bar">
+          <button class="filter-tab active" onclick="setTab(this)">All</button>
+          <button class="filter-tab" onclick="setTab(this)">Engineering</button>
+          <button class="filter-tab" onclick="setTab(this)">Product</button>
+          <button class="filter-tab" onclick="setTab(this)">Announcements</button>
+          <button class="filter-tab" onclick="setTab(this)">Team</button>
+          <button class="filter-tab" onclick="setTab(this)">Research</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 10. POST GRID ═════════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Post Grid — 3-col seamless border, Monet hover overlay, author row</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="gi" style="padding-top:var(--sp-5); padding-bottom:var(--sp-5);">
+        <div class="posts-grid">
+          <div class="post-cell">
+            <span class="tag tag-neutral">Engineering</span>
+            <div class="post-title">Post title goes here in Geist Mono at 16px</div>
+            <p class="post-excerpt">Short excerpt copy, two to three sentences. Inter 260 weight, 14px, ink-muted color. Flex-grows to push footer down.</p>
+            <div class="post-footer">
+              <div class="post-author-row">
+                <div class="post-avatar">AB</div>
+                <span class="post-author-name">Author Name</span>
+              </div>
+              <span class="post-date">Feb 12</span>
+            </div>
+          </div>
+          <div class="post-cell">
+            <span class="tag tag-neutral">Product</span>
+            <div class="post-title">Another post title in the same Geist Mono style</div>
+            <p class="post-excerpt">Short excerpt copy, two to three sentences. Consistent grid height is maintained by flex layout within each cell.</p>
+            <div class="post-footer">
+              <div class="post-author-row">
+                <div class="post-avatar">CD</div>
+                <span class="post-author-name">Author Name</span>
+              </div>
+              <span class="post-date">Feb 5</span>
+            </div>
+          </div>
+          <div class="post-cell">
+            <span class="tag tag-active">Announcements</span>
+            <div class="post-title">Third post in the grid — active tag variant shown here</div>
+            <p class="post-excerpt">Short excerpt. The hover state reveals a very subtle Monet image overlay at 5% opacity — barely perceptible but adds warmth.</p>
+            <div class="post-footer">
+              <div class="post-author-row">
+                <div class="post-avatar">EF</div>
+                <span class="post-author-name">Author Name</span>
+              </div>
+              <span class="post-date">Jan 29</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 11. NEWSLETTER BANNER ════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Newsletter Banner — emerald bg, diagonal stripe, square input</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="newsletter-wrap">
+        <div class="newsletter-inner">
+          <div>
+            <h2 class="nl-h2">Stay in the <em>loop.</em></h2>
+            <p class="nl-p">Updates, posts, and product thinking — no noise.</p>
+          </div>
+          <form class="nl-form" onsubmit="return false;">
+            <input class="nl-input" type="email" placeholder="you@company.com" />
+            <button class="nl-submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 12. CTA BANNER ═══════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">CTA Banner — centered, large heading, italic accent, single button</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="gi">
+        <div class="cta-banner">
+          <h2 class="cta-banner-heading">Go from question to conviction in <em>minutes,</em> not weeks</h2>
+          <p class="cta-banner-sub">Your data team shouldn't be a bottleneck. Give every stakeholder direct, trustworthy access to answers.</p>
+          <button class="btn btn-primary">Request Demo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 13. PRICING CARDS ════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">Pricing Cards — 3-col, dark featured tier, feature checklist</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="gi" style="padding-top:var(--sp-5); padding-bottom:var(--sp-5);">
+        <div class="pricing-grid">
+          <!-- Tier 1 -->
+          <div class="pricing-card">
+            <div>
+              <div class="pricing-tier-label">Analyst</div>
+              <div class="pricing-price">$0<span style="font-size:var(--fs-md);"> + compute</span></div>
+              <div class="pricing-price-period">per month</div>
+            </div>
+            <div class="pricing-desc">For analysts and ICs exploring ad hoc analysis use cases.</div>
+            <div class="pricing-divider"></div>
+            <div class="pricing-features">
+              <div class="pricing-feature"><span class="pricing-check">✓</span>$100/mo free credits</div>
+              <div class="pricing-feature"><span class="pricing-check">✓</span>3 seats</div>
+              <div class="pricing-feature"><span class="pricing-check">✓</span>1 concurrent agent</div>
+              <div class="pricing-feature"><span class="pricing-check">✓</span>Unlimited connectors</div>
+              <div class="pricing-feature"><span class="pricing-check">✓</span>Ontology builder</div>
+            </div>
+            <button class="btn btn-ghost" style="width:100%;justify-content:center;">Get Started</button>
+          </div>
+          <!-- Tier 2 — Featured -->
+          <div class="pricing-card featured">
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-3);">
+                <div class="pricing-tier-label">Team</div>
+                <span class="pricing-popular">Most Popular</span>
+              </div>
+              <div class="pricing-price">$250<span style="font-size:var(--fs-md);color:rgba(255,255,255,.4);"> + compute</span></div>
+              <div class="pricing-price-period">per month</div>
+            </div>
+            <div class="pricing-desc">For large-scale data initiatives and team collaboration.</div>
+            <div class="pricing-divider"></div>
+            <div class="pricing-features">
+              <div class="pricing-feature"><span class="pricing-check">✓</span>$400/mo credits</div>
+              <div class="pricing-feature"><span class="pricing-check">✓</span>Unlimited seats</div>
+              <div class="pricing-feature"><span class="pricing-check">✓</span>Unlimited concurrent agents</div>
+              <div class="pricing-feature"><span class="pricing-check">✓</span>SSO + SAML</div>
+              <div class="pricing-feature"><span class="pricing-check">✓</span>SOC 2 / HIPAA compliant</div>
+              <div class="pricing-feature"><span class="pricing-check">✓</span>Priority support (1hr SLA)</div>
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);">Request Demo</button>
+          </div>
+          <!-- Tier 3 -->
+          <div class="pricing-card">
+            <div>
+              <div class="pricing-tier-label">Enterprise</div>
+              <div class="pricing-price">Custom</div>
+              <div class="pricing-price-period">per month</div>
+            </div>
+            <div class="pricing-desc">For organisations with compliance and mission-critical workloads.</div>
+            <div class="pricing-divider"></div>
+            <div class="pricing-features">
+              <div class="pricing-feature"><span class="pricing-check">✓</span>Dedicated infrastructure</div>
+              <div class="pricing-feature"><span class="pricing-check">✓</span>On-prem / BYOC deploy</div>
+              <div class="pricing-feature"><span class="pricing-check">✓</span>Custom model fine-tuning</div>
+              <div class="pricing-feature"><span class="pricing-check">✓</span>Dedicated account manager</div>
+              <div class="pricing-feature"><span class="pricing-check">✓</span>Migration assistance</div>
+            </div>
+            <button class="btn btn-ghost" style="width:100%;justify-content:center;">Talk to Sales</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 14. FAQ ACCORDION ════════════════════════════════════ -->
+  <div class="lib-section">
+    <div class="lib-label">
+      <span class="lib-tag">Component</span>
+      <span class="lib-name">FAQ Accordion — hairline borders, + / − toggle, body Inter 260</span>
+      <div class="lib-rule"></div>
+    </div>
+    <div class="gr">
+      <div class="h-rule h-rule--top"></div>
+      <div class="h-rule h-rule--bottom"></div>
+      <div class="gi" style="padding-top:var(--sp-5); padding-bottom:var(--sp-5);">
+        <div class="faq-list" style="max-width:720px;">
+          <div class="faq-item open">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              How is compute pricing calculated?
+              <span class="faq-icon"></span>
+            </button>
+            <div class="faq-a">Compute is billed by ACU (Ana Compute Unit) based on query complexity and data volume processed. Each plan includes a monthly credit allowance. Overages are billed at standard ACU rates at month end.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Can I bring my own cloud infrastructure?
+              <span class="faq-icon"></span>
+            </button>
+            <div class="faq-a">Yes. Enterprise customers can deploy within their own AWS, Azure, or GCP VPC. Your data never leaves your environment. We support air-gapped deployments for regulated industries.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              What happens if I exceed my credit allowance?
+              <span class="faq-icon"></span>
+            </button>
+            <div class="faq-a">You'll receive an alert at 80% usage. Overages continue to work uninterrupted and are billed at the end of the billing cycle. You can set hard limits in your account settings.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Which LLM providers are supported?
+              <span class="faq-icon"></span>
+            </button>
+            <div class="faq-a">Ana supports Claude (Anthropic), Gemini (Google), and GPT-4o (OpenAI). Enterprise customers can bring their own fine-tuned models or use on-premises LLM deployments.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Is there a free trial?
+              <span class="faq-icon"></span>
+            </button>
+            <div class="faq-a">The Analyst tier is free with $100 in monthly compute credits — no credit card required. Connect your warehouse and start querying immediately.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    function setTab(el) {
+      el.closest('.gr, .lib-section').querySelectorAll('.filter-tab, .tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+    }
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      btn.closest('.faq-list').querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+  </script>
+
+</body>
+</html>
