@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TextQL — Hero Component</title>
+
+  <!-- Font stack from textql.com: Geist Mono (headings/UI), Inter Variable (body), Libre Caslon Text (italic) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Caslon+Text:ital,wght@1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─────────────────────────────────────────────────────────
+       DESIGN TOKENS  (extracted from textql.com)
+    ───────────────────────────────────────────────────────── */
+    :root {
+      /* Brand colors */
+      --ink:          #2E3B36;
+      --ink-dark:     #072A20;
+      --ink-mid:      #3D5D55;
+      --ink-light:    #628C82;
+      --ink-muted:    #6B7268;
+      --ink-faint:    #9EA397;
+      --emerald:      #047A55;
+      --bg:           #FAFBF8;
+      --white:        #FFFFFF;
+      --border:       rgba(46,59,54,.10);
+      --border-mid:   rgba(46,59,54,.18);
+
+      /* Typography */
+      --sans:   'Geist Mono', 'Menlo', monospace;
+      --body:   'Inter', sans-serif;
+      --caslon: 'Libre Caslon Text', Georgia, serif;
+
+      /* Layout */
+      --max-w: 1200px;
+      --pad-h: 40px;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       RESET
+    ───────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body { font-family: var(--body); background: var(--bg); color: var(--ink); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { cursor: pointer; font: inherit; border: none; background: none; }
+    input { font: inherit; border: none; outline: none; background: none; }
+
+
+    /* ═══════════════════════════════════════════════════════════
+       ANNOUNCEMENT BANNER
+    ═══════════════════════════════════════════════════════════ */
+    .announcement {
+      background: var(--ink-dark);
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 var(--pad-h);
+    }
+    .ann-text {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: .04em;
+      color: rgba(255,255,255,.65);
+    }
+    .ann-sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.25);
+      flex-shrink: 0;
+    }
+    .ann-link {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .04em;
+      color: rgba(255,255,255,.9);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color .15s;
+    }
+    .ann-link:hover { color: #fff; }
+
+
+    /* ═══════════════════════════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════════════════════════ */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 60px;
+      background: rgba(250,251,248,.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--pad-h);
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Logo */
+    .nav-logo {
+      flex-shrink: 0;
+      margin-right: 36px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Nav links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      flex: 1;
+    }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 11px;
+      border-radius: 7px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .02em;
+      color: var(--ink-mid);
+      transition: color .12s, background .12s;
+    }
+    .nav-link:hover { color: var(--ink-dark); background: rgba(46,59,54,.06); }
+    .nav-link svg { opacity: .45; flex-shrink: 0; }
+    .nav-pill {
+      font-size: 9px;
+      font-family: var(--sans);
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--emerald);
+      background: rgba(4,122,85,.10);
+      border: 1px solid rgba(4,122,85,.18);
+      border-radius: 4px;
+      padding: 1px 5px;
+      line-height: 1.6;
+    }
+
+    /* Nav CTAs */
+    .nav-ctas {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-nav-ghost {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .02em;
+      color: var(--ink);
+      padding: 7px 15px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: border-color .12s, background .12s;
+    }
+    .btn-nav-ghost:hover { border-color: var(--border-mid); background: rgba(46,59,54,.04); }
+    .btn-nav-primary {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      color: #fff;
+      padding: 7px 16px;
+      border-radius: 8px;
+      background: var(--ink-dark);
+      border: 1px solid var(--ink-dark);
+      transition: background .12s, border-color .12s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .btn-nav-primary:hover { background: #0a3b2c; border-color: #0a3b2c; }
+
+
+    /* ═══════════════════════════════════════════════════════════
+       HERO SECTION
+    ═══════════════════════════════════════════════════════════ */
+    .hero {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 80px var(--pad-h) 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* ── Badge ── */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 28px;
+      padding: 0 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(4,122,85,.22);
+      background: rgba(4,122,85,.07);
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--emerald);
+      margin-bottom: 32px;
+    }
+    .badge-pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--emerald);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .badge-pulse::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(4,122,85,.3);
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0; transform: scale(1.6); }
+    }
+
+    /* ── Headline ── */
+    .hero-h1 {
+      font-family: var(--sans);
+      font-size: clamp(40px, 5.5vw, 68px);
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -.035em;
+      color: var(--ink-dark);
+      max-width: 760px;
+      margin-bottom: 22px;
+    }
+    .hero-h1 em {
+      font-family: var(--caslon);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--emerald);
+      letter-spacing: -.01em;
+    }
+
+    /* ── Subheadline ── */
+    .hero-sub {
+      font-family: var(--body);
+      font-size: 17px;
+      font-weight: 350;
+      line-height: 1.65;
+      color: var(--ink-muted);
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+
+    /* ── CTAs ── */
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 56px;
+    }
+    .cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 48px;
+      padding: 0 28px;
+      border-radius: 10px;
+      background: var(--ink-dark);
+      border: 1.5px solid var(--ink-dark);
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      color: #fff;
+      transition: background .14s, border-color .14s, transform .1s;
+    }
+    .cta-primary:hover { background: #0a3b2c; border-color: #0a3b2c; transform: translateY(-1px); }
+    .cta-primary:active { transform: translateY(0); }
+    .cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 48px;
+      padding: 0 28px;
+      border-radius: 10px;
+      background: transparent;
+      border: 1.5px solid var(--border-mid);
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .02em;
+      color: var(--ink);
+      transition: border-color .14s, background .14s, transform .1s;
+    }
+    .cta-secondary:hover { border-color: var(--ink); background: rgba(46,59,54,.03); transform: translateY(-1px); }
+    .cta-secondary:active { transform: translateY(0); }
+
+    /* ── Trusted by ── */
+    .hero-trusted {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 72px;
+    }
+    .trusted-label {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .trusted-logos {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .trusted-logo-item {
+      font-family: var(--sans);
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: .03em;
+      color: var(--ink-faint);
+      padding: 0 20px;
+      position: relative;
+      transition: color .14s;
+    }
+    .trusted-logo-item:hover { color: var(--ink-mid); }
+    .trusted-logo-item + .trusted-logo-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 14px;
+      width: 1px;
+      background: var(--border-mid);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════
+       PRODUCT MOCKUP
+    ═══════════════════════════════════════════════════════════ */
+    .mockup-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .mockup-card {
+      border-radius: 14px 14px 0 0;
+      overflow: hidden;
+      border: 1.5px solid var(--border-mid);
+      border-bottom: none;
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.02),
+        0 2px 4px rgba(7,42,32,.03),
+        0 8px 24px rgba(7,42,32,.06),
+        0 32px 80px rgba(7,42,32,.10),
+        0 72px 140px rgba(7,42,32,.08);
+      background: var(--white);
+    }
+
+    /* ── Chrome bar ── */
+    .chrome {
+      height: 44px;
+      background: #F3F3EF;
+      border-bottom: 1px solid #E8E8E4;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .chrome-dots { display: flex; gap: 6px; }
+    .chrome-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+    .chrome-dot.r { background: #FF5F57; }
+    .chrome-dot.y { background: #FEBC2E; }
+    .chrome-dot.g { background: #28C840; }
+    .chrome-addr {
+      flex: 1;
+      height: 28px;
+      background: #EAEAE6;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 6px;
+    }
+    .chrome-lock { opacity: .45; flex-shrink: 0; }
+    .chrome-url-text {
+      font-family: var(--sans);
+      font-size: 10.5px;
+      letter-spacing: .02em;
+      color: #8A8A84;
+    }
+
+    /* ── App body ── */
+    .app-body {
+      display: flex;
+      height: 540px;
+    }
+
+    /* Sidebar */
+    .app-sidebar {
+      width: 216px;
+      flex-shrink: 0;
+      background: #F6F6F2;
+      border-right: 1px solid #E8E8E4;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+    .sb-header {
+      height: 52px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      border-bottom: 1px solid #E8E8E4;
+      flex-shrink: 0;
+    }
+    .sb-mark {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      background: var(--ink-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .sb-mark-inner {
+      width: 12px;
+      height: 12px;
+    }
+    .sb-workspace {
+      font-family: var(--sans);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sb-ws-chevron { opacity: .35; flex-shrink: 0; }
+
+    .sb-section { padding: 16px 8px 0; }
+    .sb-section-label {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      padding: 0 8px;
+      margin-bottom: 3px;
+    }
+    .sb-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      font-family: var(--sans);
+      font-size: 11.5px;
+      font-weight: 400;
+      color: var(--ink-mid);
+      cursor: pointer;
+      transition: background .1s, color .1s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sb-item:hover { background: rgba(46,59,54,.06); color: var(--ink-dark); }
+    .sb-item.active {
+      background: rgba(46,59,54,.09);
+      color: var(--ink-dark);
+      font-weight: 600;
+    }
+    .sb-icon { flex-shrink: 0; opacity: .55; }
+    .sb-item.active .sb-icon { opacity: .85; }
+
+    /* Main */
+    .app-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+    .app-topbar {
+      height: 52px;
+      border-bottom: 1px solid #E8E8E4;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 10px; }
+    .topbar-title { font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--ink-dark); }
+    .topbar-crumb { font-family: var(--sans); font-size: 11px; color: var(--ink-faint); }
+    .topbar-right { display: flex; align-items: center; gap: 6px; }
+    .topbar-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      height: 24px;
+      padding: 0 9px;
+      border-radius: 5px;
+      background: #F0F0EC;
+      border: 1px solid #E2E2DC;
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .04em;
+      color: var(--ink-mid);
+    }
+    .chip-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+    /* Chat */
+    .app-chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px 28px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* User message */
+    .msg-user { display: flex; justify-content: flex-end; }
+    .bubble-user {
+      max-width: 58%;
+      background: var(--ink-dark);
+      color: #fff;
+      border-radius: 13px 13px 3px 13px;
+      padding: 11px 16px;
+      font-family: var(--body);
+      font-size: 13px;
+      font-weight: 350;
+      line-height: 1.55;
+      color: rgba(255,255,255,.92);
+    }
+
+    /* Ana message */
+    .msg-ana { display: flex; gap: 11px; align-items: flex-start; }
+    .ana-av {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--emerald) 0%, var(--ink-dark) 100%);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .ana-av-text {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255,255,255,.92);
+    }
+    .ana-body { flex: 1; min-width: 0; }
+    .ana-label {
+      font-family: var(--sans);
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--emerald);
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ana-status-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--emerald);
+    }
+    .ana-text {
+      font-family: var(--body);
+      font-size: 13px;
+      font-weight: 350;
+      line-height: 1.65;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .ana-text strong { font-weight: 600; color: var(--ink-dark); }
+
+    /* Data table */
+    .tbl-wrap {
+      border: 1px solid #E5E5E0;
+      border-radius: 9px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--sans);
+    }
+    .tbl thead { background: #F5F5F0; }
+    .tbl th {
+      text-align: left;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      padding: 8px 14px;
+      border-bottom: 1px solid #E5E5E0;
+      white-space: nowrap;
+    }
+    .tbl td {
+      font-size: 11.5px;
+      font-weight: 400;
+      color: var(--ink);
+      padding: 7.5px 14px;
+      border-bottom: 1px solid #F0F0EC;
+      white-space: nowrap;
+    }
+    .tbl tr:last-child td { border-bottom: none; }
+    .tbl tr:nth-child(odd) td { background: #FAFAF8; }
+    .tbl tr:nth-child(even) td { background: #fff; }
+    .tbl-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .badge-high   { background: rgba(220,38,38,.08);  color: #B91C1C; border: 1px solid rgba(220,38,38,.15); }
+    .badge-medium { background: rgba(217,119,6,.08);  color: #B45309; border: 1px solid rgba(217,119,6,.15); }
+    .badge-low    { background: rgba(4,122,85,.08);   color: var(--emerald); border: 1px solid rgba(4,122,85,.15); }
+    .tbl-mono { font-family: var(--sans); font-size: 11px; }
+    .tbl-score-bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .score-track {
+      width: 48px;
+      height: 4px;
+      border-radius: 2px;
+      background: #E8E8E4;
+      overflow: hidden;
+    }
+    .score-fill {
+      height: 100%;
+      border-radius: 2px;
+    }
+    .score-fill.high   { background: #DC2626; }
+    .score-fill.medium { background: #D97706; }
+    .score-fill.low    { background: var(--emerald); }
+
+    /* Insight callout */
+    .insight {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      background: rgba(4,122,85,.05);
+      border: 1px solid rgba(4,122,85,.14);
+      border-radius: 8px;
+      margin-top: 4px;
+    }
+    .insight-icon { flex-shrink: 0; margin-top: 1px; }
+    .insight-text {
+      font-family: var(--body);
+      font-size: 12px;
+      font-weight: 350;
+      line-height: 1.6;
+      color: var(--ink-mid);
+    }
+    .insight-text strong { font-weight: 600; color: var(--ink-dark); }
+
+    /* Input bar */
+    .app-input {
+      border-top: 1px solid #E8E8E4;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      flex-shrink: 0;
+    }
+    .input-box {
+      flex: 1;
+      height: 38px;
+      background: #F5F5F1;
+      border: 1px solid #E5E5E0;
+      border-radius: 8px;
+      padding: 0 14px;
+      font-family: var(--body);
+      font-size: 13px;
+      color: var(--ink-faint);
+      display: flex;
+      align-items: center;
+    }
+    .input-box-placeholder {
+      font-family: var(--body);
+      font-size: 13px;
+      color: var(--ink-faint);
+      pointer-events: none;
+    }
+    .input-send-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: var(--ink-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: background .12s;
+    }
+    .input-send-btn:hover { background: #0a3b2c; }
+
+
+    /* ═══════════════════════════════════════════════════════════
+       INTEGRATION ROW  (below the mockup)
+    ═══════════════════════════════════════════════════════════ */
+    .integrations {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 22px var(--pad-h) 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .int-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 18px;
+      font-family: var(--sans);
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: .05em;
+      color: var(--ink-faint);
+      position: relative;
+      transition: color .14s;
+    }
+    .int-item:hover { color: var(--ink-mid); }
+    .int-item + .int-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 12px;
+      background: var(--border-mid);
+    }
+    .int-logo {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       ANNOUNCEMENT BANNER
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="announcement">
+    <span class="ann-text">Meet us at Gartner Data &amp; Analytics Summit 2026</span>
+    <div class="ann-sep"></div>
+    <span class="ann-text">Mar 9–11 in Orlando</span>
+    <div class="ann-sep"></div>
+    <a href="#" class="ann-link">
+      Learn more
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2.5 6h7M7 3.5L9.5 6 7 8.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════════════════════ -->
+  <nav class="nav">
+    <div class="nav-inner">
+
+      <!-- Logo -->
+      <a class="nav-logo" href="#">
+        <!-- TextQL wordmark (SVG reproduction) -->
+        <svg height="18" viewBox="0 0 96 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="TextQL">
+          <!-- T -->
+          <rect x="0" y="0" width="10" height="2.2" rx=".8" fill="#072A20"/>
+          <rect x="3.9" y="0" width="2.2" height="18" rx=".8" fill="#072A20"/>
+          <!-- e -->
+          <path d="M13 11c0-2.76 1.9-4.8 4.5-4.8s4.2 1.94 4.2 4.6v.7H15.3c.18 1.2 1 2 2.24 2 .86 0 1.6-.4 2-.98l1.7 1.1C20.4 14.9 19 15.7 17.4 15.7 14.76 15.7 13 13.72 13 11zm2.32-.9h4.44c-.2-1.1-.96-1.76-2.1-1.76-1.1 0-2 .7-2.34 1.76z" fill="#072A20"/>
+          <!-- x -->
+          <path d="M23.5 6.4h2.6l2 2.98 2-2.98H32.7L29.4 11l3.4 4.6h-2.6l-2.16-3.08L25.88 15.6H23.3l3.38-4.6L23.5 6.4z" fill="#072A20"/>
+          <!-- t -->
+          <path d="M34.2 3.8h2.2V6.4h2.1v1.9h-2.1v4.6c0 .74.4 1.1 1.1 1.1h1v2h-1.3c-1.76 0-3-.92-3-2.8V8.3h-1.4V6.4h1.4V3.8z" fill="#072A20"/>
+          <!-- Q with circle + tail -->
+          <path d="M40.8 11c0-2.78 2.1-4.84 4.9-4.84s4.9 2.06 4.9 4.84c0 1.3-.46 2.48-1.22 3.36l1.02 1.08-1.5 1.4-1.08-1.14a5 5 0 0 1-2.12.46C42.9 15.84 40.8 13.78 40.8 11zm2.26 0c0 1.5 1.1 2.64 2.64 2.64.4 0 .78-.09 1.1-.25l-.74-.78 1.5-1.4.8.84c.12-.32.18-.67.18-1.05 0-1.5-1.1-2.64-2.64-2.64S43.06 9.5 43.06 11z" fill="#072A20"/>
+          <!-- L -->
+          <path d="M52.4 2h2.26v11.5H58v2.1h-5.6V2z" fill="#072A20"/>
+        </svg>
+      </a>
+
+      <!-- Links -->
+      <ul class="nav-links">
+        <li>
+          <a class="nav-link" href="#">
+            Products
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" href="#">
+            Industries
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" href="#">
+            Company
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" href="#">
+            Healthcare
+            <span class="nav-pill">New</span>
+          </a>
+        </li>
+        <li><a class="nav-link" href="#">Pricing</a></li>
+      </ul>
+
+      <!-- CTAs -->
+      <div class="nav-ctas">
+        <button class="btn-nav-ghost">Request Demo</button>
+        <button class="btn-nav-primary">
+          Get Started
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2.5 6h7M7 3.5L9.5 6 7 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO SECTION
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="hero">
+
+    <!-- Badge -->
+    <div class="hero-badge">
+      <span class="badge-pulse"></span>
+      AI Data Analyst Agents — Now Available
+    </div>
+
+    <!-- Headline -->
+    <h1 class="hero-h1">
+      Data Analyst Agents<br>for <em>Messy</em> Data
+    </h1>
+
+    <!-- Subheadline -->
+    <p class="hero-sub">
+      Ask anything, get answers. Go from question to conviction in minutes, not weeks — without writing a single line of SQL.
+    </p>
+
+    <!-- CTAs -->
+    <div class="hero-ctas">
+      <button class="cta-primary">
+        Get Started
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M2.5 7h9M8 4l3.5 3L8 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="cta-secondary">Request Demo</button>
+    </div>
+
+    <!-- Trusted by -->
+    <div class="hero-trusted">
+      <span class="trusted-label">Trusted by data teams at</span>
+      <div class="trusted-logos">
+        <span class="trusted-logo-item">Amazon</span>
+        <span class="trusted-logo-item">Dropbox</span>
+        <span class="trusted-logo-item">NBA</span>
+        <span class="trusted-logo-item">Lumeris</span>
+        <span class="trusted-logo-item">Tackle</span>
+        <span class="trusted-logo-item">Quantivly</span>
+      </div>
+    </div>
+
+    <!-- ── PRODUCT MOCKUP ── -->
+    <div class="mockup-wrapper">
+      <div class="mockup-card">
+
+        <!-- Browser chrome -->
+        <div class="chrome">
+          <div class="chrome-dots">
+            <div class="chrome-dot r"></div>
+            <div class="chrome-dot y"></div>
+            <div class="chrome-dot g"></div>
+          </div>
+          <div class="chrome-addr">
+            <svg class="chrome-lock" width="10" height="12" viewBox="0 0 10 12" fill="none">
+              <rect x=".75" y="5.25" width="8.5" height="6.5" rx="1.25" stroke="#8A8A84" stroke-width="1.1"/>
+              <path d="M3 5.25V3.75a2 2 0 0 1 4 0v1.5" stroke="#8A8A84" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            </svg>
+            <span class="chrome-url-text">app.textql.com / threads / medicare-fraud-q4</span>
+          </div>
+        </div>
+
+        <!-- App body -->
+        <div class="app-body">
+
+          <!-- Sidebar -->
+          <div class="app-sidebar">
+            <div class="sb-header">
+              <div class="sb-mark">
+                <!-- mini TextQL T mark -->
+                <svg class="sb-mark-inner" viewBox="0 0 12 12" fill="none">
+                  <rect x="0" y="0" width="12" height="2.2" rx=".7" fill="rgba(255,255,255,.9)"/>
+                  <rect x="4.9" y="0" width="2.2" height="12" rx=".7" fill="rgba(255,255,255,.9)"/>
+                </svg>
+              </div>
+              <span class="sb-workspace">Acme Health Co.</span>
+              <svg class="sb-ws-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M3 4.5l2 2 2-2" stroke="#9EA397" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <div class="sb-section">
+              <div class="sb-section-label">Threads</div>
+              <div class="sb-item active">
+                <svg class="sb-icon" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <path d="M1.5 2.5h10M1.5 6.5h7M1.5 10.5h4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                Medicare Fraud Analysis
+              </div>
+              <div class="sb-item">
+                <svg class="sb-icon" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <path d="M1.5 2.5h10M1.5 6.5h7M1.5 10.5h4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                Q4 Revenue by Region
+              </div>
+              <div class="sb-item">
+                <svg class="sb-icon" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <path d="M1.5 2.5h10M1.5 6.5h7M1.5 10.5h4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                Customer Churn Q3
+              </div>
+              <div class="sb-item">
+                <svg class="sb-icon" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <path d="M1.5 2.5h10M1.5 6.5h7M1.5 10.5h4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                Billing Anomalies
+              </div>
+            </div>
+
+            <div class="sb-section">
+              <div class="sb-section-label">Workspace</div>
+              <div class="sb-item">
+                <svg class="sb-icon" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M4.5 6.5h4M6.5 4.5v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                Ontology
+              </div>
+              <div class="sb-item">
+                <svg class="sb-icon" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <rect x="1.5" y="2" width="10" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M4 5h5M4 7.5h3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                Playbooks
+              </div>
+              <div class="sb-item">
+                <svg class="sb-icon" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <rect x="1.5" y="3.5" width="10" height="7" rx="1.2" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M4.5 3.5V2.5M8.5 3.5V2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                Dashboards
+              </div>
+            </div>
+          </div>
+
+          <!-- Main area -->
+          <div class="app-main">
+
+            <!-- Topbar -->
+            <div class="app-topbar">
+              <div class="topbar-left">
+                <span class="topbar-crumb" style="color:var(--ink-faint);">Threads /</span>
+                <span class="topbar-title">Medicare Fraud Analysis</span>
+              </div>
+              <div class="topbar-right">
+                <div class="topbar-chip">
+                  <div class="chip-dot" style="background:#29B5E8;"></div>
+                  Snowflake
+                </div>
+                <div class="topbar-chip">
+                  <div class="chip-dot" style="background:var(--emerald);"></div>
+                  Ana · GPT-4o
+                </div>
+              </div>
+            </div>
+
+            <!-- Chat messages -->
+            <div class="app-chat">
+
+              <!-- User message -->
+              <div class="msg-user">
+                <div class="bubble-user">
+                  Show me Medicare claims with highest risk scores from last quarter, grouped by provider type
+                </div>
+              </div>
+
+              <!-- Ana response -->
+              <div class="msg-ana">
+                <div class="ana-av">
+                  <span class="ana-av-text">A</span>
+                </div>
+                <div class="ana-body">
+                  <div class="ana-label">
+                    <div class="ana-status-dot"></div>
+                    Ana · TextQL Agent
+                  </div>
+                  <div class="ana-text">
+                    Found <strong>1,247 flagged claims</strong> across 6 provider types last quarter. Three providers account for <strong>68% of all high-risk flags</strong>. Sorting by composite risk score:
+                  </div>
+
+                  <!-- Data table -->
+                  <div class="tbl-wrap">
+                    <table class="tbl">
+                      <thead>
+                        <tr>
+                          <th>Provider</th>
+                          <th>Claim Total</th>
+                          <th>Risk Score</th>
+                          <th>Anomaly Type</th>
+                          <th>Flag Level</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Sunrise Medical Group</td>
+                          <td class="tbl-mono">$847,230</td>
+                          <td>
+                            <div class="tbl-score-bar">
+                              <div class="score-track">
+                                <div class="score-fill high" style="width:98%;"></div>
+                              </div>
+                              <span class="tbl-mono">98.4</span>
+                            </div>
+                          </td>
+                          <td>Upcoding</td>
+                          <td><span class="tbl-badge badge-high">High</span></td>
+                        </tr>
+                        <tr>
+                          <td>Metro Cardiology Assoc.</td>
+                          <td class="tbl-mono">$612,180</td>
+                          <td>
+                            <div class="tbl-score-bar">
+                              <div class="score-track">
+                                <div class="score-fill high" style="width:94%;"></div>
+                              </div>
+                              <span class="tbl-mono">94.1</span>
+                            </div>
+                          </td>
+                          <td>Duplicate Claims</td>
+                          <td><span class="tbl-badge badge-high">High</span></td>
+                        </tr>
+                        <tr>
+                          <td>Valley Home Health</td>
+                          <td class="tbl-mono">$389,540</td>
+                          <td>
+                            <div class="tbl-score-bar">
+                              <div class="score-track">
+                                <div class="score-fill high" style="width:88%;"></div>
+                              </div>
+                              <span class="tbl-mono">87.6</span>
+                            </div>
+                          </td>
+                          <td>Unbundling</td>
+                          <td><span class="tbl-badge badge-high">High</span></td>
+                        </tr>
+                        <tr>
+                          <td>NovaCare Diagnostics</td>
+                          <td class="tbl-mono">$204,910</td>
+                          <td>
+                            <div class="tbl-score-bar">
+                              <div class="score-track">
+                                <div class="score-fill medium" style="width:71%;"></div>
+                              </div>
+                              <span class="tbl-mono">71.2</span>
+                            </div>
+                          </td>
+                          <td>Phantom Billing</td>
+                          <td><span class="tbl-badge badge-medium">Medium</span></td>
+                        </tr>
+                        <tr>
+                          <td>Pacific Rehab Center</td>
+                          <td class="tbl-mono">$98,340</td>
+                          <td>
+                            <div class="tbl-score-bar">
+                              <div class="score-track">
+                                <div class="score-fill low" style="width:45%;"></div>
+                              </div>
+                              <span class="tbl-mono">45.3</span>
+                            </div>
+                          </td>
+                          <td>Overutilization</td>
+                          <td><span class="tbl-badge badge-low">Low</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Insight callout -->
+                  <div class="insight">
+                    <svg class="insight-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="8" cy="8" r="6.5" stroke="#047A55" stroke-width="1.4"/>
+                      <path d="M8 5.5v3.5M8 10.5v.5" stroke="#047A55" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <div class="insight-text">
+                      <strong>Insight:</strong> Sunrise Medical Group shows a 340% spike in 99215 billing codes vs. same period last year — consistent with systematic upcoding. Recommend escalating to SIU review immediately.
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Input bar -->
+            <div class="app-input">
+              <div class="input-box">
+                <span class="input-box-placeholder">Ask a follow-up question about these results…</span>
+              </div>
+              <div class="input-send-btn">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M2.5 7h9M8 4l3.5 3L8 10" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+
+          </div><!-- /app-main -->
+        </div><!-- /app-body -->
+      </div><!-- /mockup-card -->
+    </div><!-- /mockup-wrapper -->
+
+  </section>
+
+  <!-- ── Integrations strip ── -->
+  <div class="integrations">
+    <div class="int-item">
+      <svg class="int-logo" viewBox="0 0 14 14" fill="none"><rect width="14" height="14" rx="3" fill="#29B5E8"/><path d="M4 5h6M4 9h4" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Snowflake
+    </div>
+    <div class="int-item">
+      <svg class="int-logo" viewBox="0 0 14 14" fill="none"><rect width="14" height="14" rx="3" fill="#4285F4"/><circle cx="7" cy="7" r="3.5" fill="none" stroke="#fff" stroke-width="1.2"/></svg>
+      BigQuery
+    </div>
+    <div class="int-item">
+      <svg class="int-logo" viewBox="0 0 14 14" fill="none"><rect width="14" height="14" rx="3" fill="#E8622A"/><path d="M4 4l6 3-6 3V4z" fill="#fff"/></svg>
+      Databricks
+    </div>
+    <div class="int-item">
+      <svg class="int-logo" viewBox="0 0 14 14" fill="none"><rect width="14" height="14" rx="3" fill="#8C4FFF"/><rect x="3.5" y="5" width="7" height="4" rx="1" fill="#fff"/></svg>
+      Redshift
+    </div>
+    <div class="int-item">
+      <svg class="int-logo" viewBox="0 0 14 14" fill="none"><rect width="14" height="14" rx="3" fill="#336791"/><circle cx="7" cy="7" r="3.5" stroke="#fff" stroke-width="1.2" fill="none"/><circle cx="7" cy="7" r="1.5" fill="#fff"/></svg>
+      PostgreSQL
+    </div>
+    <div class="int-item">
+      <svg class="int-logo" viewBox="0 0 14 14" fill="none"><rect width="14" height="14" rx="3" fill="#4A154B"/><path d="M5 4.5a1.5 1.5 0 0 0 3 0v-1a1.5 1.5 0 0 0-3 0v1z" fill="#fff"/><path d="M4.5 7.5a1.5 1.5 0 0 1 0-3h1a1.5 1.5 0 0 1 0 3h-1z" fill="#fff" opacity=".7"/></svg>
+      Slack
+    </div>
+    <div class="int-item" style="color:var(--ink-light);">
+      + 40 more connectors
+    </div>
+  </div>
+
+</body>
+</html>
