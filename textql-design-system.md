@@ -1,546 +1,412 @@
-# TextQL Design System — Forensic Documentation
+# Applying a Theme to Your Component Library
 
-> Extracted from source CSS/HTML. All values are exact, not approximated.
-
----
-
-## 1. Color Tokens
-
-```css
-/* Primary palette */
---ink:          #2E3B36   /* primary text, dark borders */
---ink-dark:     #072A20   /* deepest — ghost btn hover, dark backgrounds */
---ink-mid:      #3D5D55   /* primary button bg, secondary color */
---ink-light:    #628C82   /* tertiary accent */
---ink-muted:    #6B7268   /* muted/placeholder text */
---ink-faint:    #7C7E7B   /* very faint / disabled */
---emerald:      #047A55   /* active, hover states, underline, pulse dot */
---bg:           #FAFBF8   /* page background (warm off-white, NOT pure white) */
---white:        #FFFFFF   /* inverted text on dark surfaces */
---border:       rgba(46, 59, 54, .10)  /* ALL hairlines — nav, cards, dividers */
---border-nav:   #9EA397   /* nav bottom border (slightly more opaque) */
-```
-
-### Status colors
-```css
-error:   #cc4444  bg #fee2e2  dark #b91c1c
-warning: #f59e0b  bg #fef3c7  dark #b45309
-success: #22c55e  bg #dcfce7  dark #166534
-info:    #0ea5e9  bg #dbeafe  dark #2563eb
-```
+A practical reference for rethreading existing components — built on Geist Mono / Inter, square buttons, and the emerald token set — into two distinct visual identities. Paste the CSS block into your `:root {}` and follow the manual steps for anything variables alone cannot express.
 
 ---
 
-## 2. Typography
+## Base Token Reference
 
-### Font families
-| Name | Usage | Weights |
-|------|-------|---------|
-| `GeistMono` | **Headings (h1, h2, h3), labels, tags, code, buttons** | 300, 400 |
-| `Inter Variable` | Body text, descriptions, nav links | 100–900 variable; typically **260** (ultra-light) |
-| `LibreCaslon` (Condensed Medium Italic) | Italic accent word in hero headings only | 500 italic |
-| `JetBrainsMono` | Mono italic variant | 400 italic |
+The components consume these tokens. Both themes override every one of them.
 
-> **Critical correction (from product screenshots):** Section headings like "Deploys to meet your compliance needs" are in **GeistMono** (monospace), NOT Geist sans. The uniform letter width is clearly visible. All display headings use GeistMono.
-
-> Key detail: Inter Variable at **weight 260** — lighter than "light" (300). This creates the characteristically delicate body text.
-
-### Eyebrow / section label — `[ bracket ]` pattern
-Confirmed from screenshot: `[ Flexible and Secure ]` — the literal bracket characters are part of the text.
-```
-Font: GeistMono, 10px, uppercase, letter-spacing .10em
-Color: #6B7268 (muted)
-Pattern: "[ " + LABEL TEXT + " ]"
-```
-Two variants:
-1. With pulse dot (blog/live sections): `● BLOG`
-2. With brackets (marketing sections): `[ FLEXIBLE AND SECURE ]`
-
-### Font size scale
-```
-10px (.625rem)  — smallest: mono labels, badges, meta
-12px (.75rem)   — xs: captions, dates
-14px (.875rem)  — sm: body text, descriptions, nav links
-16px (1rem)     — base: standard body
-20px (1.25rem)  — lg: sub-headings
-32px (2rem)     — xl: section headings
-48px (3rem)     — 2xl: large headings
-64px (4rem)     — 3xl: hero heading (also clamps to max(4rem, 3vw))
-```
-
-### Hero heading rules
 ```css
-font-family: Geist;
-font-weight: 400;
-font-size: max(4rem, 3vw);   /* 64px minimum */
-word-spacing: -.20em;         /* very compressed */
-letter-spacing: -.02em;
-line-height: 89%;             /* TIGHT — below 1.0 */
-```
+:root {
+  /* Typography */
+  --font-heading: "Geist Mono", monospace;
+  --font-body:    "Inter", sans-serif;
 
-### Hero italic accent word
-```css
-font-family: LibreCaslon;     /* Condensed Medium Italic */
-font-style: italic;
-color: #047A55;               /* emerald */
-text-decoration: underline;
-text-decoration-thickness: 3px;
-text-underline-offset: 10px;
-text-decoration-skip-ink: none;
-```
+  /* Colors */
+  --ink-dark:  #072A20;
+  --ink-mid:   #3D5D55;
+  --ink:       #2E3B36;
+  --emerald:   #047A55;
+  --bg:        #FAFBF8;
+  --border:    rgba(46, 59, 54, 0.10);
 
-### Mono section label / eyebrow
-```css
-font-family: GeistMono;
-font-size: 10px (.625rem);
-font-weight: 400;
-text-transform: uppercase;
-letter-spacing: .10em;
-line-height: 89%;
-color: #6B7268;               /* muted */
-opacity: .85;
-```
+  /* Spacing (4px base) */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 64px;
 
-### Body text
-```css
-font-family: Inter Variable;
-font-weight: 260;             /* ultra-light, critical to aesthetic */
-font-size: 14px;
-line-height: 150%;
-letter-spacing: -.02em;
-color: #2E3B36;
-```
-
----
-
-## 3. Spacing Scale
-
-```
-4px  (.25rem)   — minimum gap, icon spacing
-6px  (.375rem)  — xs: list item gap, badge padding
-12px (.75rem)   — sm: button padding (vertical), card gap
-18px (1.125rem) — md: button padding (horizontal), nav height gap, card header margin
-30px (1.875rem) — lg: SECTION PADDING (the core rhythm unit)
-48px (3rem)     — xl: large section gap
-64px (4rem)     — 2xl: hero sections
-```
-
-**Button padding:** `12px 18px` (vertical horizontal)
-**Card interior padding:** `18px` uniform
-**Section padding:** `30px` all sides
-**Hero section padding:** `18px` vertical, `30px` horizontal
-**Nav height:** `40px`
-**Max content width:** `1400px`
-
----
-
-## 4. Grid & Layout System
-
-### The hairline grid structure
-
-TextQL's signature layout uses **1px `rgba(46,59,54,.1)` lines** to create a structured grid. There are two types:
-
-#### Vertical rails (left + right content boundary)
-Created via `::before` and `::after` on the container element:
-```css
-.section-container::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 1px; height: 100%;
-  background-color: rgba(46, 59, 54, .10);
-  z-index: 0;
-}
-.section-container::after {
-  content: "";
-  position: absolute;
-  top: 0; right: 0;
-  width: 1px; height: 100%;
-  background-color: rgba(46, 59, 54, .10);
-  z-index: 0;
-}
-```
-
-#### Horizontal full-viewport rules (between sections)
-A separate element — stretches **beyond the container** to full viewport width:
-```css
-.h-rule {
-  position: absolute;          /* inside the container */
-  top: 0;                      /* or bottom: 0 */
-  left: 50%;
-  transform: translate(-50%);
-  width: 100vw;                /* KEY: full viewport, not container */
-  height: 1px;
-  background-color: rgba(46, 59, 54, .10);
-  z-index: 0;
-}
-```
-
-#### How they combine
-Every section sits in a `position: relative` wrapper. The vertical rails persist through the full page height. Horizontal rules mark the top/bottom of each section. Together they form a paper-grid that the content "lives inside."
-
----
-
-## 5. Background & Texture
-
-### Page background
-```css
-background-color: #FAFBF8;
-background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');
-background-size: auto;
-background-repeat: repeat;
-background-attachment: fixed;   /* stays fixed while scrolling */
-```
-
-### Monet art overlays
-Applied to cards and sections via `::before` pseudo-element at **5–8% opacity**. Five variants:
-```
-monet/1bg.webp through monet/5bg.webp
-Base URL: https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/
-```
-```css
-.card::before {
-  content: "";
-  position: absolute; inset: 0;
-  background-image: url(monet/3bg.webp);
-  background-size: cover;
-  background-position: center;
-  opacity: .06;   /* 6% — barely visible, adds organic depth */
-  z-index: 0;
-  border-radius: 12px;  /* match card radius */
-}
-```
-
-### Button diagonal stripe texture
-Applied to ALL buttons (light on dark, dark on light):
-```css
-/* Primary button (dark bg) */
-background-image: repeating-linear-gradient(
-  45deg,
-  transparent, transparent 2px,
-  rgba(255,255,255,.03) 2px, rgba(255,255,255,.03) 4px
-);
-
-/* Ghost button (light bg) */
-background-image: repeating-linear-gradient(
-  45deg,
-  transparent, transparent 2px,
-  rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px
-);
-```
-
-### Radial dot decoration
-Used in hero sections as a background accent:
-```css
-.dot-field {
-  background-image: radial-gradient(#6B7268 1.5px, transparent 1.5px);
-  background-size: 12px 12px;
-  opacity: .35;
-  mask-image: radial-gradient(ellipse at center, black, transparent);
+  /* Shape */
+  --radius: 0px;
 }
 ```
 
 ---
 
-## 6. Components
+## Theme 1: Swiss / International Typographic Style
 
-### Button
+### Principles
 
-**Structure:**
-- Zero border-radius (sharp corners — no rounding)
-- Font: `GeistMono`, 10px or 12px, uppercase, letter-spacing .05em
-- Corner markers appear on hover/focus (signature detail)
+Pure black and white. One optional accent (red). Mathematical grid. Maximum contrast. No gradients, no box shadows, no decorative radius. Typography carries all hierarchy — size, weight, and tight leading do the work.
 
-```css
-/* Base */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 18px;
-  cursor: pointer;
-  border: none;
-  border-radius: 0;                    /* SQUARE — no rounding */
-  position: relative;
-  font-family: GeistMono;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  transition: background-color .2s ease, border-color .2s ease;
-
-  /* diagonal stripe always present */
-  background-image: repeating-linear-gradient(
-    45deg, transparent, transparent 2px,
-    rgba(255,255,255,.03) 2px, rgba(255,255,255,.03) 4px
-  );
-}
-
-/* Primary */
-.btn-primary {
-  background-color: #3D5D55;   /* mid-tone green (NOT the emerald) */
-  color: #fff;
-  border: 1px solid transparent;
-}
-.btn-primary:hover { background-color: #047A55; }   /* emerald on hover */
-
-/* Ghost */
-.btn-ghost {
-  background-color: transparent;
-  color: #2E3B36;
-  border: 1px solid #2E3B36;
-}
-.btn-ghost:hover { border-color: #072A20; }
-
-/* Corner markers — top-left + top-right */
-.btn::before {
-  content: "";
-  position: absolute;
-  top: -4px; left: -4px;
-  width: 5px; height: 5px;
-  opacity: 0;
-  border-top: 1px solid currentColor;
-  border-left: 1px solid currentColor;
-  transition: opacity .15s ease;
-}
-.btn::after {
-  content: "";
-  position: absolute;
-  top: -4px; right: -4px;
-  width: 5px; height: 5px;
-  opacity: 0;
-  border-top: 1px solid currentColor;
-  border-right: 1px solid currentColor;
-  transition: opacity .15s ease;
-}
-.btn:hover::before,
-.btn:hover::after,
-.btn:focus::before,
-.btn:focus::after { opacity: 1; }
-```
-
-### Input / Textarea
+### CSS Overrides
 
 ```css
-input, textarea {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #2E3B36;   /* full dark border by default */
-  border-radius: 0;             /* SQUARE */
-  background: transparent;
-  font-family: GeistMono;
-  font-size: 14px;
-  color: #2E3B36;
-  outline: none;
-  transition: border-color .15s ease;
-}
-input::placeholder { color: #6B7268; }
-input:hover,
-input:focus  { border-color: #43625A; }
-```
+/* ============================================================
+   THEME: Swiss / International Typographic Style
+   Paste this block into your :root {} or as a scoped selector
+   e.g.  [data-theme="swiss"] { ... }
+   ============================================================ */
 
-### Card
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+/* Neue Haas Grotesk must be licensed separately (see Manual Steps).
+   This stack falls back gracefully. */
 
-```css
-.card {
-  position: relative;
-  border-radius: 12px;
-  border: 1px solid rgba(46, 59, 54, .10);
-  background-color: #fff;
-  background-image: url('background.webp');
-  background-size: auto;
-  background-repeat: repeat;
-  overflow: hidden;
-}
+:root {
+  /* --- Typography --- */
+  --font-heading: "Neue Haas Grotesk Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body:    "Neue Haas Grotesk Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono:    "Courier New", Courier, monospace;
 
-/* Monet overlay */
-.card::before {
-  content: "";
-  position: absolute; inset: 0;
-  background-image: url('monet/3bg.webp');
-  background-size: cover;
-  background-position: center;
-  opacity: .06;
-  z-index: 0;
-  border-radius: 12px;
-  pointer-events: none;
-}
+  /* --- Core Colors --- */
+  --ink-dark:   #000000;   /* replaces deep forest — now pure black              */
+  --ink-mid:    #4A4A4A;   /* replaces mid-green — now mid gray                  */
+  --ink:        #000000;   /* replaces ink — now pure black                      */
+  --emerald:    #E63329;   /* replaces emerald accent — Swiss red accent          */
+                           /* set to #000000 if you prefer no accent at all       */
+  --bg:         #FFFFFF;   /* pure white canvas                                  */
+  --border:     #000000;   /* 1px solid black borders, no opacity                */
 
-/* Content above overlay */
-.card-body {
-  position: relative;
-  z-index: 1;
-  padding: 18px;
+  /* --- Derived semantic aliases (add these if your components use them) --- */
+  --color-primary:        #000000;
+  --color-primary-hover:  #E63329;   /* accent on interactive hover               */
+  --color-accent:         #E63329;
+  --color-surface:        #FFFFFF;
+  --color-surface-raised: #F5F5F5;   /* barely-there off-white for grouped areas  */
+  --color-muted:          #767676;   /* passes 4.5:1 on white                     */
+  --color-danger:         #E63329;
+  --color-success:        #000000;   /* no green — use weight/label instead       */
+
+  /* --- Typography Scale --- */
+  --text-xs:   10px;
+  --text-sm:   12px;
+  --text-base: 14px;
+  --text-lg:   16px;
+  --text-xl:   20px;
+  --text-2xl:  28px;
+  --text-3xl:  40px;
+  --text-4xl:  64px;
+
+  --leading-tight:  1.0;
+  --leading-body:   1.4;
+  --tracking-caps:  0.12em;   /* uppercase labels / buttons                      */
+  --tracking-tight: -0.02em;  /* large display headlines                         */
+
+  /* --- Spacing (unchanged — grid stays mathematical) --- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 64px;
+
+  /* --- Shape: zero radius everywhere --- */
+  --radius:        0px;
+  --radius-sm:     0px;
+  --radius-md:     0px;
+  --radius-lg:     0px;
+  --radius-full:   0px;
+
+  /* --- Elevation: borders only, never shadows --- */
+  --shadow-sm:  none;
+  --shadow-md:  none;
+  --shadow-lg:  none;
+  --card-border: 1px solid #000000;
+
+  /* --- Button tokens --- */
+  --btn-font:        var(--font-heading);
+  --btn-size:        10px;
+  --btn-weight:      700;
+  --btn-tracking:    var(--tracking-caps);
+  --btn-transform:   uppercase;
+  --btn-radius:      0px;
+  --btn-padding-x:   var(--sp-4);
+  --btn-padding-y:   var(--sp-2);
+
+  /* Primary button */
+  --btn-primary-bg:           #FFFFFF;
+  --btn-primary-color:        #000000;
+  --btn-primary-border:       1px solid #000000;
+  --btn-primary-bg-hover:     #000000;
+  --btn-primary-color-hover:  #FFFFFF;
+
+  /* Secondary button */
+  --btn-secondary-bg:           transparent;
+  --btn-secondary-color:        #000000;
+  --btn-secondary-border:       1px solid #000000;
+  --btn-secondary-bg-hover:     #000000;
+  --btn-secondary-color-hover:  #FFFFFF;
+
+  /* Danger button */
+  --btn-danger-bg:          #E63329;
+  --btn-danger-color:       #FFFFFF;
+  --btn-danger-border:      1px solid #E63329;
+  --btn-danger-bg-hover:    #000000;
+  --btn-danger-color-hover: #FFFFFF;
+
+  /* --- Input tokens --- */
+  --input-bg:           #FFFFFF;
+  --input-border:       1px solid #000000;
+  --input-border-focus: 1px solid #000000;
+  --input-ring:         none;
+  --input-radius:       0px;
+  --input-color:        #000000;
+  --input-placeholder:  #767676;
+
+  /* --- Card tokens --- */
+  --card-bg:      #FFFFFF;
+  --card-radius:  0px;
+  --card-shadow:  none;
+  --card-padding: var(--sp-5);
 }
 ```
 
-### Mono label / eyebrow
+### Button Hover (add to your stylesheet)
+
+Variables alone cannot express two-state hover. Add this rule once:
 
 ```css
-.eyebrow {
-  font-family: GeistMono;
-  font-size: 10px;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: .10em;
-  color: #6B7268;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+/* Swiss button hover — invert fill */
+.btn-primary:hover,
+.btn-secondary:hover {
+  background-color: var(--btn-primary-bg-hover);
+  color:            var(--btn-primary-color-hover);
+  border-color:     var(--btn-primary-bg-hover);
 }
 ```
 
-### Pulse dot (live indicator)
+### What to Change Manually
 
-```css
-.pulse-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background-color: #047A55;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: 0 0 4px 2px rgba(4,122,85,.3);
-  }
-  50% {
-    opacity: .6;
-    transform: scale(.85);
-    box-shadow: 0 0 8px 4px rgba(4,122,85,.5);
-  }
-}
-```
-
-### Tag / Badge
-
-```css
-.tag {
-  display: inline-flex;
-  align-items: center;
-  font-family: GeistMono;
-  font-size: 9px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  padding: 2px 6px;
-  border-radius: 3px;
-}
-.tag-neutral { background: rgba(46,59,54,.08); color: #6B7268; }
-.tag-active  { background: rgba(4,122,85,.12); color: #047A55; }
-```
+| Thing | Why CSS variables cannot fix it | What to do |
+|---|---|---|
+| Font import | `@import` inside `:root {}` is ignored by browsers | Add `<link>` for Inter in `<head>`; purchase and self-host Neue Haas Grotesk (Linotype/Monotype) |
+| `border-radius` on individual components | Many component libraries hardcode radius via utility classes (e.g., Tailwind `rounded-md`) rather than reading a CSS variable | Audit each component and replace `rounded-*` classes with `rounded-none`, or set `--radius: 0` in your Tailwind config |
+| Box shadows on dropdowns / popovers | Libraries like Radix emit `box-shadow` directly in component CSS | Override per-component: `.your-dropdown { box-shadow: none; border: 1px solid #000; }` |
+| Image assets / illustrations | Colorful icons and illustrations break the monochrome aesthetic | Replace with geometric SVGs or inline icon fonts; filter: `grayscale(1)` is a quick stopgap |
+| Focus rings | Default browser outlines are blue; Swiss aesthetic uses thin black outlines | Add `:focus-visible { outline: 2px solid #000; outline-offset: 2px; }` globally |
+| Transition / animation | Swiss style avoids decorative motion | Remove or reduce `transition-duration` values; disable CSS animations where possible |
 
 ---
 
-## 7. Animations
+## Theme 2: Palantir Light (Blueprint.js-Inspired)
+
+### Principles
+
+Based on Palantir's Blueprint.js design system. White surfaces, near-black text, blue primary action, light gray borders. Utilitarian and data-dense — every pixel earns its place. Slightly rounded corners (2–3px) to soften without feeling consumer. System font stack for OS-native rendering.
+
+Blueprint.js color scale reference (light theme):
+- `DARK_GRAY1` #1C2127 — primary text
+- `GRAY1` #5F6B7C — muted text
+- `LIGHT_GRAY1` #D3D8DE — borders
+- `LIGHT_GRAY4` #EDEFF2 — elevated surfaces
+- `LIGHT_GRAY5` #F6F7F9 — app background
+- `BLUE3` #2D72D2 — primary intent
+- `RED3` #CD4246 — danger intent
+- `GREEN3` #238551 — success intent
+
+### CSS Overrides
 
 ```css
-/* All timing functions */
---t-fast: .15s ease   /* focus, icon states */
---t-std:  .20s ease   /* button hover, opacity */
---t-slow: .30s ease   /* layout, modals */
+/* ============================================================
+   THEME: Palantir Light (Blueprint.js-inspired)
+   Paste this block into your :root {} or as a scoped selector
+   e.g.  [data-theme="palantir-light"] { ... }
+   ============================================================ */
 
-/* Fade in */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+:root {
+  /* --- Typography --- */
+  --font-heading: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                  "Helvetica Neue", Arial, sans-serif;
+  --font-body:    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                  "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+                  Courier, monospace;
+
+  /* --- Core Color Remapping --- */
+  --ink-dark:   #1C2127;   /* DARK_GRAY1 — primary text, headings               */
+  --ink-mid:    #5F6B7C;   /* GRAY1 — secondary/muted text                      */
+  --ink:        #1C2127;   /* same as ink-dark for consistency                  */
+  --emerald:    #2D72D2;   /* BLUE3 — replaces emerald as primary action color  */
+  --bg:         #F6F7F9;   /* LIGHT_GRAY5 — app-level background                */
+  --border:     #D3D8DE;   /* LIGHT_GRAY1 — borders and dividers                */
+
+  /* --- Semantic Color Aliases --- */
+  --color-primary:          #2D72D2;   /* BLUE3                                  */
+  --color-primary-hover:    #215DB0;   /* BLUE2 — darker on hover                */
+  --color-primary-active:   #184A90;   /* BLUE1 — pressed state                  */
+  --color-primary-subtle:   #ECF3FD;   /* tint for selected rows, hover surfaces */
+
+  --color-accent:           #2D72D2;
+  --color-surface:          #FFFFFF;   /* card / panel backgrounds               */
+  --color-surface-raised:   #EDEFF2;   /* LIGHT_GRAY4 — elevated panels          */
+  --color-surface-hover:    #F6F7F9;   /* LIGHT_GRAY5 — row hover                */
+  --color-muted:            #5F6B7C;   /* GRAY1                                  */
+
+  --color-success:          #238551;   /* GREEN3                                 */
+  --color-success-subtle:   #EBF5F0;
+  --color-warning:          #C87619;   /* ORANGE3                                */
+  --color-warning-subtle:   #FEF3E2;
+  --color-danger:           #CD4246;   /* RED3                                   */
+  --color-danger-subtle:    #FCEAEA;
+
+  /* --- Typography Scale --- */
+  --text-xs:    11px;
+  --text-sm:    12px;
+  --text-base:  14px;   /* Blueprint default body size                          */
+  --text-lg:    16px;
+  --text-xl:    18px;
+  --text-2xl:   20px;
+  --text-3xl:   24px;
+  --text-4xl:   32px;
+
+  --leading-body:   1.5;
+  --leading-tight:  1.25;
+  --tracking-caps:  0.06em;
+  --font-weight-heading: 600;
+  --font-weight-body:    400;
+
+  /* --- Spacing (unchanged) --- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 64px;
+
+  /* --- Shape: 2px radius — slightly rounded, not consumer-soft --- */
+  --radius:      2px;
+  --radius-sm:   2px;
+  --radius-md:   3px;
+  --radius-lg:   4px;   /* modals, large panels only                            */
+  --radius-full: 10px;  /* pill badges only                                     */
+
+  /* --- Elevation --- */
+  --shadow-sm: 0 1px 2px rgba(17, 20, 24, 0.10),
+               0 0   0 1px rgba(17, 20, 24, 0.06);
+  --shadow-md: 0 2px 6px rgba(17, 20, 24, 0.14),
+               0 0   0 1px rgba(17, 20, 24, 0.08);
+  --shadow-lg: 0 8px 24px rgba(17, 20, 24, 0.14),
+               0 2px  8px rgba(17, 20, 24, 0.08),
+               0 0    0 1px rgba(17, 20, 24, 0.06);
+  --card-border: 1px solid #D3D8DE;
+
+  /* --- Button tokens --- */
+  --btn-font:        var(--font-body);
+  --btn-size:        14px;
+  --btn-weight:      600;
+  --btn-tracking:    normal;
+  --btn-transform:   none;
+  --btn-radius:      var(--radius-sm);
+  --btn-padding-x:   var(--sp-4);
+  --btn-padding-y:   var(--sp-2);
+
+  /* Primary (blue) */
+  --btn-primary-bg:           #2D72D2;
+  --btn-primary-color:        #FFFFFF;
+  --btn-primary-border:       1px solid #2D72D2;
+  --btn-primary-bg-hover:     #215DB0;
+  --btn-primary-color-hover:  #FFFFFF;
+
+  /* Secondary (ghost) */
+  --btn-secondary-bg:           #FFFFFF;
+  --btn-secondary-color:        #1C2127;
+  --btn-secondary-border:       1px solid #D3D8DE;
+  --btn-secondary-bg-hover:     #EDEFF2;
+  --btn-secondary-color-hover:  #1C2127;
+
+  /* Danger */
+  --btn-danger-bg:          #CD4246;
+  --btn-danger-color:       #FFFFFF;
+  --btn-danger-border:      1px solid #CD4246;
+  --btn-danger-bg-hover:    #AC2F33;
+  --btn-danger-color-hover: #FFFFFF;
+
+  /* Minimal / ghost (data table actions) */
+  --btn-minimal-bg:           transparent;
+  --btn-minimal-color:        #1C2127;
+  --btn-minimal-border:       1px solid transparent;
+  --btn-minimal-bg-hover:     #EDEFF2;
+  --btn-minimal-color-hover:  #1C2127;
+
+  /* --- Input tokens --- */
+  --input-bg:           #FFFFFF;
+  --input-border:       1px solid #D3D8DE;
+  --input-border-focus: 1px solid #2D72D2;
+  --input-ring:         0 0 0 2px rgba(45, 114, 210, 0.20);
+  --input-radius:       var(--radius-sm);
+  --input-color:        #1C2127;
+  --input-placeholder:  #5F6B7C;
+  --input-height:       30px;   /* Blueprint uses compact 30px inputs           */
+
+  /* --- Card / Panel tokens --- */
+  --card-bg:      #FFFFFF;
+  --card-radius:  var(--radius-sm);
+  --card-shadow:  var(--shadow-sm);
+  --card-padding: var(--sp-4);
+
+  /* --- Table tokens (data-dense) --- */
+  --table-header-bg:    #F6F7F9;
+  --table-header-color: #5F6B7C;
+  --table-header-size:  11px;
+  --table-header-weight: 600;
+  --table-row-border:   1px solid #EDEFF2;
+  --table-row-hover-bg: #F6F7F9;
+  --table-row-selected-bg: #ECF3FD;
+
+  /* --- Tag / Badge tokens --- */
+  --tag-radius:   var(--radius-sm);
+  --tag-size:     11px;
+  --tag-weight:   600;
+  --tag-tracking: 0.04em;
+
+  /* --- Callout / Toast --- */
+  --callout-radius:   var(--radius-sm);
+  --callout-border-l: 3px solid currentColor;
 }
-
-/* Slide up (toasts/modals) */
-@keyframes slideUp {
-  from { transform: translateY(100%); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
-}
-
-/* Staggered children: delay 0, .1s, .2s */
-
-/* SVG stroke dash animation */
-@keyframes strokeDash {
-  from { stroke-dashoffset: 30; }
-  to   { stroke-dashoffset: -100; }
-}
-/* Duration: 2.5s linear infinite */
-/* filter: drop-shadow(0 0 3px rgba(4,122,85,.5)) */
-
-/* Rotating border (CTA highlight) */
-@keyframes borderSpin {
-  0%   { box-shadow: 0 -2px rgba(255,255,255,.9); }
-  25%  { box-shadow: 2px 0 rgba(255,255,255,.9); }
-  50%  { box-shadow: 0 2px rgba(255,255,255,.9); }
-  75%  { box-shadow: -2px 0 rgba(255,255,255,.9); }
-}
-/* Duration: 1.5s linear infinite */
 ```
+
+### What to Change Manually
+
+| Thing | Why CSS variables cannot fix it | What to do |
+|---|---|---|
+| Font stack override | Component libraries that import Google Fonts (Geist Mono, Inter) via `<link>` will override your system-font stack | Remove those `<link>` tags from `<head>` — system-ui renders immediately with no network cost |
+| Button `text-transform: uppercase` | If your base theme sets `text-transform: uppercase` on buttons via a class, a CSS variable cannot undo it | Add `.btn { text-transform: none; letter-spacing: normal; font-size: 14px; }` to your override stylesheet |
+| `border-radius` utility classes | Tailwind / CSS Modules that hardcode `rounded-md` ignore your `--radius` variable | In Tailwind config set `theme.borderRadius.DEFAULT` to `2px`; or do a codebase find-and-replace of `rounded-md` / `rounded-lg` to `rounded-sm` |
+| Geist Mono on button labels | Base theme uses Geist Mono for buttons; Palantir Light uses system sans | Override `.btn { font-family: var(--font-body); }` explicitly — `--btn-font` only works if your component reads that token |
+| Icon set | Blueprint uses its own blueprint-icons SVG set (16px, 20px grid) | You do not have to adopt Blueprint icons, but size icons to 16px and use `#5F6B7C` for default / `#1C2127` for active to match the aesthetic |
+| Condensed table row height | Blueprint defaults to 30px row height for data density | If your table rows are taller, add `tr { height: 30px; } td { padding: 0 8px; }` |
+| Focus ring color | Default browser / library focus ring is often green (from `--emerald`) | Add globally: `:focus-visible { outline: 2px solid #2D72D2; outline-offset: 2px; }` |
+| Popover / tooltip shadow | Radix / Floating UI components often compute shadows inline | Target the data attribute: `[data-radix-popper-content-wrapper] { box-shadow: var(--shadow-md); }` |
+| Monospace font for data cells | Blueprint uses `SFMono-Regular` / Consolas for numeric data columns | Add `font-family: var(--font-mono)` to `td[data-type="number"]` or equivalent numeric cell selectors |
 
 ---
 
-## 8. Nav Anatomy
+## Quick Comparison
 
-```
-height: 40px
-padding: 0 18px
-3 flex zones: logo | center links | cta actions
-
-left/right vertical grid rails via ::before/::after
-bottom border: 1px solid #9EA397
-
-Dropdown:
-  - background: #FAFBF8 + background.webp texture
-  - border: 1px solid rgba(46,59,54,.1)
-  - border-radius: 4px (NOT 12px — small radius for menus)
-  - padding: 30px (lg spacing)
-  - min-width: 580px
-  - box-shadow: 0 4px 20px rgba(0,0,0,.08)
-  - opacity transition: .2s ease
-```
+| Token | Base | Swiss | Palantir Light |
+|---|---|---|---|
+| `--bg` | #FAFBF8 | #FFFFFF | #F6F7F9 |
+| `--ink-dark` | #072A20 | #000000 | #1C2127 |
+| `--emerald` (primary) | #047A55 | #E63329 | #2D72D2 |
+| `--border` | rgba(46,59,54,.10) | #000000 | #D3D8DE |
+| `--radius` | 0px | 0px | 2px |
+| Font heading | Geist Mono | Neue Haas Grotesk / Helvetica Neue | system-ui |
+| Button style | Black fill, uppercase mono | White fill → black hover | Blue fill, regular weight |
+| Elevation | None | None (border only) | Subtle multi-layer shadow |
 
 ---
 
-## 9. The "Blog Post Grid" border pattern
+## References
 
-Posts grids do NOT use individual card borders. Instead:
-```css
-/* Container sets left + top border */
-.posts-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-left: 1px solid rgba(46,59,54,.1);
-  border-top: 1px solid rgba(46,59,54,.1);
-}
-
-/* Each cell adds right + bottom */
-.post-cell {
-  border-right: 1px solid rgba(46,59,54,.1);
-  border-bottom: 1px solid rgba(46,59,54,.1);
-  padding: 30px;
-}
-```
-This creates a seamless grid with no doubled borders.
-
----
-
-## 10. Quick Reference — Most Common Patterns
-
-```
-Page bg color:   #FAFBF8
-Page bg texture: background.webp (fixed, repeat)
-Primary text:    #2E3B36
-Muted text:      #6B7268
-Border (all):    rgba(46,59,54,.10)
-Accent green:    #047A55
-Button bg:       #3D5D55  →hover→  #047A55
-Section pad:     30px
-Card pad:        18px
-Card radius:     12px
-Menu radius:     4px
-Input radius:    0 (square)
-Button radius:   0 (square)
-Nav height:      40px
-Max width:       1400px
-Body font:       Inter Variable, weight 260
-Label font:      GeistMono, 10px, uppercase
-Heading font:    Geist, weight 400
-Accent font:     LibreCaslon italic
-```
+- [Palantir Blueprint GitHub](https://github.com/palantir/blueprint) — source for all color and token values
+- [Blueprint color aliases SCSS](https://github.com/palantir/blueprint/blob/develop/packages/core/src/common/_color-aliases.scss)
+- [Blueprint colors.ts](https://github.com/palantir/blueprint/blob/develop/packages/colors/src/colors.ts)
+- [pnnl/blueprint-styler](https://github.com/pnnl/blueprint-styler) — community CSS variable overrides for Blueprint
+- Josef Muller-Brockmann, *Grid Systems in Graphic Design* — the authoritative source on Swiss grid principles
