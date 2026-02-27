@@ -1,4 +1,4 @@
-# Design System Extraction Prompt
+/# Design System Extraction Prompt
 
 Use this prompt when you want to extract a website's design language into a reusable HTML component library for Figma.
 
