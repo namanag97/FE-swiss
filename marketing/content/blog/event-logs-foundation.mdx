@@ -1,0 +1,141 @@
+---
+title: "Event Logs: The Foundation of Process Intelligence"
+description: "Understanding the data structure that powers modern process mining."
+date: "2026-02-22"
+author: "Naman Agarwal"
+tags: ["engineering"]
+published: true
+---
+
+Every process mining analysis starts with the same thing: an event log. It's a deceptively simple data structure — just rows of what happened, to what, and when. But the quality of your event log determines the quality of everything downstream. Bad logs produce misleading process maps. Good logs reveal the truth about how your operations actually work.
+
+## The minimum viable event log
+
+An event log needs exactly three columns to be usable:
+
+```
+case_id,activity,timestamp
+INV-001,Invoice Received,2026-01-10 08:30:00
+INV-001,Three-Way Match,2026-01-10 09:15:00
+INV-001,Post to Ledger,2026-01-10 14:00:00
+INV-001,Schedule Payment,2026-01-12 08:00:00
+INV-001,Payment Sent,2026-01-15 06:00:00
+INV-002,Invoice Received,2026-01-10 09:00:00
+INV-002,Three-Way Match,2026-01-10 09:45:00
+INV-002,Match Exception,2026-01-10 09:46:00
+INV-002,Manual Review,2026-01-11 14:30:00
+INV-002,Post to Ledger,2026-01-12 10:00:00
+INV-002,Schedule Payment,2026-01-14 08:00:00
+INV-002,Payment Sent,2026-01-17 06:00:00
+```
+
+**Case ID** groups events into process instances. Every event belongs to exactly one case. The case ID defines the scope of your analysis — if you use an invoice number, you're analyzing the invoice processing process. If you use a purchase order number that spans multiple invoices, you're analyzing the broader procure-to-pay process. The choice of case ID fundamentally changes what process gets discovered.
+
+**Activity** describes what happened. It should be a human-readable label that represents a meaningful business step. "MIRO" is a SAP transaction code; "Post Invoice" is an activity. The granularity matters — too fine and your process map becomes an unreadable hairball, too coarse and you miss the bottlenecks hiding between steps.
+
+**Timestamp** records when the event occurred. Precision matters more than you'd think. If your timestamps are date-only (no time component), you can't determine the order of events that happen on the same day. If they're only accurate to the minute, you can't analyze sub-minute handoff times in automated processes.
+
+## Beyond the minimum: enrichment attributes
+
+The three core columns get you a process map. Enrichment attributes get you root cause analysis.
+
+```
+case_id,activity,timestamp,resource,department,amount,vendor,region
+INV-001,Invoice Received,2026-01-10 08:30:00,AP-Bot,Finance,12500,Acme Corp,EMEA
+INV-001,Three-Way Match,2026-01-10 09:15:00,AP-Bot,Finance,12500,Acme Corp,EMEA
+INV-001,Post to Ledger,2026-01-10 14:00:00,J.Martinez,Finance,12500,Acme Corp,EMEA
+INV-002,Invoice Received,2026-01-10 09:00:00,AP-Bot,Finance,87300,GlobalParts,APAC
+INV-002,Three-Way Match,2026-01-10 09:45:00,AP-Bot,Finance,87300,GlobalParts,APAC
+INV-002,Match Exception,2026-01-10 09:46:00,AP-Bot,Finance,87300,GlobalParts,APAC
+INV-002,Manual Review,2026-01-11 14:30:00,K.Tanaka,Finance,87300,GlobalParts,APAC
+```
+
+**Resource** tells you who or what performed the activity. It enables social network analysis — who hands off to whom, which resources are bottlenecks, where are the workload imbalances.
+
+**Department, vendor, region, amount** — these are case-level or event-level attributes that enable filtering and segmentation. "Show me the process map for APAC invoices over $50,000" becomes possible only with these attributes in the log.
+
+The more attributes you include, the more dimensions you can slice by. But there's a practical limit — each attribute adds storage cost and complexity to the extraction query.
+
+## Data quality challenges
+
+In theory, building an event log is straightforward. In practice, enterprise data is messy.
+
+### Missing events
+
+The most common problem. An event happened in reality but wasn't recorded — or was recorded in a system you're not extracting from. A phone call that changed an approval decision. A manual step done outside the system. These show up as unexplained jumps in the process: a case goes from "Submit Request" directly to "Fulfilled" with no approval step in between.
+
+Meridian flags these gaps by comparing each case's trace against the discovered process model. Cases with missing expected activities get annotated, and you can filter to analyze them separately.
+
+### Timestamp granularity
+
+Some systems record timestamps to the second. Others only to the day. When multiple events share the same timestamp, the discovery algorithm can't determine their order. This creates false parallelism in the process map — activities appear concurrent when they were actually sequential.
+
+Meridian handles this with configurable tie-breaking rules. You can specify a priority order for activities (e.g., "Create" always comes before "Approve"), or use secondary sort keys like a database sequence ID.
+
+### Duplicate events
+
+System integrations and batch retries can produce duplicate records. The same activity appears twice for the same case with slightly different timestamps. Without deduplication, the process map shows false rework loops.
+
+### Inconsistent naming
+
+The same business activity might appear as "Approve PO," "PO Approved," "Purchase Order Approval," and "APPROVE_PURCHASE_ORDER" across different time periods or system modules. Activity mapping must normalize these into a single canonical name.
+
+## Meridian's connector framework
+
+Extraction is where most process mining projects stall. Writing SQL to join SAP tables into a clean event log can take weeks. The schema knowledge alone — understanding which tables hold which events and how document flow works — is specialized expertise.
+
+Meridian ships with pre-built connectors for the most common source systems:
+
+```
+  Connector Coverage
+  ==========================================
+
+  System          Processes Supported          Event Sources
+  --------------- --------------------------- ------------------
+  SAP ECC/S4      Order-to-Cash, P2P,         VBFA, EKBE, BKPF,
+                  Record-to-Report            BSEG, CDHDR, CDPOS
+
+  ServiceNow      Incident, Problem,          sys_audit,
+                  Change, Request             sys_journal_field
+
+  Salesforce      Lead-to-Cash, Case          Task, Event,
+                  Management                  CaseHistory,
+                                              OpportunityHistory
+
+  Jira            Issue Lifecycle,            Changelog,
+                  Sprint Delivery             Worklog
+```
+
+Each connector defines the extraction query, the case ID logic, the activity mapping, and the timestamp source. You configure the connection, select the process, and the connector produces a normalized event log — same schema regardless of whether the source is SAP, ServiceNow, or Salesforce.
+
+## Scale: the cardinality challenge
+
+Enterprise event logs are large. A mid-size company processing 100,000 invoices per year generates roughly 800,000 to 1.2 million events for the accounts payable process alone. A large enterprise with 50 processes under analysis might have 50 to 100 million events in their log.
+
+The cardinality challenge isn't just about row count. It's about the combinatorial explosion of variants. With 20 distinct activities, the theoretical number of unique sequences is astronomical. In practice, real processes produce hundreds to low thousands of variants — but analyzing, filtering, and comparing them at query time requires careful indexing.
+
+```
+  Scale Characteristics (Typical Enterprise)
+  ==========================================
+
+  Metric                     Small       Medium      Large
+  ----------------------     --------    ---------   ----------
+  Cases                      10,000      500,000     5,000,000+
+  Events                     80,000      4,000,000   50,000,000+
+  Distinct activities        12          25          60+
+  Unique variants            45          800         4,000+
+  Avg events per case        8           8           10
+  Refresh frequency          Daily       Daily       Hourly
+```
+
+At the "large" end, naive approaches break down. You can't load 50 million events into browser memory. You can't recompute variant frequencies on every filter change. Meridian uses columnar storage with pre-aggregated variant indices to keep query response times under 200ms even at this scale.
+
+## Getting the log right
+
+The event log is the foundation. Every insight downstream — every bottleneck identified, every conformance violation detected, every variant analyzed — is only as reliable as the log it was derived from.
+
+This is why Meridian invests heavily in the extraction and normalization layer. We'd rather spend engineering effort on getting the data right than on building flashier visualizations on top of bad data.
+
+If you're evaluating process mining tools, start by asking how they handle extraction. The discovery algorithm matters, but the event log matters more.
+
+[See how Meridian connects to your systems](/product) or [talk to our team about your data](/contact).
