@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Check } from "lucide-react";
-import { Container } from "@/components/ui/Container";
-import { cn } from "@/lib/utils";
+import { Check, Plus } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -51,79 +49,87 @@ const faq = [
   { q: "What data formats do you accept?", a: "CSV, XES, Parquet, and direct connectors to major databases and warehouses." },
 ];
 
+function FaqItem({ q, a }: { q: string; a: string }) {
+  return (
+    <details className="faq-item group">
+      <summary className="faq-q">
+        {q}
+        <Plus style={{ width: 14, height: 14, flexShrink: 0, color: 'var(--ink-faint)', transition: 'transform .15s ease' }} className="group-open:rotate-45" />
+      </summary>
+      <div className="faq-a">{a}</div>
+    </details>
+  );
+}
+
 export default function PricingPage() {
   return (
     <>
-      <section className="py-20 md:py-24">
-        <Container size="wide">
-          <div className="max-w-lg">
-            <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-600">Pricing</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-gray-900 md:text-4xl">
-              Transparent pricing
-            </h1>
-            <p className="mt-3 text-[15px] text-gray-500">
-              Start with a free pilot. Scale when you&apos;re ready.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {plans.map((plan) => (
-              <div
-                key={plan.name}
-                className={cn(
-                  "relative flex flex-col rounded-xl border p-7",
-                  plan.featured ? "border-forest-900 bg-white shadow-sm" : "border-gray-200 bg-white"
-                )}
-              >
-                {plan.featured && (
-                  <span className="absolute -top-2.5 left-5 rounded-full bg-forest-900 px-3 py-0.5 text-[10px] font-semibold text-white">
-                    Most popular
-                  </span>
-                )}
-                <h3 className="text-base font-semibold text-gray-900">{plan.name}</h3>
-                <p className="mt-1 text-[13px] text-gray-500">{plan.desc}</p>
-                <div className="mt-5">
-                  <span className="text-3xl font-semibold tracking-tight text-gray-900">{plan.price}</span>
-                  {plan.period && <span className="ml-1 text-[13px] text-gray-400">{plan.period}</span>}
-                </div>
-                <ul className="mt-6 flex-1 space-y-2.5">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-[13px]">
-                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" />
-                      <span className="text-gray-600">{f}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={plan.href}
-                  data-track="cta-pricing"
-                  className={cn(
-                    "mt-7 block rounded-lg border px-4 py-2 text-center text-[13px] font-medium transition-colors",
-                    plan.featured
-                      ? "border-forest-900 bg-forest-900 text-white hover:bg-forest-800"
-                      : "border-gray-200 text-gray-700 hover:border-gray-400"
-                  )}
-                >
-                  {plan.cta}
-                </Link>
-              </div>
-            ))}
-          </div>
-        </Container>
+      {/* Hero */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ padding: 'var(--sp-7) var(--sp-5) var(--sp-6)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--sp-3)' }}>
+          <span className="eyebrow eyebrow-bracket">Pricing</span>
+          <h1 style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-3xl)', fontWeight: 400, lineHeight: .89, letterSpacing: '-.03em', color: 'var(--ink)' }}>
+            Transparent pricing
+          </h1>
+          <p className="type-body" style={{ textAlign: 'center', maxWidth: 420 }}>
+            Start with a free pilot. Scale when you&apos;re ready.
+          </p>
+        </div>
       </section>
 
-      <section className="border-t border-gray-200 bg-gray-50 py-20">
-        <Container size="wide">
-          <h2 className="text-xl font-semibold tracking-tight text-gray-900">Common questions</h2>
-          <div className="mt-8 grid gap-8 md:grid-cols-2">
-            {faq.map((item) => (
-              <div key={item.q}>
-                <h3 className="text-[14px] font-semibold text-gray-900">{item.q}</h3>
-                <p className="mt-1 text-[13px] leading-relaxed text-gray-500">{item.a}</p>
+      {/* Pricing Grid */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="pricing-grid" style={{ padding: '0 var(--sp-5) var(--sp-7)' }}>
+          {plans.map((plan) => (
+            <div
+              key={plan.name}
+              className={`pricing-card${plan.featured ? ' pricing-card--featured' : ''}`}
+            >
+              {plan.featured && <div className="pricing-badge">Most popular</div>}
+              <p style={{ fontFamily: 'var(--sans)', fontSize: 8, fontWeight: 500, letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--ink-faint)' }}>Tier</p>
+              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--ink-dark)' }}>{plan.name}</p>
+              <p className="type-body-sm">{plan.desc}</p>
+              <div className="flex items-baseline" style={{ gap: 4 }}>
+                <span style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-2xl)', fontWeight: 400, letterSpacing: '-.04em', lineHeight: 1, color: 'var(--ink-dark)' }}>{plan.price}</span>
+                {plan.period && <span style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', fontWeight: 400, letterSpacing: '.04em', color: 'var(--ink-faint)' }}>{plan.period}</span>}
               </div>
-            ))}
+              <div className="flex flex-1 flex-col" style={{ gap: 'var(--sp-2)', paddingTop: 'var(--sp-3)', borderTop: '1px solid var(--border)' }}>
+                {plan.features.map((f) => (
+                  <div key={f} className="flex items-start" style={{ gap: 8, fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', fontWeight: 260, lineHeight: 1.5, color: 'var(--ink-muted)' }}>
+                    <Check style={{ width: 14, height: 14, flexShrink: 0, marginTop: 1, color: 'var(--emerald)' }} />
+                    {f}
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 'auto', paddingTop: 'var(--sp-4)' }}>
+                <Link href={plan.href} data-track="cta-pricing" className={`btn btn-full ${plan.featured ? 'btn-primary' : 'btn-ghost'}`}>{plan.cta}</Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="section-divider" />
+
+      {/* FAQ */}
+      <section className="gr">
+        <div className="gi" style={{ padding: 'var(--sp-7) var(--sp-5)' }}>
+          <h2 className="type-h2" style={{ textAlign: 'center', marginBottom: 'var(--sp-6)' }}>Common questions</h2>
+          <div className="faq-list">
+            {faq.map((item) => <FaqItem key={item.q} q={item.q} a={item.a} />)}
           </div>
-        </Container>
+          <p style={{ textAlign: 'center', marginTop: 'var(--sp-5)', fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', fontWeight: 260, color: 'var(--ink-faint)' }}>
+            More questions? <Link href="/contact" style={{ textDecoration: 'underline', textUnderlineOffset: 2 }}>Get in touch</Link>
+          </p>
+        </div>
+      </section>
+
+      <section className="cta-band">
+        <h2>Ready to get <em>started</em>?</h2>
+        <p>Book a 20-minute demo. See Meridian on your data.</p>
+        <Link href="/contact" className="btn btn-primary">Request Demo</Link>
       </section>
     </>
   );
