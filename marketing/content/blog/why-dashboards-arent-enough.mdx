@@ -1,0 +1,162 @@
+---
+title: "Why Dashboards Aren't Enough"
+description: "Traditional BI shows you what happened. Process mining shows you why."
+date: "2026-02-18"
+author: "Naman Agarwal"
+tags: ["insights"]
+published: true
+---
+
+Your company has dashboards. Lots of them. Executive dashboards, operational dashboards, departmental dashboards, dashboards that monitor other dashboards. They're full of KPIs, trend lines, and traffic-light indicators. And they're not telling you what you need to know.
+
+Dashboards are excellent at answering "what happened." They are structurally incapable of answering "why."
+
+## The aggregate trap
+
+A dashboard shows you that Days Sales Outstanding increased from 38 to 41 days last quarter. That's useful information. But what do you do with it?
+
+You could filter by region. EMEA is at 44 days, NA is at 39. So EMEA is worse. But why? You filter by customer segment. Enterprise is at 46, mid-market is at 38. So enterprise customers in EMEA are slow to pay. But why?
+
+You can keep slicing and dicing — by product line, by sales rep, by invoice amount — and maybe after a few hours of exploration you'll form a hypothesis. But you're guessing. You're looking at aggregates of aggregates, trying to reverse-engineer a process from its summary statistics.
+
+Here's what process mining shows you instead:
+
+```
+  Process Mining Analysis: Order-to-Cash (EMEA Enterprise)
+  ==========================================
+
+  Discovery: 34% of invoices go through an unnecessary
+  manual credit review loop.
+
+  Root cause: Credit limit threshold was set to EUR 25,000
+  in January. 34% of EMEA enterprise invoices exceed this.
+
+  Impact on DSO:
+    - Cases without manual review:   Avg 31 days
+    - Cases with manual review:      Avg 51 days
+    - Manual review adds:            4.2 days (wait)
+                                   + 2.1 days (processing)
+                                   = 6.3 days added per case
+
+  34% of cases x 6.3 days = 2.1 days added to overall DSO
+  (Accounts for most of the 3-day DSO increase)
+```
+
+Your dashboard says DSO increased by 3 days. Process mining shows that 34% of invoices are going through an unnecessary manual review loop that adds 6.3 days to the cycle, and that the root cause is a credit limit threshold change made in January.
+
+That's the difference between knowing what happened and knowing why.
+
+## What dashboards structurally cannot show
+
+This isn't a criticism of dashboard tools. Tableau, Power BI, and Looker are excellent at what they do. The limitation is structural — it's inherent to the aggregation-based analytical model.
+
+### Process variants
+
+Every case in your system takes a path through the process. Some take the happy path. Others take detours — rework loops, escalations, manual interventions, exception handling. A dashboard averages all of these together into a single number.
+
+Process mining separates them:
+
+```
+  Order-to-Cash Variant Analysis
+  ==========================================
+
+  Variant 1: Happy path                        48% of cases
+  Order -> Credit Auto-Approve -> Fulfill -> Ship -> Invoice -> Pay
+  Median cycle time: 22 days
+
+  Variant 2: Manual credit review               34% of cases
+  Order -> Credit Check -> Manual Review -> Approve -> Fulfill -> ...
+  Median cycle time: 35 days
+
+  Variant 3: Fulfillment exception              11% of cases
+  Order -> Credit Auto-Approve -> Fulfill -> Backorder -> Fulfill -> Ship -> ...
+  Median cycle time: 41 days
+
+  Variant 4: Combined delays                     7% of cases
+  Order -> Credit Check -> Manual Review -> ... -> Backorder -> ...
+  Median cycle time: 58 days
+```
+
+Variant 4 — cases that hit both the manual credit review and a fulfillment exception — takes 2.6x longer than the happy path. These 7% of cases are dragging your averages down disproportionately. A dashboard would never surface this because it can't decompose a KPI into the process paths that produced it.
+
+### Bottleneck location
+
+A dashboard might show you average cycle time by stage: order processing takes 2 days, fulfillment takes 5 days, invoicing takes 1 day. This looks like fulfillment is the bottleneck.
+
+But process mining reveals the truth is in the transitions, not the stages:
+
+```
+  Time Analysis: Where Cases Actually Wait
+  ==========================================
+
+  Activity                  Processing    Waiting
+  -----------------------   ----------    ----------
+  Order Entry               0.3 days      --
+  Credit Check              0.1 days      2.8 days  <-- waiting for reviewer
+  Manual Review             0.5 days      1.6 days  <-- waiting in queue
+  Fulfillment               1.2 days      0.4 days
+  Shipping                  0.8 days      0.3 days
+  Invoicing                 0.2 days      0.1 days
+
+  Total processing: 3.1 days
+  Total waiting:    5.2 days
+
+  63% of cycle time is waiting, not working.
+```
+
+The bottleneck isn't in any single stage — it's in the wait time between stages. Specifically, cases wait 2.8 days for a credit reviewer to pick them up, and then another 1.6 days in the manual review queue. The actual work at each stage is fast. The problem is handoff latency.
+
+A stage-level dashboard would attribute 2.8 + 0.1 = 2.9 days to "credit check" and call it a moderately slow stage. Process mining separates processing time from wait time and shows you exactly where the queue is building up.
+
+### Conformance deviations
+
+Your organization has a defined process. Certain steps are mandatory — regulatory approvals, quality checks, manager sign-offs. Dashboards can tell you how many approvals happened last month. They cannot tell you which cases *skipped* the approval entirely.
+
+```
+  Conformance Check: Procurement Process
+  ==========================================
+
+  Expected path:
+  Requisition -> Approval -> PO Creation -> Goods Receipt -> Invoice -> Payment
+
+  Findings:
+  - 6.2% of cases skip Approval entirely
+    (PO created directly from requisition)
+  - 2.8% of cases have Payment before Goods Receipt
+    (Paying before confirming delivery)
+  - 1.4% of cases have duplicate PO Creation events
+    (Possible system error or manual workaround)
+
+  Compliance risk: $3.8M in spend bypassed approval controls
+  Audit exposure: 847 cases with out-of-sequence payments
+```
+
+Conformance checking requires comparing each case's actual sequence of events against the expected sequence. This is a fundamentally sequential analysis — you need to know the order of events, not just their counts. Dashboards work with counts and aggregates. They cannot perform sequence analysis.
+
+## The real cost of dashboard-only thinking
+
+When dashboards are your only analytical tool, you develop a specific organizational pathology: you become very good at *describing* problems and very bad at *diagnosing* them.
+
+Teams spend weeks in "war rooms" investigating KPI drops. They build more dashboards, add more filters, create more drill-downs. Each new dashboard answers one more "what" question but gets no closer to "why."
+
+Meanwhile, the process — the actual sequence of work that produces the KPI — remains invisible.
+
+## Dashboards and process mining together
+
+The right approach isn't to replace dashboards. It's to layer process mining underneath them.
+
+Your dashboard shows DSO increased. You click through to the process mining view and see which process variants are driving the increase. You identify the manual credit review loop. You trace it to a threshold change. You fix the threshold. DSO recovers.
+
+| Analysis need | Dashboard | Process mining |
+|---|---|---|
+| What's the current value of a KPI? | Yes | No |
+| How has it trended over time? | Yes | Partial |
+| Which segment is underperforming? | Yes | Yes |
+| What process path is causing the problem? | No | Yes |
+| Where specifically are cases waiting? | No | Yes |
+| Are cases following the intended process? | No | Yes |
+| What's the root cause? | Rarely | Usually |
+
+Dashboards monitor. Process mining diagnoses. You need both, but if you only have dashboards, you're flying with instruments that show altitude and speed but not the engine diagnostics.
+
+[See how Meridian adds the process layer to your operations](/product) or [book a walkthrough](/contact).
