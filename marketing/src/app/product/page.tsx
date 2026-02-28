@@ -427,7 +427,7 @@ export default function ProductPage() {
             </Link>
             <Link href="/versus" style={{ padding: 'var(--sp-4)', border: '1px solid var(--border)', textDecoration: 'none', color: 'inherit' }}>
               <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)' }}>Compare</p>
-              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', color: 'var(--ink)', marginTop: 'var(--sp-1)' }}>How we're different &rarr;</p>
+              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', color: 'var(--ink)', marginTop: 'var(--sp-1)' }}>How we&apos;re different &rarr;</p>
             </Link>
           </div>
         </div>
