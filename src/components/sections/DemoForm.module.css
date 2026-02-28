@@ -1,0 +1,252 @@
+/* ═══════════════════════════════════════════════════════════════
+   DemoForm — split-screen demo request page content
+   Exact CSS from textql-request-demo.html
+   ═══════════════════════════════════════════════════════════════ */
+
+.root {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 76px);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── LEFT SIDE ── */
+.left {
+  padding: var(--sp-7) var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sp-6);
+  border-right: 1px solid var(--border);
+}
+
+.heroTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 3vw, var(--fs-2xl));
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.heroBody {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: 260;
+  line-height: 1.65;
+  letter-spacing: -0.015em;
+  color: var(--ink-muted);
+  max-width: 400px;
+  margin-top: var(--sp-3);
+}
+
+/* Value props list */
+.valueList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.valueItem {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 260;
+  letter-spacing: -0.01em;
+  color: var(--ink-muted);
+}
+
+.valueCheck {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+
+/* Testimonial quote */
+.quote {
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.quoteText {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: 260;
+  line-height: 1.65;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  font-style: italic;
+}
+
+.quoteText::before {
+  content: '\201C';
+}
+
+.quoteText::after {
+  content: '\201D';
+}
+
+.quoteAttrib {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.quoteName {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--ink-dark);
+  letter-spacing: -0.01em;
+}
+
+.quoteRole {
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* Logos row */
+.logos {
+  display: flex;
+  gap: var(--sp-5);
+  align-items: center;
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--border);
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--ink-faint);
+}
+
+/* ── RIGHT SIDE: FORM ── */
+.right {
+  padding: var(--sp-7) var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: var(--sp-6) var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  max-width: 440px;
+}
+
+.formTitle {
+  font-family: var(--font-heading);
+  font-size: var(--fs-lg);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formLabel {
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.formInput {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--border-mid);
+  border-radius: 0;
+  padding: var(--sp-3) var(--sp-4);
+  outline: none;
+  transition: border-color var(--t-std);
+  width: 100%;
+}
+
+.formInput::placeholder {
+  color: var(--ink-faint);
+}
+
+.formInput:focus {
+  border-color: var(--ink);
+}
+
+.formSelect {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--border-mid);
+  border-radius: 0;
+  padding: var(--sp-3) var(--sp-4);
+  outline: none;
+  appearance: none;
+  width: 100%;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 4l2.5 2.5L7.5 4' stroke='%237C7E7B' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--sp-4) center;
+  transition: border-color var(--t-std);
+}
+
+.formSelect:focus {
+  border-color: var(--ink);
+}
+
+.formSubmit {
+  width: 100%;
+  margin-top: var(--sp-2);
+}
+
+.formLegal {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 260;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--ink-faint);
+}
+
+.formLegal a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Decorative wave SVG background */
+.waves {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 400px;
+  pointer-events: none;
+  color: var(--ink-faint);
+  overflow: hidden;
+  z-index: 0;
+}
