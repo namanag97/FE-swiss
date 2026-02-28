@@ -40,19 +40,19 @@ export default function ProductPage() {
   return (
     <>
       {/* Hero */}
-      <section className="border-b border-sand-200 bg-sand-50 py-20 md:py-24">
+      <section className="border-b border-forest-800 bg-forest-900 py-20 md:py-24">
         <Container size="wide">
           <div className="max-w-2xl">
-            <p className="text-[11px] font-medium uppercase tracking-widest text-terra-600">Platform</p>
-            <h1 className="mt-2 text-[clamp(2rem,4.5vw,3rem)] font-semibold leading-[1.15] tracking-tight text-sand-900">
+            <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-400">Platform</p>
+            <h1 className="mt-2 text-[clamp(2rem,4.5vw,3rem)] font-semibold leading-[1.15] tracking-tight text-white">
               The data platform for operations intelligence
             </h1>
-            <p className="mt-5 max-w-lg text-[16px] leading-relaxed text-sand-500">
+            <p className="mt-5 max-w-lg text-[16px] leading-relaxed text-forest-200/80">
               From event logs to actionable insights. {siteConfig.name} combines process mining algorithms with modern analytics to show you how your business actually runs.
             </p>
             <Link
               href="/contact"
-              className="group mt-7 inline-flex items-center gap-2 rounded-lg bg-sand-900 px-5 py-2.5 text-[13px] font-medium text-white hover:bg-sand-800"
+              className="group mt-7 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-[13px] font-medium text-forest-900 hover:bg-forest-50"
             >
               Request a demo
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -63,18 +63,18 @@ export default function ProductPage() {
 
       {/* Sections */}
       {sections.map((s, i) => (
-        <section key={s.label} className={`py-20 md:py-24 ${i % 2 === 1 ? "bg-sand-50 border-y border-sand-200" : ""}`}>
+        <section key={s.label} className={`py-20 md:py-24 ${i % 2 === 1 ? "bg-gray-50 border-y border-gray-200" : ""}`}>
           <Container size="wide">
             <div className="grid items-start gap-12 md:grid-cols-2">
               <div>
-                <p className="text-[11px] font-medium uppercase tracking-widest text-terra-600">{s.label}</p>
-                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-sand-900">{s.title}</h2>
-                <p className="mt-3 text-[15px] leading-relaxed text-sand-500">{s.desc}</p>
+                <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-600">{s.label}</p>
+                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-gray-900">{s.title}</h2>
+                <p className="mt-3 text-[15px] leading-relaxed text-gray-500">{s.desc}</p>
               </div>
               <ul className="space-y-3">
                 {s.points.map((p) => (
-                  <li key={p} className="flex items-start gap-3 text-[14px] text-sand-700">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-terra-500" />
+                  <li key={p} className="flex items-start gap-3 text-[14px] text-gray-700">
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
                     {p}
                   </li>
                 ))}
@@ -85,15 +85,15 @@ export default function ProductPage() {
       ))}
 
       {/* CTA */}
-      <section className="border-t border-sand-200 bg-sand-900 py-20 text-center">
+      <section className="border-t border-forest-800 bg-forest-900 py-20 text-center">
         <Container>
           <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">See it on your data</h2>
-          <p className="mx-auto mt-3 max-w-md text-[15px] text-sand-400">
+          <p className="mx-auto mt-3 max-w-md text-[15px] text-forest-200/60">
             Bring your event logs. We&apos;ll map a real process live in 20 minutes.
           </p>
           <Link
             href="/contact"
-            className="group mt-7 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-[13px] font-medium text-sand-900 hover:bg-sand-100"
+            className="group mt-7 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-[13px] font-medium text-forest-900 hover:bg-forest-50"
           >
             Book a demo
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
