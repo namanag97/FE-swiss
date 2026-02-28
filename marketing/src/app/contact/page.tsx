@@ -7,7 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { siteConfig } from "@/lib/config";
 
 const inputClass =
-  "w-full rounded-lg border border-sand-200 bg-white px-4 py-2.5 text-[14px] text-sand-900 outline-none transition-colors placeholder:text-sand-400 focus:border-sand-900";
+  "w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-[14px] text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-gray-900";
 const selectClass =
   "w-full appearance-none rounded-lg border border-sand-200 bg-white px-4 py-2.5 text-[14px] text-sand-900 outline-none transition-colors focus:border-sand-900";
 
