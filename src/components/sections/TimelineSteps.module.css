@@ -1,0 +1,95 @@
+/* ═══════════════════════════════════════════════════════════════
+   TimelineSteps — 3-col step cards with large faded labels
+   Exact CSS from textql-inner-pages.html .steps-row / .step-card
+   ═══════════════════════════════════════════════════════════════ */
+
+.root {
+  padding: var(--sp-7) var(--sp-5);
+}
+
+.head {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 2.8vw, 40px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.sectionSubtitle {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: 260;
+  line-height: 1.6;
+  letter-spacing: -0.015em;
+  color: var(--ink-muted);
+  max-width: 540px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  margin-left: -1px;
+  padding: var(--sp-6) var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.card:first-child {
+  margin-left: 0;
+}
+
+/* Large faded step label (Day 1, Week 1, Month 1) */
+.stepLabel {
+  font-family: var(--font-heading);
+  font-size: var(--fs-2xl);         /* 48px */
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--border-mid);
+}
+
+.stepTitle {
+  font-family: var(--font-heading);
+  font-size: var(--fs-lg);          /* 20px */
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.stepBody {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: 260;
+  line-height: 1.6;
+  letter-spacing: -0.015em;
+  color: var(--ink-muted);
+}
+
+.tagline {
+  text-align: center;
+  margin-top: var(--sp-5);
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: 260;
+  line-height: 1.6;
+  letter-spacing: -0.015em;
+  color: var(--ink-muted);
+}
