@@ -61,8 +61,7 @@ export default function AboutPage() {
            ├──▶ Approve → Ship
            │          ↑
            └──▶ ??? ──┘
-  (messy, looping, unknown)`}
-              </pre>
+  (messy, looping, unknown)`}</pre>
             </div>
           </div>
         </div>
@@ -110,8 +109,7 @@ export default function AboutPage() {
   ├──────────────────────┼──────────────────────────────┤
   │  CONNECTORS          │                              │
   │  SAP · ServiceNow · Salesforce · JIRA · Custom     │
-  └─────────────────────────────────────────────────────┘`}
-            </pre>
+  └─────────────────────────────────────────────────────┘`}</pre>
           </div>
         </div>
       </section>
@@ -170,6 +168,18 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ padding: 'var(--sp-6) 0', display: 'flex', justifyContent: 'center', gap: 'var(--sp-4)' }}>
+          <Link href="/product" style={{ padding: 'var(--sp-3) var(--sp-5)', border: '1px solid var(--border)', fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink)', textDecoration: 'none' }}>
+            See the platform &rarr;
+          </Link>
+          <Link href="/security" style={{ padding: 'var(--sp-3) var(--sp-5)', border: '1px solid var(--border)', fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink)', textDecoration: 'none' }}>
+            Security &amp; compliance &rarr;
+          </Link>
         </div>
       </section>
 
