@@ -69,7 +69,7 @@ export function Header() {
             <Link href="/contact" data-track="cta-header-start" className="btn btn-ghost hidden md:inline-flex">
               Get Started
             </Link>
-            <Link href="/contact" data-track="cta-header-demo" className="btn btn-primary hidden md:inline-flex">
+            <Link href="/request-demo" data-track="cta-header-demo" className="btn btn-primary hidden md:inline-flex">
               Request Demo
             </Link>
             <button
