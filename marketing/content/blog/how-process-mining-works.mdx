@@ -1,0 +1,114 @@
+---
+title: "How Process Mining Works"
+description: "A technical overview of process mining — from raw event logs to actionable process maps."
+date: "2026-02-25"
+author: "Naman Agarwal"
+tags: ["product", "process-mining"]
+published: true
+---
+
+Process mining sounds abstract until you see it in action. At its core, the technique takes timestamped records of what happened in your business systems and reconstructs the actual process — not the one drawn on a whiteboard, but the one that really runs in production.
+
+Here's how the pipeline works, from raw data to actionable insight.
+
+## Step 1: Event log extraction
+
+Every enterprise system generates logs. ERPs record purchase orders, goods receipts, and invoice postings. CRMs track lead creation, qualification calls, and deal closures. ITSM tools log ticket creation, assignment, escalation, and resolution.
+
+The problem is that none of these systems think in terms of processes. They think in terms of transactions. A single order in SAP might generate dozens of records across VBAK, VBAP, LIKP, VBRK, and BSEG tables. A ServiceNow incident touches the incident table, the sys_journal, approval records, and SLA tracking tables.
+
+The first step in process mining is extracting these records and reshaping them into an event log — a flat structure where every row represents one activity that happened to one case at one point in time.
+
+```
+case_id,activity,timestamp,resource,cost_center
+PO-40012,Create Purchase Req,2026-01-15 09:12:00,J.Chen,Procurement
+PO-40012,Approve Purchase Req,2026-01-15 14:30:00,M.Torres,Procurement
+PO-40012,Create Purchase Order,2026-01-16 08:45:00,J.Chen,Procurement
+PO-40012,Receive Goods,2026-01-22 11:20:00,Warehouse,Logistics
+PO-40012,Post Invoice,2026-01-25 09:00:00,AP-Bot,Finance
+PO-40012,Process Payment,2026-02-01 06:00:00,AP-Bot,Finance
+PO-40013,Create Purchase Req,2026-01-15 10:00:00,S.Park,Procurement
+PO-40013,Approve Purchase Req,2026-01-17 16:45:00,M.Torres,Procurement
+PO-40013,Reject Purchase Req,2026-01-18 09:10:00,D.Liu,Finance
+PO-40013,Revise Purchase Req,2026-01-18 14:30:00,S.Park,Procurement
+PO-40013,Approve Purchase Req,2026-01-19 11:00:00,M.Torres,Procurement
+PO-40013,Create Purchase Order,2026-01-20 08:15:00,S.Park,Procurement
+...
+```
+
+Three columns are mandatory: `case_id` (what ties events together), `activity` (what happened), and `timestamp` (when it happened). Everything else — resource, cost center, amount, region — is enrichment that enables deeper analysis later.
+
+## Step 2: Case ID correlation
+
+This is where it gets tricky. In many systems, there isn't a single clean case ID. A procure-to-pay process might start with a purchase requisition number, transition to a purchase order number, then link to a goods receipt number, and finally to an invoice document number.
+
+Meridian's connector framework handles this by defining join logic specific to each source system. For SAP, we follow the document flow table (VBFA) to chain related documents together. For ServiceNow, we trace the parent-child relationship across incident, problem, and change records.
+
+The result is a single case ID that follows the process from start to finish, even when the underlying system uses different identifiers at each stage.
+
+## Step 3: Activity mapping
+
+Raw system events are often too granular or too cryptic to be useful. SAP transaction codes like MIGO, MIRO, and FB60 mean something to consultants but nothing to a process owner. ServiceNow state changes from 1 to 2 to 3 need labels.
+
+Activity mapping translates system-level events into business-level activities. Meridian ships with default mappings for common source systems, but every mapping is configurable. The goal is an event log where anyone can read the activity names and understand the process.
+
+## Step 4: Process discovery algorithms
+
+With a clean event log in hand, the discovery algorithm reconstructs the process model. There are several approaches, each with different tradeoffs.
+
+**The Alpha Miner** was the original algorithm in process mining research. It analyzes the ordering relationships between activities — if A is always followed by B, there's a direct succession. If A is sometimes followed by B and sometimes by C, there's a choice. The Alpha Miner produces a Petri net, which is mathematically precise but struggles with noise and infrequent paths.
+
+**The Heuristic Miner** improves on this by using frequency thresholds. Instead of treating every observed sequence as meaningful, it filters based on how often a pattern occurs. If activity X follows activity Y in only 2 out of 10,000 cases, the heuristic miner can ignore it as noise. This produces cleaner models that focus on the dominant behavior.
+
+**The Inductive Miner** takes a divide-and-conquer approach, recursively splitting the event log until it finds base cases. It guarantees a sound model — one where every trace can replay from start to finish — which is important for conformance checking later.
+
+Meridian uses a variant of the inductive miner as its default, with configurable frequency thresholds and the ability to switch algorithms depending on the analysis goal.
+
+## Step 5: Process map generation
+
+The output of discovery is a directed graph: nodes are activities, edges are transitions between them. But a raw graph with 80 nodes and 400 edges is unreadable.
+
+The rendering challenge is significant. Process maps need to convey:
+
+- **Frequency** — how many cases flow through each path (encoded as edge thickness)
+- **Performance** — how long each transition takes (encoded as color, from green to red)
+- **Variants** — which paths are common and which are rare
+- **Deviations** — where the actual process diverges from the expected one
+
+Meridian renders process maps client-side using a force-directed layout with hierarchical constraints. The computation — discovery, variant analysis, performance calculation — happens server-side. The client receives a pre-computed graph structure and handles layout and interaction.
+
+## Step 6: Variant analysis
+
+A variant is a unique sequence of activities that a case follows from start to finish. In a typical enterprise process, you'll see anywhere from 50 to 5,000+ variants.
+
+```
+  Variant Distribution (Procure-to-Pay)
+  ==========================================
+
+  Variant 1 (38% of cases)
+  Create Req -> Approve -> Create PO -> Receive -> Invoice -> Pay
+  Median duration: 18 days
+
+  Variant 2 (22% of cases)
+  Create Req -> Approve -> Create PO -> Receive -> Invoice
+    -> 3-Way Match Fail -> Resolve -> Invoice -> Pay
+  Median duration: 34 days
+
+  Variant 3 (12% of cases)
+  Create Req -> Reject -> Revise -> Approve -> Create PO -> ...
+  Median duration: 29 days
+
+  ...47 more variants (28% of cases combined)
+```
+
+The power here is segmentation. Once you've identified variants, you can ask: what's different about the cases that follow Variant 2? Are they from a specific vendor? Above a certain dollar threshold? Assigned to a particular buyer? These questions turn process mining from a visualization exercise into a root cause analysis tool.
+
+## How Meridian handles this pipeline
+
+The full pipeline — extraction, correlation, mapping, discovery, rendering — runs on every data refresh. For most customers, that means daily. For streaming use cases, sub-hourly.
+
+The technical challenge at scale is variant analysis. With 500,000 cases and 4,000 variants, the naive approach of comparing every case to every other case is O(n^2) and doesn't work. Meridian uses a trie-based variant index that computes variant frequencies in linear time and supports incremental updates as new events arrive.
+
+The result is a system where you connect your data source, configure the mapping, and within minutes have a full process model with variants, bottlenecks, and conformance analysis — ready to act on.
+
+[Explore the platform](/product) or [connect your data](/contact) to see your processes mapped live.
