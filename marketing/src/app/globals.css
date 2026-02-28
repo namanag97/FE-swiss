@@ -79,7 +79,7 @@ html {
 }
 body {
   font-family: var(--body);
-  font-weight: 260;
+  font-weight: 350;
   color: var(--ink);
   background-color: var(--bg);
   background-image:
