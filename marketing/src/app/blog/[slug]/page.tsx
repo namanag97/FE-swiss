@@ -39,21 +39,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-
   if (!post) notFound();
 
   return (
-    <article className="py-24 md:py-32">
+    <article className="py-20 md:py-24">
       <Container size="content">
         <Link
           href="/blog"
-          className="mb-8 inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-neutral-900"
+          className="inline-flex items-center gap-1.5 text-sm text-neutral-400 transition-colors hover:text-neutral-900"
         >
-          <ArrowLeft className="h-4 w-4" />
-          Back to blog
+          <ArrowLeft className="h-3.5 w-3.5" />
+          All posts
         </Link>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="mt-8 flex flex-wrap gap-1.5">
           {post.tags.map((tag) => (
             <Badge key={tag}>{tag}</Badge>
           ))}
@@ -63,19 +62,29 @@ export default async function BlogPostPage({ params }: Props) {
           {post.title}
         </h1>
 
-        <div className="mt-4 flex items-center gap-4 text-sm text-neutral-500">
-          <span>{post.author}</span>
-          <span>&middot;</span>
+        <div className="mt-4 flex items-center gap-3 text-sm text-neutral-500">
+          <span className="font-medium text-neutral-700">{post.author}</span>
+          <span className="text-neutral-300">/</span>
           <time dateTime={post.date}>{formatDate(post.date)}</time>
-          <span>&middot;</span>
+          <span className="text-neutral-300">/</span>
           <span>{post.readingTime}</span>
         </div>
 
-        <hr className="my-8 border-neutral-200" />
+        <hr className="my-10 border-neutral-200" />
 
         <div className="prose">
           <BlogContent source={post.content} />
         </div>
+
+        <hr className="my-10 border-neutral-200" />
+
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-1.5 text-sm text-neutral-400 transition-colors hover:text-neutral-900"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" />
+          Back to all posts
+        </Link>
       </Container>
     </article>
   );
