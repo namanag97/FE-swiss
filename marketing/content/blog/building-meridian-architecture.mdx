@@ -1,0 +1,160 @@
+---
+title: "Building Meridian: Our Architecture Decisions"
+description: "The engineering choices behind a process mining platform that handles 10M+ events daily."
+date: "2026-02-15"
+author: "Naman Agarwal"
+tags: ["engineering"]
+published: true
+---
+
+When we started building Meridian, we had a clear problem statement: process mining at enterprise scale is computationally hard, and the existing approaches either compromise on interactivity or on data volume. We wanted both — real-time exploration of process models derived from tens of millions of events.
+
+Here are the architecture decisions we made and why.
+
+## Columnar storage, not row-based
+
+An event log is a tall, narrow table. Millions of rows, but typically only 8 to 15 columns. The most common queries are aggregations over one or two columns: count events by activity, compute duration between consecutive timestamps for the same case, group cases by their variant signature.
+
+Row-based databases (Postgres, MySQL) store all columns of a row together on disk. To compute variant frequencies — which requires reading only `case_id` and `activity` — the engine must read and skip over `timestamp`, `resource`, `department`, and every other column. With 10 million rows, that's a lot of wasted I/O.
+
+Columnar storage (the approach used by DuckDB, ClickHouse, and Parquet) stores each column contiguously. Reading `case_id` and `activity` for 10 million events means reading exactly those two columns — no wasted bytes.
+
+```
+  Row storage (Postgres-style)
+  ==========================================
+  Row 1: [case_id | activity | timestamp | resource | dept | ...]
+  Row 2: [case_id | activity | timestamp | resource | dept | ...]
+  Row 3: [case_id | activity | timestamp | resource | dept | ...]
+  ...
+  To read 'activity' column: must scan entire row, skip other columns
+  10M rows x 200 bytes/row = 2 GB scanned for 400 MB of useful data
+
+
+  Columnar storage (Meridian)
+  ==========================================
+  case_id column:  [val1, val2, val3, ...]     ~120 MB
+  activity column: [val1, val2, val3, ...]     ~80 MB
+  timestamp column:[val1, val2, val3, ...]     ~80 MB
+  resource column: [val1, val2, val3, ...]     ~60 MB
+  ...
+  To read 'activity' column: read 80 MB, skip everything else
+  Compression ratio: 4-8x (activities repeat heavily)
+```
+
+The compression advantage is significant. Activity names, resource IDs, and department codes have very low cardinality — a process with 30 distinct activities across 10 million events compresses extremely well with dictionary encoding. Our columnar store typically achieves 6-8x compression on real event logs, which means the working set fits in memory for most deployments.
+
+We chose to build on Apache Arrow as the in-memory representation and Parquet for persistence. This gives us zero-copy reads, vectorized computation, and compatibility with the broader data ecosystem.
+
+## Streaming ingestion with batch semantics
+
+Process mining queries need complete cases. A variant is defined by the full sequence of events from start to finish. If a case has 8 events and you've only ingested 6, the computed variant is wrong, the duration is wrong, and the process map has a premature end node.
+
+This creates a tension with real-time ingestion. New events arrive continuously, but cases may span days or weeks. You can't wait for every case to complete before computing — some cases might never complete (that's a finding in itself).
+
+Our approach: streaming ingestion with batch-computed snapshots.
+
+```
+  Ingestion Pipeline
+  ==========================================
+
+  Source Systems                     Meridian
+  ----------------                   ----------------------------
+
+  SAP  ----+
+            |     CDC / API
+  SNOW ----+---> [Streaming    ] ---> [Event    ] ---> [Snapshot
+            |     Ingestion     ]     [Store     ]     [Builder  ]
+  SFDC ----+     Layer          ]     (append-   ]     (every N  ]
+                                      only)            minutes)
+                                          |                |
+                                          v                v
+                                     Raw events      Materialized
+                                     (immutable)     process models
+                                                     + variants
+                                                     + KPIs
+```
+
+Events flow in continuously and are appended to the event store. Every N minutes (configurable per data source, typically 15 minutes for streaming sources and once daily for batch), the snapshot builder recomputes process models, variant frequencies, and performance metrics for all affected cases.
+
+The snapshot is what the query engine serves. It's a pre-computed, indexed representation of the current state of every process. This means queries are fast — they're hitting pre-aggregated data — and the computation cost is amortized over the snapshot interval rather than incurred on every user interaction.
+
+The tradeoff is latency. A new event won't appear in the process map until the next snapshot. For most enterprise use cases, 15-minute latency is acceptable. For monitoring and alerting on in-flight cases, we provide a separate real-time view that queries the raw event store directly, accepting the cost of on-demand computation for a single case.
+
+## Variant analysis at scale
+
+Variant analysis is the core analytical operation in process mining. A variant is the ordered sequence of activities for a case: `[A, B, C, D]` is a different variant from `[A, C, B, D]`. Computing variant frequencies means hashing every case's activity sequence and counting occurrences.
+
+The naive approach: for each case, sort events by timestamp, extract the activity sequence, hash it, and increment a counter. This is O(n log n) per case for the sort, or O(N log N) total where N is the total number of events.
+
+That's fine for small logs. At 10 million events and 500,000 cases, the sort dominates. And it has to run on every snapshot refresh.
+
+Our approach uses a trie-based variant index:
+
+```
+  Variant Trie
+  ==========================================
+
+  Root
+   |
+   +-- Create Order (450,000 cases enter here)
+   |    |
+   |    +-- Credit Check (420,000)
+   |    |    |
+   |    |    +-- Fulfill (280,000) -- variant continues...
+   |    |    |
+   |    |    +-- Manual Review (140,000) -- variant continues...
+   |    |
+   |    +-- Auto-Approve (30,000)
+   |         |
+   |         +-- Fulfill (30,000) -- variant continues...
+   |
+   +-- Express Order (50,000 cases enter here)
+        |
+        +-- Fulfill (50,000) -- variant continues...
+```
+
+The trie is built incrementally. When a new event arrives for a case, we extend that case's path in the trie by one node. When a snapshot triggers, the variant frequencies are already computed — we just read the leaf counts. No sorting, no hashing per case.
+
+The trie also supports efficient prefix queries: "show me all variants that start with Create Order and then go through Manual Review." This traversal is O(k) where k is the prefix length, regardless of the number of cases.
+
+## The rendering challenge
+
+Process maps are directed graphs. A process with 40 activities and 100+ transitions is common. Rendering this as a readable, interactive visualization is a hard problem.
+
+Traditional process mining tools use hierarchical (Sugiyama) layout, which works well for structured processes but produces tangled results when there are many cross-layer edges — which is exactly what happens in real processes with rework loops and exception paths.
+
+We use a hybrid approach:
+
+1. **Server-side**: compute the graph structure, identify the main path (highest frequency variant), and assign layers based on topological order along the main path
+2. **Client-side**: apply a constrained force-directed layout that preserves the layer assignment but optimizes for minimal edge crossings within each layer
+3. **Progressive disclosure**: initially show only activities and transitions above a frequency threshold (default: 5% of cases). The user can lower the threshold to reveal infrequent paths.
+
+The progressive disclosure is critical. A process map showing all 4,000 variants simultaneously is useless. Starting with the top 5 variants (covering 60-80% of cases) and letting the user expand gives them a comprehensible starting point.
+
+## Server-side computation, client-side visualization
+
+We run all process mining algorithms — discovery, conformance checking, variant analysis, performance calculation — on the server. The client receives a JSON payload describing the graph structure, node positions, edge weights, and pre-computed metrics.
+
+The alternative — running discovery in the browser via WebAssembly — is technically feasible for small logs but breaks down at scale. A browser tab with 2 GB of event data in memory is not a good user experience.
+
+The tradeoff is that every filter change requires a server round-trip. When a user filters to "show me only cases from EMEA with invoice amount > $10,000," the server recomputes the process map for that subset. We mitigate the latency with:
+
+- **Pre-computed filter combinations**: for common filter dimensions (region, department, time period), we pre-compute partial aggregations during snapshot build
+- **Progressive loading**: show the cached full-data map immediately, then update with the filtered result when the server responds (typically 100-300ms)
+- **Materialized filter cache**: recent filter combinations are cached server-side with a 10-minute TTL
+
+The result is that most interactions feel instant — under 200ms — even on logs with 10 million+ events.
+
+## What we'd do differently
+
+No architecture survives contact with reality unchanged. A few things we've learned:
+
+**We underestimated the importance of the activity mapping layer.** The same source system event can mean different things in different process contexts. We initially treated mapping as a configuration step; it's really a first-class analytical feature that users iterate on frequently. We've since built a mapping editor with preview capabilities.
+
+**Snapshot intervals should be dynamic, not fixed.** Some processes have high event velocity and need frequent snapshots. Others are stable and daily is fine. We now support per-source-system snapshot scheduling with automatic frequency adjustment based on event arrival rate.
+
+**The trie needs garbage collection.** Cases that complete drop out of the active variant trie, but we initially kept all historical variants in memory. For long-running deployments, the trie grew unboundedly. We added a compaction step that archives completed variants to disk-based storage.
+
+Building a process mining engine is an exercise in applied data engineering. The algorithms are well-understood. The challenge is making them work at scale, interactively, on messy enterprise data. That's the engineering problem we're solving at Meridian.
+
+[See the platform in action](/product) or [talk to our engineering team](/contact).
