@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/config";
+import { NewsletterForm } from "./NewsletterForm";
 
 function Col({ title, links }: { title: string; links: readonly { label: string; href: string }[] }) {
   return (
