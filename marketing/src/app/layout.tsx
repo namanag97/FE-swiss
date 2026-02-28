@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { CookieConsent } from "@/components/CookieConsent";
+import { BackToTop } from "@/components/ui/BackToTop";
+import { Analytics } from "@/components/Analytics";
 import { siteConfig } from "@/lib/config";
 import "./globals.css";
 
