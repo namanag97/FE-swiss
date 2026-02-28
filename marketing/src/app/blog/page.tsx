@@ -30,7 +30,7 @@ export default function BlogPage() {
         </div>
 
         {posts.length === 0 ? (
-          <div className="mt-14 rounded-xl border border-gray-200 bg-sand-50 p-10 text-center">
+          <div className="mt-14 rounded-xl border border-gray-200 bg-gray-50 p-10 text-center">
             <p className="text-[14px] text-gray-500">No posts yet.</p>
           </div>
         ) : (
