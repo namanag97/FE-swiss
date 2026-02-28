@@ -13,7 +13,7 @@ export default function PrivacyPage() {
       <Container size="content">
         <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-600">Legal</p>
         <h1 className="mt-2 text-2xl font-semibold tracking-tight text-gray-900">Privacy Policy</h1>
-        <p className="mt-1 text-[13px] text-sand-400">Last updated February 2026</p>
+        <p className="mt-1 text-[13px] text-gray-400">Last updated February 2026</p>
         <div className="prose mt-8">
           <h2>1. Information We Collect</h2>
           <p>We collect information you provide directly — name, email, company — when you create an account, fill out a form, or contact us. We also collect usage data automatically through analytics.</p>
