@@ -39,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Meridian Blog" />
       </head>
       <body className="flex min-h-screen flex-col antialiased">
         <Header />
