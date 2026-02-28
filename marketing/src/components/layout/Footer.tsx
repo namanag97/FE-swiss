@@ -50,7 +50,7 @@ export function Footer() {
         </div>
 
         {/* Bottom copyright */}
-        <div className="flex items-center justify-between" style={{ paddingTop: 'var(--sp-5)' }}>
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between" style={{ paddingTop: 'var(--sp-5)' }}>
           <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', fontWeight: 400, letterSpacing: '.04em', color: 'rgba(255,255,255,.2)' }}>
             &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
