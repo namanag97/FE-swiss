@@ -10,14 +10,7 @@ function Col({ title, links }: { title: string; links: readonly { label: string;
       </p>
       <div className="flex flex-col" style={{ gap: 'var(--sp-2)' }}>
         {links.map((l) => (
-          <Link
-            key={l.href + l.label}
-            href={l.href}
-            className="transition-colors"
-            style={{ fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', fontWeight: 260, letterSpacing: '-.01em', color: 'rgba(255,255,255,.55)' }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,.9)')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,.55)')}
-          >
+          <Link key={l.href + l.label} href={l.href} className="footer-link">
             {l.label}
           </Link>
         ))}
@@ -68,10 +61,7 @@ export function Footer() {
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="capitalize transition-colors"
-                style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', fontWeight: 400, color: 'rgba(255,255,255,.2)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,.5)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,.2)')}
+                className="footer-social capitalize"
               >
                 {name}
               </a>
