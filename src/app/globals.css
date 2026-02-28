@@ -48,14 +48,12 @@
   --nav-h:    40px;
 }
 
-/* ── FONT ALIASES ─────────────────────────────────────────────
+/* ── FONTS ────────────────────────────────────────────────────
    next/font injects --font-heading, --font-body, --font-accent
-   as CSS vars on <body>. These aliases provide fallbacks. */
-:root {
-  --font-heading: var(--font-heading, 'JetBrains Mono'), 'JetBrains Mono', monospace;
-  --font-body:    var(--font-body, 'Inter'), 'Inter', sans-serif;
-  --font-accent:  var(--font-accent, 'Libre Caslon Text'), 'Libre Caslon Text', Georgia, serif;
-}
+   as CSS vars on <body> via className. DO NOT redefine these
+   names in :root — that creates circular references.
+   Components use var(--font-heading) etc. which resolve from
+   the body's class. */
 
 /* ── RESET ────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
