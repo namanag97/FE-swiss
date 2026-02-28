@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowRight, GitBranch, Search, BarChart3, Workflow, Database, BrainCircuit } from "lucide-react";
-import { Container } from "@/components/ui/Container";
 import { ProcessMapHero } from "@/components/home/ProcessMapHero";
 import { siteConfig } from "@/lib/config";
 
