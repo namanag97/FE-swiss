@@ -1,11 +1,26 @@
 import { cn } from "@/lib/utils";
 
-export function Badge({ children, className }: { children: React.ReactNode; className?: string }) {
+type BadgeVariant = "neutral" | "active" | "high" | "medium" | "low";
+
+const variantClasses: Record<BadgeVariant, string> = {
+  neutral: "tag-neutral",
+  active: "tag-active",
+  high: "tag-high",
+  medium: "tag-medium",
+  low: "tag-low",
+};
+
+export function Badge({
+  children,
+  variant = "neutral",
+  className,
+}: {
+  children: React.ReactNode;
+  variant?: BadgeVariant;
+  className?: string;
+}) {
   return (
-    <span className={cn(
-      "inline-flex items-center rounded-full bg-forest-50 px-2.5 py-0.5 text-[11px] font-medium text-forest-600",
-      className
-    )}>
+    <span className={cn("tag", variantClasses[variant], className)}>
       {children}
     </span>
   );
