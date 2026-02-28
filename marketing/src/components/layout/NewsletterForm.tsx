@@ -12,20 +12,38 @@ export function NewsletterForm() {
   }
 
   if (submitted) {
-    return <p className="mt-4 text-[13px] text-emerald-400">Subscribed!</p>;
+    return (
+      <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', fontWeight: 400, letterSpacing: '.04em', textTransform: 'uppercase', color: 'var(--emerald)', marginTop: 4 }}>
+        Subscribed!
+      </p>
+    );
   }
 
   return (
-    <form onSubmit={onSubmit} className="mt-4 flex gap-2">
+    <form onSubmit={onSubmit} className="flex">
       <input
         type="email"
         required
         placeholder="Your email"
-        className="w-full rounded-lg border border-forest-700 bg-forest-800 px-3 py-1.5 text-[13px] text-white placeholder:text-forest-200/40 outline-none transition-colors focus:border-forest-500"
+        className="input-dark"
+        style={{ width: 180, borderRight: 'none' }}
       />
       <button
         type="submit"
-        className="shrink-0 rounded-lg bg-white px-3 py-1.5 text-[12px] font-medium text-forest-900 transition-colors hover:bg-gray-100"
+        style={{
+          fontFamily: 'var(--sans)',
+          fontSize: 'var(--fs-xs)',
+          fontWeight: 400,
+          textTransform: 'uppercase',
+          letterSpacing: '.06em',
+          padding: 'var(--sp-2) var(--sp-3)',
+          borderRadius: 0,
+          background: 'rgba(255,255,255,.08)',
+          color: 'rgba(255,255,255,.6)',
+          border: '1px solid rgba(255,255,255,.12)',
+          borderLeft: 'none',
+          cursor: 'pointer',
+        }}
       >
         Subscribe
       </button>
