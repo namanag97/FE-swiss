@@ -1,0 +1,69 @@
+/* ═══════════════════════════════════════════════════════════════
+   Hero — LEFT-ALIGNED hero used on homepage and blog
+   Exact CSS from textql-blog.html .hero-section
+   ═══════════════════════════════════════════════════════════════ */
+
+.root {
+  padding: var(--sp-7) 0 var(--sp-6);   /* 64px top, 48px bottom */
+  position: relative;
+  overflow: visible;
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: max(var(--fs-3xl), 4vw);    /* max(64px, 4vw) */
+  word-spacing: -0.20em;
+  letter-spacing: -0.025em;
+  line-height: 0.89;
+  color: var(--ink);
+  max-width: 680px;
+  margin-top: var(--sp-4);              /* 18px below eyebrow */
+}
+
+/* Caslon italic accent word with emerald underline */
+.heading em {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 10px;
+  text-decoration-skip-ink: none;
+  word-spacing: 0;
+}
+
+.subtitle {
+  margin-top: var(--sp-4);               /* 18px */
+  font-family: var(--font-body);
+  font-weight: 260;
+  font-size: var(--fs-md);               /* 14px */
+  line-height: 1.6;
+  letter-spacing: -0.015em;
+  color: var(--ink-muted);
+  max-width: 400px;
+}
+
+.actions {
+  margin-top: var(--sp-5);              /* 30px */
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);                     /* 12px */
+}
+
+/* Radial dot field decoration */
+.dotField {
+  position: absolute;
+  width: 200px;
+  height: 160px;
+  background-image: radial-gradient(var(--ink-muted) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+  opacity: 0.25;
+  pointer-events: none;
+  right: 60px;
+  top: 40px;
+  mask-image: radial-gradient(ellipse 80% 80% at 80% 50%, black, transparent);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 80% 50%, black, transparent);
+}
