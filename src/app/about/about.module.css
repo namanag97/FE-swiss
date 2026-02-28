@@ -1,0 +1,161 @@
+/* ═══════════════════════════════════════════════════════════════
+   About Page — manifesto layout styles
+   ═══════════════════════════════════════════════════════════════ */
+
+.aboutBlock {
+  padding: var(--sp-7) var(--sp-5);
+  max-width: 720px;
+}
+
+.aboutEyebrow {
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: var(--sp-3);
+  display: block;
+}
+
+.aboutEyebrow::before {
+  content: "[ ";
+}
+
+.aboutEyebrow::after {
+  content: " ]";
+}
+
+.aboutH1 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-3xl);
+  font-weight: 400;
+  line-height: .89;
+  letter-spacing: -.03em;
+  word-spacing: -.20em;
+  color: var(--ink);
+  margin-bottom: var(--sp-5);
+}
+
+.aboutH1 em {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+  word-spacing: 0;
+}
+
+.aboutH2 {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 2.8vw, 40px);
+  font-weight: 400;
+  line-height: .95;
+  letter-spacing: -.025em;
+  color: var(--ink);
+  margin-bottom: var(--sp-4);
+}
+
+.aboutBody {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: 260;
+  line-height: 1.65;
+  letter-spacing: -.015em;
+  color: var(--ink-muted);
+  margin-bottom: var(--sp-4);
+}
+
+.aboutBody strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.aboutPullQuote {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: var(--fs-lg);
+  line-height: 1.4;
+  letter-spacing: -.01em;
+  color: var(--ink-mid);
+  padding: var(--sp-5) 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: var(--sp-5) 0;
+}
+
+.aboutLinkList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-top: var(--sp-5);
+}
+
+.aboutLink {
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--border);
+  transition: border-color var(--t-std);
+}
+
+.aboutLink:hover {
+  border-color: var(--border-mid);
+}
+
+.aboutLink svg {
+  flex-shrink: 0;
+  color: var(--ink-faint);
+}
+
+/* ── CTA BAND ── */
+.ctaBand {
+  background-color: var(--ink-dark);
+  background-image:
+    url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp'),
+    repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,.007) 3px, rgba(255,255,255,.007) 6px);
+  background-size: auto, auto;
+  background-repeat: repeat, repeat;
+  padding: var(--sp-7) var(--sp-5);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.ctaBand h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 3vw, var(--fs-2xl));
+  font-weight: 400;
+  line-height: .95;
+  letter-spacing: -.03em;
+  color: var(--white);
+}
+
+.ctaBand h2 em {
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--accent);
+}
+
+.ctaBand p {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: 260;
+  line-height: 1.6;
+  letter-spacing: -.015em;
+  color: rgba(255, 255, 255, .5);
+  max-width: 480px;
+}
+
+.ctaActions {
+  display: flex;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+}
