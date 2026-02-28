@@ -34,10 +34,10 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-2.5">
-          <Link href="/contact" className="hidden rounded-lg border border-gray-200 px-4 py-1.5 text-[13px] font-medium text-gray-700 transition-colors hover:border-gray-300 hover:text-gray-900 md:inline-flex">
+          <Link href="/contact" data-track="cta-header-demo" className="hidden rounded-lg border border-gray-200 px-4 py-1.5 text-[13px] font-medium text-gray-700 transition-colors hover:border-gray-300 hover:text-gray-900 md:inline-flex">
             Request Demo
           </Link>
-          <Link href="/contact" className="hidden rounded-lg bg-forest-900 px-4 py-1.5 text-[13px] font-medium text-white transition-colors hover:bg-forest-800 md:inline-flex">
+          <Link href="/contact" data-track="cta-header-start" className="hidden rounded-lg bg-forest-900 px-4 py-1.5 text-[13px] font-medium text-white transition-colors hover:bg-forest-800 md:inline-flex">
             Get Started
           </Link>
           <button onClick={() => setOpen(!open)} className="inline-flex h-9 w-9 items-center justify-center rounded-md text-gray-600 hover:bg-gray-100 md:hidden" aria-label="Menu">
