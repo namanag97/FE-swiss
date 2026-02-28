@@ -91,9 +91,7 @@ export function PlatformTabs() {
             </p>
           </div>
           <div className="ascii-frame">
-            <pre className="ascii-art" style={{ margin: 0 }}>
-              {current.ascii}
-            </pre>
+            <pre className="ascii-art" style={{ margin: 0 }}>{current.ascii}</pre>
           </div>
         </div>
       </div>
