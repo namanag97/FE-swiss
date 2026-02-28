@@ -79,8 +79,7 @@ export default function VersusPage() {
   │                          │                       │
   │──────────────────────────┼───────────────────────│
   │  BASIC                   │  ADVANCED             │
-  └─────────────────────────────────────────────────┘`}
-            </pre>
+  └─────────────────────────────────────────────────┘`}</pre>
           </div>
         </div>
       </section>
@@ -148,7 +147,7 @@ export default function VersusPage() {
         <p>Start with a free pilot. Compare Meridian against your current tools with your own data.</p>
         <div style={{ display: 'flex', gap: 'var(--sp-3)', justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link href="/contact" className="btn btn-primary">Get Started Free</Link>
-          <Link href="/contact" className="btn btn-ghost">Request Demo</Link>
+          <Link href="/request-demo" className="btn btn-ghost">Request Demo</Link>
         </div>
       </section>
     </>
