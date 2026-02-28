@@ -21,7 +21,7 @@ export default function BlogPage() {
       <Container size="wide">
         <div className="max-w-lg">
           <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-600">Blog</p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-sand-900 md:text-4xl">
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-gray-900 md:text-4xl">
             Insights &amp; Updates
           </h1>
           <p className="mt-3 text-[15px] text-sand-500">
@@ -47,7 +47,7 @@ export default function BlogPage() {
                       <Badge key={tag}>{tag}</Badge>
                     ))}
                   </div>
-                  <h2 className="mt-2 text-base font-semibold text-sand-900 group-hover:text-emerald-600">
+                  <h2 className="mt-2 text-base font-semibold text-gray-900 group-hover:text-emerald-600">
                     {post.title}
                   </h2>
                   <p className="mt-1 text-[14px] leading-relaxed text-sand-500">
