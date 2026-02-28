@@ -1,0 +1,97 @@
+/* ═══════════════════════════════════════════════════════════════
+   DeploySection — BYOC deployment section
+   Exact CSS from textql-pricing.html .deploy-section
+   ═══════════════════════════════════════════════════════════════ */
+
+.root {
+  padding: var(--sp-7) var(--sp-5);
+  position: relative;
+}
+
+.head {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 2.8vw, 40px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.body {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: 260;
+  line-height: 1.6;
+  letter-spacing: -0.015em;
+  color: var(--ink-muted);
+  max-width: 540px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+}
+
+.left,
+.right {
+  padding: var(--sp-6) var(--sp-5);
+}
+
+.left {
+  border-right: 1px solid var(--border);
+}
+
+.subtitle {
+  font-family: var(--font-heading);
+  font-size: var(--fs-lg);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: var(--sp-3);
+}
+
+.sectionBody {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 260;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: var(--ink-muted);
+  margin-bottom: var(--sp-5);
+}
+
+.groupLabel {
+  font-family: var(--font-heading);
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 8px;
+}
+
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+}
+
+.group {
+  margin-bottom: var(--sp-3);
+}
+
+.group:last-child {
+  margin-bottom: 0;
+}
