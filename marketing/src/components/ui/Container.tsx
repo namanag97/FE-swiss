@@ -4,6 +4,7 @@ interface ContainerProps {
   children: React.ReactNode;
   className?: string;
   size?: "content" | "wide" | "full";
+  style?: React.CSSProperties;
 }
 
 const widths = {
