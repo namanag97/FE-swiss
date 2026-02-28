@@ -23,19 +23,22 @@ export function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white p-4 shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
-      <div className="mx-auto flex max-w-[1200px] flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[13px] text-gray-600">
+    <div
+      className="fixed bottom-0 left-0 right-0 z-50"
+      style={{
+        borderTop: '1px solid var(--border)',
+        background: 'var(--bg)',
+        padding: 'var(--sp-4)',
+      }}
+    >
+      <div className="mx-auto flex max-w-[1400px] flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p style={{ fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', fontWeight: 260, color: 'var(--ink-muted)' }}>
           We use cookies to improve your experience. By continuing, you agree to our{" "}
-          <a href="/legal/privacy" className="text-forest-900 underline underline-offset-2">privacy policy</a>.
+          <a href="/legal/privacy" style={{ color: 'var(--emerald)', textDecoration: 'underline', textUnderlineOffset: 2 }}>privacy policy</a>.
         </p>
-        <div className="flex gap-2">
-          <button onClick={decline} className="rounded-lg border border-gray-200 px-4 py-1.5 text-[13px] font-medium text-gray-600 transition-colors hover:border-gray-300 hover:text-gray-900">
-            Decline
-          </button>
-          <button onClick={accept} className="rounded-lg bg-forest-900 px-4 py-1.5 text-[13px] font-medium text-white transition-colors hover:bg-forest-800">
-            Accept
-          </button>
+        <div className="flex" style={{ gap: 'var(--sp-2)' }}>
+          <button onClick={decline} className="btn btn-ghost">Decline</button>
+          <button onClick={accept} className="btn btn-primary">Accept</button>
         </div>
       </div>
     </div>
