@@ -7,7 +7,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   images: {
-    unoptimized: true,
+    remotePatterns: [],
   },
   experimental: {
     mdxRs: false,
