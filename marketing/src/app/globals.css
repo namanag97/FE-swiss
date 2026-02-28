@@ -785,3 +785,21 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
 }
 .filter-tab:hover { color: var(--ink); }
 .filter-tab--active { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* Blog tags */
+.blog-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--sans);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.blog-tag--announcements { background: rgba(4,122,85,.12); color: var(--emerald); }
+.blog-tag--engineering   { background: rgba(46,59,54,.07); color: var(--ink-muted); }
+.blog-tag--team          { background: rgba(217,119,6,.08); color: #B45309; }
+.blog-tag--research      { background: rgba(99,102,241,.08); color: #4F46E5; }
+.blog-tag--insights      { background: rgba(46,59,54,.07); color: var(--ink-mid); }
