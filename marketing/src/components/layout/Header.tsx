@@ -105,7 +105,7 @@ export function Header() {
               <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-ghost w-full text-center">
                 Get Started
               </Link>
-              <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary w-full text-center">
+              <Link href="/request-demo" onClick={() => setOpen(false)} className="btn btn-primary w-full text-center">
                 Request Demo
               </Link>
             </div>
