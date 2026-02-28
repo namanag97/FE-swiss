@@ -1,0 +1,198 @@
+/* ── FOOTER ────────────────────────────────── */
+.footer {
+  background-color: var(--ink-dark);
+  background-image:
+    url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp'),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 255, 255, .007) 3px,
+      rgba(255, 255, 255, .007) 6px
+    );
+  background-size: auto, auto;
+  background-repeat: repeat, repeat;
+  padding: var(--sp-7) 0 var(--sp-5);
+}
+
+.footerInner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── FOOTER GRID ──────────────────────────── */
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1.8fr repeat(4, 1fr);
+  gap: var(--sp-7);
+  padding-bottom: var(--sp-6);
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+/* ── BRAND COLUMN ─────────────────────────── */
+.footerBrand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.footerLogo {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -.03em;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footerLogoMark {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid rgba(255, 255, 255, .35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footerLogoDot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+.footerTagline {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 260;
+  line-height: 1.6;
+  letter-spacing: -.01em;
+  color: rgba(255, 255, 255, .35);
+  max-width: 240px;
+}
+
+/* ── NEWSLETTER ───────────────────────────── */
+.footerNewsletter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.footerNlTitle {
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  letter-spacing: -.01em;
+  color: rgba(255, 255, 255, .7);
+}
+
+.footerNlDesc {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 260;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, .35);
+}
+
+.footerNlRow {
+  display: flex;
+}
+
+.inputDark {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  color: rgba(255, 255, 255, .7);
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 0;
+  padding: var(--sp-2) var(--sp-3);
+  outline: none;
+  width: 180px;
+  transition: border-color var(--t-std);
+}
+
+.inputDark::placeholder {
+  color: rgba(255, 255, 255, .25);
+}
+
+.inputDark:focus {
+  border-color: rgba(255, 255, 255, .3);
+}
+
+.btnFooter {
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: 0;
+  background: rgba(255, 255, 255, .08);
+  color: rgba(255, 255, 255, .6);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-left: none;
+  transition: background var(--t-std), color var(--t-std);
+  cursor: pointer;
+}
+
+.btnFooter:hover {
+  background: rgba(255, 255, 255, .14);
+  color: rgba(255, 255, 255, .9);
+}
+
+/* ── LINK COLUMNS ─────────────────────────── */
+.footerCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.footerColTitle {
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .35);
+}
+
+.footerLinks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.footerLink {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 260;
+  letter-spacing: -.01em;
+  color: rgba(255, 255, 255, .55);
+  transition: color var(--t-fast);
+}
+
+.footerLink:hover {
+  color: rgba(255, 255, 255, .9);
+}
+
+/* ── BOTTOM ROW ───────────────────────────── */
+.footerBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--sp-5);
+}
+
+.footerCopy {
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  letter-spacing: .04em;
+  color: rgba(255, 255, 255, .2);
+}
