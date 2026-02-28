@@ -9,29 +9,25 @@ import { cn } from "@/lib/utils";
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
+  const path = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-neutral-200/80 bg-white/90 backdrop-blur-lg">
-      <nav className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-6 lg:px-12">
-        <Link
-          href="/"
-          className="text-[15px] font-bold tracking-tight text-neutral-900"
-        >
+    <header className="sticky top-0 z-50 border-b border-sand-200/60 bg-white/90 backdrop-blur-lg">
+      <nav className="mx-auto flex h-14 max-w-[1100px] items-center justify-between px-6">
+        <Link href="/" className="text-[15px] font-semibold tracking-tight text-sand-900">
           {siteConfig.name}
         </Link>
 
-        {/* Desktop */}
         <div className="hidden items-center gap-1 md:flex">
           {siteConfig.nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "rounded-md px-3.5 py-2 text-[13px] font-medium transition-colors",
-                pathname === item.href
-                  ? "bg-neutral-100 text-neutral-900"
-                  : "text-neutral-500 hover:text-neutral-900"
+                "rounded-md px-3 py-1.5 text-[13px] font-medium transition-colors",
+                path === item.href
+                  ? "text-sand-900"
+                  : "text-sand-500 hover:text-sand-900"
               )}
             >
               {item.label}
@@ -42,47 +38,39 @@ export function Header() {
         <div className="flex items-center gap-3">
           <Link
             href="/contact"
-            className="hidden rounded-lg bg-neutral-900 px-4 py-2 text-[13px] font-medium text-white transition-colors hover:bg-neutral-800 md:inline-flex"
+            className="hidden rounded-lg bg-sand-900 px-4 py-1.5 text-[13px] font-medium text-white transition-colors hover:bg-sand-800 md:inline-flex"
           >
-            Get Started
+            Request demo
           </Link>
           <button
             onClick={() => setOpen(!open)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-neutral-600 hover:bg-neutral-100 md:hidden"
-            aria-label="Toggle menu"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md text-sand-600 hover:bg-sand-100 md:hidden"
+            aria-label="Menu"
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile */}
       {open && (
-        <div className="border-t border-neutral-100 bg-white px-6 pb-6 pt-4 md:hidden">
-          <div className="flex flex-col gap-1">
-            {siteConfig.nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className={cn(
-                  "rounded-md px-3 py-2.5 text-sm font-medium",
-                  pathname === item.href
-                    ? "bg-neutral-100 text-neutral-900"
-                    : "text-neutral-600 hover:bg-neutral-50"
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
+        <div className="border-t border-sand-100 bg-white px-6 pb-5 pt-3 md:hidden">
+          {siteConfig.nav.map((item) => (
             <Link
-              href="/contact"
+              key={item.href}
+              href={item.href}
               onClick={() => setOpen(false)}
-              className="mt-3 rounded-lg bg-neutral-900 px-4 py-2.5 text-center text-sm font-medium text-white"
+              className="block rounded-md px-3 py-2 text-sm text-sand-600 hover:text-sand-900"
             >
-              Get Started
+              {item.label}
             </Link>
-          </div>
+          ))}
+          <Link
+            href="/contact"
+            onClick={() => setOpen(false)}
+            className="mt-3 block rounded-lg bg-sand-900 px-4 py-2 text-center text-sm font-medium text-white"
+          >
+            Request demo
+          </Link>
         </div>
       )}
     </header>
