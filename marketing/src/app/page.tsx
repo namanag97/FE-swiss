@@ -156,10 +156,10 @@ export default function HomePage() {
             Book a 20-minute demo. We&apos;ll map one of your processes live.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link href="/contact" className="group inline-flex items-center gap-2 rounded-lg bg-forest-900 px-6 py-3 text-[14px] font-medium text-white hover:bg-forest-800">
+            <Link href="/contact" data-track="cta-bottom-start" className="group inline-flex items-center gap-2 rounded-lg bg-forest-900 px-6 py-3 text-[14px] font-medium text-white hover:bg-forest-800">
               Get Started <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
-            <Link href="/contact" className="inline-flex items-center gap-2 rounded-lg border border-gray-200 px-6 py-3 text-[14px] font-medium text-gray-700 hover:border-gray-300">
+            <Link href="/contact" data-track="cta-bottom-demo" className="inline-flex items-center gap-2 rounded-lg border border-gray-200 px-6 py-3 text-[14px] font-medium text-gray-700 hover:border-gray-300">
               Request Demo
             </Link>
           </div>
