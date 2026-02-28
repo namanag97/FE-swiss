@@ -31,6 +31,7 @@ export function Footer() {
             <p className="mt-3 max-w-[220px] text-[13px] leading-relaxed text-forest-200/60">
               {siteConfig.description}
             </p>
+            <NewsletterForm />
           </div>
           <Col title="Platform" links={siteConfig.footer.platform} />
           <Col title="Company" links={siteConfig.footer.company} />
