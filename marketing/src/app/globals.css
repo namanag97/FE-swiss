@@ -830,18 +830,19 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
    ASCII ART — utility classes for monospaced decorations
 ═══════════════════════════════════════════════════════════════ */
 .ascii-art {
-  font-family: var(--sans);
-  font-size: 12px;
-  line-height: 1.45;
-  letter-spacing: 0;
-  color: var(--ink-faint);
+  font-family: 'SF Mono', 'Menlo', 'Consolas', 'DejaVu Sans Mono', monospace;
+  font-size: 13px;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: var(--ink-muted);
   white-space: pre;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   tab-size: 4;
   -moz-tab-size: 4;
   font-variant-ligatures: none;
-  text-rendering: optimizeLegibility;
+  font-feature-settings: 'liga' 0, 'calt' 0;
+  -webkit-font-smoothing: antialiased;
 }
 
 .ascii-frame {
