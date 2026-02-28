@@ -1,0 +1,254 @@
+/* ═══════════════════════════════════════════════════════════════
+   FeaturedPost — featured blog post card with 2-col layout
+   Exact CSS from textql-blog.html .featured-card
+   ═══════════════════════════════════════════════════════════════ */
+
+.root {
+  padding: var(--sp-5) 0 0;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  border-radius: 12px;
+  border: 1px solid rgba(46, 59, 54, 0.15);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform var(--t-slow), box-shadow var(--t-slow);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* ── TEXT PANEL ── */
+.textPanel {
+  background-color: var(--ink-dark);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 3px,
+    rgba(255, 255, 255, 0.012) 3px,
+    rgba(255, 255, 255, 0.012) 6px
+  );
+  padding: var(--sp-5) var(--sp-5) var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Monet overlay on dark panel */
+.textPanel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/monet/2bg.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.body {
+  position: relative;
+  z-index: 1;
+}
+
+.foot {
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  letter-spacing: -0.025em;
+  word-spacing: -0.05em;
+  line-height: 0.96;
+  color: var(--white);
+  margin-top: var(--sp-3);
+}
+
+.title em {
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.excerpt {
+  margin-top: var(--sp-3);
+  font-family: var(--font-body);
+  font-weight: 260;
+  font-size: var(--fs-md);
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.meta {
+  margin-top: var(--sp-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.authorRow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 8px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+}
+
+.authorName {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: -0.01em;
+}
+
+.postDate {
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);
+  color: rgba(255, 255, 255, 0.28);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+/* Arrow link */
+.arrowLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--accent);
+  transition: gap var(--t-std);
+}
+
+.arrowLink:hover {
+  gap: 9px;
+}
+
+/* ── VISUAL PANEL ── */
+.visualPanel {
+  background: var(--ink-mid);
+  position: relative;
+  overflow: hidden;
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+/* Monet overlay on visual panel */
+.visualPanel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/monet/4bg.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.panelBlock {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  padding: var(--sp-4);
+  position: relative;
+  z-index: 1;
+}
+
+.panelEyebrow {
+  font-family: var(--font-heading);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.28);
+  margin-bottom: var(--sp-3);
+}
+
+/* Mini bar chart */
+.miniBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 40px;
+}
+
+.miniBar {
+  flex: 1;
+  border-radius: 2px 2px 0 0;
+  background: var(--accent);
+}
+
+/* Animated SVG sparkline */
+.panelSvg {
+  padding: 14px 18px;
+}
+
+.panelSvg path {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: strokeDash 2.5s linear infinite;
+  filter: drop-shadow(0 0 3px rgba(4, 122, 85, 0.5));
+}
+
+@keyframes strokeDash {
+  from {
+    stroke-dashoffset: 30;
+  }
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+/* Code block */
+.codeBlock {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  line-height: 1.75;
+  position: relative;
+  z-index: 1;
+}
+
+.cm {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.kw {
+  color: rgba(167, 218, 200, 0.9);
+}
+
+.fd {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.st {
+  color: rgba(100, 190, 160, 0.9);
+}
