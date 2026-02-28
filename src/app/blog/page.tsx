@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { blogContent } from '@/content/blog'
-import type { BlogPost } from '@/content/blog'
 import s from './blog.module.css'
 
 /* ═══════════════════════════════════════════════════════════════
