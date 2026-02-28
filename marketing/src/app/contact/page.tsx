@@ -6,11 +6,6 @@ import { Mail } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { siteConfig } from "@/lib/config";
 
-const inputClass =
-  "w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-[14px] text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-gray-900";
-const selectClass =
-  "w-full appearance-none rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-[14px] text-gray-900 outline-none transition-colors focus:border-gray-900";
-
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -25,71 +20,67 @@ export default function ContactPage() {
   }
 
   return (
-    <section className="py-20 md:py-24">
-      <Container size="wide">
+    <section className="gr">
+      <Container size="wide" style={{ padding: 'var(--sp-7) var(--sp-5)' } as React.CSSProperties}>
         <div className="grid gap-14 lg:grid-cols-5">
           <div className="lg:col-span-2">
-            <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-600">Contact</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">
-              Talk to us
-            </h1>
-            <p className="mt-4 text-[15px] leading-relaxed text-gray-500">
+            <span className="eyebrow eyebrow-bracket">Contact</span>
+            <h1 className="type-h2" style={{ marginTop: 'var(--sp-3)' }}>Talk to us</h1>
+            <p className="type-body" style={{ marginTop: 'var(--sp-4)' }}>
               Tell us about your processes. We&apos;ll show you what {siteConfig.name} can reveal — live, on a 20-minute call.
             </p>
 
-            <div className="mt-10 space-y-5">
+            <div className="flex flex-col" style={{ marginTop: 'var(--sp-7)', gap: 'var(--sp-5)' }}>
               <div>
-                <p className="text-[12px] font-semibold uppercase tracking-wider text-gray-400">Email</p>
-                <p className="mt-1 text-[14px] text-gray-700">hello@meridian.dev</p>
+                <p className="type-label">Email</p>
+                <p className="type-body-sm" style={{ marginTop: 'var(--sp-1)' }}>hello@meridian.dev</p>
               </div>
               <div>
-                <p className="text-[12px] font-semibold uppercase tracking-wider text-gray-400">Response time</p>
-                <p className="mt-1 text-[14px] text-gray-700">Within one business day</p>
+                <p className="type-label">Response time</p>
+                <p className="type-body-sm" style={{ marginTop: 'var(--sp-1)' }}>Within one business day</p>
               </div>
               <div>
-                <p className="text-[12px] font-semibold uppercase tracking-wider text-gray-400">For security inquiries</p>
-                <p className="mt-1 text-[14px] text-gray-700">security@meridian.dev</p>
+                <p className="type-label">For security inquiries</p>
+                <p className="type-body-sm" style={{ marginTop: 'var(--sp-1)' }}>security@meridian.dev</p>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-3">
             {sent ? (
-              <div className="flex h-full items-center justify-center rounded-xl border border-gray-200 bg-gray-50 p-12 text-center">
+              <div className="flex h-full items-center justify-center" style={{ border: '1px solid var(--border)', padding: 'var(--sp-7)', textAlign: 'center' }}>
                 <div>
-                  <div className="mx-auto mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
-                    <Mail className="h-4 w-4" />
+                  <div className="mx-auto mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full" style={{ background: 'rgba(4,122,85,.12)', color: 'var(--emerald)' }}>
+                    <Mail style={{ width: 16, height: 16 }} />
                   </div>
-                  <p className="text-base font-semibold text-gray-900">Message sent</p>
-                  <p className="mt-1 text-[13px] text-gray-500">We&apos;ll be in touch within one business day.</p>
+                  <p className="type-h3">Message sent</p>
+                  <p className="type-body-sm" style={{ marginTop: 'var(--sp-2)' }}>We&apos;ll be in touch within one business day.</p>
                 </div>
               </div>
             ) : (
-              <form onSubmit={onSubmit} className="space-y-4">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="first" className="mb-1 block text-[13px] font-medium text-gray-700">First name</label>
-                    <input id="first" name="first" required className={inputClass} />
+              <form onSubmit={onSubmit} className="flex flex-col" style={{ gap: 'var(--sp-4)' }}>
+                <div className="grid gap-[var(--sp-4)] sm:grid-cols-2">
+                  <div className="flex flex-col" style={{ gap: 6 }}>
+                    <label htmlFor="first" className="type-label">First name</label>
+                    <input id="first" name="first" required className="input" />
                   </div>
-                  <div>
-                    <label htmlFor="last" className="mb-1 block text-[13px] font-medium text-gray-700">Last name</label>
-                    <input id="last" name="last" required className={inputClass} />
+                  <div className="flex flex-col" style={{ gap: 6 }}>
+                    <label htmlFor="last" className="type-label">Last name</label>
+                    <input id="last" name="last" required className="input" />
                   </div>
                 </div>
-
-                <div>
-                  <label htmlFor="email" className="mb-1 block text-[13px] font-medium text-gray-700">Work email</label>
-                  <input id="email" name="email" type="email" required className={inputClass} />
+                <div className="flex flex-col" style={{ gap: 6 }}>
+                  <label htmlFor="email" className="type-label">Work email</label>
+                  <input id="email" name="email" type="email" required className="input" />
                 </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="company" className="mb-1 block text-[13px] font-medium text-gray-700">Company</label>
-                    <input id="company" name="company" required className={inputClass} />
+                <div className="grid gap-[var(--sp-4)] sm:grid-cols-2">
+                  <div className="flex flex-col" style={{ gap: 6 }}>
+                    <label htmlFor="company" className="type-label">Company</label>
+                    <input id="company" name="company" required className="input" />
                   </div>
-                  <div>
-                    <label htmlFor="size" className="mb-1 block text-[13px] font-medium text-gray-700">Company size</label>
-                    <select id="size" name="size" required className={selectClass}>
+                  <div className="flex flex-col" style={{ gap: 6 }}>
+                    <label htmlFor="size" className="type-label">Company size</label>
+                    <select id="size" name="size" required className="input">
                       <option value="">Select...</option>
                       <option value="1-50">1–50 employees</option>
                       <option value="51-200">51–200</option>
@@ -99,10 +90,9 @@ export default function ContactPage() {
                     </select>
                   </div>
                 </div>
-
-                <div>
-                  <label htmlFor="role" className="mb-1 block text-[13px] font-medium text-gray-700">Your role</label>
-                  <select id="role" name="role" required className={selectClass}>
+                <div className="flex flex-col" style={{ gap: 6 }}>
+                  <label htmlFor="role" className="type-label">Your role</label>
+                  <select id="role" name="role" required className="input">
                     <option value="">Select...</option>
                     <option value="ops">Operations / Process Excellence</option>
                     <option value="analytics">Analytics / BI</option>
@@ -111,27 +101,11 @@ export default function ContactPage() {
                     <option value="other">Other</option>
                   </select>
                 </div>
-
-                <div>
-                  <label htmlFor="process" className="mb-1 block text-[13px] font-medium text-gray-700">
-                    Which process are you looking to analyze?
-                  </label>
-                  <select id="process" name="process" className={selectClass}>
-                    <option value="">Select...</option>
-                    <option value="o2c">Order-to-Cash</option>
-                    <option value="p2p">Procure-to-Pay</option>
-                    <option value="itsm">IT Service Management</option>
-                    <option value="patient">Patient Journey</option>
-                    <option value="custom">Other / Not sure yet</option>
-                  </select>
+                <div className="flex flex-col" style={{ gap: 6 }}>
+                  <label htmlFor="message" className="type-label">Anything else?</label>
+                  <textarea id="message" name="message" rows={4} className="input" style={{ resize: 'none' }} placeholder="Optional — tell us more about your use case" />
                 </div>
-
-                <div>
-                  <label htmlFor="message" className="mb-1 block text-[13px] font-medium text-gray-700">Anything else?</label>
-                  <textarea id="message" name="message" rows={4} className={`${inputClass} resize-none`} placeholder="Optional — tell us more about your use case" />
-                </div>
-
-                <button type="submit" disabled={loading} className={`rounded-lg bg-gray-900 px-5 py-2.5 text-[13px] font-medium text-white hover:bg-gray-800${loading ? " opacity-70 cursor-not-allowed" : ""}`}>
+                <button type="submit" disabled={loading} className="btn btn-primary" style={{ alignSelf: 'flex-start', opacity: loading ? 0.7 : 1 }}>
                   {loading ? "Sending..." : "Request demo"}
                 </button>
               </form>
