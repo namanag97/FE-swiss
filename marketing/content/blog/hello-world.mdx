@@ -1,95 +1,82 @@
 ---
-title: "Introducing the Platform"
-description: "We're live. Here's the architecture behind the product, why we built it, and what's next."
+title: "Introducing Meridian"
+description: "We're launching a new kind of data platform — one that understands processes, not just tables."
 date: "2026-02-28"
 author: "Naman Agarwal"
-tags: ["announcement", "architecture"]
+tags: ["announcement"]
 published: true
 ---
 
-Today we're opening the doors. After months of engineering, testing, and building alongside early customers, the platform is live.
+Today we're launching Meridian. A data platform built around a simple idea: your business processes are the most important data you have, and SQL alone can't help you understand them.
 
-## The Problem
+## The problem with SQL
 
-Every team we talked to described the same frustration: too many tools, too much glue code, zero unified visibility.
+SQL is powerful for answering questions about state: how many orders shipped last week, what's the average handle time, which region has the highest churn.
 
-```
-  BEFORE: The tool sprawl problem
-  ================================
-
-  [Jira]  [Slack]  [Datadog]  [CI/CD]  [Grafana]
-    |       |         |         |         |
-    +-------+---------+---------+---------+
-                      |
-              Manual glue code
-              Context switching
-              Fragmented data
-                      |
-                      v
-              +---------------+
-              |  Slow teams   |
-              |  Blind spots  |
-              |  Lost signal  |
-              +---------------+
-```
-
-The result: engineers spend 30% of their time switching context instead of building.
-
-## Our Solution
-
-A single unified layer across your entire stack:
+But it can't answer questions about *flow*: what path do orders actually take through your fulfillment process? Where do they get stuck? Why does the same process take 2 days for some customers and 2 weeks for others?
 
 ```
-  AFTER: One platform
-  ================================
+  What SQL sees          What you actually need
+  ================       =========================
 
-  +---------------------------------------------------+
-  |              YOUR STARTUP PLATFORM                 |
-  |                                                    |
-  |  +-----------+  +----------+  +----------------+  |
-  |  | Unified   |  | Realtime |  | Automation     |  |
-  |  | API       |  | Analytics|  | Engine         |  |
-  |  +-----------+  +----------+  +----------------+  |
-  |                                                    |
-  |  +----------------------------------------------+  |
-  |  |        Integration Layer  (200+)              |  |
-  |  +----------------------------------------------+  |
-  +---------------------------------------------------+
-              |              |              |
-         Your Code      Your Data      Your Infra
+  | order_id | status |  Order 1: Created -> Approved -> Shipped
+  |----------|--------|  Order 2: Created -> Review -> Approved -> Shipped
+  | 001      | Shipped|  Order 3: Created -> Review -> Rejected -> Review
+  | 002      | Shipped|                     -> Approved -> Shipped
+  | 003      | Shipped|  Order 4: Created -> Approved -> Delayed -> Shipped
+  | 004      | Shipped|
+                         Same outcome. Very different journeys.
 ```
 
-One API. One dashboard. One source of truth.
+All four orders shipped. SQL says everything is fine. But orders 2, 3, and 4 took very different paths — and those paths tell you where your process is broken.
 
-## Performance
+## What Meridian does
 
-We obsess over speed. Every API call, every dashboard load, every query.
+Meridian takes your event logs and reconstructs the actual process:
 
 ```
-  Response times (lower is better)
-  ================================
+  Event Log                    Process Model
+  ============                 ====================
 
-  Our API (p50)    ##          12ms
-  Our API (p95)    ####        38ms
-  Our API (p99)    #####       49ms
-  Competitor A     ################          180ms
-  Competitor B     ########################  340ms
-
-  0ms            100ms          200ms          400ms
+  case  activity    time           +----------+
+  ----  ----------  --------       | Created  |
+  001   Created     09:00          +----+-----+
+  001   Approved    09:15               |
+  001   Shipped     10:30          +----v-----+   +--------+
+  002   Created     09:05          | Approved +-->| Shipped|
+  002   Review      09:45          +----^-----+   +--------+
+  002   Approved    14:00               |
+  002   Shipped     15:30          +----+-----+
+  003   Created     09:10          | Review   |
+  003   Review      11:00          +----------+
+  003   Rejected    13:00
+  ...                         Reconstructed from 10,000+ events
 ```
 
-This isn't accidental. It's the result of architectural decisions made from day one: edge caching, connection pooling, zero-copy serialization, and no ORMs in hot paths.
+From raw event data, our algorithms discover:
+- **The actual process model** — every path, every variant
+- **Where bottlenecks occur** — which transitions take the longest
+- **How variants differ** — and why some paths perform better than others
 
-## Roadmap
+## Beyond discovery
 
-| Week | Feature | Status |
-|------|---------|--------|
-| W1 | Advanced analytics | Shipped |
-| W2 | Team permissions | In progress |
-| W4 | GraphQL API v2 | Planned |
-| W6 | Workflow builder | Planned |
-| W8 | SOC 2 Type II | In progress |
+Discovery is just the start. Once you have the process model, you can:
 
-## Get Started
+**Check conformance** — overlay your intended process onto the discovered one. Where does reality deviate?
 
-Head to [pricing](/pricing) to see plans, or [request a demo](/contact) to see the platform in action.
+**Analyze variants** — why do 30% of cases take the review path? Is it correlated with order size, region, customer type?
+
+**Predict outcomes** — based on where a case is right now, what's the probability it will be delayed?
+
+## What's next
+
+We're shipping fast. On the roadmap:
+
+| Feature | Timeline |
+|---------|----------|
+| AI-powered root cause analysis | March 2026 |
+| Custom dashboards | March 2026 |
+| Warehouse connectors (Snowflake, BigQuery) | April 2026 |
+| Collaborative annotations | April 2026 |
+
+Head to [the platform page](/product) to learn more, or [book a demo](/contact) — we'll map one of your processes live.
