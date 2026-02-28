@@ -1,0 +1,57 @@
+/* ═══════════════════════════════════════════════════════════════
+   CTABand — dark full-width band
+   Exact CSS from textql-pricing.html .cta-band
+   ═══════════════════════════════════════════════════════════════ */
+
+.root {
+  background-color: var(--ink-dark);
+  background-image:
+    url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp'),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 255, 255, 0.007) 3px,
+      rgba(255, 255, 255, 0.007) 6px
+    );
+  background-size: auto, auto;
+  background-repeat: repeat, repeat;
+  padding: var(--sp-7) var(--sp-5);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  position: relative;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 3vw, var(--fs-2xl));
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--white);
+}
+
+.title em {
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--accent);
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: 260;
+  line-height: 1.6;
+  letter-spacing: -0.015em;
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 480px;
+}
+
+.actions {
+  display: flex;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+}
