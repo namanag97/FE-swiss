@@ -57,7 +57,7 @@ export default function ContactPage() {
             {sent ? (
               <div className="flex h-full items-center justify-center rounded-xl border border-gray-200 bg-gray-50 p-12 text-center">
                 <div>
-                  <div className="mx-auto mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-terra-100 text-terra-600">
+                  <div className="mx-auto mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
                     <Mail className="h-4 w-4" />
                   </div>
                   <p className="text-base font-semibold text-gray-900">Message sent</p>
