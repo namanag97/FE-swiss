@@ -1,9 +1,8 @@
-/** Site-wide configuration — single source of truth for all brand/copy constants */
 export const siteConfig = {
   name: "YourStartup",
-  tagline: "Tagline goes here",
+  tagline: "Build faster. Ship smarter. Scale without limits.",
   description:
-    "One-line description of what your startup does. Replace this with your actual description.",
+    "The modern platform for engineering teams. Real-time analytics, workflow automation, and enterprise-grade security — in one place.",
   url: "https://yoursite.com",
   ogImage: "/og.png",
   links: {
@@ -16,7 +15,6 @@ export const siteConfig = {
     { label: "Pricing", href: "/pricing" },
     { label: "Blog", href: "/blog" },
     { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
   ],
   footer: {
     product: [
