@@ -40,7 +40,6 @@ export const siteConfig = {
     resources: [
       { label: "Privacy", href: "/legal/privacy" },
       { label: "Terms", href: "/legal/terms" },
-      { label: "Security", href: "/security" },
     ],
   },
 } as const;
