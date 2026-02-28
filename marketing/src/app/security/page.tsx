@@ -40,19 +40,19 @@ export default function SecurityPage() {
         <Container size="wide">
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((item) => (
-              <div key={item.title} className="rounded-xl border border-sand-200 bg-white p-6">
-                <div className="mb-3 inline-flex rounded-lg border border-sand-200 bg-sand-50 p-2">
-                  <item.icon className="h-4 w-4 text-sand-600" />
+              <div key={item.title} className="rounded-xl border border-gray-200 bg-white p-6">
+                <div className="mb-3 inline-flex rounded-lg border border-gray-200 bg-gray-50 p-2">
+                  <item.icon className="h-4 w-4 text-gray-600" />
                 </div>
-                <h3 className="text-[14px] font-semibold text-sand-900">{item.title}</h3>
-                <p className="mt-1.5 text-[13px] leading-relaxed text-sand-500">{item.desc}</p>
+                <h3 className="text-[14px] font-semibold text-gray-900">{item.title}</h3>
+                <p className="mt-1.5 text-[13px] leading-relaxed text-gray-500">{item.desc}</p>
               </div>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="border-y border-sand-200 bg-sand-50 py-16">
+      <section className="border-y border-gray-200 bg-gray-50 py-16">
         <Container size="wide">
           <div className="grid gap-6 md:grid-cols-3">
             {[
@@ -61,8 +61,8 @@ export default function SecurityPage() {
               { label: "Pen tests", value: "Annual + on request" },
             ].map((s) => (
               <div key={s.label} className="text-center">
-                <p className="text-xl font-semibold text-sand-900">{s.value}</p>
-                <p className="mt-0.5 text-[13px] text-sand-500">{s.label}</p>
+                <p className="text-xl font-semibold text-gray-900">{s.value}</p>
+                <p className="mt-0.5 text-[13px] text-gray-500">{s.label}</p>
               </div>
             ))}
           </div>
@@ -71,11 +71,11 @@ export default function SecurityPage() {
 
       <section className="py-16">
         <Container size="wide" className="text-center">
-          <h2 className="text-xl font-semibold text-sand-900">Need more details?</h2>
-          <p className="mx-auto mt-2 max-w-md text-[14px] text-sand-500">
+          <h2 className="text-xl font-semibold text-gray-900">Need more details?</h2>
+          <p className="mx-auto mt-2 max-w-md text-[14px] text-gray-500">
             We&apos;re happy to share our SOC 2 report, complete a security questionnaire, or schedule a call with our security team.
           </p>
-          <Link href="/contact" className="group mt-6 inline-flex items-center gap-2 rounded-lg bg-sand-900 px-5 py-2.5 text-[13px] font-medium text-white hover:bg-sand-800">
+          <Link href="/contact" className="group mt-6 inline-flex items-center gap-2 rounded-lg bg-gray-900 px-5 py-2.5 text-[13px] font-medium text-white hover:bg-gray-800">
             Contact us <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </Container>
