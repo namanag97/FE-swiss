@@ -1,0 +1,160 @@
+---
+title: "Building a Design System That Scales"
+description: "How we built our component library from scratch — token architecture, composability patterns, and the decisions that made it work."
+date: "2026-02-20"
+author: "Naman Agarwal"
+tags: ["engineering", "design"]
+published: true
+---
+
+When we started building the platform, we knew the UI would grow fast. Every new feature meant new components, new patterns, new edge cases. We needed a design system that could scale without becoming a bottleneck.
+
+Here's how we built it.
+
+## Token Architecture
+
+Everything starts with tokens. Our design tokens form a strict hierarchy — each layer references only the layer above it.
+
+```
+  Token Hierarchy
+  ================================
+
+  Layer 1: Primitives (raw values)
+  +-----------------------------------------+
+  |  gray-900: #171717                      |
+  |  blue-600: #2563eb                      |
+  |  space-4:  16px                         |
+  |  radius-lg: 12px                        |
+  +-----------------------------------------+
+           |
+           v
+  Layer 2: Semantic (purpose)
+  +-----------------------------------------+
+  |  color-text-primary:   gray-900         |
+  |  color-bg-accent:      blue-600         |
+  |  spacing-element:      space-4          |
+  |  radius-card:          radius-lg        |
+  +-----------------------------------------+
+           |
+           v
+  Layer 3: Component (scoped)
+  +-----------------------------------------+
+  |  button-bg:           color-bg-accent   |
+  |  button-radius:       radius-card       |
+  |  card-padding:        spacing-element   |
+  |  input-border:        color-border      |
+  +-----------------------------------------+
+```
+
+This matters because when a designer says "make the accent color warmer," we change one primitive token and everything updates. No find-and-replace across 200 files.
+
+## Component Composition
+
+We follow a strict composition model. Every component is built from smaller primitives, and complex components are assembled from simpler ones.
+
+```
+  Component Composition Tree
+  ================================
+
+  DataTable
+  +-- TableHeader
+  |   +-- SortButton
+  |   +-- FilterPopover
+  |       +-- Input
+  |       +-- Select
+  |       +-- Button
+  +-- TableBody
+  |   +-- TableRow
+  |       +-- TableCell
+  |       +-- Badge
+  |       +-- Avatar
+  +-- TableFooter
+      +-- Pagination
+          +-- Button
+          +-- Select
+```
+
+Rules we follow:
+- **No component > 200 lines.** If it's longer, it needs to be split.
+- **Props down, events up.** No shared mutable state between siblings.
+- **Composition over configuration.** We prefer `children` over mega-prop components.
+
+## Variant System
+
+Our components use a consistent variant pattern. Here's how a Button works internally:
+
+```
+  Button Variant Matrix
+  ================================
+
+               sm          md          lg
+            +----------+----------+----------+
+  primary   | h-8      | h-10     | h-12     |
+            | px-3     | px-5     | px-8     |
+            | text-xs  | text-sm  | text-base|
+            | bg-900   | bg-900   | bg-900   |
+            +----------+----------+----------+
+  secondary | h-8      | h-10     | h-12     |
+            | px-3     | px-5     | px-8     |
+            | text-xs  | text-sm  | text-base|
+            | border   | border   | border   |
+            +----------+----------+----------+
+  ghost     | h-8      | h-10     | h-12     |
+            | px-3     | px-5     | px-8     |
+            | text-xs  | text-sm  | text-base|
+            | bg-none  | bg-none  | bg-none  |
+            +----------+----------+----------+
+```
+
+The variant and size are independent axes. Any combination works. This is implemented with a simple lookup table — no complex conditional logic.
+
+## File Structure
+
+```
+  Component Directory
+  ================================
+
+  src/components/
+  +-- ui/                   Primitive components
+  |   +-- Button.tsx
+  |   +-- Input.tsx
+  |   +-- Badge.tsx
+  |   +-- Container.tsx
+  |   +-- Select.tsx
+  |
+  +-- layout/               Page-level structure
+  |   +-- Header.tsx
+  |   +-- Footer.tsx
+  |   +-- Sidebar.tsx
+  |
+  +-- sections/             Page sections (composites)
+  |   +-- Hero.tsx
+  |   +-- Features.tsx
+  |   +-- Pricing.tsx
+  |
+  +-- blog/                 Blog-specific components
+      +-- BlogContent.tsx
+      +-- PostCard.tsx
+```
+
+## Naming Conventions
+
+| Pattern | Example | Why |
+|---------|---------|-----|
+| PascalCase files | `Button.tsx` | Matches component name |
+| Flat exports | `import { Button }` | No barrel files, tree-shake friendly |
+| Prop interfaces | `ButtonProps` | `ComponentName` + `Props` |
+| Variant types | `type Variant = "primary"` | Union types, not enums |
+| CSS tokens | `text-neutral-900` | Semantic, not visual |
+
+## Lessons
+
+1. **Start with tokens.** If you don't have a token layer, every component will hardcode values and theming becomes impossible later.
+
+2. **Composition beats configuration.** A `<Card>` with `children` is more flexible than a `<Card title="" subtitle="" icon="" action="">`.
+
+3. **Keep the API surface small.** Every prop you add is a prop you maintain. Most components need 3-5 props, not 15.
+
+4. **Test visual regressions.** Unit tests don't catch "the button moved 2px to the left." Screenshot tests do.
+
+Read more about our [platform](/product) or [reach out](/contact) to learn how we can help your team.
