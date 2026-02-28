@@ -55,11 +55,11 @@ export default function PricingPage() {
       <section className="py-20 md:py-24">
         <Container size="wide">
           <div className="max-w-lg">
-            <p className="text-[11px] font-medium uppercase tracking-widest text-terra-600">Pricing</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-sand-900 md:text-4xl">
+            <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-600">Pricing</p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-gray-900 md:text-4xl">
               Transparent pricing
             </h1>
-            <p className="mt-3 text-[15px] text-sand-500">
+            <p className="mt-3 text-[15px] text-gray-500">
               Start with a free pilot. Scale when you&apos;re ready.
             </p>
           </div>
@@ -70,25 +70,25 @@ export default function PricingPage() {
                 key={plan.name}
                 className={cn(
                   "relative flex flex-col rounded-xl border p-7",
-                  plan.featured ? "border-sand-900 bg-white shadow-sm" : "border-sand-200 bg-white"
+                  plan.featured ? "border-forest-900 bg-white shadow-sm" : "border-gray-200 bg-white"
                 )}
               >
                 {plan.featured && (
-                  <span className="absolute -top-2.5 left-5 rounded-full bg-sand-900 px-3 py-0.5 text-[10px] font-semibold text-white">
+                  <span className="absolute -top-2.5 left-5 rounded-full bg-forest-900 px-3 py-0.5 text-[10px] font-semibold text-white">
                     Most popular
                   </span>
                 )}
-                <h3 className="text-base font-semibold text-sand-900">{plan.name}</h3>
-                <p className="mt-1 text-[13px] text-sand-500">{plan.desc}</p>
+                <h3 className="text-base font-semibold text-gray-900">{plan.name}</h3>
+                <p className="mt-1 text-[13px] text-gray-500">{plan.desc}</p>
                 <div className="mt-5">
-                  <span className="text-3xl font-semibold tracking-tight text-sand-900">{plan.price}</span>
-                  {plan.period && <span className="ml-1 text-[13px] text-sand-400">{plan.period}</span>}
+                  <span className="text-3xl font-semibold tracking-tight text-gray-900">{plan.price}</span>
+                  {plan.period && <span className="ml-1 text-[13px] text-gray-400">{plan.period}</span>}
                 </div>
                 <ul className="mt-6 flex-1 space-y-2.5">
                   {plan.features.map((f) => (
                     <li key={f} className="flex items-start gap-2 text-[13px]">
-                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-terra-600" />
-                      <span className="text-sand-600">{f}</span>
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" />
+                      <span className="text-gray-600">{f}</span>
                     </li>
                   ))}
                 </ul>
@@ -97,8 +97,8 @@ export default function PricingPage() {
                   className={cn(
                     "mt-7 block rounded-lg border px-4 py-2 text-center text-[13px] font-medium transition-colors",
                     plan.featured
-                      ? "border-sand-900 bg-sand-900 text-white hover:bg-sand-800"
-                      : "border-sand-200 text-sand-700 hover:border-sand-400"
+                      ? "border-forest-900 bg-forest-900 text-white hover:bg-forest-800"
+                      : "border-gray-200 text-gray-700 hover:border-gray-400"
                   )}
                 >
                   {plan.cta}
@@ -109,14 +109,14 @@ export default function PricingPage() {
         </Container>
       </section>
 
-      <section className="border-t border-sand-200 bg-sand-50 py-20">
+      <section className="border-t border-gray-200 bg-gray-50 py-20">
         <Container size="wide">
-          <h2 className="text-xl font-semibold tracking-tight text-sand-900">Common questions</h2>
+          <h2 className="text-xl font-semibold tracking-tight text-gray-900">Common questions</h2>
           <div className="mt-8 grid gap-8 md:grid-cols-2">
             {faq.map((item) => (
               <div key={item.q}>
-                <h3 className="text-[14px] font-semibold text-sand-900">{item.q}</h3>
-                <p className="mt-1 text-[13px] leading-relaxed text-sand-500">{item.a}</p>
+                <h3 className="text-[14px] font-semibold text-gray-900">{item.q}</h3>
+                <p className="mt-1 text-[13px] leading-relaxed text-gray-500">{item.a}</p>
               </div>
             ))}
           </div>
