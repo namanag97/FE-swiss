@@ -70,8 +70,7 @@ export default function UseCasesPage() {
                 │
     ┌───────────┼───────────┐
     ▼           ▼           ▼
- Variants   Bottlenecks  Deviations`}
-            </pre>
+ Variants   Bottlenecks  Deviations`}</pre>
           </div>
         </div>
       </section>
@@ -174,8 +173,7 @@ export default function UseCasesPage() {
                ┌──────────┐
                │ Invoice  │
                │          │
-               └──────────┘`}
-              </pre>
+               └──────────┘`}</pre>
             </div>
           </div>
         </div>
@@ -221,8 +219,7 @@ export default function UseCasesPage() {
                   ▼
             ┌──────────┐
             │ Payment  │
-            └──────────┘`}
-              </pre>
+            └──────────┘`}</pre>
             </div>
             <div>
               <span className="eyebrow eyebrow-bracket">P2P</span>
@@ -390,8 +387,7 @@ export default function UseCasesPage() {
         ┌──────────┐     ┌──────────┐
         │ Resolve  │     │ Escalate │
         │  (L2) ✓  │     │ (L3) ⚠   │
-        └──────────┘     └──────────┘`}
-              </pre>
+        └──────────┘     └──────────┘`}</pre>
             </div>
           </div>
         </div>
@@ -439,8 +435,7 @@ export default function UseCasesPage() {
                        ┌──────────┐
                        │ Follow-  │
                        │   Up     │
-                       └──────────┘`}
-              </pre>
+                       └──────────┘`}</pre>
             </div>
             <div>
               <span className="eyebrow eyebrow-bracket">Healthcare</span>
@@ -507,6 +502,14 @@ export default function UseCasesPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="gr">
+        <div className="gi" style={{ padding: 'var(--sp-5) 0', textAlign: 'center' }}>
+          <Link href="/product" style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--emerald)' }}>
+            &larr; Explore the full platform
+          </Link>
         </div>
       </section>
 
