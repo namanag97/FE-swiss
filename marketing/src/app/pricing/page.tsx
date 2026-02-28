@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Pricing",
   description: "Transparent pricing for teams of every size. Start with a pilot, scale across the org.",
+  alternates: { canonical: "/pricing" },
+  openGraph: { images: ["/og.png"] },
 };
 
 const plans = [
