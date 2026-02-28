@@ -6,6 +6,8 @@ import { Container } from "@/components/ui/Container";
 export const metadata: Metadata = {
   title: "Use Cases",
   description: "Process mining for Order-to-Cash, Procure-to-Pay, ITSM, patient journeys, and more.",
+  alternates: { canonical: "/use-cases" },
+  openGraph: { images: ["/og.png"] },
 };
 
 const cases = [
