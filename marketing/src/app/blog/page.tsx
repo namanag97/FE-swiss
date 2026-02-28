@@ -24,14 +24,14 @@ export default function BlogPage() {
           <h1 className="mt-2 text-3xl font-semibold tracking-tight text-gray-900 md:text-4xl">
             Insights &amp; Updates
           </h1>
-          <p className="mt-3 text-[15px] text-sand-500">
+          <p className="mt-3 text-[15px] text-gray-500">
             Engineering deep-dives, product updates, and process mining perspectives.
           </p>
         </div>
 
         {posts.length === 0 ? (
           <div className="mt-14 rounded-xl border border-sand-200 bg-sand-50 p-10 text-center">
-            <p className="text-[14px] text-sand-500">No posts yet.</p>
+            <p className="text-[14px] text-gray-500">No posts yet.</p>
           </div>
         ) : (
           <div className="mt-14 divide-y divide-sand-200 border-t border-sand-200">
@@ -50,7 +50,7 @@ export default function BlogPage() {
                   <h2 className="mt-2 text-base font-semibold text-gray-900 group-hover:text-emerald-600">
                     {post.title}
                   </h2>
-                  <p className="mt-1 text-[14px] leading-relaxed text-sand-500">
+                  <p className="mt-1 text-[14px] leading-relaxed text-gray-500">
                     {post.description}
                   </p>
                   <div className="mt-2 flex items-center gap-2 text-[12px] text-sand-400">
