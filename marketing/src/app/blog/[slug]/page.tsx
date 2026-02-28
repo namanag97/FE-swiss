@@ -59,12 +59,12 @@ export default async function BlogPostPage({ params }: Props) {
   };
 
   return (
-    <article className="py-16 md:py-20">
-      <Container size="wide">
+    <article className="gr">
+      <Container size="wide" style={{ padding: 'var(--sp-7) var(--sp-5)' } as React.CSSProperties}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-        <Link href="/blog" className="inline-flex items-center gap-1.5 text-[13px] text-gray-400 hover:text-gray-900">
-          <ArrowLeft className="h-3.5 w-3.5" />
+        <Link href="/blog" className="inline-flex items-center gap-1.5 transition-colors" style={{ fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)' }}>
+          <ArrowLeft style={{ width: 14, height: 14 }} />
           All posts
         </Link>
 
@@ -72,15 +72,15 @@ export default async function BlogPostPage({ params }: Props) {
           {post.tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}
         </div>
 
-        <h1 className="mt-3 text-2xl font-semibold tracking-tight text-gray-900 md:text-3xl">
+        <h1 className="type-h2" style={{ marginTop: 'var(--sp-3)' }}>
           {post.title}
         </h1>
 
-        <div className="mt-3 flex items-center gap-2 text-[13px] text-gray-500">
-          <span className="font-medium text-gray-700">{post.author}</span>
-          <span className="text-gray-300">/</span>
+        <div className="mt-3 flex items-center" style={{ gap: 'var(--sp-3)', fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', fontWeight: 260, color: 'var(--ink-muted)' }}>
+          <span style={{ fontWeight: 500, color: 'var(--ink-dark)' }}>{post.author}</span>
+          <span style={{ color: 'var(--border-nav)' }}>/</span>
           <time dateTime={post.date}>{formatDate(post.date)}</time>
-          <span className="text-gray-300">/</span>
+          <span style={{ color: 'var(--border-nav)' }}>/</span>
           <span>{post.readingTime}</span>
         </div>
 
@@ -90,7 +90,7 @@ export default async function BlogPostPage({ params }: Props) {
 
         <TableOfContents content={post.content} />
 
-        <hr className="my-8 border-gray-200" />
+        <div className="divider-h my-8" />
 
         <div className="grid gap-12 lg:grid-cols-[1fr_220px]">
           <div className="prose">
@@ -103,31 +103,31 @@ export default async function BlogPostPage({ params }: Props) {
           </aside>
         </div>
 
-        <hr className="my-8 border-gray-200" />
+        <div className="divider-h my-8" />
 
         {related.length > 0 && (
           <section className="mt-8">
-            <h2 className="text-[14px] font-semibold text-gray-900">Related posts</h2>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <h2 className="type-label">Related posts</h2>
+            <div className="mt-4 grid gap-0 sm:grid-cols-2">
               {related.map((r) => (
                 <Link
                   key={r.slug}
                   href={`/blog/${r.slug}`}
-                  className="group rounded-lg border border-gray-200 p-5 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)]"
+                  className="card-feature group"
                 >
                   <div className="flex gap-1.5">
                     {r.tags.slice(0, 2).map((t) => <Badge key={t}>{t}</Badge>)}
                   </div>
-                  <h3 className="mt-2 text-[14px] font-semibold text-gray-900 group-hover:text-emerald-600">{r.title}</h3>
-                  <p className="mt-1 text-[13px] text-gray-500 line-clamp-2">{r.description}</p>
+                  <p className="card-title">{r.title}</p>
+                  <p className="card-body line-clamp-2">{r.description}</p>
                 </Link>
               ))}
             </div>
           </section>
         )}
 
-        <Link href="/blog" className="mt-8 inline-flex items-center gap-1.5 text-[13px] text-gray-400 hover:text-gray-900">
-          <ArrowLeft className="h-3.5 w-3.5" />
+        <Link href="/blog" className="mt-8 inline-flex items-center gap-1.5 transition-colors" style={{ fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)' }}>
+          <ArrowLeft style={{ width: 14, height: 14 }} />
           All posts
         </Link>
       </Container>
