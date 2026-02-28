@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 export function OptimizedImage({ className, alt, ...props }: ImageProps) {
   return (
     <Image
-      className={cn("rounded-lg border border-gray-200", className)}
+      className={cn("border border-[var(--border)]", className)}
       alt={alt}
       {...props}
     />
