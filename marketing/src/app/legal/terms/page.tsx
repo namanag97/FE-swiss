@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 
-export const metadata: Metadata = { title: "Terms of Service" };
+export const metadata: Metadata = {
+  title: "Terms of Service",
+  alternates: { canonical: "/legal/terms" },
+  openGraph: { images: ["/og.png"] },
+};
 
 export default function TermsPage() {
   return (
