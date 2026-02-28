@@ -29,6 +29,7 @@ export const siteConfig = {
       { label: "Blog", href: "/blog" },
       { label: "Security", href: "/security" },
       { label: "Contact", href: "/contact" },
+      { label: "Request Demo", href: "/request-demo" },
     ],
     solutions: [
       { label: "Order-to-Cash", href: "/use-cases" },
