@@ -4,112 +4,66 @@ import { siteConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `Learn about ${siteConfig.name} — our mission, values, and the team behind the platform.`,
+  description: `The team and mission behind ${siteConfig.name}.`,
 };
-
-const values = [
-  { title: "Simplicity", desc: "The best tools stay out of your way. Every feature earns its place or gets cut." },
-  { title: "Transparency", desc: "Open pricing, public roadmap, honest communication. No surprises, ever." },
-  { title: "Speed", desc: "Ship fast, iterate faster. We optimize for time-to-value above all else." },
-  { title: "Craft", desc: "Sweat the details. Great software is built by people who care deeply about quality." },
-];
-
-const milestones = [
-  { year: "2024", event: "Founded. First commit." },
-  { year: "2024", event: "Closed seed round. First 10 customers." },
-  { year: "2025", event: "Launched v1. 100 teams onboarded in first month." },
-  { year: "2025", event: "SOC 2 Type II certified." },
-  { year: "2026", event: "Public beta. 500+ teams. 10M+ API calls/day." },
-];
-
-const team = [
-  { name: "Founder Name", role: "CEO & Co-founder", bio: "Previously engineering at Stripe. CS from Stanford." },
-  { name: "Founder Name", role: "CTO & Co-founder", bio: "Ex-Google infrastructure. Built systems serving 1B+ requests/day." },
-  { name: "Team Member", role: "Head of Design", bio: "Former design lead at Figma. Obsessed with clarity." },
-  { name: "Team Member", role: "Head of Engineering", bio: "10 years building distributed systems. Ex-AWS." },
-];
 
 export default function AboutPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="gradient-hero grid-pattern py-24 md:py-28">
-        <Container size="wide" className="text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-accent-600">
-            About
-          </p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight text-neutral-900 md:text-5xl">
-            Building the tools that modern teams deserve
-          </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-neutral-500 md:text-lg">
-            We started {siteConfig.name} because we were tired of duct-taping together
-            tools that weren&apos;t built for how engineering teams actually work. So we built
-            the platform we always wanted.
-          </p>
+      <section className="border-b border-sand-200 bg-sand-50 py-20 md:py-24">
+        <Container size="wide">
+          <div className="max-w-2xl">
+            <p className="text-[11px] font-medium uppercase tracking-widest text-terra-600">About</p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-sand-900 md:text-4xl">
+              We believe every business process tells a story
+            </h1>
+            <p className="mt-5 text-[16px] leading-relaxed text-sand-500">
+              Most organizations don&apos;t know how their processes actually work. They have models, playbooks, SOPs — but reality drifts.
+              {siteConfig.name} was built to close that gap. We take raw event data and turn it into operational clarity.
+            </p>
+          </div>
         </Container>
       </section>
 
-      {/* Values */}
-      <section className="border-t border-neutral-200 bg-neutral-50 py-24">
+      <section className="py-20">
         <Container size="wide">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-accent-600">
-            Values
-          </p>
-          <h2 className="mt-3 text-2xl font-bold tracking-tight text-neutral-900">
-            What we believe
-          </h2>
+          <div className="grid gap-16 md:grid-cols-2">
+            <div>
+              <p className="text-[11px] font-medium uppercase tracking-widest text-terra-600">Mission</p>
+              <h2 className="mt-2 text-xl font-semibold tracking-tight text-sand-900">
+                Make operational intelligence accessible
+              </h2>
+              <p className="mt-3 text-[15px] leading-relaxed text-sand-500">
+                Process mining has been locked inside expensive enterprise tools with steep learning curves. We&apos;re building the version that operations teams can actually use — intuitive, fast, and honest about what the data shows.
+              </p>
+            </div>
+            <div>
+              <p className="text-[11px] font-medium uppercase tracking-widest text-terra-600">Approach</p>
+              <h2 className="mt-2 text-xl font-semibold tracking-tight text-sand-900">
+                Algorithms first, then interface
+              </h2>
+              <p className="mt-3 text-[15px] leading-relaxed text-sand-500">
+                We invest deeply in the science — process discovery algorithms, conformance checking, variant clustering, predictive models. Then we wrap it in an interface that doesn&apos;t require a PhD to use.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-y border-sand-200 bg-sand-50 py-20">
+        <Container size="wide">
+          <p className="text-[11px] font-medium uppercase tracking-widest text-terra-600">Values</p>
+          <h2 className="mt-2 text-xl font-semibold tracking-tight text-sand-900">What we believe</h2>
           <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {values.map((v) => (
-              <div key={v.title}>
-                <h3 className="text-sm font-semibold text-neutral-900">{v.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-neutral-500">{v.desc}</p>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* Timeline */}
-      <section className="py-24">
-        <Container size="wide">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-accent-600">
-            Journey
-          </p>
-          <h2 className="mt-3 text-2xl font-bold tracking-tight text-neutral-900">
-            Our story so far
-          </h2>
-          <div className="mt-10 space-y-6">
-            {milestones.map((m, i) => (
-              <div key={i} className="flex gap-6">
-                <span className="w-12 shrink-0 font-mono text-sm font-bold text-neutral-400">
-                  {m.year}
-                </span>
-                <div className="relative border-l border-neutral-200 pl-6">
-                  <span className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-neutral-300 bg-white" />
-                  <p className="text-sm text-neutral-700">{m.event}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* Team */}
-      <section className="border-t border-neutral-200 bg-neutral-50 py-24">
-        <Container size="wide">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-accent-600">
-            Team
-          </p>
-          <h2 className="mt-3 text-2xl font-bold tracking-tight text-neutral-900">
-            The people behind the product
-          </h2>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {team.map((p) => (
-              <div key={p.name + p.role} className="rounded-xl border border-neutral-200 bg-white p-6">
-                <div className="mb-4 h-11 w-11 rounded-full bg-neutral-200" />
-                <p className="text-sm font-semibold text-neutral-900">{p.name}</p>
-                <p className="mt-0.5 text-xs font-medium text-accent-600">{p.role}</p>
-                <p className="mt-2 text-xs leading-relaxed text-neutral-500">{p.bio}</p>
+            {[
+              { t: "Clarity over complexity", d: "If an insight can't be explained simply, it isn't useful yet." },
+              { t: "Data honesty", d: "Show what the data says, not what people want to hear. No vanity metrics." },
+              { t: "Speed matters", d: "A slow tool is an unused tool. We obsess over response times." },
+              { t: "Craft", d: "Details matter. Typography, transitions, error messages — everything ships polished." },
+            ].map((v) => (
+              <div key={v.t}>
+                <h3 className="text-[14px] font-semibold text-sand-900">{v.t}</h3>
+                <p className="mt-1.5 text-[13px] leading-relaxed text-sand-500">{v.d}</p>
               </div>
             ))}
           </div>
