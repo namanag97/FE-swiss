@@ -125,8 +125,7 @@ export default function ProductPage() {
   │ 1002  Reject 09:45 │──┘    │   / \\    │
   └────────────────────┘       │  ✓   ✗   │
                                └───────────┘
-  12,847 events                23 variants`}
-              </pre>
+  12,847 events                23 variants`}</pre>
             </div>
           </div>
         </div>
@@ -160,8 +159,7 @@ export default function ProductPage() {
                       Approve ────────┘
                       (+4.2 days avg)
 
-  Conformance: 66%    Deviations: 3    Fitness: 0.82`}
-              </pre>
+  Conformance: 66%    Deviations: 3    Fitness: 0.82`}</pre>
             </div>
             <div>
               <span className="eyebrow eyebrow-bracket">02 Diagnose</span>
@@ -312,8 +310,7 @@ export default function ProductPage() {
   │  ██████████████████░░░░  Happy: 66% │
   │  ████████░░░░░░░░░░░░░░  Review: 24%│
   │  ███░░░░░░░░░░░░░░░░░░░  Reject: 10%│
-  └─────────────────────────────────────┘`}
-              </pre>
+  └─────────────────────────────────────┘`}</pre>
             </div>
           </div>
         </div>
@@ -350,8 +347,7 @@ export default function ProductPage() {
   │  └───────────────────────────────┘  │
   │                                     │
   │  [Escalate]  [Dismiss]  [Details]   │
-  └─────────────────────────────────────┘`}
-              </pre>
+  └─────────────────────────────────────┘`}</pre>
             </div>
             <div>
               <span className="eyebrow eyebrow-bracket">04 Transform</span>
@@ -412,6 +408,27 @@ export default function ProductPage() {
                 ))}
               </ul>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Cross-links */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ paddingTop: 'var(--sp-6)', paddingBottom: 'var(--sp-6)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--sp-4)' }}>
+            <Link href="/use-cases" style={{ padding: 'var(--sp-4)', border: '1px solid var(--border)', textDecoration: 'none', color: 'inherit' }}>
+              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)' }}>Next</p>
+              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', color: 'var(--ink)', marginTop: 'var(--sp-1)' }}>See real use cases &rarr;</p>
+            </Link>
+            <Link href="/pricing" style={{ padding: 'var(--sp-4)', border: '1px solid var(--border)', textDecoration: 'none', color: 'inherit' }}>
+              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)' }}>Pricing</p>
+              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', color: 'var(--ink)', marginTop: 'var(--sp-1)' }}>View plans &rarr;</p>
+            </Link>
+            <Link href="/versus" style={{ padding: 'var(--sp-4)', border: '1px solid var(--border)', textDecoration: 'none', color: 'inherit' }}>
+              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)' }}>Compare</p>
+              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', color: 'var(--ink)', marginTop: 'var(--sp-1)' }}>How we're different &rarr;</p>
+            </Link>
           </div>
         </div>
       </section>
