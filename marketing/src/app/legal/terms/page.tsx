@@ -12,7 +12,7 @@ export default function TermsPage() {
     <section className="py-20 md:py-24">
       <Container size="content">
         <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-600">Legal</p>
-        <h1 className="mt-2 text-2xl font-semibold tracking-tight text-sand-900">Terms of Service</h1>
+        <h1 className="mt-2 text-2xl font-semibold tracking-tight text-gray-900">Terms of Service</h1>
         <p className="mt-1 text-[13px] text-sand-400">Last updated February 2026</p>
         <div className="prose mt-8">
           <h2>1. Acceptance of Terms</h2>
