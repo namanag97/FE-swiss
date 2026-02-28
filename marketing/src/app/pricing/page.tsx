@@ -43,10 +43,14 @@ const plans = [
 ];
 
 const faq = [
-  { q: "What counts as an event?", a: "Each row in your event log — a single activity occurrence with a case ID, activity name, and timestamp." },
-  { q: "Can I upgrade later?", a: "Yes. Upgrade, downgrade, or cancel at any time. Data is always retained." },
-  { q: "Do you support on-premise?", a: "Enterprise plans include an on-premise deployment option for regulated industries." },
-  { q: "What data formats do you accept?", a: "CSV, XES, Parquet, and direct connectors to major databases and warehouses." },
+  { q: "What counts as an event?", a: "Each row in your event log \u2014 a single activity occurrence with a case ID, activity name, and timestamp." },
+  { q: "Can I try before I buy?", a: "Yes. The Pilot tier is completely free with no credit card required. Run it on a single process with up to 100K events for as long as you need." },
+  { q: "What\u2019s included in the free Pilot?", a: "One process model, process discovery, basic analytics, and community support. It\u2019s a full working environment \u2014 not a time-limited trial." },
+  { q: "How do you handle data security?", a: "SOC 2 Type II certified. Data encrypted at rest and in transit. Enterprise plans support VPC deployment and air-gapped on-premise installations." },
+  { q: "What data sources do you support?", a: "SAP, ServiceNow, Salesforce, JIRA, and any system that exports CSV or connects via API. Enterprise plans include custom connector development." },
+  { q: "How long does implementation take?", a: "Pilot: a few hours to upload data and see your first process map. Team: 1\u20132 weeks with guided onboarding. Enterprise: custom timeline with dedicated support." },
+  { q: "Can I switch plans later?", a: "Yes. Upgrade anytime and your data carries over. Downgrade at the end of any billing cycle. No lock-in." },
+  { q: "Do you offer annual billing?", a: "Yes. Annual plans include a 20% discount. Contact sales for multi-year agreements with additional savings." },
 ];
 
 function FaqItem({ q, a }: { q: string; a: string }) {
@@ -108,6 +112,70 @@ export default function PricingPage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Deploy Anywhere */}
+      <div className="ascii-divider">{'\u00b7'} {'\u00b7'} {'\u00b7'}   {'\u00b7'} {'\u00b7'} {'\u00b7'}   {'\u00b7'} {'\u00b7'} {'\u00b7'}</div>
+
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-7)' }}>
+          <div style={{ textAlign: 'center', marginBottom: 'var(--sp-6)' }}>
+            <span className="eyebrow eyebrow-bracket">Infrastructure</span>
+            <h2 className="type-h2" style={{ marginTop: 'var(--sp-3)' }}>Deploy <em>anywhere</em></h2>
+          </div>
+          <div className="ascii-frame" style={{ maxWidth: 680, margin: '0 auto' }}>
+            <pre className="ascii-art" style={{ margin: 0 }}>
+{`  CLOUD                 HYBRID                ON-PREMISE
+  ─────                 ──────                ──────────
+
+  Meridian-managed      Your VPC              Full control
+  Auto-scaling          Our management        Air-gapped support
+  SOC 2 certified       Data stays local      Custom SLA
+
+  ┌───────────┐         ┌───────────┐         ┌───────────┐
+  │  ▓▓▓▓▓▓▓  │         │  ░▓▓▓▓▓░  │         │  ░░▓▓░░░  │
+  │  ▓▓▓▓▓▓▓  │         │  ░▓▓▓▓▓░  │         │  ░░▓▓░░░  │
+  │  ▓▓▓▓▓▓▓  │         │  ░▓▓▓▓▓░  │         │  ░░▓▓░░░  │
+  └───────────┘         └───────────┘         └───────────┘
+   We manage it          We co-manage          You own it`}
+            </pre>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Comparison */}
+      <div className="ascii-divider">{'\u00b7'} {'\u00b7'} {'\u00b7'}   {'\u00b7'} {'\u00b7'} {'\u00b7'}   {'\u00b7'} {'\u00b7'} {'\u00b7'}</div>
+
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-7)' }}>
+          <div style={{ textAlign: 'center', marginBottom: 'var(--sp-6)' }}>
+            <span className="eyebrow eyebrow-bracket">Compare</span>
+            <h2 className="type-h2" style={{ marginTop: 'var(--sp-3)' }}>Feature <em>comparison</em></h2>
+          </div>
+          <div className="ascii-frame" style={{ maxWidth: 720, margin: '0 auto' }}>
+            <pre className="ascii-art" style={{ margin: 0 }}>
+{`  Feature                          Pilot      Team       Enterprise
+  ═══════════════════════════════════════════════════════════════════
+  Process models                   1          Unlimited  Unlimited
+  Events / month                   100K       10M        Unlimited
+  Process discovery                ●          ●          ●
+  Basic analytics                  ●          ●          ●
+  Conformance checking             ○          ●          ●
+  Advanced dashboards              ○          ●          ●
+  Variant analysis                 ○          ●          ●
+  AI insights & predictions        ○          ○          ●
+  Custom integrations              ○          ○          ●
+  SSO / SAML                       ○          ●          ●
+  On-premise deployment            ○          ○          ●
+  Dedicated CSM                    ○          ○          ●
+  SLA guarantee                    ○          ○          ●
+  ───────────────────────────────────────────────────────────────────
+  ● included   ○ not included`}
+            </pre>
+          </div>
         </div>
       </section>
 
