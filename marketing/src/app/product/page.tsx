@@ -7,6 +7,8 @@ import { siteConfig } from "@/lib/config";
 export const metadata: Metadata = {
   title: "Platform",
   description: "Process mining, visual analytics, and AI insights — the complete data platform for operations teams.",
+  alternates: { canonical: "/product" },
+  openGraph: { images: ["/og.png"] },
 };
 
 const sections = [
