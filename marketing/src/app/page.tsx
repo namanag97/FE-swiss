@@ -41,11 +41,11 @@ export default function HomePage() {
               {siteConfig.description}
             </p>
             <div className="animate-slide-up mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row" style={{ animationDelay: "160ms" }}>
-              <Link href="/contact" className="group inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-[14px] font-medium text-forest-900 transition-colors hover:bg-gray-100">
+              <Link href="/contact" data-track="cta-hero-start" className="group inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-[14px] font-medium text-forest-900 transition-colors hover:bg-gray-100">
                 Get Started
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
-              <Link href="/contact" className="inline-flex items-center gap-2 rounded-lg border border-forest-600 px-6 py-3 text-[14px] font-medium text-forest-100 transition-colors hover:border-forest-400 hover:text-white">
+              <Link href="/contact" data-track="cta-hero-demo" className="inline-flex items-center gap-2 rounded-lg border border-forest-600 px-6 py-3 text-[14px] font-medium text-forest-100 transition-colors hover:border-forest-400 hover:text-white">
                 Request Demo
               </Link>
             </div>
