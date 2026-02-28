@@ -1,0 +1,83 @@
+/* ═══════════════════════════════════════════════════════════════
+   FeatureSection — 2-column grid: text + visual
+   Exact CSS from textql-product-template.html .feature
+   ═══════════════════════════════════════════════════════════════ */
+
+.root {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+
+.reversed {
+  direction: rtl;
+}
+
+.reversed > * {
+  direction: ltr;
+}
+
+.text {
+  padding: var(--sp-7) var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sp-3);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 2.5vw, 36px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.body {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);           /* 14px */
+  font-weight: 260;
+  line-height: 1.65;
+  letter-spacing: -0.015em;
+  color: var(--ink-muted);
+  max-width: 440px;
+}
+
+.visual {
+  background: var(--white);
+  border-left: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-5);
+  min-height: 400px;
+}
+
+.reversed .visual {
+  border-left: none;
+  border-right: 1px solid var(--border);
+}
+
+/* Screenshot placeholder */
+.screenshot {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 4 / 3;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.screenshotLabel {
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  opacity: 0.5;
+}
