@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 
-export const metadata: Metadata = { title: "Privacy Policy" };
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  alternates: { canonical: "/legal/privacy" },
+  openGraph: { images: ["/og.png"] },
+};
 
 export default function PrivacyPage() {
   return (
