@@ -9,6 +9,8 @@ import { formatDate } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Blog",
   description: "Engineering insights, product thinking, and process mining perspectives.",
+  alternates: { canonical: "/blog" },
+  openGraph: { images: ["/og.png"] },
 };
 
 export default function BlogPage() {
