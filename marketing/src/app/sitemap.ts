@@ -3,20 +3,15 @@ import { getAllPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const posts = getAllPosts().map((post) => ({
-    url: `${siteConfig.url}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
+  const posts = getAllPosts().map((p) => ({
+    url: `${siteConfig.url}/blog/${p.slug}`,
+    lastModified: new Date(p.date),
   }));
 
   const pages = [
-    "",
-    "/about",
-    "/product",
-    "/pricing",
-    "/blog",
-    "/contact",
-    "/legal/privacy",
-    "/legal/terms",
+    "", "/product", "/use-cases", "/pricing", "/blog",
+    "/about", "/contact", "/security",
+    "/legal/privacy", "/legal/terms",
   ].map((path) => ({
     url: `${siteConfig.url}${path}`,
     lastModified: new Date(),
