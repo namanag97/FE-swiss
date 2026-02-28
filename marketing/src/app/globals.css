@@ -914,6 +914,19 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   align-items: start;
 }
 
+/* Versus page: 3-col competitor cards */
+.versus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+}
+/* Versus page: 3-col reasons */
+.versus-reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+}
+
 @media (max-width: 768px) {
   .feature-row {
     grid-template-columns: 1fr;
