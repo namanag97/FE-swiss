@@ -1,118 +1,143 @@
 "use client";
 
-import type { FormEvent } from "react";
 import { useState } from "react";
-import { Mail } from "lucide-react";
-import { Container } from "@/components/ui/Container";
-import { siteConfig } from "@/lib/config";
+import Link from "next/link";
+import { Mail, Clock, Shield, Check } from "lucide-react";
 
 export default function ContactPage() {
-  const [sent, setSent] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '', lastName: '', email: '', company: '', companySize: '', role: '', message: ''
+  });
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSent(true);
-    }, 1500);
+    setSubmitted(true);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  if (submitted) {
+    return (
+      <section className="gr" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-7)' }}>
+        <div className="gi" style={{ textAlign: 'center', maxWidth: 480, margin: '0 auto' }}>
+          <div style={{ width: 48, height: 48, border: '1px solid var(--emerald)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
+            <Check style={{ width: 24, height: 24, color: 'var(--emerald)' }} />
+          </div>
+          <h2 className="type-h2" style={{ marginTop: 'var(--sp-4)' }}>Message <em>received</em></h2>
+          <p className="type-body" style={{ marginTop: 'var(--sp-3)', color: 'var(--ink-mid)' }}>
+            We&apos;ll get back to you within 24 hours. In the meantime, explore our platform.
+          </p>
+          <Link href="/product" className="btn btn-primary" style={{ marginTop: 'var(--sp-5)' }}>Explore Platform</Link>
+        </div>
+      </section>
+    );
   }
 
   return (
-    <section className="gr">
-      <Container size="wide" style={{ padding: 'var(--sp-7) var(--sp-5)' } as React.CSSProperties}>
-        <div className="grid gap-14 lg:grid-cols-5">
-          <div className="lg:col-span-2">
-            <span className="eyebrow eyebrow-bracket">Contact</span>
-            <h1 className="type-h2" style={{ marginTop: 'var(--sp-3)' }}>Talk to us</h1>
-            <p className="type-body" style={{ marginTop: 'var(--sp-4)' }}>
-              Tell us about your processes. We&apos;ll show you what {siteConfig.name} can reveal — live, on a 20-minute call.
-            </p>
+    <>
+      <section className="gr" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-7)' }}>
+        <div className="gi">
+          <div className="contact-split">
+            {/* Left: Hero + Value Props */}
+            <div>
+              <span className="eyebrow eyebrow-bracket">Contact</span>
+              <h1 className="type-display" style={{ marginTop: 'var(--sp-3)' }}>
+                Let&apos;s <em>talk</em>
+              </h1>
+              <p className="type-body" style={{ marginTop: 'var(--sp-4)', color: 'var(--ink-mid)' }}>
+                Whether you&apos;re exploring process mining for the first time or ready to deploy
+                at scale, we&apos;d love to hear from you.
+              </p>
 
-            <div className="flex flex-col" style={{ marginTop: 'var(--sp-7)', gap: 'var(--sp-5)' }}>
-              <div>
-                <p className="type-label">Email</p>
-                <p className="type-body-sm" style={{ marginTop: 'var(--sp-1)' }}>hello@meridian.dev</p>
+              <div style={{ marginTop: 'var(--sp-6)', display: 'flex', flexDirection: 'column', gap: 'var(--sp-4)' }}>
+                {[
+                  { icon: Mail, title: 'hello@meridian.dev', desc: 'General inquiries' },
+                  { icon: Clock, title: 'Response within 24h', desc: 'Usually much faster' },
+                  { icon: Shield, title: 'security@meridian.dev', desc: 'Security inquiries' },
+                ].map(({ icon: Icon, title, desc }) => (
+                  <div key={title} style={{ display: 'flex', gap: 'var(--sp-3)', alignItems: 'start' }}>
+                    <div style={{ width: 32, height: 32, border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <Icon style={{ width: 14, height: 14, color: 'var(--ink-muted)' }} />
+                    </div>
+                    <div>
+                      <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', fontWeight: 500, color: 'var(--ink)' }}>{title}</p>
+                      <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', color: 'var(--ink-muted)' }}>{desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div>
-                <p className="type-label">Response time</p>
-                <p className="type-body-sm" style={{ marginTop: 'var(--sp-1)' }}>Within one business day</p>
-              </div>
-              <div>
-                <p className="type-label">For security inquiries</p>
-                <p className="type-body-sm" style={{ marginTop: 'var(--sp-1)' }}>security@meridian.dev</p>
+
+              {/* Testimonial */}
+              <div style={{ marginTop: 'var(--sp-6)', padding: 'var(--sp-5)', border: '1px solid var(--border)' }}>
+                <p style={{ fontFamily: 'var(--caslon)', fontStyle: 'italic', color: 'var(--emerald)', lineHeight: 1.6 }}>
+                  &ldquo;From first contact to deployment took less than two weeks. The team understood
+                  our SAP landscape immediately.&rdquo;
+                </p>
+                <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', color: 'var(--ink-muted)', marginTop: 'var(--sp-3)' }}>
+                  — Director of Operations, European Manufacturing
+                </p>
               </div>
             </div>
-          </div>
 
-          <div className="lg:col-span-3">
-            {sent ? (
-              <div className="flex h-full items-center justify-center" style={{ border: '1px solid var(--border)', padding: 'var(--sp-7)', textAlign: 'center' }}>
+            {/* Right: Form */}
+            <div style={{ border: '1px solid var(--border)', padding: 'var(--sp-6)' }}>
+              <h2 className="type-h3">Send us a message</h2>
+              <form onSubmit={handleSubmit} style={{ marginTop: 'var(--sp-4)', display: 'flex', flexDirection: 'column', gap: 'var(--sp-4)' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--sp-3)' }}>
+                  <div>
+                    <label style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 'var(--sp-2)', display: 'block' }}>First name</label>
+                    <input name="firstName" className="input" required value={formData.firstName} onChange={handleChange} />
+                  </div>
+                  <div>
+                    <label style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 'var(--sp-2)', display: 'block' }}>Last name</label>
+                    <input name="lastName" className="input" required value={formData.lastName} onChange={handleChange} />
+                  </div>
+                </div>
                 <div>
-                  <div className="mx-auto mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full" style={{ background: 'rgba(4,122,85,.12)', color: 'var(--emerald)' }}>
-                    <Mail style={{ width: 16, height: 16 }} />
-                  </div>
-                  <p className="type-h3">Message sent</p>
-                  <p className="type-body-sm" style={{ marginTop: 'var(--sp-2)' }}>We&apos;ll be in touch within one business day.</p>
+                  <label style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 'var(--sp-2)', display: 'block' }}>Work email</label>
+                  <input name="email" type="email" className="input" required value={formData.email} onChange={handleChange} />
                 </div>
-              </div>
-            ) : (
-              <form onSubmit={onSubmit} className="flex flex-col" style={{ gap: 'var(--sp-4)' }}>
-                <div className="grid gap-[var(--sp-4)] sm:grid-cols-2">
-                  <div className="flex flex-col" style={{ gap: 6 }}>
-                    <label htmlFor="first" className="type-label">First name</label>
-                    <input id="first" name="first" required className="input" />
-                  </div>
-                  <div className="flex flex-col" style={{ gap: 6 }}>
-                    <label htmlFor="last" className="type-label">Last name</label>
-                    <input id="last" name="last" required className="input" />
-                  </div>
+                <div>
+                  <label style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 'var(--sp-2)', display: 'block' }}>Company</label>
+                  <input name="company" className="input" required value={formData.company} onChange={handleChange} />
                 </div>
-                <div className="flex flex-col" style={{ gap: 6 }}>
-                  <label htmlFor="email" className="type-label">Work email</label>
-                  <input id="email" name="email" type="email" required className="input" />
-                </div>
-                <div className="grid gap-[var(--sp-4)] sm:grid-cols-2">
-                  <div className="flex flex-col" style={{ gap: 6 }}>
-                    <label htmlFor="company" className="type-label">Company</label>
-                    <input id="company" name="company" required className="input" />
-                  </div>
-                  <div className="flex flex-col" style={{ gap: 6 }}>
-                    <label htmlFor="size" className="type-label">Company size</label>
-                    <select id="size" name="size" required className="input">
-                      <option value="">Select...</option>
-                      <option value="1-50">1–50 employees</option>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--sp-3)' }}>
+                  <div>
+                    <label style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 'var(--sp-2)', display: 'block' }}>Company size</label>
+                    <select name="companySize" className="input" value={formData.companySize} onChange={handleChange}>
+                      <option value="">Select</option>
+                      <option value="1-50">1–50</option>
                       <option value="51-200">51–200</option>
                       <option value="201-1000">201–1,000</option>
                       <option value="1001-5000">1,001–5,000</option>
-                      <option value="5001+">5,001+</option>
+                      <option value="5000+">5,000+</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 'var(--sp-2)', display: 'block' }}>Role</label>
+                    <select name="role" className="input" value={formData.role} onChange={handleChange}>
+                      <option value="">Select</option>
+                      <option value="executive">Executive</option>
+                      <option value="operations">Operations</option>
+                      <option value="engineering">Engineering</option>
+                      <option value="data">Data / Analytics</option>
+                      <option value="other">Other</option>
                     </select>
                   </div>
                 </div>
-                <div className="flex flex-col" style={{ gap: 6 }}>
-                  <label htmlFor="role" className="type-label">Your role</label>
-                  <select id="role" name="role" required className="input">
-                    <option value="">Select...</option>
-                    <option value="ops">Operations / Process Excellence</option>
-                    <option value="analytics">Analytics / BI</option>
-                    <option value="it">IT / Engineering</option>
-                    <option value="exec">Executive / C-suite</option>
-                    <option value="other">Other</option>
-                  </select>
+                <div>
+                  <label style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 'var(--sp-2)', display: 'block' }}>Message</label>
+                  <textarea name="message" className="input" rows={4} value={formData.message} onChange={handleChange} style={{ resize: 'vertical' }} />
                 </div>
-                <div className="flex flex-col" style={{ gap: 6 }}>
-                  <label htmlFor="message" className="type-label">Anything else?</label>
-                  <textarea id="message" name="message" rows={4} className="input" style={{ resize: 'none' }} placeholder="Optional — tell us more about your use case" />
-                </div>
-                <button type="submit" disabled={loading} className="btn btn-primary" style={{ alignSelf: 'flex-start', opacity: loading ? 0.7 : 1 }}>
-                  {loading ? "Sending..." : "Request demo"}
-                </button>
+                <button type="submit" className="btn btn-primary btn-full">Send Message</button>
               </form>
-            )}
+            </div>
           </div>
         </div>
-      </Container>
-    </section>
+      </section>
+    </>
   );
 }
