@@ -927,6 +927,29 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   gap: var(--sp-4);
 }
 
+/* Security page: 3-col feature grid */
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+}
+/* Security page: 3-col stats */
+.security-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-5);
+}
+
+/* Legal pages: sidebar ToC + content */
+.legal-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--sp-6);
+}
+.legal-toc a:hover {
+  color: var(--ink) !important;
+}
+
 @media (max-width: 768px) {
   .feature-row {
     grid-template-columns: 1fr;
