@@ -1,160 +1,142 @@
 ---
-title: "Building a Design System That Scales"
-description: "How we built our component library from scratch — token architecture, composability patterns, and the decisions that made it work."
+title: "Why Process Mining Beats Dashboards"
+description: "Dashboards show you metrics. Process mining shows you why those metrics look the way they do."
 date: "2026-02-20"
 author: "Naman Agarwal"
-tags: ["engineering", "design"]
+tags: ["product", "process-mining"]
 published: true
 ---
 
-When we started building the platform, we knew the UI would grow fast. Every new feature meant new components, new patterns, new edge cases. We needed a design system that could scale without becoming a bottleneck.
+Every operations team has dashboards. Average cycle time, throughput, SLA compliance rate. These metrics are useful — but they're symptoms, not causes.
 
-Here's how we built it.
+Process mining shows you the *why* behind the numbers.
 
-## Token Architecture
+## The dashboard problem
 
-Everything starts with tokens. Our design tokens form a strict hierarchy — each layer references only the layer above it.
-
-```
-  Token Hierarchy
-  ================================
-
-  Layer 1: Primitives (raw values)
-  +-----------------------------------------+
-  |  gray-900: #171717                      |
-  |  blue-600: #2563eb                      |
-  |  space-4:  16px                         |
-  |  radius-lg: 12px                        |
-  +-----------------------------------------+
-           |
-           v
-  Layer 2: Semantic (purpose)
-  +-----------------------------------------+
-  |  color-text-primary:   gray-900         |
-  |  color-bg-accent:      blue-600         |
-  |  spacing-element:      space-4          |
-  |  radius-card:          radius-lg        |
-  +-----------------------------------------+
-           |
-           v
-  Layer 3: Component (scoped)
-  +-----------------------------------------+
-  |  button-bg:           color-bg-accent   |
-  |  button-radius:       radius-card       |
-  |  card-padding:        spacing-element   |
-  |  input-border:        color-border      |
-  +-----------------------------------------+
-```
-
-This matters because when a designer says "make the accent color warmer," we change one primitive token and everything updates. No find-and-replace across 200 files.
-
-## Component Composition
-
-We follow a strict composition model. Every component is built from smaller primitives, and complex components are assembled from simpler ones.
+Here's a typical ops dashboard:
 
 ```
-  Component Composition Tree
-  ================================
+  Operations Dashboard
+  ==========================================
 
-  DataTable
-  +-- TableHeader
-  |   +-- SortButton
-  |   +-- FilterPopover
-  |       +-- Input
-  |       +-- Select
-  |       +-- Button
-  +-- TableBody
-  |   +-- TableRow
-  |       +-- TableCell
-  |       +-- Badge
-  |       +-- Avatar
-  +-- TableFooter
-      +-- Pagination
-          +-- Button
-          +-- Select
+  Avg Cycle Time     12.4 days    ( -0.3 )
+  SLA Compliance     87%          ( -2%  )
+  Throughput         1,240/week   ( +5%  )
+  Rework Rate        18%          ( +1%  )
 ```
 
-Rules we follow:
-- **No component > 200 lines.** If it's longer, it needs to be split.
-- **Props down, events up.** No shared mutable state between siblings.
-- **Composition over configuration.** We prefer `children` over mega-prop components.
+SLA compliance dropped 2%. Why? The dashboard can't tell you. You open a spreadsheet, start filtering, run some SQL queries, ask three different people what changed. Two days later you might have an answer. Maybe.
 
-## Variant System
+## What process mining reveals
 
-Our components use a consistent variant pattern. Here's how a Button works internally:
+The same data, analyzed as a process:
 
 ```
-  Button Variant Matrix
-  ================================
+  Process Map (Order-to-Cash)
+  ==========================================
 
-               sm          md          lg
-            +----------+----------+----------+
-  primary   | h-8      | h-10     | h-12     |
-            | px-3     | px-5     | px-8     |
-            | text-xs  | text-sm  | text-base|
-            | bg-900   | bg-900   | bg-900   |
-            +----------+----------+----------+
-  secondary | h-8      | h-10     | h-12     |
-            | px-3     | px-5     | px-8     |
-            | text-xs  | text-sm  | text-base|
-            | border   | border   | border   |
-            +----------+----------+----------+
-  ghost     | h-8      | h-10     | h-12     |
-            | px-3     | px-5     | px-8     |
-            | text-xs  | text-sm  | text-base|
-            | bg-none  | bg-none  | bg-none  |
-            +----------+----------+----------+
+  +--------+     +----------+     +---------+
+  | Order  +---->| Credit   +---->| Fulfill |
+  | Entry  |     | Check    |     |         |
+  +--------+     +-----+----+     +----+----+
+                       |               |
+                       v               v
+                 +-----+----+    +----+----+
+                 | Manual   |    | Ship    |
+                 | Review   |    |         |
+                 +-----+----+    +----+----+
+                       |               |
+                       v               v
+                 +-----+----+    +----+----+
+                 | Approved |    | Invoice |
+                 +----------+    +---------+
+
+
+  Bottleneck: Credit Check -> Manual Review
+  Median wait: 4.2 days (was 1.8 days last month)
+  Affected cases: 34% of all orders
 ```
 
-The variant and size are independent axes. Any combination works. This is implemented with a simple lookup table — no complex conditional logic.
+Now you can see it: 34% of orders are hitting the manual review path after credit check, and the wait time there has more than doubled. That single transition is the reason SLA compliance dropped.
 
-## File Structure
+## Three things dashboards can't show
+
+### 1. Process variants
+
+The same process runs differently for different cases. Some orders go straight from credit check to fulfillment. Others loop through manual review twice. Dashboards average these together. Process mining separates them.
 
 ```
-  Component Directory
-  ================================
+  Variant Analysis
+  ==========================================
 
-  src/components/
-  +-- ui/                   Primitive components
-  |   +-- Button.tsx
-  |   +-- Input.tsx
-  |   +-- Badge.tsx
-  |   +-- Container.tsx
-  |   +-- Select.tsx
-  |
-  +-- layout/               Page-level structure
-  |   +-- Header.tsx
-  |   +-- Footer.tsx
-  |   +-- Sidebar.tsx
-  |
-  +-- sections/             Page sections (composites)
-  |   +-- Hero.tsx
-  |   +-- Features.tsx
-  |   +-- Pricing.tsx
-  |
-  +-- blog/                 Blog-specific components
-      +-- BlogContent.tsx
-      +-- PostCard.tsx
+  Variant 1 (Happy path)          52% of cases
+  Entry -> Credit -> Fulfill -> Ship -> Invoice
+  Avg duration: 3.1 days
+
+  Variant 2 (Manual review)       34% of cases
+  Entry -> Credit -> Review -> Approve -> Fulfill -> Ship
+  Avg duration: 8.7 days
+
+  Variant 3 (Rework loop)         14% of cases
+  Entry -> Credit -> Review -> Reject -> Review -> ...
+  Avg duration: 18.2 days
 ```
 
-## Naming Conventions
+Variant 3 is 6x slower than the happy path. It's also the reason your rework rate is 18%. A dashboard would never surface this.
 
-| Pattern | Example | Why |
-|---------|---------|-----|
-| PascalCase files | `Button.tsx` | Matches component name |
-| Flat exports | `import { Button }` | No barrel files, tree-shake friendly |
-| Prop interfaces | `ButtonProps` | `ComponentName` + `Props` |
-| Variant types | `type Variant = "primary"` | Union types, not enums |
-| CSS tokens | `text-neutral-900` | Semantic, not visual |
+### 2. Bottleneck location
 
-## Lessons
+Average cycle time is 12.4 days. But where is the time being spent?
 
-1. **Start with tokens.** If you don't have a token layer, every component will hardcode values and theming becomes impossible later.
+```
+  Time Breakdown by Transition
+  ==========================================
 
-2. **Composition beats configuration.** A `<Card>` with `children` is more flexible than a `<Card title="" subtitle="" icon="" action="">`.
+  Order Entry -> Credit Check     ##           0.5 days
+  Credit Check -> Manual Review   ##########   4.2 days
+  Manual Review -> Approved       ####         1.8 days
+  Approved -> Fulfill             ##           0.4 days
+  Fulfill -> Ship                 #####        2.1 days
+  Ship -> Invoice                 ###          1.2 days
+```
 
-3. **Keep the API surface small.** Every prop you add is a prop you maintain. Most components need 3-5 props, not 15.
+The bottleneck isn't in fulfillment or shipping — it's in the handoff from credit check to manual review. A dashboard showing average cycle time would never point you to this specific transition.
 
-4. **Test visual regressions.** Unit tests don't catch "the button moved 2px to the left." Screenshot tests do.
+### 3. Conformance drift
 
-Read more about our [platform](/product) or [reach out](/contact) to learn how we can help your team.
+Your intended process says every order should go through credit check. But the discovered model shows 8% of orders skip it entirely — and 3% of those result in payment defaults.
+
+```
+  Conformance Report
+  ==========================================
+
+  Step              Expected  Actual   Gap
+  ----------------  --------  ------   ----
+  Order Entry       100%      100%     --
+  Credit Check      100%      92%      -8%
+  Approval          100%      97%      -3%
+  Fulfillment       100%      100%     --
+  Shipping          100%      99%      -1%
+  Invoicing         100%      100%     --
+
+  8% of cases skip Credit Check
+  3% of skipped cases result in payment default
+  Estimated annual exposure: $2.4M
+```
+
+This isn't a performance problem — it's a compliance risk. And it's invisible in a standard dashboard.
+
+## When to use what
+
+| Question | Tool |
+|----------|------|
+| What happened last month? | Dashboard |
+| How much did we ship? | Dashboard |
+| Why did cycle time increase? | Process mining |
+| Where are the bottlenecks? | Process mining |
+| Are we following the process? | Process mining |
+| What will happen to this case? | Process mining + AI |
+
+Dashboards and process mining aren't competitors — they're complements. Dashboards tell you *what*. Process mining tells you *why*.
+
+[Learn more about the platform](/product) or [see it on your data](/contact).
