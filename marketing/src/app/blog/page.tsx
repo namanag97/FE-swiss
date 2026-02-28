@@ -61,7 +61,7 @@ export default function BlogPage() {
                     <span>{post.readingTime}</span>
                   </div>
                 </div>
-                <ArrowRight className="mt-8 h-4 w-4 shrink-0 text-gray-300 transition-all group-hover:translate-x-0.5 group-hover:text-terra-500" />
+                <ArrowRight className="mt-8 h-4 w-4 shrink-0 text-gray-300 transition-all group-hover:translate-x-0.5 group-hover:text-emerald-500" />
               </Link>
             ))}
           </div>
