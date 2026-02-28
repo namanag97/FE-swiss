@@ -1,92 +1,474 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { siteConfig } from "@/lib/config";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Platform",
-  description: "Process mining, visual analytics, and AI insights — the complete data platform for operations teams.",
+  description:
+    "Process mining, conformance checking, visual analytics, and AI insights — the complete platform for operational intelligence.",
   alternates: { canonical: "/product" },
   openGraph: { images: ["/og.png"] },
 };
 
-const sections = [
-  {
-    label: "Process Discovery",
-    title: "Automatically map how work really happens",
-    desc: "Our algorithms reconstruct full process models from raw event logs. No manual mapping, no assumptions.",
-    points: ["Event log ingestion from any source", "Automated process model generation", "Variant detection and clustering", "Interactive process map visualization"],
-  },
-  {
-    label: "Conformance Checking",
-    title: "Compare reality against your ideal process",
-    desc: "Overlay your intended process model onto the discovered one. Instantly see deviations, skipped steps, and compliance violations.",
-    points: ["Model-to-reality comparison", "Deviation highlighting and scoring", "Compliance gap detection", "Root cause analysis for non-conformance"],
-  },
-  {
-    label: "Visual Analytics",
-    title: "Dashboards that understand processes",
-    desc: "Go beyond bar charts. Our analytics engine understands sequences, durations, and causality.",
-    points: ["Process-aware filtering and drill-down", "SLA tracking and bottleneck heatmaps", "Cohort comparison across time periods", "Exportable reports for stakeholders"],
-  },
-  {
-    label: "AI Insights",
-    title: "Intelligence that learns from your operations",
-    desc: "Predictive models that forecast delays before they happen. Anomaly detection that flags unusual process behavior.",
-    points: ["Delay prediction and early warning", "Anomaly detection on process flows", "Automated optimization suggestions", "Natural language querying of process data"],
-  },
-];
-
 export default function ProductPage() {
   return (
     <>
+      {/* Hero */}
+      <section
+        className="gr"
+        style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}
+      >
+        <div className="gi" style={{ textAlign: "center" }}>
+          <span className="eyebrow eyebrow-bracket">Platform</span>
+          <h1
+            className="type-display"
+            style={{ marginTop: "var(--sp-3)", maxWidth: 680, margin: "var(--sp-3) auto 0" }}
+          >
+            The data platform for
+            <br />
+            <em>operational intelligence</em>
+          </h1>
+          <p
+            className="type-body"
+            style={{
+              maxWidth: 560,
+              margin: "0 auto",
+              marginTop: "var(--sp-4)",
+              color: "var(--ink-mid)",
+            }}
+          >
+            From raw event logs to automated process improvements. Four modules,
+            one platform.
+          </p>
+        </div>
+      </section>
+
+      {/* Feature 1: Process Discovery */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ padding: 'var(--sp-7) var(--sp-5) var(--sp-6)' }}>
-          <span className="eyebrow eyebrow-bracket">Platform</span>
-          <h1 className="type-display" style={{ marginTop: 'var(--sp-4)', maxWidth: 680 }}>
-            The data platform for operations <em>intelligence</em>
-          </h1>
-          <p className="type-body" style={{ marginTop: 'var(--sp-4)' }}>
-            From event logs to actionable insights. {siteConfig.name} combines process mining with modern analytics.
-          </p>
-          <div style={{ marginTop: 'var(--sp-5)' }}>
-            <Link href="/contact" className="btn btn-primary">
-              Request a demo <ArrowRight style={{ width: 12, height: 12 }} />
-            </Link>
+        <div
+          className="gi"
+          style={{
+            paddingTop: "var(--sp-7)",
+            paddingBottom: "var(--sp-7)",
+          }}
+        >
+          <div className="feature-row">
+            <div>
+              <span className="eyebrow eyebrow-bracket">01 Discover</span>
+              <h2
+                className="type-h2"
+                style={{ marginTop: "var(--sp-3)" }}
+              >
+                Process <em>Discovery</em>
+              </h2>
+              <p
+                className="type-body"
+                style={{
+                  marginTop: "var(--sp-4)",
+                  color: "var(--ink-mid)",
+                }}
+              >
+                Automatically reconstruct process models from event log data. No
+                interviews, no workshops — just what actually happens in your
+                systems.
+              </p>
+              <ul
+                style={{
+                  marginTop: "var(--sp-4)",
+                  listStyle: "none",
+                  padding: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--sp-2)",
+                }}
+              >
+                {[
+                  "Alpha & Heuristic miners",
+                  "Multi-source log correlation",
+                  "Variant detection & clustering",
+                  "Interactive process maps",
+                ].map((item) => (
+                  <li
+                    key={item}
+                    style={{
+                      fontFamily: "var(--body)",
+                      fontSize: "var(--fs-sm)",
+                      color: "var(--ink-mid)",
+                      paddingLeft: "var(--sp-4)",
+                      position: "relative",
+                    }}
+                  >
+                    <span
+                      style={{
+                        position: "absolute",
+                        left: 0,
+                        color: "var(--emerald)",
+                      }}
+                    >
+                      &rarr;
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="ascii-frame">
+              <pre className="ascii-art" style={{ margin: 0 }}>
+{`  EVENT LOG                    PROCESS MAP
+  ┌────────────────────┐       ┌───────────┐
+  │ case  act    time  │       │           │
+  │ 1001  Create 09:01 │──┐    │  Create   │
+  │ 1001  Review 09:15 │  │    │     │     │
+  │ 1001  Approve 10:02│  ├──▶ │  Review   │
+  │ 1002  Create 09:03 │  │    │     │     │
+  │ 1002  Review 09:22 │  │    │  Approve  │
+  │ 1002  Reject 09:45 │──┘    │   / \\    │
+  └────────────────────┘       │  ✓   ✗   │
+                               └───────────┘
+  12,847 events                23 variants`}
+              </pre>
+            </div>
           </div>
         </div>
       </section>
 
-      {sections.map((s) => (
-        <section key={s.label} className="gr">
-          <div className="h-rule h-rule--bottom" />
-          <div className="gi" style={{ padding: 'var(--sp-7) var(--sp-5)' }}>
-            <div className="grid items-start gap-0 md:grid-cols-2" style={{ border: '1px solid var(--border)' }}>
-              <div style={{ padding: 'var(--sp-6) var(--sp-5)', borderRight: '1px solid var(--border)' }}>
-                <span className="eyebrow eyebrow-bracket">{s.label}</span>
-                <h2 className="type-h3" style={{ marginTop: 'var(--sp-3)' }}>{s.title}</h2>
-                <p className="type-body-sm" style={{ marginTop: 'var(--sp-3)' }}>{s.desc}</p>
-              </div>
-              <div style={{ padding: 'var(--sp-6) var(--sp-5)' }}>
-                <ul className="flex flex-col" style={{ gap: 'var(--sp-2)' }}>
-                  {s.points.map((p) => (
-                    <li key={p} className="flex items-start" style={{ gap: 'var(--sp-3)', fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', fontWeight: 260, lineHeight: 1.6, color: 'var(--ink-muted)' }}>
-                      <span className="mt-[6px] shrink-0 rounded-full" style={{ width: 6, height: 6, background: 'var(--emerald)' }} />
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+      <div className="ascii-divider">· · ·   · · ·   · · ·</div>
+
+      {/* Feature 2: Conformance Checking */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div
+          className="gi"
+          style={{
+            paddingTop: "var(--sp-7)",
+            paddingBottom: "var(--sp-7)",
+          }}
+        >
+          <div className="feature-row feature-row--reverse">
+            <div className="ascii-frame">
+              <pre className="ascii-art" style={{ margin: 0 }}>
+{`  IDEAL PROCESS (reference model)
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Order → Verify → Approve → Ship → Invoice
+
+  ACTUAL PROCESS (as-is)
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Order → Verify → ┬─ Approve → Ship → Invoice
+                   │
+                   └─ Manual Review ──┐  ← DEVIATION
+                      (34% of cases)  │
+                      Approve ────────┘
+                      (+4.2 days avg)
+
+  Conformance: 66%    Deviations: 3    Fitness: 0.82`}
+              </pre>
+            </div>
+            <div>
+              <span className="eyebrow eyebrow-bracket">02 Diagnose</span>
+              <h2
+                className="type-h2"
+                style={{ marginTop: "var(--sp-3)" }}
+              >
+                Conformance <em>Checking</em>
+              </h2>
+              <p
+                className="type-body"
+                style={{
+                  marginTop: "var(--sp-4)",
+                  color: "var(--ink-mid)",
+                }}
+              >
+                Overlay your ideal process against reality. Instantly see where
+                execution deviates from design — and measure the cost of each
+                deviation.
+              </p>
+              <ul
+                style={{
+                  marginTop: "var(--sp-4)",
+                  listStyle: "none",
+                  padding: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--sp-2)",
+                }}
+              >
+                {[
+                  "Token-based replay analysis",
+                  "Deviation classification",
+                  "Cost-per-deviation metrics",
+                  "Root cause drill-down",
+                ].map((item) => (
+                  <li
+                    key={item}
+                    style={{
+                      fontFamily: "var(--body)",
+                      fontSize: "var(--fs-sm)",
+                      color: "var(--ink-mid)",
+                      paddingLeft: "var(--sp-4)",
+                      position: "relative",
+                    }}
+                  >
+                    <span
+                      style={{
+                        position: "absolute",
+                        left: 0,
+                        color: "var(--emerald)",
+                      }}
+                    >
+                      &rarr;
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-        </section>
-      ))}
+        </div>
+      </section>
 
+      <div className="ascii-divider">· · ·   · · ·   · · ·</div>
+
+      {/* Feature 3: Visual Analytics */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div
+          className="gi"
+          style={{
+            paddingTop: "var(--sp-7)",
+            paddingBottom: "var(--sp-7)",
+          }}
+        >
+          <div className="feature-row">
+            <div>
+              <span className="eyebrow eyebrow-bracket">03 Predict</span>
+              <h2
+                className="type-h2"
+                style={{ marginTop: "var(--sp-3)" }}
+              >
+                Visual <em>Analytics</em>
+              </h2>
+              <p
+                className="type-body"
+                style={{
+                  marginTop: "var(--sp-4)",
+                  color: "var(--ink-mid)",
+                }}
+              >
+                Dashboards built for process data. KPI tracking, variant
+                distribution, SLA monitoring — all connected to the process
+                layer beneath.
+              </p>
+              <ul
+                style={{
+                  marginTop: "var(--sp-4)",
+                  listStyle: "none",
+                  padding: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--sp-2)",
+                }}
+              >
+                {[
+                  "Process-aware KPI dashboards",
+                  "Variant frequency distribution",
+                  "SLA monitoring & alerting",
+                  "Throughput time analysis",
+                ].map((item) => (
+                  <li
+                    key={item}
+                    style={{
+                      fontFamily: "var(--body)",
+                      fontSize: "var(--fs-sm)",
+                      color: "var(--ink-mid)",
+                      paddingLeft: "var(--sp-4)",
+                      position: "relative",
+                    }}
+                  >
+                    <span
+                      style={{
+                        position: "absolute",
+                        left: 0,
+                        color: "var(--emerald)",
+                      }}
+                    >
+                      &rarr;
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="ascii-frame">
+              <pre className="ascii-art" style={{ margin: 0 }}>
+{`  ┌─ KPI DASHBOARD ────────────────────┐
+  │                                     │
+  │  Cycle Time    Throughput   On-Time  │
+  │  ┌────────┐   ┌────────┐  ┌──────┐ │
+  │  │  4.2d  │   │  847/d │  │ 78%  │ │
+  │  │  ▼ 12% │   │  ▲ 8%  │  │ ▲ 5% │ │
+  │  └────────┘   └────────┘  └──────┘ │
+  │                                     │
+  │  Variant Distribution               │
+  │  ██████████████████░░░░  Happy: 66% │
+  │  ████████░░░░░░░░░░░░░░  Review: 24%│
+  │  ███░░░░░░░░░░░░░░░░░░░  Reject: 10%│
+  └─────────────────────────────────────┘`}
+              </pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="ascii-divider">· · ·   · · ·   · · ·</div>
+
+      {/* Feature 4: AI Insights */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div
+          className="gi"
+          style={{
+            paddingTop: "var(--sp-7)",
+            paddingBottom: "var(--sp-7)",
+          }}
+        >
+          <div className="feature-row feature-row--reverse">
+            <div className="ascii-frame">
+              <pre className="ascii-art" style={{ margin: 0 }}>
+{`  ┌─ AI ANALYSIS ──────────────────────┐
+  │                                     │
+  │  ⚠ ANOMALY DETECTED                │
+  │  Case #4,821 — Invoice Processing   │
+  │                                     │
+  │  Pattern: Unusual rework loop       │
+  │  Steps:   Review → Reject → Review  │
+  │  Count:   3 iterations (avg: 1.1)   │
+  │                                     │
+  │  ┌─ PREDICTION ──────────────────┐  │
+  │  │ SLA Breach Probability: 87%   │  │
+  │  │ Estimated Delay: +2.1 days    │  │
+  │  │ Recommended: Escalate to SR   │  │
+  │  └───────────────────────────────┘  │
+  │                                     │
+  │  [Escalate]  [Dismiss]  [Details]   │
+  └─────────────────────────────────────┘`}
+              </pre>
+            </div>
+            <div>
+              <span className="eyebrow eyebrow-bracket">04 Transform</span>
+              <h2
+                className="type-h2"
+                style={{ marginTop: "var(--sp-3)" }}
+              >
+                AI-Powered <em>Insights</em>
+              </h2>
+              <p
+                className="type-body"
+                style={{
+                  marginTop: "var(--sp-4)",
+                  color: "var(--ink-mid)",
+                }}
+              >
+                Machine learning models that understand process patterns. Predict
+                bottlenecks before they happen, detect anomalies, and recommend
+                actions.
+              </p>
+              <ul
+                style={{
+                  marginTop: "var(--sp-4)",
+                  listStyle: "none",
+                  padding: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--sp-2)",
+                }}
+              >
+                {[
+                  "Predictive SLA monitoring",
+                  "Anomaly detection",
+                  "Root cause analysis",
+                  "Automated recommendations",
+                ].map((item) => (
+                  <li
+                    key={item}
+                    style={{
+                      fontFamily: "var(--body)",
+                      fontSize: "var(--fs-sm)",
+                      color: "var(--ink-mid)",
+                      paddingLeft: "var(--sp-4)",
+                      position: "relative",
+                    }}
+                  >
+                    <span
+                      style={{
+                        position: "absolute",
+                        left: 0,
+                        color: "var(--emerald)",
+                      }}
+                    >
+                      &rarr;
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Band */}
       <section className="cta-band">
-        <h2>See it on your <em>data</em></h2>
-        <p>Bring your event logs. We&apos;ll map a real process live in 20 minutes.</p>
-        <Link href="/contact" className="btn btn-primary">Book a demo <ArrowRight style={{ width: 12, height: 12 }} /></Link>
+        <div
+          className="gi"
+          style={{ textAlign: "center", padding: "var(--sp-7) 0" }}
+        >
+          <h2 className="type-h2" style={{ color: "var(--white)" }}>
+            See the platform <em>in action</em>
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--body)",
+              color: "rgba(255,255,255,0.7)",
+              maxWidth: 480,
+              margin: "0 auto",
+              marginTop: "var(--sp-4)",
+            }}
+          >
+            Book a 30-minute demo with our team. We&apos;ll show you how
+            Meridian works with your data.
+          </p>
+          <div
+            style={{
+              display: "flex",
+              gap: "var(--sp-3)",
+              justifyContent: "center",
+              marginTop: "var(--sp-5)",
+              flexWrap: "wrap",
+            }}
+          >
+            <Link
+              href="/request-demo"
+              className="btn btn-primary"
+              style={{
+                background: "var(--white)",
+                color: "var(--ink-dark)",
+                borderColor: "var(--white)",
+              }}
+            >
+              Request Demo
+            </Link>
+            <Link
+              href="/contact"
+              className="btn btn-ghost"
+              style={{
+                color: "var(--white)",
+                borderColor: "rgba(255,255,255,0.3)",
+              }}
+            >
+              Contact Us
+            </Link>
+          </div>
+        </div>
       </section>
     </>
   );
