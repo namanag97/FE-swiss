@@ -886,6 +886,26 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   gap: var(--sp-6);
   align-items: center;
 }
+/* About page: 2-col split */
+.about-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-6);
+  align-items: start;
+}
+/* About page: 2-col value cards */
+.about-values-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-4);
+}
+/* About page: timeline */
+.about-timeline-row {
+  display: grid;
+  grid-template-columns: 80px 1px 1fr;
+  gap: var(--sp-4);
+}
+
 @media (max-width: 768px) {
   .feature-row {
     grid-template-columns: 1fr;
@@ -902,5 +922,15 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   }
   .ascii-art {
     font-size: 10px;
+  }
+  .about-split {
+    grid-template-columns: 1fr;
+    gap: var(--sp-5);
+  }
+  .about-values-grid {
+    grid-template-columns: 1fr;
+  }
+  .pricing-grid {
+    grid-template-columns: 1fr;
   }
 }
