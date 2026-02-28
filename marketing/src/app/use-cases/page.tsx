@@ -55,31 +55,31 @@ export default function UseCasesPage() {
       </section>
 
       {cases.map((c, i) => (
-        <section key={c.title} className={`py-16 md:py-20 ${i % 2 === 1 ? "bg-sand-50 border-y border-sand-200" : ""}`}>
+        <section key={c.title} className={`py-16 md:py-20 ${i % 2 === 1 ? "bg-gray-50 border-y border-gray-200" : ""}`}>
           <Container size="wide">
             <div className="grid gap-10 md:grid-cols-2">
               <div>
-                <p className="text-[11px] font-medium uppercase tracking-widest text-terra-600">{c.title}</p>
-                <h2 className="mt-2 text-xl font-semibold tracking-tight text-sand-900">{c.title}</h2>
+                <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-600">{c.title}</p>
+                <h2 className="mt-2 text-xl font-semibold tracking-tight text-gray-900">{c.title}</h2>
 
                 <div className="mt-6">
-                  <h3 className="text-[12px] font-semibold uppercase tracking-wider text-sand-400">The problem</h3>
-                  <p className="mt-1.5 text-[14px] leading-relaxed text-sand-600">{c.problem}</p>
+                  <h3 className="text-[12px] font-semibold uppercase tracking-wider text-gray-400">The problem</h3>
+                  <p className="mt-1.5 text-[14px] leading-relaxed text-gray-600">{c.problem}</p>
                 </div>
 
                 <div className="mt-5">
-                  <h3 className="text-[12px] font-semibold uppercase tracking-wider text-sand-400">What Meridian reveals</h3>
-                  <p className="mt-1.5 text-[14px] leading-relaxed text-sand-600">{c.insight}</p>
+                  <h3 className="text-[12px] font-semibold uppercase tracking-wider text-gray-400">What Meridian reveals</h3>
+                  <p className="mt-1.5 text-[14px] leading-relaxed text-gray-600">{c.insight}</p>
                 </div>
               </div>
 
               <div className="flex items-start">
-                <div className="w-full rounded-xl border border-sand-200 bg-white p-6">
-                  <h3 className="text-[12px] font-semibold uppercase tracking-wider text-sand-400">Typical results</h3>
+                <div className="w-full rounded-xl border border-gray-200 bg-white p-6">
+                  <h3 className="text-[12px] font-semibold uppercase tracking-wider text-gray-400">Typical results</h3>
                   <ul className="mt-4 space-y-3">
                     {c.metrics.map((m) => (
-                      <li key={m} className="flex items-start gap-3 text-[14px] text-sand-700">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-terra-500" />
+                      <li key={m} className="flex items-start gap-3 text-[14px] text-gray-700">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
                         {m}
                       </li>
                     ))}
