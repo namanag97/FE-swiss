@@ -11,19 +11,21 @@ export const siteConfig = {
   },
   nav: [
     { label: "Platform", href: "/product" },
+    { label: "Use Cases", href: "/use-cases" },
     { label: "Pricing", href: "/pricing" },
     { label: "Blog", href: "/blog" },
-    { label: "About", href: "/about" },
   ],
   footer: {
     platform: [
       { label: "Process Mining", href: "/product" },
       { label: "Visual Analytics", href: "/product" },
+      { label: "Use Cases", href: "/use-cases" },
       { label: "Pricing", href: "/pricing" },
     ],
     company: [
       { label: "About", href: "/about" },
       { label: "Blog", href: "/blog" },
+      { label: "Security", href: "/security" },
       { label: "Contact", href: "/contact" },
     ],
     legal: [
