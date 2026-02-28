@@ -1,26 +1,25 @@
 export const siteConfig = {
-  name: "YourStartup",
-  tagline: "Build faster. Ship smarter. Scale without limits.",
+  name: "Meridian",
+  tagline: "See how your business actually runs.",
   description:
-    "The modern platform for engineering teams. Real-time analytics, workflow automation, and enterprise-grade security — in one place.",
-  url: "https://yoursite.com",
+    "The data platform for operations teams. Process mining, visual analytics, and AI-powered insights — beyond what SQL can show you.",
+  url: "https://meridian.dev",
   ogImage: "/og.png",
   links: {
-    twitter: "https://twitter.com/yourstartup",
-    linkedin: "https://linkedin.com/company/yourstartup",
-    github: "https://github.com/yourstartup",
+    twitter: "https://twitter.com/meridiandev",
+    linkedin: "https://linkedin.com/company/meridiandev",
   },
   nav: [
-    { label: "Product", href: "/product" },
+    { label: "Platform", href: "/product" },
     { label: "Pricing", href: "/pricing" },
     { label: "Blog", href: "/blog" },
     { label: "About", href: "/about" },
   ],
   footer: {
-    product: [
-      { label: "Features", href: "/product" },
+    platform: [
+      { label: "Process Mining", href: "/product" },
+      { label: "Visual Analytics", href: "/product" },
       { label: "Pricing", href: "/pricing" },
-      { label: "Changelog", href: "/blog?tag=changelog" },
     ],
     company: [
       { label: "About", href: "/about" },
