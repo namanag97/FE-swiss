@@ -21,32 +21,32 @@ const edges = [
 const nodeMap = Object.fromEntries(nodes.map((n) => [n.id, n]));
 
 const styles = {
-  start: { bg: "#f0faf6", border: "#a8dfc8", text: "#1f4235" },
-  end: { bg: "#f0faf6", border: "#a8dfc8", text: "#1f4235" },
+  start: { bg: "var(--bg)", border: "var(--border-mid)", text: "var(--ink-dark)" },
+  end: { bg: "var(--bg)", border: "var(--border-mid)", text: "var(--ink-dark)" },
   warn: { bg: "#fffbeb", border: "#fcd34d", text: "#92400e" },
-  default: { bg: "#ffffff", border: "#e5e5e5", text: "#404040" },
+  default: { bg: "var(--white)", border: "var(--border-mid)", text: "var(--ink)" },
 } as const;
 
 export function ProcessMapHero() {
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+    <div style={{ border: '1px solid var(--border)', background: 'var(--white)', overflow: 'hidden' }}>
       {/* Top bar */}
-      <div className="flex items-center gap-4 border-b border-gray-100 px-4 py-2.5">
-        <div className="flex gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+      <div className="flex items-center" style={{ gap: 'var(--sp-4)', borderBottom: '1px solid var(--border)', padding: 'var(--sp-2) var(--sp-4)' }}>
+        <div className="flex" style={{ gap: 6 }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#ff5f57' }} />
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#febc2e' }} />
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#28c840' }} />
         </div>
-        <div className="flex gap-4 text-[10px] font-medium">
-          <span className="text-forest-900">Process Map</span>
-          <span className="text-gray-400">Variants</span>
-          <span className="text-gray-400">Analytics</span>
-          <span className="text-gray-400">Conformance</span>
+        <div className="flex" style={{ gap: 'var(--sp-4)', fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', fontWeight: 400 }}>
+          <span style={{ color: 'var(--ink-dark)' }}>Process Map</span>
+          <span style={{ color: 'var(--ink-faint)' }}>Variants</span>
+          <span style={{ color: 'var(--ink-faint)' }}>Analytics</span>
+          <span style={{ color: 'var(--ink-faint)' }}>Conformance</span>
         </div>
       </div>
 
       {/* SVG canvas */}
-      <div className="relative overflow-x-auto bg-gray-50/50">
+      <div className="relative overflow-x-auto" style={{ background: 'var(--bg)' }}>
         <svg viewBox="0 0 880 280" className="h-auto w-full min-w-[600px]" fill="none">
           {edges.map((e) => {
             const from = nodeMap[e.from];
@@ -57,7 +57,7 @@ export function ProcessMapHero() {
             if (e.from === "credit" && e.to === "review") {
               return (
                 <g key={`${e.from}-${e.to}`}>
-                  <path d={`M ${fx} ${fy} C ${fx + 40} ${fy}, ${tx - 40} ${ty}, ${tx} ${ty}`} stroke="#d4d4d4" strokeWidth="1.5" strokeDasharray="4 3" />
+                  <path d={`M ${fx} ${fy} C ${fx + 40} ${fy}, ${tx - 40} ${ty}, ${tx} ${ty}`} stroke="var(--border-nav)" strokeWidth="1.5" strokeDasharray="4 3" />
                   {e.label && <text x={(fx + tx) / 2 + 15} y={(fy + ty) / 2 - 5} className="text-[9px] font-medium" fill="#92400e">{e.label}</text>}
                 </g>
               );
@@ -65,27 +65,26 @@ export function ProcessMapHero() {
             if (e.from === "review" && e.to === "approve") {
               return (
                 <g key={`${e.from}-${e.to}`}>
-                  <path d={`M ${fx} ${fy} C ${fx + 60} ${fy}, ${tx - 60} ${ty}, ${tx} ${ty}`} stroke="#d4d4d4" strokeWidth="1.5" strokeDasharray="4 3" />
+                  <path d={`M ${fx} ${fy} C ${fx + 60} ${fy}, ${tx - 60} ${ty}, ${tx} ${ty}`} stroke="var(--border-nav)" strokeWidth="1.5" strokeDasharray="4 3" />
                 </g>
               );
             }
             return (
               <g key={`${e.from}-${e.to}`}>
-                <line x1={fx} y1={fy} x2={tx} y2={ty} stroke="#d4d4d4" strokeWidth="1.5" />
-                <polygon points={`${tx},${ty} ${tx - 6},${ty - 3} ${tx - 6},${ty + 3}`} fill="#d4d4d4" />
-                {e.label && <text x={(fx + tx) / 2} y={fy - 8} textAnchor="middle" className="text-[9px] font-medium" fill="#737373">{e.label}</text>}
+                <line x1={fx} y1={fy} x2={tx} y2={ty} stroke="var(--border-nav)" strokeWidth="1.5" />
+                <polygon points={`${tx},${ty} ${tx - 6},${ty - 3} ${tx - 6},${ty + 3}`} fill="var(--border-nav)" />
+                {e.label && <text x={(fx + tx) / 2} y={fy - 8} textAnchor="middle" className="text-[9px] font-medium" fill="var(--ink-faint)">{e.label}</text>}
               </g>
             );
           })}
 
-          {/* Nodes as SVG */}
           {nodes.map((n) => {
             const s = styles[n.type as keyof typeof styles];
             return (
               <g key={n.id}>
-                <rect x={n.x} y={n.y} width={100} height={40} rx={6} fill={s.bg} stroke={s.border} strokeWidth={1.5} />
+                <rect x={n.x} y={n.y} width={100} height={40} rx={0} fill={s.bg} stroke={s.border} strokeWidth={1} />
                 {n.label.split("\n").map((line, i) => (
-                  <text key={i} x={n.x + 50} y={n.y + (n.label.includes("\n") ? 18 + i * 12 : 24)} textAnchor="middle" fill={s.text} className="text-[9px] font-medium">{line}</text>
+                  <text key={i} x={n.x + 50} y={n.y + (n.label.includes("\n") ? 18 + i * 12 : 24)} textAnchor="middle" fill={s.text} style={{ fontFamily: 'var(--sans)', fontSize: 9, fontWeight: 400 }}>{line}</text>
                 ))}
               </g>
             );
@@ -94,13 +93,13 @@ export function ProcessMapHero() {
       </div>
 
       {/* Bottom metrics */}
-      <div className="flex items-center justify-between border-t border-gray-100 px-4 py-2.5 text-[10px]">
-        <div className="flex gap-6">
-          <span className="text-gray-400">Cases: <span className="font-semibold text-gray-700">12,847</span></span>
-          <span className="text-gray-400">Variants: <span className="font-semibold text-gray-700">23</span></span>
-          <span className="text-gray-400">Avg Duration: <span className="font-semibold text-gray-700">4.2 days</span></span>
+      <div className="flex items-center justify-between" style={{ borderTop: '1px solid var(--border)', padding: 'var(--sp-2) var(--sp-4)', fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', fontWeight: 400 }}>
+        <div className="flex" style={{ gap: 'var(--sp-5)' }}>
+          <span style={{ color: 'var(--ink-faint)' }}>Cases: <span style={{ fontWeight: 600, color: 'var(--ink)' }}>12,847</span></span>
+          <span style={{ color: 'var(--ink-faint)' }}>Variants: <span style={{ fontWeight: 600, color: 'var(--ink)' }}>23</span></span>
+          <span style={{ color: 'var(--ink-faint)' }}>Avg Duration: <span style={{ fontWeight: 600, color: 'var(--ink)' }}>4.2 days</span></span>
         </div>
-        <span className="text-gray-400">Bottleneck: <span className="font-semibold text-amber-600">Manual Review (34%)</span></span>
+        <span style={{ color: 'var(--ink-faint)' }}>Bottleneck: <span style={{ fontWeight: 600, color: '#B45309' }}>Manual Review (34%)</span></span>
       </div>
     </div>
   );
