@@ -9,9 +9,6 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [],
   },
-  experimental: {
-    mdxRs: false,
-  },
 };
 
 const withMDX = createMDX({
