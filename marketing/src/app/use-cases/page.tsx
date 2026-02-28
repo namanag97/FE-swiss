@@ -40,14 +40,14 @@ const cases = [
 export default function UseCasesPage() {
   return (
     <>
-      <section className="border-b border-sand-200 bg-sand-50 py-20 md:py-24">
+      <section className="border-b border-forest-800 bg-forest-900 py-20 md:py-24">
         <Container size="wide">
           <div className="max-w-2xl">
-            <p className="text-[11px] font-medium uppercase tracking-widest text-terra-600">Use cases</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-sand-900 md:text-4xl">
+            <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-600">Use cases</p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white md:text-4xl">
               Built for the processes that matter most
             </h1>
-            <p className="mt-5 text-[16px] leading-relaxed text-sand-500">
+            <p className="mt-5 text-[16px] leading-relaxed text-forest-200/70">
               Meridian works with any process that generates event data. Here are the use cases our customers get the most value from.
             </p>
           </div>
