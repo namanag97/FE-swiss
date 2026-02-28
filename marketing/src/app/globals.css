@@ -876,3 +876,31 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   padding: var(--sp-6) 0;
   user-select: none;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — feature grids & mobile overrides
+═══════════════════════════════════════════════════════════════ */
+.feature-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-6);
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .feature-row {
+    grid-template-columns: 1fr;
+    gap: var(--sp-5);
+  }
+  .feature-row--reverse > :first-child {
+    order: 2;
+  }
+  .feature-row--reverse > :last-child {
+    order: 1;
+  }
+  .type-display {
+    font-size: max(var(--fs-2xl), 7vw);
+  }
+  .ascii-art {
+    font-size: 10px;
+  }
+}
