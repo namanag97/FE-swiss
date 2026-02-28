@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Container } from "@/components/ui/Container";
 
 export const metadata: Metadata = {
   title: "Use Cases",
@@ -13,26 +12,26 @@ export const metadata: Metadata = {
 const cases = [
   {
     title: "Order-to-Cash",
-    problem: "Orders take inconsistent paths from entry to payment. Revenue leaks through delayed invoicing, credit holds, and manual rework loops.",
-    insight: "Discover every variant in your O2C process. Pinpoint where orders stall, which customers trigger manual reviews, and how much cash is trapped in process delays.",
+    problem: "Orders take inconsistent paths from entry to payment. Revenue leaks through delayed invoicing and manual rework loops.",
+    insight: "Discover every variant in your O2C process. Pinpoint where orders stall and how much cash is trapped in process delays.",
     metrics: ["68% faster invoice-to-payment cycle", "Identified 12 hidden rework loops", "$2.1M in trapped working capital surfaced"],
   },
   {
     title: "Procure-to-Pay",
-    problem: "Maverick buying, duplicate payments, and approval bottlenecks cost enterprises millions annually — but they're invisible in dashboards.",
-    insight: "Map the actual purchasing flow. Detect purchases that bypass approval, invoices matched to wrong POs, and suppliers consistently causing late deliveries.",
+    problem: "Maverick buying, duplicate payments, and approval bottlenecks cost enterprises millions annually.",
+    insight: "Map the actual purchasing flow. Detect purchases that bypass approval and invoices matched to wrong POs.",
     metrics: ["34% reduction in maverick spend", "91% duplicate payment detection rate", "Approval cycle cut from 8 days to 2"],
   },
   {
     title: "IT Service Management",
-    problem: "Tickets bounce between teams. Escalation paths are unclear. SLA breaches happen but nobody knows why until it's too late.",
-    insight: "Trace every ticket from creation to resolution. See escalation patterns, identify teams that become bottlenecks, predict which tickets will breach SLA.",
-    metrics: ["40% fewer SLA breaches", "Mean resolution time reduced by 3.2 hours", "Unnecessary escalations cut by 55%"],
+    problem: "Tickets bounce between teams. Escalation paths are unclear. SLA breaches happen but nobody knows why.",
+    insight: "Trace every ticket from creation to resolution. See escalation patterns, identify bottleneck teams.",
+    metrics: ["40% fewer SLA breaches", "Resolution time reduced by 3.2 hours", "Unnecessary escalations cut by 55%"],
   },
   {
     title: "Patient Journey",
-    problem: "Patients experience inconsistent care pathways. Wait times vary wildly. Clinical protocols are followed in theory but not in practice.",
-    insight: "Follow patients through intake, triage, diagnosis, treatment, and discharge. Compare pathways by outcome, find where delays cause harm, verify protocol adherence.",
+    problem: "Patients experience inconsistent care pathways. Wait times vary wildly. Protocols are followed in theory but not in practice.",
+    insight: "Follow patients through intake, triage, diagnosis, treatment, and discharge. Compare pathways by outcome.",
     metrics: ["Emergency wait times reduced 28%", "Protocol conformance improved to 94%", "Bed turnover increased 18%"],
   },
 ];
@@ -40,67 +39,58 @@ const cases = [
 export default function UseCasesPage() {
   return (
     <>
-      <section className="border-b border-forest-800 bg-forest-900 py-20 md:py-24">
-        <Container size="wide">
-          <div className="max-w-2xl">
-            <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-600">Use cases</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white md:text-4xl">
-              Built for the processes that matter most
-            </h1>
-            <p className="mt-5 text-[16px] leading-relaxed text-forest-200/70">
-              Meridian works with any process that generates event data. Here are the use cases our customers get the most value from.
-            </p>
-          </div>
-        </Container>
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ padding: 'var(--sp-7) var(--sp-5) var(--sp-6)' }}>
+          <span className="eyebrow eyebrow-bracket">Use cases</span>
+          <h1 className="type-display" style={{ marginTop: 'var(--sp-4)', maxWidth: 680 }}>
+            Built for the processes that <em>matter</em> most
+          </h1>
+          <p className="type-body" style={{ marginTop: 'var(--sp-4)' }}>
+            Meridian works with any process that generates event data. Here are the use cases our customers get the most value from.
+          </p>
+        </div>
       </section>
 
-      {cases.map((c, i) => (
-        <section key={c.title} className={`py-16 md:py-20 ${i % 2 === 1 ? "bg-gray-50 border-y border-gray-200" : ""}`}>
-          <Container size="wide">
-            <div className="grid gap-10 md:grid-cols-2">
-              <div>
-                <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-600">{c.title}</p>
-                <h2 className="mt-2 text-xl font-semibold tracking-tight text-gray-900">{c.title}</h2>
-
-                <div className="mt-6">
-                  <h3 className="text-[12px] font-semibold uppercase tracking-wider text-gray-400">The problem</h3>
-                  <p className="mt-1.5 text-[14px] leading-relaxed text-gray-600">{c.problem}</p>
+      {cases.map((c) => (
+        <section key={c.title} className="gr">
+          <div className="h-rule h-rule--bottom" />
+          <div className="gi" style={{ padding: 'var(--sp-7) var(--sp-5)' }}>
+            <div className="grid gap-0 md:grid-cols-2" style={{ border: '1px solid var(--border)' }}>
+              <div style={{ padding: 'var(--sp-6) var(--sp-5)', borderRight: '1px solid var(--border)' }}>
+                <span className="eyebrow eyebrow-bracket">{c.title}</span>
+                <h2 className="type-h3" style={{ marginTop: 'var(--sp-3)' }}>{c.title}</h2>
+                <div style={{ marginTop: 'var(--sp-4)' }}>
+                  <p className="type-label" style={{ marginBottom: 'var(--sp-2)' }}>The problem</p>
+                  <p className="type-body-sm">{c.problem}</p>
                 </div>
-
-                <div className="mt-5">
-                  <h3 className="text-[12px] font-semibold uppercase tracking-wider text-gray-400">What Meridian reveals</h3>
-                  <p className="mt-1.5 text-[14px] leading-relaxed text-gray-600">{c.insight}</p>
+                <div style={{ marginTop: 'var(--sp-4)' }}>
+                  <p className="type-label" style={{ marginBottom: 'var(--sp-2)' }}>What Meridian reveals</p>
+                  <p className="type-body-sm">{c.insight}</p>
                 </div>
               </div>
-
-              <div className="flex items-start">
-                <div className="w-full rounded-xl border border-gray-200 bg-white p-6">
-                  <h3 className="text-[12px] font-semibold uppercase tracking-wider text-gray-400">Typical results</h3>
-                  <ul className="mt-4 space-y-3">
-                    {c.metrics.map((m) => (
-                      <li key={m} className="flex items-start gap-3 text-[14px] text-gray-700">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
-                        {m}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div style={{ padding: 'var(--sp-6) var(--sp-5)' }}>
+                <p className="type-label" style={{ marginBottom: 'var(--sp-4)' }}>Typical results</p>
+                <ul className="flex flex-col" style={{ gap: 'var(--sp-3)' }}>
+                  {c.metrics.map((m) => (
+                    <li key={m} className="flex items-start" style={{ gap: 'var(--sp-3)', fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', fontWeight: 260, lineHeight: 1.6, color: 'var(--ink-muted)' }}>
+                      <span className="mt-[6px] shrink-0 rounded-full" style={{ width: 6, height: 6, background: 'var(--emerald)' }} />
+                      {m}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-          </Container>
+          </div>
         </section>
       ))}
 
-      <section className="border-t border-forest-800 bg-forest-900 py-20 text-center">
-        <Container>
-          <h2 className="text-2xl font-semibold tracking-tight text-white">Have a different process in mind?</h2>
-          <p className="mx-auto mt-3 max-w-md text-[15px] text-forest-200/70">
-            If it generates event data, Meridian can mine it. Let&apos;s talk about your specific use case.
-          </p>
-          <Link href="/contact" className="group mt-7 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-[13px] font-medium text-forest-900 hover:bg-gray-100">
-            Talk to us <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-          </Link>
-        </Container>
+      <section className="cta-band">
+        <h2>Have a different process in <em>mind</em>?</h2>
+        <p>If it generates event data, Meridian can mine it.</p>
+        <Link href="/contact" className="btn btn-primary">
+          Talk to us <ArrowRight style={{ width: 12, height: 12 }} />
+        </Link>
       </section>
     </>
   );
