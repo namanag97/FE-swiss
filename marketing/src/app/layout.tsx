@@ -10,7 +10,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const mono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
   display: "swap",
@@ -19,23 +19,18 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://yoursite.com"),
   title: {
-    default: "YourStartup — Tagline goes here",
+    default: "YourStartup — Build faster, ship smarter",
     template: "%s | YourStartup",
   },
   description:
-    "One-line description of what your startup does. Replace this with your actual description.",
+    "The modern platform for engineering teams. Ship faster with real-time analytics, workflow automation, and enterprise-grade security.",
   openGraph: {
     type: "website",
     locale: "en_US",
     siteName: "YourStartup",
   },
-  twitter: {
-    card: "summary_large_image",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  twitter: { card: "summary_large_image" },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -44,8 +39,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="min-h-screen flex flex-col">
+    <html lang="en" className={`${inter.variable} ${mono.variable}`}>
+      <body className="flex min-h-screen flex-col bg-white text-neutral-900 antialiased">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
