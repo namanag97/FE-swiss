@@ -28,9 +28,16 @@ export const siteConfig = {
       { label: "Security", href: "/security" },
       { label: "Contact", href: "/contact" },
     ],
-    legal: [
+    solutions: [
+      { label: "Order-to-Cash", href: "/use-cases" },
+      { label: "Procure-to-Pay", href: "/use-cases" },
+      { label: "IT Service Mgmt", href: "/use-cases" },
+      { label: "Patient Journey", href: "/use-cases" },
+    ],
+    resources: [
       { label: "Privacy", href: "/legal/privacy" },
       { label: "Terms", href: "/legal/terms" },
+      { label: "Security", href: "/security" },
     ],
   },
 } as const;
