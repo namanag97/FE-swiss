@@ -30,140 +30,165 @@ const numbers = [
 export default function HomePage() {
   return (
     <>
-      {/* ── Dark Hero ── */}
-      <section className="bg-forest-900 py-20 md:py-28">
-        <Container size="wide">
-          <div className="mx-auto max-w-3xl text-center">
-            <h1 className="animate-slide-up text-4xl font-bold leading-[1.1] tracking-tight text-white md:text-5xl lg:text-6xl">
-              {siteConfig.tagline}
-            </h1>
-            <p className="animate-slide-up mx-auto mt-5 max-w-lg text-[17px] leading-relaxed text-forest-200/70" style={{ animationDelay: "80ms" }}>
-              {siteConfig.description}
-            </p>
-            <div className="animate-slide-up mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row" style={{ animationDelay: "160ms" }}>
-              <Link href="/contact" data-track="cta-hero-start" className="group inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-[14px] font-medium text-forest-900 transition-colors hover:bg-gray-100">
-                Get Started
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-              <Link href="/contact" data-track="cta-hero-demo" className="inline-flex items-center gap-2 rounded-lg border border-forest-600 px-6 py-3 text-[14px] font-medium text-forest-100 transition-colors hover:border-forest-400 hover:text-white">
-                Request Demo
-              </Link>
-            </div>
+      {/* ── Hero (light) ── */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ padding: 'var(--sp-7) var(--sp-5) var(--sp-6)' }}>
+          <div className="eyebrow">
+            <span className="pulse" />
+            <span>Now available</span>
           </div>
-        </Container>
-      </section>
-
-      {/* ── Product Visual ── */}
-      <section className="border-b border-gray-200 bg-gray-50 py-14">
-        <Container size="wide">
-          <ProcessMapHero />
-        </Container>
-      </section>
-
-      {/* ── Logos ── */}
-      <section className="border-b border-gray-200 bg-white py-8">
-        <Container size="wide">
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
-            <span className="text-[11px] font-medium uppercase tracking-widest text-gray-400">Trusted by operations teams at</span>
-            {["Siemens", "Bosch", "Maersk", "ABB", "Roche"].map((n) => (
-              <span key={n} className="text-[14px] font-semibold text-gray-300">{n}</span>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* ── Numbers ── */}
-      <section className="border-b border-gray-200 bg-white py-14">
-        <Container size="wide">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {numbers.map((n) => (
-              <div key={n.label} className="text-center">
-                <p className="text-3xl font-bold tracking-tight text-forest-900 md:text-4xl">{n.value}</p>
-                <p className="mt-1 text-[13px] text-gray-500">{n.label}</p>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* ── Capabilities ── */}
-      <section className="py-20 md:py-24">
-        <Container size="wide">
-          <div className="mx-auto max-w-xl text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-emerald-600">Platform</p>
-            <h2 className="mt-2 text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
-              Process intelligence meets modern analytics
-            </h2>
-            <p className="mt-3 text-[15px] text-gray-500">From raw event data to operational clarity.</p>
-          </div>
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {capabilities.map((c) => (
-              <div key={c.title} className="rounded-xl bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)]">
-                <div className="mb-3 inline-flex rounded-lg bg-forest-900 p-2 text-white">
-                  <c.icon className="h-4 w-4" />
-                </div>
-                <h3 className="text-[14px] font-semibold text-gray-900">{c.title}</h3>
-                <p className="mt-1.5 text-[13px] leading-relaxed text-gray-500">{c.desc}</p>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* ── Use Cases ── */}
-      <section className="bg-gray-50 py-20 md:py-24">
-        <Container size="wide">
-          <div className="mx-auto max-w-xl text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-emerald-600">Use cases</p>
-            <h2 className="mt-2 text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
-              Built for the processes that matter most
-            </h2>
-          </div>
-          <div className="mt-14 grid gap-5 sm:grid-cols-2">
-            {useCases.map((uc) => (
-              <Link key={uc.title} href="/use-cases" className="group rounded-xl bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)]">
-                <h3 className="text-[15px] font-semibold text-gray-900 group-hover:text-forest-900">{uc.title}</h3>
-                <p className="mt-1.5 text-[13px] leading-relaxed text-gray-500">{uc.desc}</p>
-              </Link>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* ── Testimonial (dark) ── */}
-      <section className="bg-forest-900 py-20 md:py-24">
-        <Container size="wide">
-          <div className="mx-auto max-w-2xl text-center">
-            <blockquote className="text-xl font-medium leading-relaxed text-white md:text-2xl">
-              &ldquo;We spent months trying to understand our order-to-cash process with SQL and spreadsheets.
-              {siteConfig.name} showed us the full picture in an afternoon.&rdquo;
-            </blockquote>
-            <div className="mt-6">
-              <p className="text-[13px] font-semibold text-forest-100">Anna Berglund</p>
-              <p className="text-[12px] text-forest-200/60">Director of Operations, Nordic Manufacturing Co.</p>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* ── CTA ── */}
-      <section className="py-20 md:py-24">
-        <Container size="wide" className="text-center">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
-            See what your processes are really doing
-          </h2>
-          <p className="mx-auto mt-3 max-w-md text-[15px] text-gray-500">
-            Book a 20-minute demo. We&apos;ll map one of your processes live.
+          <h1 className="type-display" style={{ marginTop: 'var(--sp-4)', maxWidth: 680 }}>
+            {siteConfig.tagline.replace('.', '').split(' ').slice(0, -1).join(' ')}{' '}
+            <em>{siteConfig.tagline.replace('.', '').split(' ').slice(-1)[0]}</em>.
+          </h1>
+          <p className="type-body" style={{ marginTop: 'var(--sp-4)', maxWidth: 400 }}>
+            {siteConfig.description}
           </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link href="/contact" data-track="cta-bottom-start" className="group inline-flex items-center gap-2 rounded-lg bg-forest-900 px-6 py-3 text-[14px] font-medium text-white hover:bg-forest-800">
-              Get Started <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          <div className="flex items-center" style={{ marginTop: 'var(--sp-5)', gap: 'var(--sp-3)' }}>
+            <Link href="/contact" data-track="cta-hero-start" className="btn btn-primary">
+              Get Started
+              <ArrowRight style={{ width: 12, height: 12 }} />
             </Link>
-            <Link href="/contact" data-track="cta-bottom-demo" className="inline-flex items-center gap-2 rounded-lg border border-gray-200 px-6 py-3 text-[14px] font-medium text-gray-700 hover:border-gray-300">
+            <Link href="/contact" data-track="cta-hero-demo" className="btn btn-ghost">
               Request Demo
             </Link>
           </div>
-        </Container>
+        </div>
+      </section>
+
+      {/* ── Product Visual ── */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ padding: 'var(--sp-6) var(--sp-5)' }}>
+          <ProcessMapHero />
+        </div>
+      </section>
+
+      {/* ── Logos ── */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi flex items-center" style={{ gap: 0, padding: 'var(--sp-4) var(--sp-5)' }}>
+          <span className="type-label shrink-0" style={{ paddingRight: 'var(--sp-4)' }}>Trusted by</span>
+          {["Siemens", "Bosch", "Maersk", "ABB", "Roche"].map((n) => (
+            <span
+              key={n}
+              className="flex items-center transition-colors"
+              style={{
+                fontFamily: 'var(--sans)',
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: '.03em',
+                color: 'var(--ink-faint)',
+                padding: '0 var(--sp-3)',
+                height: 32,
+                borderLeft: '1px solid var(--border)',
+              }}
+            >
+              {n}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Numbers ── */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ padding: 'var(--sp-6) var(--sp-5)' }}>
+          <div className="grid grid-cols-2 gap-0 md:grid-cols-4">
+            {numbers.map((n) => (
+              <div key={n.label} className="card-stat">
+                <span className="type-label">{n.label}</span>
+                <span style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-2xl)', fontWeight: 400, letterSpacing: '-.04em', lineHeight: 1, color: 'var(--ink-dark)' }}>
+                  {n.value}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Capabilities ── */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ padding: 'var(--sp-7) var(--sp-5)' }}>
+          <div className="section-header">
+            <span className="eyebrow eyebrow-bracket">Platform</span>
+            <h2 className="type-h2">
+              Process intelligence meets modern <em>analytics</em>
+            </h2>
+            <p className="type-body">From raw event data to operational clarity.</p>
+          </div>
+          <div className="grid gap-0 sm:grid-cols-2 lg:grid-cols-3">
+            {capabilities.map((c) => (
+              <div key={c.title} className="card-feature">
+                <div className="card-icon">
+                  <c.icon style={{ width: 16, height: 16 }} />
+                </div>
+                <p className="card-title">{c.title}</p>
+                <p className="card-body">{c.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Use Cases ── */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ padding: 'var(--sp-7) var(--sp-5)' }}>
+          <div className="section-header">
+            <span className="eyebrow eyebrow-bracket">Use cases</span>
+            <h2 className="type-h2">
+              Built for the processes that <em>matter</em> most
+            </h2>
+          </div>
+          <div className="grid gap-0 sm:grid-cols-2">
+            {useCases.map((uc) => (
+              <Link key={uc.title} href="/use-cases" className="card-feature group">
+                <p className="card-title">{uc.title}</p>
+                <p className="card-body">{uc.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Testimonial ── */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ padding: 'var(--sp-7) var(--sp-5)' }}>
+          <div className="card-quote mx-auto" style={{ maxWidth: 540 }}>
+            <p style={{ fontFamily: 'var(--caslon)', fontSize: 'var(--fs-lg)', fontWeight: 400, fontStyle: 'italic', lineHeight: 1.5, color: 'var(--ink)' }}>
+              &ldquo;We spent months trying to understand our order-to-cash process with SQL and spreadsheets.
+              {siteConfig.name} showed us the full picture in an afternoon.&rdquo;
+            </p>
+            <div className="flex items-center" style={{ gap: 'var(--sp-3)', paddingTop: 'var(--sp-3)', borderTop: '1px solid var(--border)' }}>
+              <div className="flex shrink-0 items-center justify-center rounded-full" style={{ width: 32, height: 32, background: 'var(--ink-dark)', fontFamily: 'var(--sans)', fontSize: 10, fontWeight: 600, color: 'rgba(255,255,255,.7)' }}>
+                AB
+              </div>
+              <div>
+                <p style={{ fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', fontWeight: 500, color: 'var(--ink-dark)', letterSpacing: '-.01em' }}>Anna Berglund</p>
+                <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', fontWeight: 400, color: 'var(--ink-faint)', letterSpacing: '.04em', textTransform: 'uppercase' }}>Director of Operations, Nordic Manufacturing Co.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA Band ── */}
+      <section className="cta-band">
+        <span className="eyebrow" style={{ color: 'rgba(255,255,255,.45)' }}>Get started</span>
+        <h2>See what your processes are <em>really</em> doing</h2>
+        <p>Book a 20-minute demo. We&apos;ll map one of your processes live.</p>
+        <div className="flex items-center" style={{ gap: 'var(--sp-3)' }}>
+          <Link href="/contact" data-track="cta-bottom-start" className="btn btn-primary">
+            Get Started <ArrowRight style={{ width: 12, height: 12 }} />
+          </Link>
+          <Link href="/contact" data-track="cta-bottom-demo" className="btn btn-ghost">
+            Request Demo
+          </Link>
+        </div>
       </section>
     </>
   );
