@@ -6,26 +6,26 @@ import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Pricing",
-  description: "Simple, transparent pricing. No hidden fees. Start free, scale as you grow.",
+  description: "Transparent pricing for teams of every size. Start with a pilot, scale across the org.",
 };
 
 const plans = [
   {
-    name: "Starter",
-    price: "$0",
-    period: "forever",
-    desc: "For individuals and small projects.",
-    features: ["Up to 3 projects", "1,000 API calls / mo", "Community support", "Basic analytics"],
-    cta: "Get started free",
+    name: "Pilot",
+    price: "Free",
+    period: "",
+    desc: "Try it on one process. No commitment.",
+    features: ["1 process model", "Up to 100K events", "Process discovery", "Basic analytics", "Community support"],
+    cta: "Start free pilot",
     href: "/contact",
     featured: false,
   },
   {
-    name: "Pro",
-    price: "$49",
+    name: "Team",
+    price: "$990",
     period: "/ month",
-    desc: "For growing teams that need power and flexibility.",
-    features: ["Unlimited projects", "100K API calls / mo", "Priority support", "Advanced analytics", "Custom integrations", "Team collaboration"],
+    desc: "For operations teams running multiple processes.",
+    features: ["Unlimited processes", "Up to 10M events / mo", "Conformance checking", "Advanced analytics & dashboards", "Variant analysis", "Priority support", "SSO"],
     cta: "Start free trial",
     href: "/contact",
     featured: true,
@@ -34,8 +34,8 @@ const plans = [
     name: "Enterprise",
     price: "Custom",
     period: "",
-    desc: "For organizations with advanced security and compliance needs.",
-    features: ["Everything in Pro", "Unlimited API calls", "SSO & SAML", "Dedicated CSM", "99.99% SLA", "Custom contracts"],
+    desc: "For organizations with scale, compliance, and integration needs.",
+    features: ["Everything in Team", "Unlimited events", "AI insights & predictions", "Custom integrations", "Dedicated CSM", "SLA guarantee", "On-premise option"],
     cta: "Contact sales",
     href: "/contact",
     featured: false,
@@ -43,72 +43,62 @@ const plans = [
 ];
 
 const faq = [
-  { q: "Can I change plans later?", a: "Yes — upgrade, downgrade, or cancel at any time. Changes take effect immediately." },
-  { q: "What counts as an API call?", a: "Every request to our REST or GraphQL API. Webhooks and dashboard views are free." },
-  { q: "Do you offer annual billing?", a: "Yes — save 20% with annual billing on Pro and Enterprise plans." },
-  { q: "Is there a free trial?", a: "Pro includes a 14-day free trial. No credit card required." },
+  { q: "What counts as an event?", a: "Each row in your event log — a single activity occurrence with a case ID, activity name, and timestamp." },
+  { q: "Can I upgrade later?", a: "Yes. Upgrade, downgrade, or cancel at any time. Data is always retained." },
+  { q: "Do you support on-premise?", a: "Enterprise plans include an on-premise deployment option for regulated industries." },
+  { q: "What data formats do you accept?", a: "CSV, XES, Parquet, and direct connectors to major databases and warehouses." },
 ];
 
 export default function PricingPage() {
   return (
     <>
-      <section className="py-24 md:py-28">
+      <section className="py-20 md:py-24">
         <Container size="wide">
-          <div className="text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-accent-600">
-              Pricing
-            </p>
-            <h1 className="mt-3 text-4xl font-bold tracking-tight text-neutral-900 md:text-5xl">
-              Simple, transparent pricing
+          <div className="max-w-lg">
+            <p className="text-[11px] font-medium uppercase tracking-widest text-terra-600">Pricing</p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-sand-900 md:text-4xl">
+              Transparent pricing
             </h1>
-            <p className="mx-auto mt-4 max-w-md text-base text-neutral-500">
-              Start free. Scale as you grow. No surprise bills.
+            <p className="mt-3 text-[15px] text-sand-500">
+              Start with a free pilot. Scale when you&apos;re ready.
             </p>
           </div>
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {plans.map((plan) => (
               <div
                 key={plan.name}
                 className={cn(
                   "relative flex flex-col rounded-xl border p-7",
-                  plan.featured
-                    ? "border-neutral-900 bg-white shadow-lg shadow-neutral-200/40"
-                    : "border-neutral-200 bg-white"
+                  plan.featured ? "border-sand-900 bg-white shadow-sm" : "border-sand-200 bg-white"
                 )}
               >
                 {plan.featured && (
-                  <span className="absolute -top-3 left-6 rounded-full bg-neutral-900 px-3 py-1 text-[11px] font-semibold text-white">
+                  <span className="absolute -top-2.5 left-5 rounded-full bg-sand-900 px-3 py-0.5 text-[10px] font-semibold text-white">
                     Most popular
                   </span>
                 )}
-
-                <h3 className="text-lg font-semibold text-neutral-900">{plan.name}</h3>
-                <p className="mt-1 text-sm text-neutral-500">{plan.desc}</p>
-
+                <h3 className="text-base font-semibold text-sand-900">{plan.name}</h3>
+                <p className="mt-1 text-[13px] text-sand-500">{plan.desc}</p>
                 <div className="mt-5">
-                  <span className="text-4xl font-bold tracking-tight text-neutral-900">{plan.price}</span>
-                  {plan.period && (
-                    <span className="ml-1 text-sm text-neutral-400">{plan.period}</span>
-                  )}
+                  <span className="text-3xl font-semibold tracking-tight text-sand-900">{plan.price}</span>
+                  {plan.period && <span className="ml-1 text-[13px] text-sand-400">{plan.period}</span>}
                 </div>
-
-                <ul className="mt-7 flex-1 space-y-3">
+                <ul className="mt-6 flex-1 space-y-2.5">
                   {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2.5 text-sm">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-neutral-900" />
-                      <span className="text-neutral-600">{f}</span>
+                    <li key={f} className="flex items-start gap-2 text-[13px]">
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-terra-600" />
+                      <span className="text-sand-600">{f}</span>
                     </li>
                   ))}
                 </ul>
-
                 <Link
                   href={plan.href}
                   className={cn(
-                    "mt-7 block rounded-lg border px-5 py-2.5 text-center text-sm font-medium transition-colors",
+                    "mt-7 block rounded-lg border px-4 py-2 text-center text-[13px] font-medium transition-colors",
                     plan.featured
-                      ? "border-neutral-900 bg-neutral-900 text-white hover:bg-neutral-800"
-                      : "border-neutral-200 bg-white text-neutral-700 hover:border-neutral-400"
+                      ? "border-sand-900 bg-sand-900 text-white hover:bg-sand-800"
+                      : "border-sand-200 text-sand-700 hover:border-sand-400"
                   )}
                 >
                   {plan.cta}
@@ -119,17 +109,14 @@ export default function PricingPage() {
         </Container>
       </section>
 
-      {/* FAQ */}
-      <section className="border-t border-neutral-200 bg-neutral-50 py-24">
+      <section className="border-t border-sand-200 bg-sand-50 py-20">
         <Container size="wide">
-          <h2 className="text-2xl font-bold tracking-tight text-neutral-900">
-            Frequently asked questions
-          </h2>
-          <div className="mt-10 grid gap-8 md:grid-cols-2">
+          <h2 className="text-xl font-semibold tracking-tight text-sand-900">Common questions</h2>
+          <div className="mt-8 grid gap-8 md:grid-cols-2">
             {faq.map((item) => (
               <div key={item.q}>
-                <h3 className="text-sm font-semibold text-neutral-900">{item.q}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-neutral-500">{item.a}</p>
+                <h3 className="text-[14px] font-semibold text-sand-900">{item.q}</h3>
+                <p className="mt-1 text-[13px] leading-relaxed text-sand-500">{item.a}</p>
               </div>
             ))}
           </div>
