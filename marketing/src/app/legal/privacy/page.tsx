@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <section className="py-20 md:py-24">
-      <Container size="content">
-        <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-600">Legal</p>
-        <h1 className="mt-2 text-2xl font-semibold tracking-tight text-gray-900">Privacy Policy</h1>
-        <p className="mt-1 text-[13px] text-gray-400">Last updated February 2026</p>
+    <section className="gr">
+      <Container size="content" style={{ padding: 'var(--sp-7) var(--sp-5)' } as React.CSSProperties}>
+        <span className="eyebrow eyebrow-bracket">Legal</span>
+        <h1 className="type-h2" style={{ marginTop: 'var(--sp-3)' }}>Privacy Policy</h1>
+        <p className="type-label" style={{ marginTop: 'var(--sp-2)' }}>Last updated February 2026</p>
         <div className="prose mt-8">
           <h2>1. Information We Collect</h2>
           <p>We collect information you provide directly — name, email, company — when you create an account, fill out a form, or contact us. We also collect usage data automatically through analytics.</p>
