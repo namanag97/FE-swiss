@@ -15,13 +15,22 @@ function ArrowSvg() {
   )
 }
 
+type AboutSection = {
+  eyebrow: string
+  title: string
+  titleAccent?: string
+  pullQuote?: string
+  body: readonly string[]
+  links?: readonly { label: string; href: string }[]
+}
+
 export default function AboutPage() {
   const { sections, cta } = aboutContent
 
   return (
     <>
       <div className="page" style={{ padding: '0 var(--sp-5)' }}>
-        {sections.map((section, i) => {
+        {(sections as readonly AboutSection[]).map((section, i) => {
           const isFirst = i === 0
           return (
             <div key={section.eyebrow}>
