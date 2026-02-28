@@ -1,0 +1,199 @@
+/* ── NAV WRAP ──────────────────────────────── */
+.navWrap {
+  background: rgba(250, 251, 248, .94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-nav);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ── NAV BAR ──────────────────────────────── */
+.nav {
+  height: var(--nav-h);
+  padding: 0 var(--sp-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  position: relative;
+}
+
+.nav::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: var(--border);
+}
+
+.nav::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: var(--border);
+}
+
+/* ── LOGO ─────────────────────────────────── */
+.navLogo {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -.03em;
+  color: var(--ink-dark);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navLogoMark {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--ink-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.navLogoDot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* ── NAV LINKS ────────────────────────────── */
+.navLinks {
+  display: flex;
+  align-items: center;
+}
+
+.navLink {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-md);
+  color: var(--ink);
+  padding: 0 var(--sp-4);
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  letter-spacing: -.015em;
+  border-left: 1px solid var(--border);
+  transition: color var(--t-std);
+  white-space: nowrap;
+}
+
+.navLink:last-child {
+  border-right: 1px solid var(--border);
+}
+
+.navLink:hover {
+  color: var(--accent);
+}
+
+.navLinkChevron {
+  opacity: .4;
+}
+
+/* ── NAV ACTIONS ──────────────────────────── */
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+/* ── BUTTONS ──────────────────────────────── */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: 0;
+  outline: none;
+  transition: background-color var(--t-std), border-color var(--t-std), color var(--t-std);
+  white-space: nowrap;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 5px;
+  height: 5px;
+  opacity: 0;
+  border-top: 1px solid currentColor;
+  border-left: 1px solid currentColor;
+  transition: opacity var(--t-fast);
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 5px;
+  height: 5px;
+  opacity: 0;
+  border-top: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+  transition: opacity var(--t-fast);
+}
+
+.btn:hover::before,
+.btn:hover::after {
+  opacity: 1;
+}
+
+.btnGhost {
+  composes: btn;
+  background-color: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, .025) 2px,
+    rgba(0, 0, 0, .025) 4px
+  );
+}
+
+.btnGhost:hover {
+  border-color: var(--ink-dark);
+  color: var(--ink-dark);
+}
+
+.btnPrimary {
+  composes: btn;
+  background-color: var(--ink-mid);
+  color: var(--white);
+  border: 1px solid transparent;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, .03) 2px,
+    rgba(255, 255, 255, .03) 4px
+  );
+}
+
+.btnPrimary:hover {
+  background-color: var(--accent);
+}
