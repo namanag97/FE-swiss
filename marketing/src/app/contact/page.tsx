@@ -29,7 +29,7 @@ export default function ContactPage() {
       <Container size="wide">
         <div className="grid gap-14 lg:grid-cols-5">
           <div className="lg:col-span-2">
-            <p className="text-[11px] font-medium uppercase tracking-widest text-terra-600">Contact</p>
+            <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-600">Contact</p>
             <h1 className="mt-2 text-3xl font-semibold tracking-tight text-sand-900">
               Talk to us
             </h1>
