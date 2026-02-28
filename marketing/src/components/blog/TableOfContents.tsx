@@ -49,19 +49,22 @@ export function TableOfContents({ content }: { content: string }) {
     <>
       {/* Desktop: sticky sidebar */}
       <nav className="hidden lg:block" aria-label="Table of contents">
-        <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400">On this page</p>
-        <ul className="mt-3 space-y-2 border-l border-gray-200">
+        <p className="type-label">On this page</p>
+        <ul className="mt-3 flex flex-col" style={{ gap: 'var(--sp-2)', borderLeft: '1px solid var(--border)' }}>
           {headings.map((h) => (
             <li key={h.id}>
               <a
                 href={`#${h.id}`}
-                className={`block border-l-2 py-0.5 text-[13px] transition-colors ${
-                  h.level === 3 ? "pl-6" : "pl-4"
-                } ${
-                  activeId === h.id
-                    ? "border-emerald-500 text-gray-900 font-medium"
-                    : "border-transparent text-gray-400 hover:text-gray-700"
-                }`}
+                className="block transition-colors"
+                style={{
+                  fontFamily: 'var(--body)',
+                  fontSize: 'var(--fs-sm)',
+                  fontWeight: activeId === h.id ? 500 : 260,
+                  color: activeId === h.id ? 'var(--ink)' : 'var(--ink-faint)',
+                  paddingLeft: h.level === 3 ? 'var(--sp-5)' : 'var(--sp-4)',
+                  borderLeft: activeId === h.id ? '2px solid var(--emerald)' : '2px solid transparent',
+                  marginLeft: -1,
+                }}
               >
                 {h.text}
               </a>
@@ -71,22 +74,30 @@ export function TableOfContents({ content }: { content: string }) {
       </nav>
 
       {/* Mobile: collapsible */}
-      <div className="lg:hidden mb-8 rounded-lg border border-gray-200 bg-gray-50 p-4">
+      <div className="mb-8 lg:hidden" style={{ border: '1px solid var(--border)', padding: 'var(--sp-4)' }}>
         <button
           onClick={() => setOpen(!open)}
-          className="flex w-full items-center justify-between text-[13px] font-medium text-gray-700"
+          className="flex w-full items-center justify-between"
+          style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', fontWeight: 400, color: 'var(--ink)', background: 'transparent', border: 'none', cursor: 'pointer' }}
         >
           Table of contents
-          <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} />
+          <ChevronDown style={{ width: 16, height: 16, transition: 'transform .15s ease', transform: open ? 'rotate(180deg)' : 'rotate(0)' }} />
         </button>
         {open && (
-          <ul className="mt-3 space-y-1.5 border-t border-gray-200 pt-3">
+          <ul className="flex flex-col" style={{ marginTop: 'var(--sp-3)', paddingTop: 'var(--sp-3)', borderTop: '1px solid var(--border)', gap: 'var(--sp-2)' }}>
             {headings.map((h) => (
               <li key={h.id}>
                 <a
                   href={`#${h.id}`}
                   onClick={() => setOpen(false)}
-                  className={`block text-[13px] text-gray-500 hover:text-gray-900 ${h.level === 3 ? "pl-4" : ""}`}
+                  className="block transition-colors"
+                  style={{
+                    fontFamily: 'var(--body)',
+                    fontSize: 'var(--fs-sm)',
+                    fontWeight: 260,
+                    color: 'var(--ink-muted)',
+                    paddingLeft: h.level === 3 ? 'var(--sp-4)' : 0,
+                  }}
                 >
                   {h.text}
                 </a>
