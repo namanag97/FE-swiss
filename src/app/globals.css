@@ -20,10 +20,10 @@
   --border-mid:  rgba(46, 59, 54, .18);
   --border-nav:  #9EA397;
 
-  /* Fonts — set by next/font variables */
-  --font-heading: var(--font-heading), 'JetBrains Mono', monospace;
-  --font-body:    var(--font-body), 'Inter', sans-serif;
-  --font-accent:  var(--font-accent), 'Libre Caslon Text', Georgia, serif;
+  /* Fonts — fallbacks only. Actual font-family values come from next/font
+     CSS variable injection on <body>. These are consumed in components. */
+  --font-sans: 'Geist Mono', 'JetBrains Mono', monospace;
+  --font-serif: 'Libre Caslon Text', Georgia, serif;
 
   /* Spacing */
   --sp-1:  4px;
