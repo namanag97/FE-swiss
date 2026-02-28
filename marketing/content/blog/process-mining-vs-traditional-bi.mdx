@@ -1,0 +1,206 @@
+---
+title: "Process Mining vs Traditional BI"
+description: "A structured comparison of two approaches to operational intelligence."
+date: "2026-02-10"
+author: "Naman Agarwal"
+tags: ["research"]
+published: true
+---
+
+Process mining and traditional business intelligence are both used to understand operational performance. They share some surface-level similarities — both consume enterprise data, both produce visualizations, both aim to drive better decisions. But they operate on fundamentally different data models, use fundamentally different analytical methods, and answer fundamentally different questions.
+
+This isn't a "process mining is better" argument. Both tools have clear strengths. The goal is to understand where each excels so you can use the right one for the right problem.
+
+## Data model: star schema vs event log
+
+Traditional BI is built on the star schema (or its variant, the snowflake schema). Facts sit at the center — transactions, sales, measurements — surrounded by dimensions: time, product, region, customer. Queries aggregate facts across dimensions: total revenue by region by quarter, average order value by product category.
+
+```
+  Star Schema (BI)
+  ==========================================
+
+                    +----------+
+                    | Time     |
+                    | - Year   |
+                    | - Quarter|
+                    | - Month  |
+                    +----+-----+
+                         |
+  +----------+     +-----+------+     +----------+
+  | Product  +-----+ Fact:      +-----+ Region   |
+  | - Name   |     | Sales      |     | - Name   |
+  | - Category|    | - Amount   |     | - Country|
+  +----------+     | - Quantity |     +----------+
+                    | - Discount|
+                    +-----+-----+
+                          |
+                    +-----+------+
+                    | Customer   |
+                    | - Segment  |
+                    | - Industry |
+                    +------------+
+```
+
+Process mining uses a fundamentally different model: the event log. Instead of aggregated facts, it stores individual events — each one a record of something that happened to a specific case at a specific time.
+
+```
+  Event Log (Process Mining)
+  ==========================================
+
+  case_id    activity           timestamp             resource
+  --------   ----------------   -------------------   ----------
+  ORD-1001   Order Created      2026-01-15 09:00:00   Web Portal
+  ORD-1001   Payment Received   2026-01-15 09:02:00   Stripe
+  ORD-1001   Inventory Check    2026-01-15 09:05:00   WMS-Auto
+  ORD-1001   Pick & Pack        2026-01-15 14:30:00   J.Rivera
+  ORD-1001   Ship               2026-01-16 08:00:00   FedEx API
+  ORD-1001   Delivered          2026-01-18 11:45:00   FedEx API
+  ORD-1002   Order Created      2026-01-15 09:15:00   Sales Rep
+  ORD-1002   Credit Hold        2026-01-15 09:16:00   ERP-Auto
+  ORD-1002   Manual Approval    2026-01-16 14:00:00   M.Chen
+  ORD-1002   Payment Received   2026-01-17 10:30:00   Wire
+  ...
+```
+
+The key difference: a star schema captures *state* — the final amount, the current status, the assigned region. An event log captures *behavior* — the sequence of steps, the transitions, the path each case actually took. You can derive aggregate state from an event log (sum all order amounts by region). You cannot derive process behavior from a star schema (what path did order 1001 take through the fulfillment process?).
+
+## Analysis paradigm: aggregation vs sequence analysis
+
+BI analysis is fundamentally about aggregation. You take a large set of facts and reduce them: sum, average, count, min, max, grouped by one or more dimensions. The output is a smaller dataset — a summary table, a bar chart, a trend line.
+
+Process mining analysis is fundamentally about sequences. You take a large set of events and reconstruct the order in which they occurred for each case. The output is a graph — a process model showing the paths that cases take, annotated with frequency and performance data.
+
+```
+  BI Output: Aggregated Summary
+  ==========================================
+
+  Region     Orders    Avg Value    Avg Cycle Time
+  --------   ------    ---------    --------------
+  EMEA       12,400    $2,340       14.2 days
+  NA         18,200    $1,890       11.8 days
+  APAC       8,600     $3,100       16.5 days
+
+  Insight: APAC has highest average value but longest cycle time.
+  Next step: ???
+
+
+  Process Mining Output: Process Model
+  ==========================================
+
+  APAC Order-to-Delivery Process
+
+  +--------+     +---------+     +--------+     +------+
+  | Order  +---->| Credit  +---->| Pick & +---->| Ship |
+  | Created|     | Check   |     | Pack   |     |      |
+  +--------+     +----+----+     +--------+     +------+
+                      |                    61% of cases
+                      v
+                 +----+----+     +--------+
+                 | Manual  +---->| Approve|----+
+                 | Review  |     |        |    |
+                 +----+----+     +---+----+    |
+                      |              |         v
+                      v              v      (rejoin)
+                 +----+----+    Reject &
+                 | Escalate|    Rework
+                 | to Mgr  |    (8% of cases)
+                 +---------+
+                 39% of cases hit manual review
+                 Adds 5.1 days avg to cycle time
+
+  Insight: 39% of APAC orders require manual credit review.
+  Next step: Investigate credit threshold for APAC region.
+```
+
+BI tells you APAC is slow. Process mining shows you which step in the APAC process is causing the delay. The aggregation paradigm compresses away the process detail that explains the metric.
+
+## Discovery method: predefined queries vs algorithmic discovery
+
+In BI, you start with a question and build a query to answer it. "What was revenue by region last quarter?" becomes a SQL query or a drag-and-drop report. The analyst decides what to ask, and the tool answers.
+
+Process mining inverts this. You point the algorithm at an event log and it discovers the process model automatically. You don't need to know what the process looks like in advance. The algorithm finds all the paths, all the variants, all the loops and exceptions.
+
+This distinction matters in practice. BI analysis is hypothesis-driven: "I think the problem is in EMEA, let me check." Process mining is discovery-driven: "Here are the 47 variants in your process, ranked by frequency and performance — variant 12 has a rework loop that adds 9 days."
+
+Discovery-driven analysis surfaces problems you didn't know to look for. A BI analyst would need to hypothesize that a specific process path exists before they could query for it. The process mining algorithm surfaces it automatically.
+
+## Conformance: not applicable vs native capability
+
+This is the clearest differentiator. BI tools have no concept of conformance checking — comparing actual behavior against expected behavior at the sequence level.
+
+Conformance checking requires:
+1. A reference model (the intended process)
+2. An event log (the actual process)
+3. A replay algorithm that traces each case through the reference model and identifies deviations
+
+```
+  Conformance Analysis
+  ==========================================
+
+  Reference model says:
+  Order -> Credit Check -> Approval -> Fulfill -> Ship -> Invoice
+
+  Actual behavior:
+  - 72% of cases follow the reference model exactly
+  - 15% skip Credit Check (go directly to Approval)
+  - 8% have Approval before Credit Check (wrong order)
+  - 5% have other deviations (extra steps, missing steps)
+
+  Deviation detail:
+  Cases skipping Credit Check:
+    - 62% are from repeat customers (possible valid exception)
+    - 38% have no documented exemption (compliance risk)
+    - Total unbacked spend: $4.2M
+```
+
+You simply cannot perform this analysis with BI tools. You could count how many credit checks happened and compare it to how many orders were placed, but you can't determine *which specific orders* skipped the check, whether they had a valid exemption, or what the downstream impact was. That requires sequence-level analysis.
+
+## Visualization: charts vs process maps
+
+BI visualizations are statistical: bar charts, line charts, scatter plots, pivot tables, heat maps. They're designed to show distributions, trends, and comparisons across dimensions.
+
+Process mining visualizations are structural: directed graphs showing activities as nodes and transitions as edges, annotated with frequency (edge thickness) and performance (edge color). They're designed to show flow, branching, and convergence.
+
+| Visualization | BI | Process mining |
+|---|---|---|
+| Trend over time | Line chart | Variant frequency trend |
+| Distribution | Histogram, bar chart | Variant distribution |
+| Comparison | Side-by-side bars | Process map overlay |
+| Flow | Sankey (limited) | Process map (native) |
+| Deviation | Threshold indicators | Conformance map |
+| Detail | Drill-down table | Case explorer |
+
+BI charts are better for monitoring — tracking a KPI over time, comparing segments, spotting outliers. Process maps are better for understanding — seeing how work actually flows, where it gets stuck, and where it deviates from plan.
+
+## When to use which
+
+Both tools have a role. The decision depends on the question you're asking.
+
+**Use BI when:**
+- You need to monitor KPIs on a dashboard
+- The question is about aggregates (totals, averages, distributions)
+- You're comparing performance across segments or time periods
+- The analysis is well-defined and repeatable (monthly reports, executive summaries)
+- You need ad-hoc exploration of dimensional data
+
+**Use process mining when:**
+- You need to understand *why* a KPI changed
+- The question involves process flow, sequence, or order of operations
+- You're looking for bottlenecks, rework loops, or process deviations
+- You need to check compliance against an expected process
+- You don't know what the process actually looks like (discovery)
+
+**Use both when:**
+- BI dashboard surfaces a KPI anomaly, process mining diagnoses the root cause
+- Process mining identifies a bottleneck, BI dashboard monitors it over time
+- Conformance analysis identifies deviations, BI reports track remediation progress
+
+The strongest operational analytics setups we've seen use BI for monitoring and alerting, and process mining for diagnosis and improvement. BI tells you something changed. Process mining tells you what to do about it.
+
+## The convergence
+
+The lines between BI and process mining are blurring. Modern BI tools are adding limited process visualization capabilities (Sankey diagrams, customer journey maps). Process mining platforms like Meridian are adding KPI dashboards and trend monitoring.
+
+But the core analytical models remain distinct. Aggregation and sequence analysis are different operations that reveal different truths. The best approach is not to pick one, but to understand what each does well and apply them together.
+
+[See how Meridian complements your BI stack](/product) or [walk through a comparison on your data](/contact).
