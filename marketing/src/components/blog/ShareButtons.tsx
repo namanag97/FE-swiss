@@ -16,13 +16,23 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
   }
 
   return (
-    <div className="flex items-center gap-3">
-      <span className="text-[11px] font-semibold uppercase tracking-widest text-gray-400">Share</span>
+    <div className="flex items-center" style={{ gap: 'var(--sp-3)' }}>
+      <span className="type-label">Share</span>
       <a
         href={twitterUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="rounded-md border border-gray-200 px-3 py-1.5 text-[12px] font-medium text-gray-600 transition-colors hover:border-gray-300 hover:text-gray-900"
+        className="transition-colors"
+        style={{
+          fontFamily: 'var(--sans)',
+          fontSize: 'var(--fs-xs)',
+          fontWeight: 400,
+          letterSpacing: '.06em',
+          textTransform: 'uppercase',
+          padding: 'var(--sp-2) var(--sp-3)',
+          border: '1px solid var(--border-mid)',
+          color: 'var(--ink-muted)',
+        }}
       >
         X / Twitter
       </a>
@@ -30,15 +40,38 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
         href={linkedinUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="rounded-md border border-gray-200 px-3 py-1.5 text-[12px] font-medium text-gray-600 transition-colors hover:border-gray-300 hover:text-gray-900"
+        className="transition-colors"
+        style={{
+          fontFamily: 'var(--sans)',
+          fontSize: 'var(--fs-xs)',
+          fontWeight: 400,
+          letterSpacing: '.06em',
+          textTransform: 'uppercase',
+          padding: 'var(--sp-2) var(--sp-3)',
+          border: '1px solid var(--border-mid)',
+          color: 'var(--ink-muted)',
+        }}
       >
         LinkedIn
       </a>
       <button
         onClick={copyLink}
-        className="inline-flex items-center gap-1.5 rounded-md border border-gray-200 px-3 py-1.5 text-[12px] font-medium text-gray-600 transition-colors hover:border-gray-300 hover:text-gray-900"
+        className="inline-flex items-center gap-1.5 transition-colors"
+        style={{
+          fontFamily: 'var(--sans)',
+          fontSize: 'var(--fs-xs)',
+          fontWeight: 400,
+          letterSpacing: '.06em',
+          textTransform: 'uppercase',
+          padding: 'var(--sp-2) var(--sp-3)',
+          border: '1px solid var(--border-mid)',
+          color: 'var(--ink-muted)',
+          cursor: 'pointer',
+          background: 'transparent',
+          borderRadius: 0,
+        }}
       >
-        {copied ? <Check className="h-3 w-3" /> : <Link2 className="h-3 w-3" />}
+        {copied ? <Check style={{ width: 12, height: 12 }} /> : <Link2 style={{ width: 12, height: 12 }} />}
         {copied ? "Copied" : "Copy link"}
       </button>
     </div>
