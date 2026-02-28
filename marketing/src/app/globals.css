@@ -987,4 +987,18 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   .versus-reasons-grid {
     grid-template-columns: 1fr;
   }
+  .security-grid {
+    grid-template-columns: 1fr;
+  }
+  .security-stats {
+    grid-template-columns: 1fr;
+    gap: var(--sp-4);
+  }
+  .legal-layout {
+    grid-template-columns: 1fr;
+    gap: var(--sp-4);
+  }
+  .legal-toc {
+    position: static !important;
+  }
 }
