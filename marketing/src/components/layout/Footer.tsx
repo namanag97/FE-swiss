@@ -23,9 +23,9 @@ export function Footer() {
   return (
     <footer className="footer">
       <div className="footer-inner">
-        <div className="grid gap-[64px]" style={{ gridTemplateColumns: '1.8fr repeat(4, 1fr)', paddingBottom: 'var(--sp-6)', borderBottom: '1px solid rgba(255,255,255,.08)' }}>
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:[grid-template-columns:1.8fr_repeat(4,1fr)] lg:gap-[64px]" style={{ paddingBottom: 'var(--sp-6)', borderBottom: '1px solid rgba(255,255,255,.08)' }}>
           {/* Brand + newsletter */}
-          <div className="flex flex-col" style={{ gap: 'var(--sp-4)' }}>
+          <div className="col-span-2 md:col-span-3 lg:col-span-1 flex flex-col" style={{ gap: 'var(--sp-4)' }}>
             <Link href="/" className="flex items-center gap-[6px]" style={{ fontFamily: 'var(--sans)', fontSize: 15, fontWeight: 600, letterSpacing: '-.03em', color: 'white' }}>
               <div className="flex items-center justify-center" style={{ width: 18, height: 18, border: '1.5px solid rgba(255,255,255,.35)' }}>
                 <span className="rounded-full" style={{ width: 6, height: 6, background: 'var(--emerald)' }} />
