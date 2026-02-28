@@ -1,0 +1,98 @@
+/* ═══════════════════════════════════════════════════════════════
+   NewsletterBand — emerald background newsletter signup
+   Exact CSS from textql-blog.html .newsletter-wrap
+   ═══════════════════════════════════════════════════════════════ */
+
+.root {
+  background-color: var(--accent);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.05) 3px,
+    rgba(0, 0, 0, 0.05) 6px
+  );
+  position: relative;
+}
+
+.inner {
+  padding: var(--sp-6) var(--sp-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-7);
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--fs-xl);          /* 32px */
+  color: var(--white);
+  letter-spacing: -0.03em;
+  line-height: 0.93;
+}
+
+.title em {
+  font-family: var(--font-accent);
+  font-style: italic;
+}
+
+.subtitle {
+  margin-top: var(--sp-2);
+  font-family: var(--font-body);
+  font-weight: 260;
+  font-size: var(--fs-md);
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: -0.01em;
+}
+
+/* Input field + submit button */
+.form {
+  display: flex;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.input {
+  background: rgba(0, 0, 0, 0.15);
+  border: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+  outline: none;
+  padding: var(--sp-3) var(--sp-4);
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.03em;
+  color: var(--white);
+  border-radius: 0;
+  width: 220px;
+  transition: background var(--t-std);
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.input:focus {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.submit {
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  padding: var(--sp-3) var(--sp-4);
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--white);
+  border-radius: 0;
+  cursor: pointer;
+  transition: background var(--t-std);
+}
+
+.submit:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
