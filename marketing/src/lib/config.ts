@@ -22,6 +22,7 @@ export const siteConfig = {
       { label: "Visual Analytics", href: "/product" },
       { label: "Use Cases", href: "/use-cases" },
       { label: "Pricing", href: "/pricing" },
+      { label: "Compare", href: "/versus" },
     ],
     company: [
       { label: "About", href: "/about" },
