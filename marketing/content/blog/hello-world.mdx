@@ -1,126 +1,95 @@
 ---
-title: "Introducing Our Platform: A New Way to Build"
-description: "We're launching today. Here's the architecture behind the product, why we built it, and what's next."
+title: "Introducing the Platform"
+description: "We're live. Here's the architecture behind the product, why we built it, and what's next."
 date: "2026-02-28"
 author: "Naman Agarwal"
-tags: ["announcement", "launch"]
+tags: ["announcement", "architecture"]
 published: true
 ---
 
-Today we're opening the doors. After months of obsessive engineering, relentless testing, and building alongside early customers, our platform is live.
-
-This isn't just another tool. It's a fundamentally different approach to how engineering teams ship software.
+Today we're opening the doors. After months of engineering, testing, and building alongside early customers, the platform is live.
 
 ## The Problem
 
-Every team we talked to described the same pain:
+Every team we talked to described the same frustration: too many tools, too much glue code, zero unified visibility.
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    BEFORE                                │
-│                                                         │
-│   ┌──────┐   ┌──────┐   ┌──────┐   ┌──────┐           │
-│   │ Jira │   │Slack │   │ Data │   │ CI/CD│           │
-│   │      │   │      │   │  Dog │   │      │           │
-│   └──┬───┘   └──┬───┘   └──┬───┘   └──┬───┘           │
-│      │          │          │          │                 │
-│      └──────────┴──────────┴──────────┘                 │
-│                     │                                   │
-│               Manual glue code                          │
-│              Context switching                          │
-│              Fragmented data                            │
-│                     │                                   │
-│                     ▼                                   │
-│              ┌──────────────┐                           │
-│              │  Slow teams  │                           │
-│              │  Blind spots │                           │
-│              │  Lost signal │                           │
-│              └──────────────┘                           │
-└─────────────────────────────────────────────────────────┘
+  BEFORE: The tool sprawl problem
+  ================================
+
+  [Jira]  [Slack]  [Datadog]  [CI/CD]  [Grafana]
+    |       |         |         |         |
+    +-------+---------+---------+---------+
+                      |
+              Manual glue code
+              Context switching
+              Fragmented data
+                      |
+                      v
+              +---------------+
+              |  Slow teams   |
+              |  Blind spots  |
+              |  Lost signal  |
+              +---------------+
 ```
 
-Too many tools. Too much manual stitching. Too little clarity about what actually matters.
+The result: engineers spend 30% of their time switching context instead of building.
 
-## Our Architecture
+## Our Solution
 
-We built a single unified layer that sits across your entire stack:
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                        AFTER                            │
-│                                                         │
-│   ┌─────────────────────────────────────────────────┐   │
-│   │              YOUR STARTUP PLATFORM              │   │
-│   │                                                 │   │
-│   │  ┌──────────┐ ┌──────────┐ ┌──────────────────┐│   │
-│   │  │ Unified  │ │Real-time │ │   Automation     ││   │
-│   │  │   API    │ │Analytics │ │    Engine        ││   │
-│   │  └────┬─────┘ └────┬─────┘ └───────┬──────────┘│   │
-│   │       │            │               │           │   │
-│   │  ┌────┴────────────┴───────────────┴────────┐  │   │
-│   │  │         Integration Layer (200+)          │  │   │
-│   │  └──────────────────────────────────────────┘  │   │
-│   └─────────────────────────────────────────────────┘   │
-│                         │                               │
-│          ┌──────────────┼──────────────┐                │
-│          ▼              ▼              ▼                │
-│     ┌──────┐       ┌──────┐      ┌──────┐              │
-│     │ Your │       │ Your │      │ Your │              │
-│     │ Code │       │ Data │      │ Infra│              │
-│     └──────┘       └──────┘      └──────┘              │
-└─────────────────────────────────────────────────────────┘
-```
-
-One API. One dashboard. One source of truth. No more context switching.
-
-## What Makes Us Different
-
-### 1. Performance is not negotiable
-
-Every API call returns in under 50ms. Every dashboard loads in under a second. We don't show loading spinners — ever.
+A single unified layer across your entire stack:
 
 ```
-  Response Time Distribution (p50 / p95 / p99)
-  ─────────────────────────────────────────────
+  AFTER: One platform
+  ================================
 
-  Our API     ██ 12ms
-  (p50)
-
-  Our API     ████ 38ms
-  (p95)
-
-  Our API     █████ 49ms
-  (p99)
-
-  Competitor  ████████████████ 180ms
-  A (p50)
-
-  Competitor  ████████████████████████████ 340ms
-  B (p50)
+  +---------------------------------------------------+
+  |              YOUR STARTUP PLATFORM                 |
+  |                                                    |
+  |  +-----------+  +----------+  +----------------+  |
+  |  | Unified   |  | Realtime |  | Automation     |  |
+  |  | API       |  | Analytics|  | Engine         |  |
+  |  +-----------+  +----------+  +----------------+  |
+  |                                                    |
+  |  +----------------------------------------------+  |
+  |  |        Integration Layer  (200+)              |  |
+  |  +----------------------------------------------+  |
+  +---------------------------------------------------+
+              |              |              |
+         Your Code      Your Data      Your Infra
 ```
 
-### 2. Simplicity is a feature
+One API. One dashboard. One source of truth.
 
-We ruthlessly cut anything that doesn't earn its place. The result: a clean, focused tool that stays out of your way.
+## Performance
 
-### 3. Extensibility by default
+We obsess over speed. Every API call, every dashboard load, every query.
 
-Everything is an API. Every action can be automated. Every dashboard can be embedded.
+```
+  Response times (lower is better)
+  ================================
 
-## What's Next
+  Our API (p50)    ##          12ms
+  Our API (p95)    ####        38ms
+  Our API (p99)    #####       49ms
+  Competitor A     ################          180ms
+  Competitor B     ########################  340ms
 
-We're shipping fast. Here's the roadmap for Q1:
+  0ms            100ms          200ms          400ms
+```
+
+This isn't accidental. It's the result of architectural decisions made from day one: edge caching, connection pooling, zero-copy serialization, and no ORMs in hot paths.
+
+## Roadmap
 
 | Week | Feature | Status |
 |------|---------|--------|
-| W1 | Advanced analytics dashboard | Shipped |
-| W2 | Team collaboration & permissions | In progress |
-| W4 | GraphQL API (v2) | Planned |
-| W6 | Custom workflow builder | Planned |
-| W8 | SOC 2 Type II certification | In progress |
+| W1 | Advanced analytics | Shipped |
+| W2 | Team permissions | In progress |
+| W4 | GraphQL API v2 | Planned |
+| W6 | Workflow builder | Planned |
+| W8 | SOC 2 Type II | In progress |
 
 ## Get Started
 
-Head to our [pricing page](/pricing) to see plans, or [request a demo](/contact) to see the platform in action.
-
-We can't wait to see what you build.
+Head to [pricing](/pricing) to see plans, or [request a demo](/contact) to see the platform in action.
