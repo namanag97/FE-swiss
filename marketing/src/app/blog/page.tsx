@@ -53,7 +53,7 @@ export default function BlogPage() {
                   <p className="mt-1 text-[14px] leading-relaxed text-gray-500">
                     {post.description}
                   </p>
-                  <div className="mt-2 flex items-center gap-2 text-[12px] text-sand-400">
+                  <div className="mt-2 flex items-center gap-2 text-[12px] text-gray-400">
                     <span>{post.author}</span>
                     <span>/</span>
                     <span>{formatDate(post.date)}</span>
