@@ -131,8 +131,8 @@ export default function ContactPage() {
                   <textarea id="message" name="message" rows={4} className={`${inputClass} resize-none`} placeholder="Optional — tell us more about your use case" />
                 </div>
 
-                <button type="submit" className="rounded-lg bg-gray-900 px-5 py-2.5 text-[13px] font-medium text-white hover:bg-gray-800">
-                  Request demo
+                <button type="submit" disabled={loading} className={`rounded-lg bg-gray-900 px-5 py-2.5 text-[13px] font-medium text-white hover:bg-gray-800${loading ? " opacity-70 cursor-not-allowed" : ""}`}>
+                  {loading ? "Sending..." : "Request demo"}
                 </button>
               </form>
             )}
