@@ -30,65 +30,65 @@ export default function ContactPage() {
         <div className="grid gap-14 lg:grid-cols-5">
           <div className="lg:col-span-2">
             <p className="text-[11px] font-medium uppercase tracking-widest text-emerald-600">Contact</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-sand-900">
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">
               Talk to us
             </h1>
-            <p className="mt-4 text-[15px] leading-relaxed text-sand-500">
+            <p className="mt-4 text-[15px] leading-relaxed text-gray-500">
               Tell us about your processes. We&apos;ll show you what {siteConfig.name} can reveal — live, on a 20-minute call.
             </p>
 
             <div className="mt-10 space-y-5">
               <div>
-                <p className="text-[12px] font-semibold uppercase tracking-wider text-sand-400">Email</p>
-                <p className="mt-1 text-[14px] text-sand-700">hello@meridian.dev</p>
+                <p className="text-[12px] font-semibold uppercase tracking-wider text-gray-400">Email</p>
+                <p className="mt-1 text-[14px] text-gray-700">hello@meridian.dev</p>
               </div>
               <div>
-                <p className="text-[12px] font-semibold uppercase tracking-wider text-sand-400">Response time</p>
-                <p className="mt-1 text-[14px] text-sand-700">Within one business day</p>
+                <p className="text-[12px] font-semibold uppercase tracking-wider text-gray-400">Response time</p>
+                <p className="mt-1 text-[14px] text-gray-700">Within one business day</p>
               </div>
               <div>
-                <p className="text-[12px] font-semibold uppercase tracking-wider text-sand-400">For security inquiries</p>
-                <p className="mt-1 text-[14px] text-sand-700">security@meridian.dev</p>
+                <p className="text-[12px] font-semibold uppercase tracking-wider text-gray-400">For security inquiries</p>
+                <p className="mt-1 text-[14px] text-gray-700">security@meridian.dev</p>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-3">
             {sent ? (
-              <div className="flex h-full items-center justify-center rounded-xl border border-sand-200 bg-sand-50 p-12 text-center">
+              <div className="flex h-full items-center justify-center rounded-xl border border-gray-200 bg-gray-50 p-12 text-center">
                 <div>
                   <div className="mx-auto mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-terra-100 text-terra-600">
                     <Mail className="h-4 w-4" />
                   </div>
-                  <p className="text-base font-semibold text-sand-900">Message sent</p>
-                  <p className="mt-1 text-[13px] text-sand-500">We&apos;ll be in touch within one business day.</p>
+                  <p className="text-base font-semibold text-gray-900">Message sent</p>
+                  <p className="mt-1 text-[13px] text-gray-500">We&apos;ll be in touch within one business day.</p>
                 </div>
               </div>
             ) : (
               <form onSubmit={onSubmit} className="space-y-4">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="first" className="mb-1 block text-[13px] font-medium text-sand-700">First name</label>
+                    <label htmlFor="first" className="mb-1 block text-[13px] font-medium text-gray-700">First name</label>
                     <input id="first" name="first" required className={inputClass} />
                   </div>
                   <div>
-                    <label htmlFor="last" className="mb-1 block text-[13px] font-medium text-sand-700">Last name</label>
+                    <label htmlFor="last" className="mb-1 block text-[13px] font-medium text-gray-700">Last name</label>
                     <input id="last" name="last" required className={inputClass} />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="mb-1 block text-[13px] font-medium text-sand-700">Work email</label>
+                  <label htmlFor="email" className="mb-1 block text-[13px] font-medium text-gray-700">Work email</label>
                   <input id="email" name="email" type="email" required className={inputClass} />
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="company" className="mb-1 block text-[13px] font-medium text-sand-700">Company</label>
+                    <label htmlFor="company" className="mb-1 block text-[13px] font-medium text-gray-700">Company</label>
                     <input id="company" name="company" required className={inputClass} />
                   </div>
                   <div>
-                    <label htmlFor="size" className="mb-1 block text-[13px] font-medium text-sand-700">Company size</label>
+                    <label htmlFor="size" className="mb-1 block text-[13px] font-medium text-gray-700">Company size</label>
                     <select id="size" name="size" required className={selectClass}>
                       <option value="">Select...</option>
                       <option value="1-50">1–50 employees</option>
@@ -101,7 +101,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="role" className="mb-1 block text-[13px] font-medium text-sand-700">Your role</label>
+                  <label htmlFor="role" className="mb-1 block text-[13px] font-medium text-gray-700">Your role</label>
                   <select id="role" name="role" required className={selectClass}>
                     <option value="">Select...</option>
                     <option value="ops">Operations / Process Excellence</option>
@@ -113,7 +113,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="process" className="mb-1 block text-[13px] font-medium text-sand-700">
+                  <label htmlFor="process" className="mb-1 block text-[13px] font-medium text-gray-700">
                     Which process are you looking to analyze?
                   </label>
                   <select id="process" name="process" className={selectClass}>
@@ -127,11 +127,11 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="mb-1 block text-[13px] font-medium text-sand-700">Anything else?</label>
+                  <label htmlFor="message" className="mb-1 block text-[13px] font-medium text-gray-700">Anything else?</label>
                   <textarea id="message" name="message" rows={4} className={`${inputClass} resize-none`} placeholder="Optional — tell us more about your use case" />
                 </div>
 
-                <button type="submit" className="rounded-lg bg-sand-900 px-5 py-2.5 text-[13px] font-medium text-white hover:bg-sand-800">
+                <button type="submit" className="rounded-lg bg-gray-900 px-5 py-2.5 text-[13px] font-medium text-white hover:bg-gray-800">
                   Request demo
                 </button>
               </form>
