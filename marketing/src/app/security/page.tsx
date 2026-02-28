@@ -50,8 +50,7 @@ export default function SecurityPage() {
   ├─────────────────────────────────────────┤
   │            INFRASTRUCTURE                │
   │   AWS · SOC 2 · Multi-AZ · Backups     │
-  └─────────────────────────────────────────┘`}
-            </pre>
+  └─────────────────────────────────────────┘`}</pre>
           </div>
         </div>
       </section>
@@ -97,6 +96,14 @@ export default function SecurityPage() {
               <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', color: 'var(--ink-muted)', marginTop: 'var(--sp-2)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{stat.label}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="gr">
+        <div className="gi" style={{ padding: 'var(--sp-5) 0', display: 'flex', justifyContent: 'center', gap: 'var(--sp-5)', flexWrap: 'wrap' }}>
+          <Link href="/legal/privacy" style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--emerald)' }}>Privacy Policy &rarr;</Link>
+          <Link href="/legal/terms" style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--emerald)' }}>Terms of Service &rarr;</Link>
+          <Link href="/pricing" style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--emerald)' }}>Enterprise Pricing &rarr;</Link>
         </div>
       </section>
 
