@@ -906,6 +906,14 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   gap: var(--sp-4);
 }
 
+/* Contact / Demo split layout */
+.contact-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-7);
+  align-items: start;
+}
+
 @media (max-width: 768px) {
   .feature-row {
     grid-template-columns: 1fr;
@@ -932,5 +940,9 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   }
   .pricing-grid {
     grid-template-columns: 1fr;
+  }
+  .contact-split {
+    grid-template-columns: 1fr;
+    gap: var(--sp-5);
   }
 }
