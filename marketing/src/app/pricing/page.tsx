@@ -94,6 +94,7 @@ export default function PricingPage() {
                 </ul>
                 <Link
                   href={plan.href}
+                  data-track="cta-pricing"
                   className={cn(
                     "mt-7 block rounded-lg border px-4 py-2 text-center text-[13px] font-medium transition-colors",
                     plan.featured
