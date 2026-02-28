@@ -5,6 +5,8 @@ import { siteConfig } from "@/lib/config";
 export const metadata: Metadata = {
   title: "About",
   description: `The team and mission behind ${siteConfig.name}.`,
+  alternates: { canonical: "/about" },
+  openGraph: { images: ["/og.png"] },
 };
 
 export default function AboutPage() {
