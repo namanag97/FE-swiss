@@ -30,11 +30,11 @@ export default function BlogPage() {
         </div>
 
         {posts.length === 0 ? (
-          <div className="mt-14 rounded-xl border border-sand-200 bg-sand-50 p-10 text-center">
+          <div className="mt-14 rounded-xl border border-gray-200 bg-sand-50 p-10 text-center">
             <p className="text-[14px] text-gray-500">No posts yet.</p>
           </div>
         ) : (
-          <div className="mt-14 divide-y divide-sand-200 border-t border-sand-200">
+          <div className="mt-14 divide-y divide-sand-200 border-t border-gray-200">
             {posts.map((post) => (
               <Link
                 key={post.slug}
