@@ -1,151 +1,134 @@
 ---
-title: "How We Scaled to 10 Million Requests Per Day"
-description: "A deep dive into the infrastructure decisions that let us handle 10M+ daily API calls with sub-50ms latency."
+title: "Processing 10 Million Events Per Day"
+description: "How we built the infrastructure to handle enterprise-scale event logs with sub-second query times."
 date: "2026-02-25"
 author: "Naman Agarwal"
-tags: ["engineering", "infrastructure"]
+tags: ["engineering"]
 published: true
 ---
 
-Last month we crossed 10 million API calls per day. Here's how we built the infrastructure to handle it — and what we learned along the way.
+Process mining is computationally expensive. Discovering process models from event logs, checking conformance, computing variant frequencies — these operations touch every event in the dataset. At enterprise scale, that means millions of events.
 
-## Architecture Overview
+Here's how we built Meridian's infrastructure to handle it.
 
-Our system is split into three tiers: edge, application, and data. Each tier scales independently.
+## Architecture
+
+Our system splits into three layers: ingestion, computation, and serving.
 
 ```
   System Architecture
-  ================================
+  ==========================================
 
-  Clients (Web, Mobile, API)
-          |
-          v
-  +--------------------+
-  |    Edge Layer       |    30+ global PoPs
-  |    (CDN + Cache)    |    < 5ms cache hits
-  +--------------------+
-          |
-          v
-  +--------------------+
-  |    App Layer        |    Auto-scaling pods
-  |    (API Gateway)    |    Rate limiting
-  |    (Auth + Routing) |    Request validation
-  +--------------------+
-          |
-     +----+----+
-     |         |
-     v         v
-  +------+  +-------+
-  | Read |  | Write |       Read/write splitting
-  | Pool |  | Pool  |       Connection pooling
-  +------+  +-------+
-     |         |
-     v         v
-  +--------------------+
-  |    Data Layer       |    PostgreSQL (primary)
-  |    (DB + Cache)     |    Redis (hot cache)
-  |                     |    S3 (blob storage)
-  +--------------------+
+  Event Sources
+  (CSV, DB, Warehouse, API)
+         |
+         v
+  +------------------+
+  |   Ingestion      |   Parse, validate, normalize
+  |   Pipeline       |   Schema detection
+  +------------------+   Deduplication
+         |
+         v
+  +------------------+
+  |   Event Store    |   Column-oriented storage
+  |   (Partitioned)  |   Partitioned by case ID
+  +------------------+   Compressed, indexed
+         |
+         v
+  +------------------+
+  |   Compute Layer  |   Process discovery algorithms
+  |   (On-demand)    |   Conformance checking
+  +------------------+   Variant clustering
+         |
+         v
+  +------------------+
+  |   Serving Layer  |   Pre-computed models
+  |   (Cached)       |   Real-time queries
+  +------------------+   Dashboard API
 ```
 
-## The Read Path
+## The Ingestion Challenge
 
-90% of our traffic is reads. We optimized aggressively for this case.
-
-```
-  Read Request Flow (avg 12ms)
-  ================================
-
-  Client Request
-       |
-       v
-  [Edge Cache] --hit--> Response (< 5ms)
-       |
-      miss
-       |
-       v
-  [API Gateway]
-       |
-       v
-  [Redis Cache] --hit--> Response (< 15ms)
-       |
-      miss
-       |
-       v
-  [Read Replica]
-       |
-       v
-  [Cache Write] --> Response (< 50ms)
-```
-
-Key decisions:
-- **Edge caching** for static and semi-static data (user profiles, org settings)
-- **Redis** for hot data with 5-minute TTLs
-- **Read replicas** in every region to keep queries close to users
-- **Connection pooling** with PgBouncer — we never open a fresh connection per request
-
-## The Write Path
-
-Writes are more complex. We use an event-driven architecture to keep writes fast and consistent.
+Event logs come in messy. Different formats, inconsistent timestamps, duplicate events, missing case IDs. Our ingestion pipeline handles all of this:
 
 ```
-  Write Request Flow
-  ================================
+  Ingestion Pipeline
+  ==========================================
 
-  Client Request
-       |
-       v
-  [API Gateway]
-       |
-       v
-  [Validation + Auth]
-       |
-       v
-  [Primary DB] --> ACK to client (< 30ms)
-       |
-       v
-  [Event Bus]
-       |
-       +--------+--------+--------+
-       |        |        |        |
-       v        v        v        v
-   [Search]  [Cache]  [Analytics] [Webhooks]
-   reindex   invalidate  aggregate  fan-out
+  Raw Upload (CSV/XES/Parquet/API)
+         |
+         v
+  [Format Detection]
+         |
+         v
+  [Schema Mapping]     case_id, activity, timestamp
+         |              + optional attributes
+         v
+  [Validation]          Missing fields? Invalid dates?
+         |              Out-of-order events?
+         v
+  [Normalization]       UTC timestamps, consistent
+         |              activity names, dedup
+         v
+  [Partitioning]        Partition by case_id hash
+         |              Sort by timestamp within case
+         v
+  [Event Store]         Ready for computation
 ```
 
-The key insight: **acknowledge the write immediately**, then process side effects asynchronously. The user sees sub-30ms response times, while reindexing, cache invalidation, and webhook delivery happen in the background.
+This pipeline processes ~50,000 events per second on a single node. For large uploads (100M+ events), we shard across multiple nodes.
 
-## What We Monitor
+## Process Discovery at Scale
+
+The Alpha Miner, Heuristic Miner, and Inductive Miner algorithms all have different computational profiles. We benchmark them:
 
 ```
-  Key Metrics Dashboard
-  ================================
+  Algorithm Performance (10M events, 50K cases)
+  ==========================================
 
-  Latency (p99)     |####              | 49ms    OK
-  Error Rate        |#                 | 0.01%   OK
-  Throughput        |############      | 10.2M   OK
-  Cache Hit Rate    |################# | 94.7%   OK
-  DB Connections    |########          | 342     OK
-  Queue Depth       |##                | 47      OK
+  Alpha Miner      ####                 3.2s
+  Heuristic Miner  ########             7.8s
+  Inductive Miner  ##############       14.1s
+  Fuzzy Miner      ######               5.9s
+
+  0s         5s         10s         15s         20s
 ```
 
-We alert on any of these crossing thresholds. Cache hit rate dropping below 90% is a red flag — it usually means a cache invalidation bug.
+The Inductive Miner produces the cleanest models but is the slowest. We run it in the background and show Heuristic Miner results first, then upgrade the model when the Inductive Miner finishes.
 
-## Lessons Learned
+## Query Performance
 
-1. **Profile before you optimize.** We wasted two weeks optimizing a serialization path that was only 3% of total latency.
+For interactive exploration (filtering, drilling down, variant analysis), sub-second response is non-negotiable. Our approach:
 
-2. **Connection pooling matters more than query optimization.** Cutting connection overhead from 15ms to 0.5ms was our single biggest win.
+```
+  Query Path
+  ==========================================
 
-3. **Cache invalidation is the hardest problem.** We eventually settled on event-driven invalidation with a 5-minute max TTL as a safety net.
+  User interaction (filter, click, drill-down)
+         |
+         v
+  [Query Planner]
+         |
+    +----+----+
+    |         |
+    v         v
+  [Cache]   [Compute]
+  < 50ms    < 2s
+    |         |
+    +----+----+
+         |
+         v
+  [Result Merge + Render]
+```
 
-4. **Read replicas need monitoring.** Replication lag caused subtle bugs in our dashboard — users would create something and not see it for 2-3 seconds.
+We pre-compute the most common query patterns (variant frequencies, bottleneck durations, case counts by status) and cache them. For ad-hoc queries, we compute on demand but still target < 2 seconds.
 
-## What's Next
+## What we learned
 
-We're working on:
-- **Multi-region writes** — active-active across US and EU
-- **Edge compute** — moving validation and auth to the edge
-- **Query optimization** — automatic slow query detection and index suggestions
+1. **Column-oriented storage matters.** Process mining queries scan specific columns (activity, timestamp) across all events. Row-oriented storage is 10-20x slower for these patterns.
 
-Read more about our [product capabilities](/product) or [get started](/contact).
+2. **Partition by case, not time.** Most queries filter by case attributes or need complete case histories. Partitioning by case ID hash keeps all events for a case co-located.
+
+3. **Pre-compute aggressively.** The process model itself changes rarely (only when new data arrives). Compute it once, cache it, serve it fast.
+
+4. **Show fast results first.** Users prefer seeing a rough model in 3 seconds over waiting 15 seconds for a perfect one. Progressive refinement beats blocking computation.
