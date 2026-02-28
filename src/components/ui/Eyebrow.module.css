@@ -1,0 +1,49 @@
+/* ═══════════════════════════════════════════════════════════════
+   Eyebrow — section label, two variants: bracket and pulse
+   ═══════════════════════════════════════════════════════════════ */
+
+.eyebrow {
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);         /* 10px */
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--ink-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+/* ── BRACKET variant ───────────────────────────────────────── */
+.bracket::before {
+  content: "[ ";
+}
+
+.bracket::after {
+  content: " ]";
+}
+
+/* ── PULSE variant — animated emerald dot ──────────────────── */
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 4px 2px rgba(4, 122, 85, 0.3);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.85);
+    box-shadow: 0 0 8px 4px rgba(4, 122, 85, 0.5);
+  }
+}
