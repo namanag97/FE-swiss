@@ -6,6 +6,8 @@ import { Container } from "@/components/ui/Container";
 export const metadata: Metadata = {
   title: "Security",
   description: "Enterprise-grade security and compliance. SOC 2 Type II, GDPR, HIPAA ready.",
+  alternates: { canonical: "/security" },
+  openGraph: { images: ["/og.png"] },
 };
 
 const items = [
