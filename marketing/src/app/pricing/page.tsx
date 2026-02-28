@@ -16,7 +16,7 @@ const plans = [
     period: "",
     desc: "Try it on one process. No commitment.",
     features: ["1 process model", "Up to 100K events", "Process discovery", "Basic analytics", "Community support"],
-    cta: "Start free pilot",
+    cta: "Start Free Pilot",
     href: "/contact",
     featured: false,
   },
@@ -26,8 +26,8 @@ const plans = [
     period: "/ month",
     desc: "For operations teams running multiple processes.",
     features: ["Unlimited processes", "Up to 10M events / mo", "Conformance checking", "Advanced analytics & dashboards", "Variant analysis", "Priority support", "SSO"],
-    cta: "Start free trial",
-    href: "/contact",
+    cta: "Request Demo",
+    href: "/request-demo",
     featured: true,
   },
   {
@@ -36,7 +36,7 @@ const plans = [
     period: "",
     desc: "For organizations with scale, compliance, and integration needs.",
     features: ["Everything in Team", "Unlimited events", "AI insights & predictions", "Custom integrations", "Dedicated CSM", "SLA guarantee", "On-premise option"],
-    cta: "Contact sales",
+    cta: "Contact Sales",
     href: "/contact",
     featured: false,
   },
@@ -139,8 +139,7 @@ export default function PricingPage() {
   │  ▓▓▓▓▓▓▓  │         │  ░▓▓▓▓▓░  │         │  ░░▓▓░░░  │
   │  ▓▓▓▓▓▓▓  │         │  ░▓▓▓▓▓░  │         │  ░░▓▓░░░  │
   └───────────┘         └───────────┘         └───────────┘
-   We manage it          We co-manage          You own it`}
-            </pre>
+   We manage it          We co-manage          You own it`}</pre>
           </div>
         </div>
       </section>
@@ -173,8 +172,7 @@ export default function PricingPage() {
   Dedicated CSM                    ○          ○          ●
   SLA guarantee                    ○          ○          ●
   ───────────────────────────────────────────────────────────────────
-  ● included   ○ not included`}
-            </pre>
+  ● included   ○ not included`}</pre>
           </div>
         </div>
       </section>
