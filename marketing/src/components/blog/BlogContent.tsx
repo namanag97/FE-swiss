@@ -15,7 +15,7 @@ export async function BlogContent({ source }: Props) {
   });
 
   const { default: MDXContent } = await run(String(compiled), {
-    ...(runtime as Record<string, unknown>),
+    ...runtime,
     baseUrl: import.meta.url,
   });
 
