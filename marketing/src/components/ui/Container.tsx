@@ -7,18 +7,14 @@ interface ContainerProps {
 }
 
 const widths = {
-  content: "max-w-[720px]",
-  wide: "max-w-[1200px]",
+  content: "max-w-[680px]",
+  wide: "max-w-[1100px]",
   full: "max-w-[1400px]",
 } as const;
 
-export function Container({
-  children,
-  className,
-  size = "wide",
-}: ContainerProps) {
+export function Container({ children, className, size = "wide" }: ContainerProps) {
   return (
-    <div className={cn("mx-auto px-6 lg:px-12", widths[size], className)}>
+    <div className={cn("mx-auto px-6", widths[size], className)}>
       {children}
     </div>
   );
