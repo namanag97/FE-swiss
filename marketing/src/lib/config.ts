@@ -14,6 +14,7 @@ export const siteConfig = {
     { label: "Use Cases", href: "/use-cases" },
     { label: "Pricing", href: "/pricing" },
     { label: "Blog", href: "/blog" },
+    { label: "About", href: "/about" },
   ],
   footer: {
     platform: [
