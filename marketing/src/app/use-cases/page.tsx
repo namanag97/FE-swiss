@@ -91,13 +91,13 @@ export default function UseCasesPage() {
         </section>
       ))}
 
-      <section className="border-t border-sand-200 bg-sand-900 py-20 text-center">
+      <section className="border-t border-forest-800 bg-forest-900 py-20 text-center">
         <Container>
           <h2 className="text-2xl font-semibold tracking-tight text-white">Have a different process in mind?</h2>
-          <p className="mx-auto mt-3 max-w-md text-[15px] text-sand-400">
+          <p className="mx-auto mt-3 max-w-md text-[15px] text-forest-200/70">
             If it generates event data, Meridian can mine it. Let&apos;s talk about your specific use case.
           </p>
-          <Link href="/contact" className="group mt-7 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-[13px] font-medium text-sand-900 hover:bg-sand-100">
+          <Link href="/contact" className="group mt-7 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-[13px] font-medium text-forest-900 hover:bg-gray-100">
             Talk to us <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </Container>
