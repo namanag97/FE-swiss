@@ -17,18 +17,14 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://yoursite.com"),
+  metadataBase: new URL("https://meridian.dev"),
   title: {
-    default: "YourStartup — Build faster, ship smarter",
-    template: "%s | YourStartup",
+    default: "Meridian — See how your business actually runs",
+    template: "%s | Meridian",
   },
   description:
-    "The modern platform for engineering teams. Ship faster with real-time analytics, workflow automation, and enterprise-grade security.",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: "YourStartup",
-  },
+    "The data platform for operations teams. Process mining, visual analytics, and AI-powered insights — beyond what SQL can show you.",
+  openGraph: { type: "website", locale: "en_US", siteName: "Meridian" },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
 };
@@ -40,7 +36,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${mono.variable}`}>
-      <body className="flex min-h-screen flex-col bg-white text-neutral-900 antialiased">
+      <body className="flex min-h-screen flex-col antialiased">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
