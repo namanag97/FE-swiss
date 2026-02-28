@@ -5,7 +5,6 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 const nextConfig: NextConfig = {
-  output: "export",
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   images: {
     unoptimized: true,
