@@ -30,7 +30,7 @@ export default function ContactPage() {
           <p className="type-body" style={{ marginTop: 'var(--sp-3)', color: 'var(--ink-mid)' }}>
             We&apos;ll get back to you within 24 hours. In the meantime, explore our platform.
           </p>
-          <Link href="/product" className="btn btn-primary" style={{ marginTop: 'var(--sp-5)' }}>Explore Platform</Link>
+          <Link href="/platform" className="btn btn-primary" style={{ marginTop: 'var(--sp-5)' }}>Explore Platform</Link>
         </div>
       </section>
     );
