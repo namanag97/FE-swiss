@@ -107,26 +107,30 @@ export default function HomePage() {
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-7)' }}>
-          <div style={{ textAlign: 'center', marginBottom: 'var(--sp-6)' }}>
-            <span className="eyebrow eyebrow-bracket">Timeline</span>
-            <h2 className="type-h2" style={{ marginTop: 'var(--sp-3)' }}>
-              From event log to <em>actionable insight</em>
-            </h2>
-            <p className="type-body" style={{ maxWidth: 480, margin: '0 auto', marginTop: 'var(--sp-3)', color: 'var(--ink-mid)' }}>
-              Process intelligence shouldn&apos;t take months to implement.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: 'var(--sp-4)' }}>
+          <Reveal>
+            <div style={{ textAlign: 'center', marginBottom: 'var(--sp-6)' }}>
+              <span className="eyebrow eyebrow-bracket">Timeline</span>
+              <h2 className="type-h2" style={{ marginTop: 'var(--sp-3)' }}>
+                From event log to <em>actionable insight</em>
+              </h2>
+              <p className="type-body" style={{ maxWidth: 480, margin: '0 auto', marginTop: 'var(--sp-3)', color: 'var(--ink-mid)' }}>
+                Process intelligence shouldn&apos;t take months to implement.
+              </p>
+            </div>
+          </Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 reveal-stagger" style={{ gap: 'var(--sp-4)' }}>
             {[
               { phase: 'Day 1', title: 'Answers in minutes', desc: 'Connect your ERP or ITSM system. See your first process map within the hour.' },
               { phase: 'Week 1', title: 'Share with your team', desc: 'Roll out dashboards to operations leads. Self-serve process insights without analyst back-and-forth.' },
               { phase: 'Month 1', title: 'Full process intelligence', desc: 'Conformance checking, bottleneck prediction, and automated alerts across all your workflows.' },
             ].map((t) => (
-              <div key={t.phase} className="card-feature" style={{ padding: 'var(--sp-5)' }}>
-                <span style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--emerald)', fontWeight: 500 }}>{t.phase}</span>
-                <h3 className="type-h3" style={{ marginTop: 'var(--sp-2)' }}>{t.title}</h3>
-                <p className="type-body" style={{ marginTop: 'var(--sp-3)', color: 'var(--ink-mid)' }}>{t.desc}</p>
-              </div>
+              <Reveal key={t.phase}>
+                <div className="card-feature" style={{ padding: 'var(--sp-5)', height: '100%' }}>
+                  <span style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--emerald)', fontWeight: 500 }}>{t.phase}</span>
+                  <h3 className="type-h3" style={{ marginTop: 'var(--sp-2)' }}>{t.title}</h3>
+                  <p className="type-body" style={{ marginTop: 'var(--sp-3)', color: 'var(--ink-mid)' }}>{t.desc}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
