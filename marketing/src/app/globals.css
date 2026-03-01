@@ -979,7 +979,7 @@ select.input {
     order: 1;
   }
   .type-display {
-    font-size: max(var(--fs-2xl), 7vw);
+    font-size: clamp(32px, 8vw, 48px);
   }
   .ascii-art {
     font-size: 9px;
