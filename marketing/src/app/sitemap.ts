@@ -9,10 +9,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const pages = [
-    "", "/product", "/use-cases", "/pricing", "/blog",
+    "", "/platform", "/use-cases", "/blog",
     "/about", "/contact", "/security",
     "/legal/privacy", "/legal/terms",
-    "/request-demo", "/versus",
   ].map((path) => ({
     url: `${siteConfig.url}${path}`,
     lastModified: new Date(),
