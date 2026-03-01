@@ -47,7 +47,12 @@ export function ProcessMapHero() {
 
       {/* SVG canvas */}
       <div className="relative overflow-x-auto" style={{ background: 'var(--bg)' }}>
-        <svg viewBox="0 0 880 280" className="h-auto w-full min-w-[600px]" fill="none">
+        <svg viewBox="0 0 900 280" className="h-auto w-full min-w-[600px]" fill="none">
+          <defs>
+            <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto">
+              <polygon points="0,0 6,3 0,6" fill="var(--border-nav)" />
+            </marker>
+          </defs>
           {edges.map((e) => {
             const from = nodeMap[e.from];
             const to = nodeMap[e.to];
