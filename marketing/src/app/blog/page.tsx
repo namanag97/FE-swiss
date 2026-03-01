@@ -47,7 +47,7 @@ export default function BlogPage() {
             Engineering deep-dives, product updates, and process mining perspectives.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--sp-5)' }}>
-            <Link href="/contact" className="btn btn-primary" style={{ background: 'var(--white)', color: 'var(--ink-dark)', borderColor: 'var(--white)' }}>Get Early Access</Link>
+            <Link href="/contact" className="btn btn-primary" style={{ background: 'var(--white)', color: 'var(--ink-dark)', borderColor: 'var(--white)' }}>Get in Touch</Link>
           </div>
         </div>
       </section>
