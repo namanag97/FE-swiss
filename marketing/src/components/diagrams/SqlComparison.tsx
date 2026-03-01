@@ -1,154 +1,98 @@
 "use client";
 
+/**
+ * Conceptual comparison: SQL flat query vs process mining contextual insight
+ * Two panels side by side — simple and clear
+ */
 export function SqlComparison() {
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: 0,
-        border: "1px solid var(--border-mid)",
-      }}
-    >
-      {/* SQL side */}
-      <div
-        style={{
-          padding: "var(--sp-5)",
-          background: "var(--white)",
-          borderRight: "1px solid var(--border)",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--sans)",
-            fontSize: 8,
-            fontWeight: 500,
-            textTransform: "uppercase",
-            letterSpacing: "0.12em",
-            color: "var(--ink-faint)",
-            marginBottom: "var(--sp-4)",
-          }}
-        >
-          Traditional SQL
-        </div>
+    <svg viewBox="0 0 520 200" className="h-auto w-full" fill="none">
+      {/* ── Left panel: SQL ── */}
+      <rect x={0} y={0} width={248} height={200} rx={6} fill="white" stroke="#E5E7EB" strokeWidth={1} />
 
-        {/* Terminal mockup */}
-        <div
-          style={{
-            background: "var(--ink-dark)",
-            padding: "var(--sp-3) var(--sp-4)",
-            fontFamily: "var(--sans)",
-            fontSize: "var(--fs-xs)",
-            color: "rgba(255,255,255,.6)",
-            lineHeight: 1.8,
-          }}
-        >
-          <div>
-            <span style={{ color: "rgba(255,255,255,.3)" }}>{">"}</span>{" "}
-            <span style={{ color: "rgba(4,122,85,.7)" }}>SELECT</span>{" "}
-            <span style={{ color: "rgba(255,255,255,.8)" }}>COUNT</span>
-            (*)
-          </div>
-          <div>
-            {"  "}
-            <span style={{ color: "rgba(4,122,85,.7)" }}>FROM</span> orders
-          </div>
-          <div>
-            {"  "}
-            <span style={{ color: "rgba(4,122,85,.7)" }}>WHERE</span>{" "}
-            status = <span style={{ color: "#fcd34d" }}>&apos;late&apos;</span>
-          </div>
-          <div style={{ marginTop: 12, borderTop: "1px solid rgba(255,255,255,.1)", paddingTop: 8 }}>
-            <span style={{ color: "rgba(255,255,255,.3)" }}>→</span>{" "}
-            <span style={{ color: "rgba(255,255,255,.9)", fontWeight: 500 }}>847</span>{" "}
-            late orders
-          </div>
-        </div>
+      <text x={124} y={24} textAnchor="middle" fill="#9CA3AF" fontSize={9} fontFamily="Inter, sans-serif" fontWeight={500} letterSpacing="0.08em">
+        TRADITIONAL SQL
+      </text>
 
-        <div
-          style={{
-            marginTop: "var(--sp-4)",
-            fontFamily: "var(--body)",
-            fontSize: "var(--fs-xs)",
-            color: "var(--ink-faint)",
-            lineHeight: 1.6,
-          }}
-        >
-          Tells you <em>what</em> happened.
-          <br />
-          Flat aggregation. No context.
-        </div>
-      </div>
+      {/* Code block */}
+      <rect x={16} y={36} width={216} height={72} rx={4} fill="#1F2937" />
+      <text x={28} y={54} fill="#9CA3AF" fontSize={9} fontFamily="monospace">
+        <tspan fill="#6EE7B7">SELECT</tspan> COUNT(*)
+      </text>
+      <text x={28} y={70} fill="#9CA3AF" fontSize={9} fontFamily="monospace">
+        <tspan fill="#6EE7B7">FROM</tspan> orders
+      </text>
+      <text x={28} y={86} fill="#9CA3AF" fontSize={9} fontFamily="monospace">
+        <tspan fill="#6EE7B7">WHERE</tspan> status = <tspan fill="#FCD34D">&apos;late&apos;</tspan>
+      </text>
+      <text x={28} y={100} fill="#6B7280" fontSize={8} fontFamily="monospace">
+        → 847 rows
+      </text>
 
-      {/* Process Mining side */}
-      <div
-        style={{
-          padding: "var(--sp-5)",
-          background: "rgba(4,122,85,.02)",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--sans)",
-            fontSize: 8,
-            fontWeight: 500,
-            textTransform: "uppercase",
-            letterSpacing: "0.12em",
-            color: "var(--emerald)",
-            marginBottom: "var(--sp-4)",
-          }}
-        >
-          Process Mining
-        </div>
+      {/* Result */}
+      <text x={124} y={132} textAnchor="middle" fill="#1F2937" fontSize={28} fontFamily="Inter, sans-serif" fontWeight={300}>
+        847
+      </text>
+      <text x={124} y={148} textAnchor="middle" fill="#9CA3AF" fontSize={9} fontFamily="Inter, sans-serif">
+        late orders
+      </text>
 
-        {/* Mini process flow */}
-        <svg viewBox="0 0 220 100" className="h-auto w-full" fill="none">
-          {/* Happy path */}
-          <rect x={0} y={10} width={50} height={22} fill="rgba(4,122,85,.08)" stroke="var(--emerald)" strokeWidth={0.8} />
-          <text x={25} y={24} textAnchor="middle" fill="var(--emerald)" style={{ fontSize: 7, fontFamily: "var(--body)" }}>Order</text>
+      <text x={124} y={175} textAnchor="middle" fill="#9CA3AF" fontSize={9} fontFamily="Inter, sans-serif" fontStyle="italic">
+        Tells you what happened
+      </text>
+      <text x={124} y={190} textAnchor="middle" fill="#D1D5DB" fontSize={8} fontFamily="Inter, sans-serif">
+        No context. No why.
+      </text>
 
-          <line x1={50} y1={21} x2={70} y2={21} stroke="var(--emerald)" strokeWidth={1} />
+      {/* ── VS label ── */}
+      <circle cx={260} cy={100} r={14} fill="#F3F4F6" stroke="#E5E7EB" strokeWidth={1} />
+      <text x={260} y={104} textAnchor="middle" fill="#9CA3AF" fontSize={8} fontFamily="Inter, sans-serif" fontWeight={600}>
+        vs
+      </text>
 
-          <rect x={70} y={10} width={50} height={22} fill="rgba(4,122,85,.08)" stroke="var(--emerald)" strokeWidth={0.8} />
-          <text x={95} y={24} textAnchor="middle" fill="var(--emerald)" style={{ fontSize: 7, fontFamily: "var(--body)" }}>Verify</text>
+      {/* ── Right panel: Process Mining ── */}
+      <rect x={272} y={0} width={248} height={200} rx={6} fill="#F0FDF4" stroke="#047A55" strokeWidth={1} />
 
-          <line x1={120} y1={21} x2={140} y2={21} stroke="var(--emerald)" strokeWidth={1} />
+      <text x={396} y={24} textAnchor="middle" fill="#047A55" fontSize={9} fontFamily="Inter, sans-serif" fontWeight={500} letterSpacing="0.08em">
+        PROCESS MINING
+      </text>
 
-          <rect x={140} y={10} width={50} height={22} fill="rgba(4,122,85,.08)" stroke="var(--emerald)" strokeWidth={0.8} />
-          <text x={165} y={24} textAnchor="middle" fill="var(--emerald)" style={{ fontSize: 7, fontFamily: "var(--body)" }}>Ship</text>
+      {/* Mini process flow */}
+      {["Order", "Verify", "Ship"].map((label, i) => {
+        const x = 290 + i * 70;
+        return (
+          <g key={label}>
+            <circle cx={x + 16} cy={54} r={12} fill="white" stroke="#047A55" strokeWidth={1} />
+            <text x={x + 16} y={58} textAnchor="middle" fill="#047A55" fontSize={6} fontFamily="Inter, sans-serif">{label}</text>
+            {i < 2 && <line x1={x + 28} y1={54} x2={x + 74} y2={54} stroke="#047A55" strokeWidth={0.8} />}
+          </g>
+        );
+      })}
 
-          {/* Bottleneck branch */}
-          <line x1={95} y1={32} x2={95} y2={50} stroke="#d97706" strokeWidth={1} strokeDasharray="3 2" />
-          <rect x={60} y={50} width={70} height={22} fill="#fffbeb" stroke="#fcd34d" strokeWidth={0.8} />
-          <text x={95} y={64} textAnchor="middle" fill="#92400e" style={{ fontSize: 7, fontFamily: "var(--body)" }}>Bottleneck</text>
+      {/* Bottleneck branch */}
+      <line x1={376} y1={66} x2={376} y2={86} stroke="#F59E0B" strokeWidth={1.2} strokeDasharray="3 2" />
+      <rect x={346} y={86} width={60} height={20} rx={10} fill="#FEF3C7" stroke="#F59E0B" strokeWidth={1} />
+      <text x={376} y={100} textAnchor="middle" fill="#92400E" fontSize={7} fontFamily="Inter, sans-serif" fontWeight={500}>
+        Bottleneck
+      </text>
 
-          {/* Annotation */}
-          <line x1={130} y1={61} x2={155} y2={61} stroke="#d97706" strokeWidth={0.8} />
-          <text x={158} y={58} fill="#B45309" style={{ fontSize: 6, fontFamily: "var(--sans)", fontWeight: 500 }}>34% OF CASES</text>
-          <text x={158} y={67} fill="#B45309" style={{ fontSize: 6, fontFamily: "var(--sans)" }}>+4.2 DAYS AVG</text>
+      {/* Insight */}
+      <text x={396} y={128} textAnchor="middle" fill="#1F2937" fontSize={11} fontFamily="Inter, sans-serif" fontWeight={500}>
+        847 late orders
+      </text>
+      <text x={396} y={145} textAnchor="middle" fill="#047A55" fontSize={10} fontFamily="Inter, sans-serif" fontWeight={500}>
+        Root cause: Manual Review
+      </text>
+      <text x={396} y={160} textAnchor="middle" fill="#6B7280" fontSize={9} fontFamily="Inter, sans-serif">
+        34% of cases · +4.2 days avg
+      </text>
 
-          {/* Result callout */}
-          <rect x={0} y={82} width={220} height={16} fill="rgba(4,122,85,.06)" stroke="var(--emerald)" strokeWidth={0.5} />
-          <text x={110} y={93} textAnchor="middle" fill="var(--emerald)" style={{ fontSize: 7, fontFamily: "var(--body)", fontWeight: 500 }}>
-            847 late → Manual Review is the root cause
-          </text>
-        </svg>
-
-        <div
-          style={{
-            marginTop: "var(--sp-3)",
-            fontFamily: "var(--body)",
-            fontSize: "var(--fs-xs)",
-            color: "var(--emerald)",
-            lineHeight: 1.6,
-            fontWeight: 500,
-          }}
-        >
-          Shows you <em>why</em> it happened.
-          <br />
-          Process context. Actionable.
-        </div>
-      </div>
-    </div>
+      <text x={396} y={182} textAnchor="middle" fill="#047A55" fontSize={9} fontFamily="Inter, sans-serif" fontStyle="italic" fontWeight={500}>
+        Shows you why it happened
+      </text>
+      <text x={396} y={194} textAnchor="middle" fill="#047A55" fontSize={8} fontFamily="Inter, sans-serif" opacity={0.6}>
+        Process context. Actionable.
+      </text>
+    </svg>
   );
 }
