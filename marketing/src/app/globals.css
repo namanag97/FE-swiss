@@ -300,7 +300,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   font-style: italic;
   font-weight: 400;
   color: var(--emerald);
-  word-spacing: 0;
 }
 .type-h3 {
   font-family: var(--sans);
