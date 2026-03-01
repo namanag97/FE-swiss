@@ -396,7 +396,7 @@ export default function UseCasesPage() {
       <div className="ascii-divider">&middot; &middot; &middot;   &middot; &middot; &middot;   &middot; &middot; &middot;</div>
 
       {/* Use Case 4: Patient Journey */}
-      <section className="gr">
+      <section id="healthcare" className="gr" style={{ scrollMarginTop: 'var(--nav-h)' }}>
         <div className="h-rule h-rule--bottom" />
         <div
           className="gi"
