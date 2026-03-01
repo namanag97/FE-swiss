@@ -116,7 +116,7 @@ export default function SecurityPage() {
             Contact our security team for detailed documentation, SOC 2 reports, or custom assessments.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--sp-5)' }}>
-            <Link href="/contact" className="btn btn-primary" style={{ background: 'var(--white)', color: 'var(--ink-dark)', borderColor: 'var(--white)' }}>Get Early Access</Link>
+            <Link href="/contact" className="btn btn-primary" style={{ background: 'var(--white)', color: 'var(--ink-dark)', borderColor: 'var(--white)' }}>Contact Us</Link>
           </div>
         </div>
       </section>
