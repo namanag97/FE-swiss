@@ -10,34 +10,30 @@ export const siteConfig = {
     linkedin: "https://linkedin.com/company/meridiandev",
   },
   nav: [
-    { label: "Platform", href: "/product" },
+    { label: "Platform", href: "/platform" },
     { label: "Use Cases", href: "/use-cases" },
-    { label: "Pricing", href: "/pricing" },
     { label: "Blog", href: "/blog" },
     { label: "About", href: "/about" },
+    { label: "Security", href: "/security" },
   ],
   footer: {
     platform: [
-      { label: "Process Mining", href: "/product" },
-      { label: "Visual Analytics", href: "/product" },
+      { label: "Overview", href: "/platform" },
       { label: "Use Cases", href: "/use-cases" },
-      { label: "Pricing", href: "/pricing" },
-      { label: "Compare", href: "/versus" },
+      { label: "Security", href: "/security" },
+    ],
+    solutions: [
+      { label: "Order-to-Cash", href: "/use-cases#o2c" },
+      { label: "Procure-to-Pay", href: "/use-cases#p2p" },
+      { label: "IT Service Management", href: "/use-cases#itsm" },
+      { label: "Patient Journey", href: "/use-cases#healthcare" },
     ],
     company: [
       { label: "About", href: "/about" },
       { label: "Blog", href: "/blog" },
-      { label: "Security", href: "/security" },
       { label: "Contact", href: "/contact" },
-      { label: "Request Demo", href: "/request-demo" },
     ],
-    solutions: [
-      { label: "Order-to-Cash", href: "/use-cases" },
-      { label: "Procure-to-Pay", href: "/use-cases" },
-      { label: "IT Service Management", href: "/use-cases" },
-      { label: "Patient Journey", href: "/use-cases" },
-    ],
-    resources: [
+    legal: [
       { label: "Privacy", href: "/legal/privacy" },
       { label: "Terms", href: "/legal/terms" },
     ],
