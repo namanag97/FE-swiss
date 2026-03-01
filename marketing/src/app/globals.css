@@ -270,7 +270,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   font-family: var(--sans);
   font-size: clamp(40px, 5vw, 68px);
   font-weight: 400;
-  line-height: .95;
+  line-height: 1.1;
   letter-spacing: -.025em;
   word-spacing: -.10em;
   color: var(--ink);
