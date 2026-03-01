@@ -116,7 +116,7 @@ export default function PricingPage() {
       </section>
 
       {/* Deploy Anywhere */}
-      <div className="ascii-divider">{'\u00b7'} {'\u00b7'} {'\u00b7'}   {'\u00b7'} {'\u00b7'} {'\u00b7'}   {'\u00b7'} {'\u00b7'} {'\u00b7'}</div>
+      <div className="ascii-divider">&middot; &middot; &middot;   &middot; &middot; &middot;   &middot; &middot; &middot;</div>
 
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
@@ -145,7 +145,7 @@ export default function PricingPage() {
       </section>
 
       {/* Feature Comparison */}
-      <div className="ascii-divider">{'\u00b7'} {'\u00b7'} {'\u00b7'}   {'\u00b7'} {'\u00b7'} {'\u00b7'}   {'\u00b7'} {'\u00b7'} {'\u00b7'}</div>
+      <div className="ascii-divider">&middot; &middot; &middot;   &middot; &middot; &middot;   &middot; &middot; &middot;</div>
 
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
