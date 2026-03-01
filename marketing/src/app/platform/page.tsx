@@ -447,8 +447,8 @@ export default function PlatformPage() {
               marginTop: "var(--sp-4)",
             }}
           >
-            Book a 30-minute demo with our team. We&apos;ll show you how
-            Meridian works with your data.
+            Be among the first to use Meridian. Request early access and
+            we&apos;ll be in touch.
           </p>
           <div
             style={{
