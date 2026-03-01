@@ -98,15 +98,15 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 'var(--sp-4)' }}>
             {[
-              { title: 'Order-to-Cash', desc: 'Reduce DSO by identifying invoice bottlenecks and payment delays across the entire O2C cycle.' },
-              { title: 'Procure-to-Pay', desc: 'Uncover maverick buying, duplicate payments, and approval bottlenecks in your procurement process.' },
-              { title: 'IT Service Management', desc: 'Map ticket lifecycles, find resolution bottlenecks, and optimize escalation paths.' },
-              { title: 'Patient Journey', desc: 'Track patient flow through clinical pathways, identify wait times, and improve care coordination.' },
+              { title: 'Order-to-Cash', desc: 'Reduce DSO by identifying invoice bottlenecks and payment delays across the entire O2C cycle.', anchor: '#o2c' },
+              { title: 'Procure-to-Pay', desc: 'Uncover maverick buying, duplicate payments, and approval bottlenecks in your procurement process.', anchor: '#p2p' },
+              { title: 'IT Service Management', desc: 'Map ticket lifecycles, find resolution bottlenecks, and optimize escalation paths.', anchor: '#itsm' },
+              { title: 'Patient Journey', desc: 'Track patient flow through clinical pathways, identify wait times, and improve care coordination.', anchor: '#healthcare' },
             ].map((uc) => (
               <div key={uc.title} className="card-feature" style={{ padding: 'var(--sp-5)' }}>
                 <h3 className="type-h3">{uc.title}</h3>
                 <p className="type-body" style={{ marginTop: 'var(--sp-3)', color: 'var(--ink-mid)' }}>{uc.desc}</p>
-                <Link href="/use-cases" style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', color: 'var(--emerald)', textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 'var(--sp-4)', display: 'inline-block' }}>
+                <Link href={`/use-cases${uc.anchor}`} style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', color: 'var(--emerald)', textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 'var(--sp-4)', display: 'inline-block' }}>
                   Learn more →
                 </Link>
               </div>
