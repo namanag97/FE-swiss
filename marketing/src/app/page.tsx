@@ -42,10 +42,10 @@ export default function HomePage() {
         <div className="h-rule h-rule--bottom" />
         <div className="gi" style={{ padding: 'var(--sp-6) 0' }}>
           <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', textAlign: 'center', marginBottom: 'var(--sp-4)' }}>
-            Trusted by operations teams at
+            Built for teams that run on
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: 'var(--sp-7)', flexWrap: 'wrap', alignItems: 'center' }}>
-            {['Siemens', 'Bosch', 'Maersk', 'ABB', 'Roche'].map((name) => (
+            {['SAP', 'ServiceNow', 'Salesforce', 'JIRA', 'Oracle'].map((name) => (
               <span key={name} style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)', letterSpacing: '0.05em' }}>{name}</span>
             ))}
           </div>
