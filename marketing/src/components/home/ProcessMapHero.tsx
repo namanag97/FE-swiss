@@ -78,7 +78,7 @@ export function ProcessMapHero() {
               <g key={`${e.from}-${e.to}`}>
                 <line x1={fx} y1={fy} x2={tx} y2={ty} stroke="var(--border-nav)" strokeWidth="1.5" />
                 <polygon points={`${tx},${ty} ${tx - 6},${ty - 3} ${tx - 6},${ty + 3}`} fill="var(--border-nav)" />
-                {e.label && <text x={(fx + tx) / 2} y={fy - 8} textAnchor="middle" className="text-[9px] font-medium" fill="var(--ink-faint)">{e.label}</text>}
+                {e.label && <text x={(fx + tx) / 2} y={fy - 8} textAnchor="middle" style={{ fontSize: 9, fontWeight: 500 }} fill="var(--ink-faint)">{e.label}</text>}
               </g>
             );
           })}
