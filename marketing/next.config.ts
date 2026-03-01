@@ -9,6 +9,15 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [],
   },
+  async redirects() {
+    return [
+      {
+        source: "/product",
+        destination: "/platform",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 const withMDX = createMDX({
