@@ -531,8 +531,8 @@ export default function UseCasesPage() {
               marginTop: "var(--sp-4)",
             }}
           >
-            Upload your event log or connect your systems. See your first
-            process map in minutes.
+            Be among the first to run process mining on your workflows.
+            Request early access today.
           </p>
           <div
             style={{
