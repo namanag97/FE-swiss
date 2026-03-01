@@ -99,11 +99,8 @@ export function Header() {
               </Link>
             ))}
             <div className="mt-3 flex flex-col gap-2">
-              <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-ghost w-full text-center">
-                Get Started
-              </Link>
-              <Link href="/request-demo" onClick={() => setOpen(false)} className="btn btn-primary w-full text-center">
-                Request Demo
+              <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary w-full text-center">
+                Get Early Access
               </Link>
             </div>
           </div>
