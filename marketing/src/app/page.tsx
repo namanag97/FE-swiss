@@ -155,24 +155,28 @@ export default function HomePage() {
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-7)' }}>
-          <div style={{ textAlign: 'center', marginBottom: 'var(--sp-6)' }}>
-            <span className="eyebrow eyebrow-bracket">Use Cases</span>
-            <h2 className="type-h2" style={{ marginTop: 'var(--sp-3)' }}>Built for <em>real workflows</em></h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 'var(--sp-4)' }}>
+          <Reveal>
+            <div style={{ textAlign: 'center', marginBottom: 'var(--sp-6)' }}>
+              <span className="eyebrow eyebrow-bracket">Use Cases</span>
+              <h2 className="type-h2" style={{ marginTop: 'var(--sp-3)' }}>Built for <em>real workflows</em></h2>
+            </div>
+          </Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 reveal-stagger" style={{ gap: 'var(--sp-4)' }}>
             {[
               { title: 'Order-to-Cash', desc: 'Find where invoices stall. Reduce DSO by mapping every step from order entry to payment.', anchor: '#o2c' },
               { title: 'Procure-to-Pay', desc: 'Spot maverick buying and duplicate payments. See exactly where procurement deviates from policy.', anchor: '#p2p' },
               { title: 'IT Service Management', desc: 'Map ticket lifecycles from creation to resolution. Cut escalation bounces.', anchor: '#itsm' },
               { title: 'Patient Journey', desc: 'Track patient flow through clinical pathways. Identify wait-time hotspots and care gaps.', anchor: '#healthcare' },
             ].map((uc) => (
-              <div key={uc.title} className="card-feature" style={{ padding: 'var(--sp-5)' }}>
-                <h3 className="type-h3">{uc.title}</h3>
-                <p className="type-body" style={{ marginTop: 'var(--sp-3)', color: 'var(--ink-mid)' }}>{uc.desc}</p>
-                <Link href={`/use-cases${uc.anchor}`} style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', color: 'var(--emerald)', textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 'var(--sp-4)', display: 'inline-block' }}>
-                  Learn more →
-                </Link>
-              </div>
+              <Reveal key={uc.title}>
+                <div className="card-feature" style={{ padding: 'var(--sp-5)', height: '100%' }}>
+                  <h3 className="type-h3">{uc.title}</h3>
+                  <p className="type-body" style={{ marginTop: 'var(--sp-3)', color: 'var(--ink-mid)' }}>{uc.desc}</p>
+                  <Link href={`/use-cases${uc.anchor}`} style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', color: 'var(--emerald)', textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 'var(--sp-4)', display: 'inline-block' }}>
+                    Learn more →
+                  </Link>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -182,12 +186,14 @@ export default function HomePage() {
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-7)', maxWidth: 680, margin: '0 auto' }}>
-          <div className="card-feature" style={{ padding: 'var(--sp-6)', textAlign: 'center' }}>
-            <blockquote style={{ fontFamily: 'var(--caslon)', fontSize: 'var(--fs-lg)', fontStyle: 'italic', color: 'var(--emerald)', lineHeight: 1.6 }}>
-              &ldquo;Every organization has a process diagram on the wall. None of them match reality.
-              We built Meridian to close that gap.&rdquo;
-            </blockquote>
-          </div>
+          <Reveal>
+            <div className="card-feature" style={{ padding: 'var(--sp-6)', textAlign: 'center' }}>
+              <blockquote style={{ fontFamily: 'var(--caslon)', fontSize: 'var(--fs-lg)', fontStyle: 'italic', color: 'var(--emerald)', lineHeight: 1.6 }}>
+                &ldquo;Every organization has a process diagram on the wall. None of them match reality.
+                We built Meridian to close that gap.&rdquo;
+              </blockquote>
+            </div>
+          </Reveal>
         </div>
       </section>
 
