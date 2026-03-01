@@ -23,9 +23,8 @@ export default function HomePage() {
             The data platform for operations teams. Process mining, visual analytics,
             and AI-powered insights — beyond what SQL can show you.
           </p>
-          <div style={{ display: 'flex', gap: 'var(--sp-3)', justifyContent: 'center', marginTop: 'var(--sp-5)' }}>
-            <Link href="/contact" className="btn btn-primary">Get Started</Link>
-            <Link href="/request-demo" className="btn btn-ghost">Request Demo</Link>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--sp-5)' }}>
+            <Link href="/contact" className="btn btn-primary">Get Early Access</Link>
           </div>
         </div>
       </section>
