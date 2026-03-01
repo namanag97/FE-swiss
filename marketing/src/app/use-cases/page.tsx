@@ -330,10 +330,10 @@ export default function UseCasesPage() {
                 }}
               >
                 {[
-                  { value: "-28%", label: "Resolution time" },
-                  { value: "-45%", label: "Escalation bounces" },
-                  { value: "91%", label: "First-call resolution" },
-                  { value: "4.2", label: "Avg touches reduced" },
+                  { value: "~28%", label: "Target resolution time savings" },
+                  { value: "~45%", label: "Fewer escalation bounces" },
+                  { value: "90%+", label: "First-call resolution target" },
+                  { value: "3+", label: "Escalation tiers mapped" },
                 ].map((m) => (
                   <div
                     key={m.label}
