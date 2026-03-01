@@ -284,7 +284,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   text-decoration-thickness: 3px;
   text-underline-offset: 10px;
   text-decoration-skip-ink: none;
-  word-spacing: 0;
 }
 .type-h2 {
   font-family: var(--sans);
