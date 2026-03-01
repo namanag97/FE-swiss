@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: { images: ["/og.png"] },
 };
 
-export default function ProductPage() {
+export default function PlatformPage() {
   return (
     <>
       {/* Hero */}
