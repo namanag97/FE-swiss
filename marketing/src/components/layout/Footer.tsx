@@ -44,9 +44,9 @@ export function Footer() {
           </div>
 
           <Col title="Platform" links={siteConfig.footer.platform} />
-          <Col title="Company" links={siteConfig.footer.company} />
           <Col title="Solutions" links={siteConfig.footer.solutions} />
-          <Col title="Resources" links={siteConfig.footer.resources} />
+          <Col title="Company" links={siteConfig.footer.company} />
+          <Col title="Legal" links={siteConfig.footer.legal} />
         </div>
 
         {/* Bottom copyright */}
