@@ -537,10 +537,8 @@ export default function UseCasesPage() {
           <div
             style={{
               display: "flex",
-              gap: "var(--sp-3)",
               justifyContent: "center",
               marginTop: "var(--sp-5)",
-              flexWrap: "wrap",
             }}
           >
             <Link
@@ -552,17 +550,7 @@ export default function UseCasesPage() {
                 borderColor: "var(--white)",
               }}
             >
-              Get Started
-            </Link>
-            <Link
-              href="/request-demo"
-              className="btn btn-ghost"
-              style={{
-                color: "var(--white)",
-                borderColor: "rgba(255,255,255,0.3)",
-              }}
-            >
-              Request Demo
+              Get Early Access
             </Link>
           </div>
         </div>
