@@ -465,10 +465,10 @@ export default function UseCasesPage() {
                 }}
               >
                 {[
-                  { value: "-22%", label: "Wait time reduction" },
-                  { value: "3.1h", label: "Avg time to diagnosis" },
-                  { value: "89%", label: "Pathway adherence" },
-                  { value: "+12%", label: "Patient satisfaction" },
+                  { value: "~22%", label: "Target wait time reduction" },
+                  { value: "<4h", label: "Target time to diagnosis" },
+                  { value: "85%+", label: "Pathway adherence target" },
+                  { value: "5+", label: "Journey stages mapped" },
                 ].map((m) => (
                   <div
                     key={m.label}
