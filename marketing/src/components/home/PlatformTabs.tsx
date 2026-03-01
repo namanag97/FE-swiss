@@ -56,6 +56,7 @@ export function PlatformTabs() {
         display: "flex",
         borderBottom: "1px solid var(--border)",
         gap: "0",
+        overflowX: "auto",
       }}>
         {tabs.map((tab) => (
           <button
