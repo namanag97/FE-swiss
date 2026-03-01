@@ -186,13 +186,8 @@ export default function HomePage() {
       </section>
 
       {/* ── CTA Band ── */}
-      <section className="cta-band" style={{ overflow: 'hidden', position: 'relative' }}>
-        {/* Wave texture on dark bg */}
-        <div style={{ position: 'absolute', left: 0, top: 0, width: '60%', height: '100%', pointerEvents: 'none', zIndex: 0 }}>
-          <WaveLines className="h-full w-full" color="rgba(255,255,255,0.08)" />
-        </div>
-
-        <div className="gi" style={{ textAlign: 'center', padding: 'var(--sp-7) 0', position: 'relative', zIndex: 1 }}>
+      <section className="cta-band">
+        <div className="gi" style={{ textAlign: 'center', padding: 'var(--sp-7) 0' }}>
           <h2 className="type-h2" style={{ color: 'var(--white)' }}>
             Go from event log to <em>insight</em>
           </h2>
