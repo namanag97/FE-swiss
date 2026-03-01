@@ -176,7 +176,7 @@ export default function AboutPage() {
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi" style={{ padding: 'var(--sp-6) 0', display: 'flex', justifyContent: 'center', gap: 'var(--sp-4)' }}>
-          <Link href="/product" style={{ padding: 'var(--sp-3) var(--sp-5)', border: '1px solid var(--border)', fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink)', textDecoration: 'none' }}>
+          <Link href="/platform" style={{ padding: 'var(--sp-3) var(--sp-5)', border: '1px solid var(--border)', fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink)', textDecoration: 'none' }}>
             See the platform &rarr;
           </Link>
           <Link href="/security" style={{ padding: 'var(--sp-3) var(--sp-5)', border: '1px solid var(--border)', fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink)', textDecoration: 'none' }}>
