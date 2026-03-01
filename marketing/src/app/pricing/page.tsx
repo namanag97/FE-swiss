@@ -196,9 +196,18 @@ export default function PricingPage() {
       </section>
 
       <section className="cta-band">
-        <h2>Ready to get <em>started</em>?</h2>
-        <p>Book a 20-minute demo. See Meridian on your data.</p>
-        <Link href="/contact" className="btn btn-primary">Request Demo</Link>
+        <div className="gi" style={{ textAlign: 'center', padding: 'var(--sp-7) 0' }}>
+          <h2 className="type-h2" style={{ color: 'var(--white)' }}>
+            Ready to get <em>started</em>?
+          </h2>
+          <p style={{ fontFamily: 'var(--body)', color: 'rgba(255,255,255,0.7)', maxWidth: 480, margin: '0 auto', marginTop: 'var(--sp-4)' }}>
+            Book a 30-minute demo. See Meridian on your data.
+          </p>
+          <div style={{ display: 'flex', gap: 'var(--sp-3)', justifyContent: 'center', marginTop: 'var(--sp-5)' }}>
+            <Link href="/contact" className="btn btn-primary" style={{ background: 'var(--white)', color: 'var(--ink-dark)', borderColor: 'var(--white)' }}>Get Started</Link>
+            <Link href="/request-demo" className="btn btn-ghost" style={{ color: 'var(--white)', borderColor: 'rgba(255,255,255,0.3)' }}>Request Demo</Link>
+          </div>
+        </div>
       </section>
     </>
   );
