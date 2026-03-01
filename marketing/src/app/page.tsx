@@ -13,8 +13,7 @@ export default function HomePage() {
 {`    ┌─────────┐     ┌─────────┐     ┌─────────┐     ┌─────────┐
     │ EXTRACT │────▶│  MINE   │────▶│ ANALYZE │────▶│  ACT    │
     └─────────┘     └─────────┘     └─────────┘     └─────────┘
-     event logs      discovery      conformance     automation`}
-          </pre>
+     event logs      discovery      conformance     automation`}</pre>
 
           <span className="eyebrow eyebrow-bracket">Now available</span>
           <h1 className="type-display" style={{ marginTop: 'var(--sp-3)' }}>

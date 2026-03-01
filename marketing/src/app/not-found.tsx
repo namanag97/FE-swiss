@@ -10,8 +10,7 @@ export default function NotFound() {
   │ REQUEST  │────▶│  ROUTE   │────▶│  LOOKUP  │────▶│   404    │
   │          │     │  MATCH   │     │          │     │ NOT FOUND│
   └──────────┘     └──────────┘     └──────────┘     └──────────┘
-   incoming          pattern          search           ✗ no match`}
-        </pre>
+   incoming          pattern          search           ✗ no match`}</pre>
         <p style={{ fontSize: 'var(--fs-3xl)', color: 'var(--border-nav)', fontFamily: 'var(--sans)', fontWeight: 200 }}>404</p>
         <h1 className="type-h3" style={{ marginTop: 'var(--sp-3)' }}>Page not found</h1>
         <p className="type-body" style={{ marginTop: 'var(--sp-3)', color: 'var(--ink-mid)', marginLeft: 'auto', marginRight: 'auto' }}>

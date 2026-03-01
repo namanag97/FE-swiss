@@ -60,7 +60,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <article className="gr">
-      <Container size="wide" style={{ padding: 'var(--sp-7) var(--sp-5)' } as React.CSSProperties}>
+      <Container size="wide" style={{ padding: 'var(--sp-7) var(--sp-5)' }}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
         <Link href="/blog" className="inline-flex items-center gap-1.5 transition-colors" style={{ fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)' }}>
