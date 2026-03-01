@@ -83,14 +83,14 @@ export function PlatformTabs() {
 
       {/* Tab content */}
       <div style={{ padding: "var(--sp-6) 0" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--sp-6)", alignItems: "center" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "var(--sp-6)", alignItems: "center" }}>
           <div>
             <h3 className="type-h3">{current.label}</h3>
             <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
               {current.desc}
             </p>
           </div>
-          <div className="ascii-frame">
+          <div className="ascii-frame overflow-x-auto">
             <pre className="ascii-art" style={{ margin: 0 }}>{current.ascii}</pre>
           </div>
         </div>
