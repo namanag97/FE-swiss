@@ -312,17 +312,17 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
 .type-body {
   font-family: var(--body);
   font-size: var(--fs-md);
-  font-weight: 260;
-  line-height: 1.6;
-  letter-spacing: -.015em;
+  font-weight: 340;
+  line-height: 1.65;
+  letter-spacing: -.01em;
   color: var(--ink-muted);
   max-width: 480px;
 }
 .type-body-sm {
   font-family: var(--body);
   font-size: var(--fs-sm);
-  font-weight: 260;
-  line-height: 1.6;
+  font-weight: 340;
+  line-height: 1.65;
   letter-spacing: -.01em;
   color: var(--ink-muted);
 }
