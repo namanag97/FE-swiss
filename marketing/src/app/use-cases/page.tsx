@@ -78,7 +78,7 @@ export default function UseCasesPage() {
       <div className="ascii-divider">&middot; &middot; &middot;   &middot; &middot; &middot;   &middot; &middot; &middot;</div>
 
       {/* Use Case 1: Order-to-Cash */}
-      <section className="gr">
+      <section id="o2c" className="gr" style={{ scrollMarginTop: 'var(--nav-h)' }}>
         <div className="h-rule h-rule--bottom" />
         <div
           className="gi"
