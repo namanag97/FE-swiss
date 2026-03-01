@@ -153,11 +153,12 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   justify-content: center;
   gap: 6px;
   font-family: var(--sans);
-  font-size: var(--fs-xs);
-  font-weight: 400;
+  font-size: var(--fs-sm);
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: .06em;
-  padding: var(--sp-3) var(--sp-4);
+  padding: var(--sp-3) var(--sp-5);
+  min-height: 44px;
   border-radius: 0;
   outline: none;
   transition: background-color var(--t-std), border-color var(--t-std), color var(--t-std);
@@ -165,7 +166,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   cursor: pointer;
 }
 .btn-primary {
-  background-color: var(--ink-mid);
+  background-color: var(--ink-dark);
   color: var(--white);
   border: 1px solid transparent;
   background-image: repeating-linear-gradient(
