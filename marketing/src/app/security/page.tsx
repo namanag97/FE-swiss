@@ -103,7 +103,6 @@ export default function SecurityPage() {
         <div className="gi" style={{ padding: 'var(--sp-5) 0', display: 'flex', justifyContent: 'center', gap: 'var(--sp-5)', flexWrap: 'wrap' }}>
           <Link href="/legal/privacy" style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--emerald)' }}>Privacy Policy &rarr;</Link>
           <Link href="/legal/terms" style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--emerald)' }}>Terms of Service &rarr;</Link>
-          <Link href="/pricing" style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--emerald)' }}>Enterprise Pricing &rarr;</Link>
         </div>
       </section>
 
