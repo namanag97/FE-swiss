@@ -520,7 +520,7 @@ export default function UseCasesPage() {
           style={{ textAlign: "center", padding: "var(--sp-7) 0" }}
         >
           <h2 className="type-h2" style={{ color: "var(--white)" }}>
-            See your <em>process in action</em>
+            Get <em>early access</em>
           </h2>
           <p
             style={{
