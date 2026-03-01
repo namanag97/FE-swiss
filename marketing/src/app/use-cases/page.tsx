@@ -552,7 +552,7 @@ export default function UseCasesPage() {
                 borderColor: "var(--white)",
               }}
             >
-              Get Started Free
+              Get Started
             </Link>
             <Link
               href="/request-demo"
