@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ProcessMapHero } from "@/components/home/ProcessMapHero";
 import { PlatformTabs } from "@/components/home/PlatformTabs";
+import { Reveal } from "@/components/ui/Reveal";
 
 /* Decorative wave SVG — inspired by textql.com's organic line patterns */
 function WaveLines({ className = "", color = "currentColor" }: { className?: string; color?: string }) {
