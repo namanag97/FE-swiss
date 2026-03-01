@@ -249,10 +249,10 @@ export default function UseCasesPage() {
                 }}
               >
                 {[
-                  { value: "12%", label: "Maverick spend found" },
-                  { value: "-2.1 days", label: "PO cycle time" },
-                  { value: "94%", label: "3-way match rate" },
-                  { value: "$2.3M", label: "Annual savings" },
+                  { value: "~12%", label: "Typical maverick spend found" },
+                  { value: "~2 days", label: "Target PO cycle time savings" },
+                  { value: "94%+", label: "3-way match target" },
+                  { value: "7+", label: "Deviation types detected" },
                 ].map((m) => (
                   <div
                     key={m.label}
