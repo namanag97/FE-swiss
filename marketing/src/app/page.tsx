@@ -1,23 +1,6 @@
 import Link from "next/link";
-
 import { PlatformTabs } from "@/components/home/PlatformTabs";
 import { Reveal } from "@/components/ui/Reveal";
-
-/* Decorative wave SVG — inspired by textql.com's organic line patterns */
-function WaveLines({ className = "", color = "currentColor" }: { className?: string; color?: string }) {
-  return (
-    <svg className={className} width="300" height="400" viewBox="0 0 300 400" fill="none" preserveAspectRatio="xMidYMid slice">
-      <g opacity="0.35">
-        <path d="M-50 50C-30 50 20 120 80 118C140 116 100 200 50 280C0 360 250 400 320 420" stroke={color} strokeWidth="0.5" />
-        <path d="M200 0C160 60 80 250 180 300C280 350 400 50 380 220" stroke={color} strokeWidth="0.5" />
-        <path d="M-20 200C40 180 120 60 200 100C280 140 300 300 350 350" stroke={color} strokeWidth="0.5" />
-        <path d="M100 -20C80 80 200 150 150 250C100 350 300 380 350 300" stroke={color} strokeWidth="0.5" />
-        <path d="M-30 300C50 280 100 180 180 200C260 220 280 350 320 380" stroke={color} strokeWidth="0.5" />
-        <path d="M250 -10C220 80 140 120 160 220C180 320 320 300 350 250" stroke={color} strokeWidth="0.5" />
-      </g>
-    </svg>
-  );
-}
 
 export default function HomePage() {
   return (
