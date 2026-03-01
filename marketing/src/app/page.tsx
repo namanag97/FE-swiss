@@ -22,7 +22,7 @@ export default function HomePage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="gr" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-7)', overflow: 'hidden', position: 'relative' }}>
+      <section className="gr" style={{ paddingTop: 96, paddingBottom: 80, overflow: 'hidden', position: 'relative' }}>
         {/* Decorative background waves */}
         <div style={{ position: 'absolute', right: 0, top: 0, width: '50%', height: '100%', pointerEvents: 'none', zIndex: 0 }}>
           <WaveLines className="h-full w-full" color="var(--border-nav)" />
@@ -30,17 +30,21 @@ export default function HomePage() {
 
         <div className="gi" style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <span className="eyebrow eyebrow-bracket">Early access</span>
-          <h1 className="type-display" style={{ marginTop: 'var(--sp-3)' }}>
+          <h1 className="type-display" style={{ marginTop: 20 }}>
             Process intelligence for<br /><em>operations teams</em>
           </h1>
-          <p className="type-body" style={{ maxWidth: 520, margin: '0 auto', marginTop: 'var(--sp-4)', color: 'var(--ink-mid)' }}>
+          <p className="type-body" style={{ maxWidth: 540, margin: '0 auto', marginTop: 24, color: 'var(--ink-mid)' }}>
             Mine event logs. Map real processes. Find bottlenecks before they cost you.
             No guesswork — just what actually happens in your systems.
           </p>
-          <div style={{ display: 'flex', gap: 'var(--sp-3)', justifyContent: 'center', marginTop: 'var(--sp-5)' }}>
+          <div style={{ display: 'flex', gap: 'var(--sp-3)', justifyContent: 'center', marginTop: 36 }}>
             <Link href="/contact" className="btn btn-primary">Get Early Access</Link>
             <Link href="/platform" className="btn btn-ghost">See the Platform</Link>
           </div>
+          {/* Micro-trust line */}
+          <p style={{ fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)', marginTop: 16, letterSpacing: '-.01em' }}>
+            No credit card required &middot; Setup in under 10 minutes
+          </p>
         </div>
       </section>
 
