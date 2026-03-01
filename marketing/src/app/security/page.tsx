@@ -109,11 +109,18 @@ export default function SecurityPage() {
 
       {/* CTA */}
       <section className="cta-band">
-        <h2>Security <em>questions?</em></h2>
-        <p>
-          Contact our security team for detailed documentation, SOC 2 reports, or custom assessments.
-        </p>
-        <Link href="/contact" className="btn btn-primary">Contact Security Team</Link>
+        <div className="gi" style={{ textAlign: 'center', padding: 'var(--sp-7) 0' }}>
+          <h2 className="type-h2" style={{ color: 'var(--white)' }}>
+            Security <em>questions?</em>
+          </h2>
+          <p style={{ fontFamily: 'var(--body)', color: 'rgba(255,255,255,0.7)', maxWidth: 480, margin: '0 auto', marginTop: 'var(--sp-4)' }}>
+            Contact our security team for detailed documentation, SOC 2 reports, or custom assessments.
+          </p>
+          <div style={{ display: 'flex', gap: 'var(--sp-3)', justifyContent: 'center', marginTop: 'var(--sp-5)' }}>
+            <Link href="/contact" className="btn btn-primary" style={{ background: 'var(--white)', color: 'var(--ink-dark)', borderColor: 'var(--white)' }}>Get Started</Link>
+            <Link href="/request-demo" className="btn btn-ghost" style={{ color: 'var(--white)', borderColor: 'rgba(255,255,255,0.3)' }}>Request Demo</Link>
+          </div>
+        </div>
       </section>
     </>
   );
