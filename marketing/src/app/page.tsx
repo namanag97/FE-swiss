@@ -6,13 +6,8 @@ export default function HomePage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="gr" style={{ paddingTop: 96, paddingBottom: 80, overflow: 'hidden', position: 'relative' }}>
-        {/* Decorative background waves */}
-        <div style={{ position: 'absolute', right: 0, top: 0, width: '50%', height: '100%', pointerEvents: 'none', zIndex: 0 }}>
-          <WaveLines className="h-full w-full" color="var(--border-nav)" />
-        </div>
-
-        <div className="gi" style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
+      <section className="gr" style={{ paddingTop: 96, paddingBottom: 80 }}>
+        <div className="gi" style={{ textAlign: 'center' }}>
           <span className="eyebrow eyebrow-bracket">Early access</span>
           <h1 className="type-display" style={{ marginTop: 20 }}>
             Process intelligence for<br /><em>operations teams</em>
