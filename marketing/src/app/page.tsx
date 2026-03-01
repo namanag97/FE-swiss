@@ -84,7 +84,7 @@ export default function HomePage() {
         <div className="gi" style={{ textAlign: "center" }}>
           <span className="eyebrow eyebrow-bracket">Early access</span>
           <h1 className="type-display" style={{ marginTop: 20 }}>
-            Unmatched <em>intelligence</em>
+            Unmatched <em>Intelligence</em>
           </h1>
           <p className="type-body" style={{ maxWidth: 560, margin: "0 auto", marginTop: 24, color: "var(--ink-mid)" }}>
             AI supercharged with process intelligence. Connect your databases,
