@@ -895,6 +895,24 @@ select.input {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   SCROLL REVEAL — CSS-only entrance animations via IntersectionObserver
+═══════════════════════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Stagger children with delay */
+.reveal-stagger > .reveal:nth-child(1) { transition-delay: 0s; }
+.reveal-stagger > .reveal:nth-child(2) { transition-delay: 0.08s; }
+.reveal-stagger > .reveal:nth-child(3) { transition-delay: 0.16s; }
+.reveal-stagger > .reveal:nth-child(4) { transition-delay: 0.24s; }
+
+/* ═══════════════════════════════════════════════════════════════
    RESPONSIVE — feature grids & mobile overrides
 ═══════════════════════════════════════════════════════════════ */
 .feature-row {
