@@ -138,7 +138,7 @@ export default function HomePage() {
             Ready to see your <em>real processes</em>?
           </h2>
           <p style={{ fontFamily: 'var(--body)', color: 'rgba(255,255,255,0.7)', maxWidth: 480, margin: '0 auto', marginTop: 'var(--sp-4)' }}>
-            Start with a free pilot. No credit card required.
+            Be among the first teams to use Meridian. Request early access today.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--sp-5)' }}>
             <Link href="/contact" className="btn btn-primary" style={{ background: 'var(--white)', color: 'var(--ink-dark)', borderColor: 'var(--white)' }}>Get Early Access</Link>
