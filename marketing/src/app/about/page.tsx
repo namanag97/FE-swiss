@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About",
   description: "We believe every business process tells a story. Meridian makes those stories visible.",
+  alternates: { canonical: "/about" },
+  openGraph: { images: ["/og.png"] },
 };
 
 export default function AboutPage() {
