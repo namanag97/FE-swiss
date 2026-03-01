@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Compare",
   description: "See how Meridian compares to Celonis, SAP Signavio, Apromore, and other process mining platforms.",
+  alternates: { canonical: "/versus" },
+  openGraph: { images: ["/og.png"] },
 };
 
 const competitors = [
