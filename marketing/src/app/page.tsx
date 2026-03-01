@@ -121,11 +121,10 @@ export default function HomePage() {
         <div className="gi" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-7)', maxWidth: 680, margin: '0 auto' }}>
           <div className="card-feature" style={{ padding: 'var(--sp-6)', textAlign: 'center' }}>
             <blockquote style={{ fontFamily: 'var(--caslon)', fontSize: 'var(--fs-lg)', fontStyle: 'italic', color: 'var(--emerald)', lineHeight: 1.6 }}>
-              &ldquo;Meridian showed us process variants we didn&apos;t know existed. We reduced our order cycle time by 34% in the first quarter.&rdquo;
+              &ldquo;Every business has processes they can&apos;t see. Meridian makes the invisible visible — from event logs to actionable insight.&rdquo;
             </blockquote>
             <div style={{ marginTop: 'var(--sp-4)' }}>
-              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', fontWeight: 500, color: 'var(--ink)' }}>Anna Berglund</p>
-              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', color: 'var(--ink-muted)' }}>VP Operations, Nordic Manufacturing Co.</p>
+              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', fontWeight: 500, color: 'var(--ink)' }}>The Meridian Team</p>
             </div>
           </div>
         </div>
