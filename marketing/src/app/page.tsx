@@ -61,10 +61,10 @@ export default function HomePage() {
         <div className="gi" style={{ padding: 'var(--sp-6) 0' }}>
           <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 'var(--sp-5)', textAlign: 'center' }}>
             {[
-              { value: '10M+', label: 'Events processed daily' },
-              { value: '<2s', label: 'Query response' },
-              { value: '40%', label: 'Avg bottleneck reduction' },
-              { value: '23', label: 'Industries served' },
+              { value: '10M+', label: 'Events per batch' },
+              { value: '<2s', label: 'Query response target' },
+              { value: '4', label: 'Mining algorithms' },
+              { value: '5+', label: 'System connectors' },
             ].map((stat) => (
               <div key={stat.label}>
                 <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-2xl)', fontWeight: 300, color: 'var(--ink-dark)', letterSpacing: '-0.02em' }}>{stat.value}</p>
