@@ -507,7 +507,7 @@ export default function UseCasesPage() {
 
       <section className="gr">
         <div className="gi" style={{ padding: 'var(--sp-5) 0', textAlign: 'center' }}>
-          <Link href="/product" style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--emerald)' }}>
+          <Link href="/platform" style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--emerald)' }}>
             &larr; Explore the full platform
           </Link>
         </div>
