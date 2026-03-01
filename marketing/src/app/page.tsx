@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ProcessMapHero } from "@/components/home/ProcessMapHero";
+
 import { PlatformTabs } from "@/components/home/PlatformTabs";
 import { Reveal } from "@/components/ui/Reveal";
 
