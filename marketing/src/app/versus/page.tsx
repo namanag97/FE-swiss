@@ -143,11 +143,17 @@ export default function VersusPage() {
 
       {/* CTA Band */}
       <section className="cta-band">
-        <h2>See the <em>difference</em> yourself</h2>
-        <p>Start with a free pilot. Compare Meridian against your current tools with your own data.</p>
-        <div style={{ display: 'flex', gap: 'var(--sp-3)', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link href="/contact" className="btn btn-primary">Get Started Free</Link>
-          <Link href="/request-demo" className="btn btn-ghost">Request Demo</Link>
+        <div className="gi" style={{ textAlign: 'center', padding: 'var(--sp-7) 0' }}>
+          <h2 className="type-h2" style={{ color: 'var(--white)' }}>
+            See the <em>difference</em> yourself
+          </h2>
+          <p style={{ fontFamily: 'var(--body)', color: 'rgba(255,255,255,0.7)', maxWidth: 480, margin: '0 auto', marginTop: 'var(--sp-4)' }}>
+            Start with a free pilot. Compare Meridian against your current tools with your own data.
+          </p>
+          <div style={{ display: 'flex', gap: 'var(--sp-3)', justifyContent: 'center', marginTop: 'var(--sp-5)', flexWrap: 'wrap' }}>
+            <Link href="/contact" className="btn btn-primary" style={{ background: 'var(--white)', color: 'var(--ink-dark)', borderColor: 'var(--white)' }}>Get Started</Link>
+            <Link href="/request-demo" className="btn btn-ghost" style={{ color: 'var(--white)', borderColor: 'rgba(255,255,255,0.3)' }}>Request Demo</Link>
+          </div>
         </div>
       </section>
     </>
