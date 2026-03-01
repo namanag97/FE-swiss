@@ -15,7 +15,7 @@ export default function HomePage() {
     └─────────┘     └─────────┘     └─────────┘     └─────────┘
      event logs      discovery      conformance     automation`}</pre>
 
-          <span className="eyebrow eyebrow-bracket">Now available</span>
+          <span className="eyebrow eyebrow-bracket">Early access</span>
           <h1 className="type-display" style={{ marginTop: 'var(--sp-3)' }}>
             See how your business<br /><em>actually runs</em>
           </h1>
