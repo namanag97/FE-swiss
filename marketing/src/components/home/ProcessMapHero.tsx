@@ -62,15 +62,15 @@ export function ProcessMapHero() {
             if (e.from === "credit" && e.to === "review") {
               return (
                 <g key={`${e.from}-${e.to}`}>
-                  <path d={`M ${fx} ${fy} C ${fx + 40} ${fy}, ${tx - 40} ${ty}, ${tx} ${ty}`} stroke="var(--border-nav)" strokeWidth="1.5" strokeDasharray="4 3" />
-                  {e.label && <text x={(fx + tx) / 2 + 15} y={(fy + ty) / 2 - 5} className="text-[9px] font-medium" fill="#92400e">{e.label}</text>}
+                  <path d={`M ${fx} ${fy} C ${fx + 40} ${fy}, ${tx - 40} ${ty}, ${tx} ${ty}`} stroke="var(--border-nav)" strokeWidth="1.5" strokeDasharray="4 3" markerEnd="url(#arrowhead)" />
+                  {e.label && <text x={(fx + tx) / 2 + 15} y={(fy + ty) / 2 - 5} style={{ fontSize: 9, fontWeight: 500 }} fill="#92400e">{e.label}</text>}
                 </g>
               );
             }
             if (e.from === "review" && e.to === "approve") {
               return (
                 <g key={`${e.from}-${e.to}`}>
-                  <path d={`M ${fx} ${fy} C ${fx + 60} ${fy}, ${tx - 60} ${ty}, ${tx} ${ty}`} stroke="var(--border-nav)" strokeWidth="1.5" strokeDasharray="4 3" />
+                  <path d={`M ${fx} ${fy} C ${fx + 60} ${fy}, ${tx - 60} ${ty}, ${tx} ${ty}`} stroke="var(--border-nav)" strokeWidth="1.5" strokeDasharray="4 3" markerEnd="url(#arrowhead)" />
                 </g>
               );
             }
