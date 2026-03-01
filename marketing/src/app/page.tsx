@@ -68,19 +68,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Social Proof / Metrics ── */}
+      {/* ── Capabilities ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi" style={{ padding: 'var(--sp-6) 0' }}>
           <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 'var(--sp-4)' }}>
             {[
-              { metric: '12,800+', label: 'Processes mapped' },
-              { metric: '4.2 days', label: 'Avg. time to first insight' },
-              { metric: '34%', label: 'Bottleneck reduction' },
-              { metric: '99.9%', label: 'Platform uptime' },
+              { metric: 'Event logs', label: 'SAP, ServiceNow, JIRA, Oracle' },
+              { metric: 'Process maps', label: 'Auto-discovered from data' },
+              { metric: 'Bottlenecks', label: 'Identified in minutes' },
+              { metric: 'Automation', label: 'Alert + act on deviations' },
             ].map((s) => (
               <div key={s.label} style={{ textAlign: 'center', padding: 'var(--sp-4) 0' }}>
-                <p style={{ fontFamily: 'var(--sans)', fontSize: 'clamp(24px, 2.5vw, 32px)', fontWeight: 500, letterSpacing: '-.02em', color: 'var(--ink-dark)' }}>{s.metric}</p>
+                <p style={{ fontFamily: 'var(--sans)', fontSize: 'clamp(16px, 2vw, 20px)', fontWeight: 500, letterSpacing: '-.02em', color: 'var(--ink-dark)' }}>{s.metric}</p>
                 <p style={{ fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)', marginTop: 4, fontWeight: 340 }}>{s.label}</p>
               </div>
             ))}
