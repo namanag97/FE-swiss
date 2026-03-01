@@ -2,13 +2,13 @@ import Link from "next/link";
 import { PlatformTabs } from "@/components/home/PlatformTabs";
 import { Reveal } from "@/components/ui/Reveal";
 
-/* ── SVG Process Flow ── premium inline diagram for the hero ── */
+/* ── SVG Process Flow ── clean 4-step diagram ── */
 function ProcessFlow() {
   const nodes = [
-    { label: "Ingest", sub: "Event logs" },
-    { label: "Map", sub: "Process graph" },
+    { label: "Connect", sub: "Your systems" },
+    { label: "Discover", sub: "Real processes" },
     { label: "Diagnose", sub: "Bottlenecks" },
-    { label: "Act", sub: "Automate" },
+    { label: "Act", sub: "Automate fixes" },
   ];
 
   const nodeW = 120;
@@ -27,7 +27,7 @@ function ProcessFlow() {
       xmlns="http://www.w3.org/2000/svg"
       style={{ width: "100%", maxWidth: 640, height: "auto", display: "block", margin: "0 auto" }}
       role="img"
-      aria-label="Process flow: Ingest event logs, Map process graph, Diagnose bottlenecks, Act and automate"
+      aria-label="How Meridian works: Connect your systems, Discover real processes, Diagnose bottlenecks, Act and automate fixes"
     >
       {nodes.map((node, i) => {
         const x = padX + i * (nodeW + gap);
@@ -37,12 +37,10 @@ function ProcessFlow() {
 
         return (
           <g key={node.label}>
-            {/* Node rectangle */}
             <rect
               x={x} y={y} width={nodeW} height={nodeH}
               stroke="var(--border-mid)" strokeWidth="1" fill="var(--white)"
             />
-            {/* Label */}
             <text
               x={cx} y={cy - 6}
               textAnchor="middle"
@@ -50,7 +48,6 @@ function ProcessFlow() {
             >
               {node.label}
             </text>
-            {/* Sub-label */}
             <text
               x={cx} y={cy + 12}
               textAnchor="middle"
@@ -58,7 +55,6 @@ function ProcessFlow() {
             >
               {node.sub}
             </text>
-            {/* Arrow to next node */}
             {i < nodes.length - 1 && (
               <>
                 <line
@@ -88,27 +84,85 @@ export default function HomePage() {
         <div className="gi" style={{ textAlign: "center" }}>
           <span className="eyebrow eyebrow-bracket">Early access</span>
           <h1 className="type-display" style={{ marginTop: 20 }}>
-            Process intelligence for<br /><em>operations teams</em>
+            See what actually happens<br />in <em>your operations</em>
           </h1>
           <p className="type-body" style={{ maxWidth: 540, margin: "0 auto", marginTop: 24, color: "var(--ink-mid)" }}>
-            Mine event logs. Map real processes. Find bottlenecks before they
-            cost you. No guesswork — just what actually happens in your systems.
+            Your ERP has thousands of transactions. Each one takes a different path.
+            Meridian reads your system logs and shows you every path, which ones
+            are slow, and why.
           </p>
           <div style={{ display: "flex", gap: "var(--sp-3)", justifyContent: "center", marginTop: 36 }}>
             <Link href="/contact" className="btn btn-primary">Get early access</Link>
-            <Link href="/platform" className="btn btn-ghost">See the platform</Link>
+            <Link href="/platform" className="btn btn-ghost">How it works</Link>
           </div>
           <p style={{ fontFamily: "var(--body)", fontSize: "var(--fs-sm)", color: "var(--ink-faint)", marginTop: 16, letterSpacing: "-.01em" }}>
-            No credit card required &middot; Setup in under 10 minutes
+            No credit card required &middot; First process map in under an hour
           </p>
         </div>
       </section>
 
-      {/* ── Process Flow Diagram ── */}
+      {/* ── The Problem ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-6)", paddingBottom: "var(--sp-6)" }}>
-          <ProcessFlow />
+        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
+          <Reveal>
+            <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
+              <span className="eyebrow eyebrow-bracket">The problem</span>
+              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
+                You think your process<br />looks like this
+              </h2>
+            </div>
+          </Reveal>
+          <Reveal>
+            <div className="ascii-frame overflow-x-auto" style={{ maxWidth: 540, margin: "0 auto" }}>
+              <pre className="ascii-art" style={{ margin: 0, textAlign: "center" }}>{`Order  ──▶  Approve  ──▶  Invoice  ──▶  Payment
+
+                  Clean. Simple. 4 steps.`}</pre>
+            </div>
+          </Reveal>
+          <Reveal>
+            <div style={{ textAlign: "center", marginTop: "var(--sp-6)", marginBottom: "var(--sp-5)" }}>
+              <h2 className="type-h2">
+                It actually looks like <em>this</em>
+              </h2>
+            </div>
+          </Reveal>
+          <Reveal>
+            <div className="ascii-frame overflow-x-auto" style={{ maxWidth: 640, margin: "0 auto" }}>
+              <pre className="ascii-art" style={{ margin: 0 }}>{`Order ──▶ Approve ──▶ Reject ──▶ Re-submit ──▶ Approve
+  │                       │            ▲
+  ├──▶ Manual override    │            │
+  │                       └── Escalate ┘
+  └──▶ Approve ──▶ Invoice ──▶ Hold ──▶ Release ──▶ Payment
+                                 │
+                                 └── Dispute ──▶ Credit ──▶ Re-invoice`}</pre>
+            </div>
+          </Reveal>
+          <Reveal>
+            <p className="type-body" style={{ maxWidth: 480, margin: "0 auto", marginTop: "var(--sp-5)", textAlign: "center", color: "var(--ink-mid)" }}>
+              Every organization has a process diagram on the wall.
+              None of them match reality. Meridian shows you what&apos;s
+              actually happening — automatically, from your own data.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── How It Works ── */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
+          <Reveal>
+            <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
+              <span className="eyebrow eyebrow-bracket">How it works</span>
+              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
+                Four steps from data to <em>action</em>
+              </h2>
+            </div>
+          </Reveal>
+          <Reveal>
+            <ProcessFlow />
+          </Reveal>
         </div>
       </section>
 
@@ -117,7 +171,7 @@ export default function HomePage() {
         <div className="h-rule h-rule--bottom" />
         <div className="gi" style={{ padding: "var(--sp-5) 0" }}>
           <p className="type-label" style={{ textAlign: "center", marginBottom: "var(--sp-4)" }}>
-            Connects to your existing systems
+            Works with your existing systems
           </p>
           <div style={{ display: "flex", justifyContent: "center", gap: "var(--sp-3)", flexWrap: "wrap", alignItems: "center" }}>
             {["SAP", "ServiceNow", "Salesforce", "Jira", "Oracle"].map((name) => (
@@ -135,29 +189,30 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── ASCII Divider ── */}
       <div className="ascii-divider">&middot; &middot; &middot; &nbsp; &middot; &middot; &middot; &nbsp; &middot; &middot; &middot;</div>
 
-      {/* ── Timeline ── */}
+      {/* ── Speed to Value ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
           <Reveal>
             <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
-              <span className="eyebrow eyebrow-bracket">Timeline</span>
+              <span className="eyebrow eyebrow-bracket">Speed to value</span>
               <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
-                From event log to <em>actionable insight</em>
+                Not months. <em>Minutes.</em>
               </h2>
               <p className="type-body" style={{ maxWidth: 480, margin: "0 auto", marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
-                Process intelligence shouldn&apos;t take months to implement.
+                Most process improvement tools take months to configure.
+                Meridian connects to your data and builds your first
+                process map the same day.
               </p>
             </div>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-3 reveal-stagger" style={{ gap: "var(--sp-4)" }}>
             {[
-              { phase: "Day 1", title: "Answers in minutes", desc: "Connect your ERP or ITSM system. See your first process map within the hour." },
-              { phase: "Week 1", title: "Share with your team", desc: "Roll out dashboards to operations leads. Self-serve process insights without analyst back-and-forth." },
-              { phase: "Month 1", title: "Full process intelligence", desc: "Conformance checking, bottleneck prediction, and automated alerts across all your workflows." },
+              { phase: "Day 1", title: "Your first process map", desc: "Connect your ERP or ITSM system. See how work actually flows through your organization — in under an hour." },
+              { phase: "Week 1", title: "Share with your team", desc: "Roll out dashboards to operations leads. Self-serve insights without waiting for analysts." },
+              { phase: "Month 1", title: "Full process intelligence", desc: "Conformance checking, bottleneck alerts, and automated actions across all your workflows." },
             ].map((t) => (
               <Reveal key={t.phase}>
                 <div className="card-feature" style={{ padding: "var(--sp-5)", height: "100%" }}>
@@ -194,7 +249,9 @@ export default function HomePage() {
           <Reveal>
             <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
               <span className="eyebrow eyebrow-bracket">Use cases</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>Built for <em>real workflows</em></h2>
+              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
+                Built for <em>real workflows</em>
+              </h2>
             </div>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 reveal-stagger" style={{ gap: "var(--sp-4)" }}>
@@ -218,29 +275,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Mission ── */}
-      <section className="gr">
-        <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)", maxWidth: 680, margin: "0 auto" }}>
-          <Reveal>
-            <div className="card-feature" style={{ padding: "var(--sp-6)", textAlign: "center" }}>
-              <blockquote style={{ fontFamily: "var(--caslon)", fontSize: "var(--fs-lg)", fontStyle: "italic", color: "var(--emerald)", lineHeight: 1.6 }}>
-                &ldquo;Every organization has a process diagram on the wall. None of them match reality.
-                We built Meridian to close that gap.&rdquo;
-              </blockquote>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
       {/* ── CTA Band ── */}
       <section className="cta-band">
         <div className="gi" style={{ textAlign: "center", padding: "var(--sp-7) 0" }}>
           <h2 className="type-h2" style={{ color: "var(--white)" }}>
-            Go from event log to <em>insight</em>
+            See your real processes <em>today</em>
           </h2>
           <p style={{ fontFamily: "var(--body)", color: "rgba(255,255,255,0.5)", maxWidth: 420, margin: "0 auto", marginTop: "var(--sp-4)" }}>
-            Be among the first teams to use Meridian. Request early access today.
+            Connect your data. Get your first process map in under an hour.
+            No consultants, no six-month rollout.
           </p>
           <div style={{ display: "flex", gap: "var(--sp-3)", justifyContent: "center", marginTop: "var(--sp-5)" }}>
             <Link href="/contact" className="btn btn-primary">Get early access</Link>
