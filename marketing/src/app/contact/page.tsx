@@ -70,14 +70,14 @@ export default function ContactPage() {
                 ))}
               </div>
 
-              {/* Testimonial */}
+              {/* Value prop */}
               <div style={{ marginTop: 'var(--sp-6)', padding: 'var(--sp-5)', border: '1px solid var(--border)' }}>
                 <p style={{ fontFamily: 'var(--caslon)', fontStyle: 'italic', color: 'var(--emerald)', lineHeight: 1.6 }}>
-                  &ldquo;From first contact to deployment took less than two weeks. The team understood
-                  our SAP landscape immediately.&rdquo;
+                  &ldquo;We built Meridian for operations teams who are tired of guessing where
+                  their processes break down.&rdquo;
                 </p>
                 <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', color: 'var(--ink-muted)', marginTop: 'var(--sp-3)' }}>
-                  — Director of Operations, European Manufacturing
+                  — The Meridian Team
                 </p>
               </div>
             </div>
