@@ -71,9 +71,9 @@ export default function PricingPage() {
       {/* Hero */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ padding: 'var(--sp-7) var(--sp-5) var(--sp-6)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--sp-3)' }}>
+        <div className="gi" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-7)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--sp-3)' }}>
           <span className="eyebrow eyebrow-bracket">Pricing</span>
-          <h1 style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-3xl)', fontWeight: 400, lineHeight: .89, letterSpacing: '-.03em', color: 'var(--ink)' }}>
+          <h1 className="type-display">
             Transparent pricing
           </h1>
           <p className="type-body" style={{ textAlign: 'center', maxWidth: 420 }}>
