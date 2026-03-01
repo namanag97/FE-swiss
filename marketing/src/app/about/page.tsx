@@ -153,9 +153,9 @@ export default function AboutPage() {
           <div style={{ maxWidth: 560, margin: '0 auto' }}>
             {[
               { year: '2024', event: 'Founded. First process mining prototype built on columnar event store.' },
-              { year: '2025', event: 'Platform launch. Conformance checking, visual analytics, first enterprise customers.' },
-              { year: '2026', event: 'AI-powered predictions. 10M+ events/day. Gartner recognition.' },
-              { year: 'Next', event: 'Automated process improvement. Closed-loop optimization from insight to action.' },
+              { year: '2025', event: 'Core platform built. Process discovery, conformance checking, visual analytics.' },
+              { year: '2026', event: 'Early access launch. AI-powered predictions. First design partners onboarded.' },
+              { year: 'Next', event: 'General availability. Closed-loop optimization from insight to action.' },
             ].map((t, i) => (
               <div key={t.year} className="about-timeline-row" style={{
                 paddingBottom: i < 3 ? 'var(--sp-5)' : 0,
