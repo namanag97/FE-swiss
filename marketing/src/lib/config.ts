@@ -34,7 +34,7 @@ export const siteConfig = {
     solutions: [
       { label: "Order-to-Cash", href: "/use-cases" },
       { label: "Procure-to-Pay", href: "/use-cases" },
-      { label: "IT Service Mgmt", href: "/use-cases" },
+      { label: "IT Service Management", href: "/use-cases" },
       { label: "Patient Journey", href: "/use-cases" },
     ],
     resources: [
