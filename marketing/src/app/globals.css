@@ -462,6 +462,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   padding: var(--sp-3) var(--sp-4);
   outline: none;
   transition: border-color var(--t-std);
+  width: 100%;
 }
 .input::placeholder { color: var(--ink-faint); }
 .input:focus { border-color: var(--ink); }
