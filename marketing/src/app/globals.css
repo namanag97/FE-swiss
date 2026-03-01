@@ -272,7 +272,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -.025em;
-  word-spacing: -.10em;
   color: var(--ink);
 }
 .type-display em {
