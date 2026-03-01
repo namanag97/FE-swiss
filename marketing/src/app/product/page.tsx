@@ -464,7 +464,7 @@ export default function ProductPage() {
             }}
           >
             <Link
-              href="/request-demo"
+              href="/contact"
               className="btn btn-primary"
               style={{
                 background: "var(--white)",
@@ -472,17 +472,17 @@ export default function ProductPage() {
                 borderColor: "var(--white)",
               }}
             >
-              Request Demo
+              Get Started
             </Link>
             <Link
-              href="/contact"
+              href="/request-demo"
               className="btn btn-ghost"
               style={{
                 color: "var(--white)",
                 borderColor: "rgba(255,255,255,0.3)",
               }}
             >
-              Contact Us
+              Request Demo
             </Link>
           </div>
         </div>
