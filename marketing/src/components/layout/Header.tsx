@@ -14,10 +14,10 @@ export function Header() {
     <>
       {/* Announcement Banner */}
       <div className="banner">
-        <span className="banner-text">Meet us at Gartner 2026 — Mar 9-11 in Orlando</span>
+        <span className="banner-text">Meridian is now accepting early access requests</span>
         <div className="banner-dot" />
         <Link href="/contact" className="banner-link">
-          Learn more
+          Apply now
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
             <path d="M2 5h6M5 2.5L7.5 5 5 7.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
