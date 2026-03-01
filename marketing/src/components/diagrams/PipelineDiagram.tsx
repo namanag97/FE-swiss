@@ -1,152 +1,57 @@
 "use client";
 
-const steps = [
-  {
-    label: "Extract",
-    sub: "Event logs",
-    icon: (
-      <path
-        d="M4 6h12M4 10h12M4 14h8"
-        stroke="currentColor"
-        strokeWidth={1.3}
-        strokeLinecap="round"
-      />
-    ),
-  },
-  {
-    label: "Mine",
-    sub: "Discovery",
-    icon: (
-      <path
-        d="M3 12l4-8 4 6 4-4"
-        stroke="currentColor"
-        strokeWidth={1.3}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
-  },
-  {
-    label: "Analyze",
-    sub: "Conformance",
-    icon: (
-      <>
-        <circle
-          cx={10}
-          cy={10}
-          r={6}
-          stroke="currentColor"
-          strokeWidth={1.3}
-          fill="none"
-        />
-        <path
-          d="M10 7v3l2 2"
-          stroke="currentColor"
-          strokeWidth={1.3}
-          strokeLinecap="round"
-        />
-      </>
-    ),
-  },
-  {
-    label: "Act",
-    sub: "Automation",
-    icon: (
-      <path
-        d="M13 3L5 12h5l-1 8 8-9h-5l1-8z"
-        stroke="currentColor"
-        strokeWidth={1.3}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-      />
-    ),
-  },
-];
-
+/**
+ * Conceptual pipeline: Extract → Mine → Analyze → Act
+ * Simple horizontal flow with icons, clean and minimal
+ */
 export function PipelineDiagram() {
   return (
-    <div
-      className="flex items-center justify-center"
-      style={{ gap: 0, width: "100%", maxWidth: 600, margin: "0 auto" }}
-    >
-      {steps.map((step, i) => (
-        <div
-          key={step.label}
-          className="flex items-center"
-          style={{ flex: i < steps.length - 1 ? 1 : "none" }}
-        >
-          {/* Node */}
-          <div className="flex flex-col items-center" style={{ minWidth: 80 }}>
-            <div
-              style={{
-                width: 40,
-                height: 40,
-                border: "1px solid var(--border-mid)",
-                background: "var(--white)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "var(--ink-mid)",
-              }}
-            >
-              <svg width={20} height={20} viewBox="0 0 20 20" fill="none">
-                {step.icon}
-              </svg>
-            </div>
-            <span
-              style={{
-                fontFamily: "var(--sans)",
-                fontSize: "var(--fs-xs)",
-                fontWeight: 400,
-                color: "var(--ink)",
-                marginTop: 8,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
-              }}
-            >
-              {step.label}
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--body)",
-                fontSize: 9,
-                color: "var(--ink-faint)",
-                marginTop: 2,
-              }}
-            >
-              {step.sub}
-            </span>
-          </div>
+    <svg viewBox="0 0 520 80" className="h-auto w-full" fill="none" style={{ maxWidth: 560, margin: "0 auto", display: "block" }}>
+      {[
+        { label: "Extract", sub: "event logs", cx: 50 },
+        { label: "Mine", sub: "discovery", cx: 190 },
+        { label: "Analyze", sub: "conformance", cx: 330 },
+        { label: "Act", sub: "automation", cx: 470 },
+      ].map((step, i) => (
+        <g key={step.label}>
+          {/* Node circle */}
+          <circle
+            cx={step.cx}
+            cy={30}
+            r={18}
+            fill="white"
+            stroke={i === 3 ? "#047A55" : "#1F2937"}
+            strokeWidth={1.5}
+          />
+          <text
+            x={step.cx}
+            y={34}
+            textAnchor="middle"
+            fill={i === 3 ? "#047A55" : "#1F2937"}
+            fontSize={9}
+            fontFamily="Inter, sans-serif"
+            fontWeight={500}
+          >
+            {String(i + 1).padStart(2, "0")}
+          </text>
 
-          {/* Connector arrow */}
-          {i < steps.length - 1 && (
-            <div
-              style={{
-                flex: 1,
-                height: 1,
-                background: "var(--border-mid)",
-                position: "relative",
-                minWidth: 30,
-                marginTop: -20,
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute",
-                  right: -1,
-                  top: -3,
-                  width: 0,
-                  height: 0,
-                  borderLeft: "5px solid var(--border-mid)",
-                  borderTop: "3px solid transparent",
-                  borderBottom: "3px solid transparent",
-                }}
-              />
-            </div>
+          {/* Label below */}
+          <text x={step.cx} y={62} textAnchor="middle" fill="#1F2937" fontSize={10} fontFamily="Inter, sans-serif" fontWeight={500}>
+            {step.label}
+          </text>
+          <text x={step.cx} y={74} textAnchor="middle" fill="#9CA3AF" fontSize={8} fontFamily="Inter, sans-serif">
+            {step.sub}
+          </text>
+
+          {/* Connector */}
+          {i < 3 && (
+            <>
+              <line x1={step.cx + 20} y1={30} x2={step.cx + 118} y2={30} stroke="#D1D5DB" strokeWidth={1.2} />
+              <polygon points={`${step.cx + 118},30 ${step.cx + 112},27 ${step.cx + 112},33`} fill="#D1D5DB" />
+            </>
           )}
-        </div>
+        </g>
       ))}
-    </div>
+    </svg>
   );
 }
