@@ -54,7 +54,7 @@ export default function HomePage() {
       </section>
 
       {/* ── ASCII Divider ── */}
-      <div className="ascii-divider">{'\u00b7'} {'\u00b7'} {'\u00b7'}   {'\u00b7'} {'\u00b7'} {'\u00b7'}   {'\u00b7'} {'\u00b7'} {'\u00b7'}</div>
+      <div className="ascii-divider">&middot; &middot; &middot;   &middot; &middot; &middot;   &middot; &middot; &middot;</div>
 
       {/* ── Numbers ── */}
       <section className="gr">
