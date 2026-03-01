@@ -192,7 +192,7 @@ export default function AboutPage() {
             Join us in making processes <em>visible</em>
           </h2>
           <p style={{ fontFamily: 'var(--body)', color: 'rgba(255,255,255,0.7)', maxWidth: 480, margin: '0 auto', marginTop: 'var(--sp-4)' }}>
-            We&apos;re hiring engineers and researchers who care about operational intelligence.
+            We&apos;re building the future of operational intelligence. Get in touch.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--sp-5)' }}>
             <Link href="/contact" className="btn btn-primary" style={{ background: 'var(--white)', color: 'var(--ink-dark)', borderColor: 'var(--white)' }}>Get Early Access</Link>
