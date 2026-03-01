@@ -30,16 +30,16 @@ export default function HomePage() {
       {/* ── Process Map Visual ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: 'var(--sp-5)', paddingBottom: 'var(--sp-5)' }}>
-          <div className="ascii-frame overflow-x-auto">
+        <div className="gi" style={{ paddingTop: 'var(--sp-6)', paddingBottom: 'var(--sp-6)' }}>
+          <div className="ascii-frame overflow-x-auto" style={{ display: 'flex', justifyContent: 'center' }}>
             <pre className="ascii-art" style={{ margin: 0 }}>{`
-  ┌──────────┐     ┌──────────┐     ┌──────────┐     ┌──────────┐
-  │  Event   │────▶│  Process  │────▶│ Diagnose │────▶│  Action  │
-  │   Logs   │     │   Map     │     │          │     │          │
-  └──────────┘     └──────────┘     └──────────┘     └──────────┘
-       SAP              ▲               34%             Automate
-       JIRA             │            bottleneck          + Alert
-       Oracle       12,847 cases        found
+    ┌──────────┐       ┌──────────┐       ┌──────────┐       ┌──────────┐
+    │  Event   │──────▶│  Process  │──────▶│ Diagnose │──────▶│  Action  │
+    │   Logs   │       │   Map     │       │          │       │          │
+    └──────────┘       └──────────┘       └──────────┘       └──────────┘
+         SAP                ▲                 34%               Automate
+         JIRA               │              bottleneck            + Alert
+         Oracle         12,847 cases          found
 `}</pre>
           </div>
         </div>
