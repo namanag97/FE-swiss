@@ -182,7 +182,10 @@ export default function PricingPage() {
       {/* FAQ */}
       <section className="gr">
         <div className="gi" style={{ padding: 'var(--sp-7) var(--sp-5)' }}>
-          <h2 className="type-h2" style={{ textAlign: 'center', marginBottom: 'var(--sp-6)' }}>Common questions</h2>
+          <div style={{ textAlign: 'center', marginBottom: 'var(--sp-6)' }}>
+            <span className="eyebrow eyebrow-bracket">FAQ</span>
+            <h2 className="type-h2" style={{ marginTop: 'var(--sp-3)' }}>Common questions</h2>
+          </div>
           <div className="faq-list">
             {faq.map((item) => <FaqItem key={item.q} q={item.q} a={item.a} />)}
           </div>
