@@ -1,267 +1,109 @@
 "use client";
 
-import { BrowserFrame } from "./BrowserFrame";
-
+/**
+ * Conceptual diagram: AI prediction + automated action
+ * Shows a process case flowing through, getting flagged, and triggering an action
+ */
 export function AIDiagram() {
   return (
-    <BrowserFrame
-      tabs={["Alerts", "Predictions", "Actions"]}
-      activeTab={0}
-      bottomBar={
-        <>
-          <div className="flex" style={{ gap: "var(--sp-5)" }}>
-            <span style={{ color: "var(--ink-faint)" }}>
-              Active alerts:{" "}
-              <span style={{ fontWeight: 600, color: "#B45309" }}>3</span>
-            </span>
-            <span style={{ color: "var(--ink-faint)" }}>
-              Resolved today:{" "}
-              <span style={{ fontWeight: 600, color: "var(--emerald)" }}>
-                12
-              </span>
-            </span>
-          </div>
-          <span style={{ color: "var(--ink-faint)" }}>
-            Model:{" "}
-            <span style={{ fontWeight: 600, color: "var(--ink)" }}>v2.4</span>
-          </span>
-        </>
-      }
-    >
-      <div style={{ padding: "var(--sp-3) var(--sp-4)" }}>
-        {/* Alert card */}
-        <div
-          style={{
-            border: "1px solid #fcd34d",
-            background: "#fffbeb",
-            padding: "var(--sp-3) var(--sp-4)",
-            marginBottom: "var(--sp-3)",
-          }}
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center" style={{ gap: "var(--sp-2)" }}>
-              <div
-                style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  background: "#d97706",
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontSize: 8,
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.12em",
-                  color: "#92400e",
-                }}
-              >
-                Anomaly Detected
-              </span>
-            </div>
-            <span
-              style={{
-                fontFamily: "var(--sans)",
-                fontSize: 8,
-                color: "#92400e",
-                opacity: 0.6,
-              }}
-            >
-              2 min ago
-            </span>
-          </div>
-          <div style={{ marginTop: "var(--sp-2)" }}>
-            <span
-              style={{
-                fontFamily: "var(--body)",
-                fontSize: "var(--fs-sm)",
-                color: "#92400e",
-                fontWeight: 500,
-              }}
-            >
-              Case #4,821 — Invoice Processing
-            </span>
-            <p
-              style={{
-                fontFamily: "var(--body)",
-                fontSize: "var(--fs-xs)",
-                color: "#92400e",
-                opacity: 0.8,
-                marginTop: 4,
-                lineHeight: 1.5,
-              }}
-            >
-              Unusual rework loop detected: Review → Reject → Review (3
-              iterations, avg 1.1)
-            </p>
-          </div>
-        </div>
+    <svg viewBox="0 0 480 200" className="h-auto w-full" fill="none">
+      {/* ── Left: case flowing through process ── */}
+      <text x={60} y={18} textAnchor="middle" fill="#9CA3AF" fontSize={9} fontFamily="Inter, sans-serif" fontWeight={500} letterSpacing="0.08em">
+        LIVE CASE
+      </text>
 
-        {/* Prediction card */}
-        <div
-          style={{
-            border: "1px solid var(--border)",
-            background: "var(--white)",
-            padding: "var(--sp-3) var(--sp-4)",
-            marginBottom: "var(--sp-3)",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--sans)",
-              fontSize: 8,
-              fontWeight: 500,
-              textTransform: "uppercase",
-              letterSpacing: "0.12em",
-              color: "var(--ink-faint)",
-              marginBottom: "var(--sp-2)",
-            }}
-          >
-            Prediction
-          </div>
+      {/* Process steps — case progressing */}
+      {["Create", "Review", "Review", "Review"].map((step, i) => {
+        const x = 10 + i * 50;
+        const y = 30;
+        const isRework = i > 1;
+        return (
+          <g key={i}>
+            <circle
+              cx={x + 16}
+              cy={y + 16}
+              r={14}
+              fill={isRework ? "#FEE2E2" : "white"}
+              stroke={isRework ? "#EF4444" : "#D1D5DB"}
+              strokeWidth={1.2}
+            />
+            <text x={x + 16} y={y + 20} textAnchor="middle" fill={isRework ? "#991B1B" : "#374151"} fontSize={6} fontFamily="Inter, sans-serif">
+              {step}
+            </text>
+            {i < 3 && (
+              <line x1={x + 30} y1={y + 16} x2={x + 52} y2={y + 16} stroke={isRework ? "#FECACA" : "#E5E7EB"} strokeWidth={1} />
+            )}
+          </g>
+        );
+      })}
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr",
-              gap: "var(--sp-3)",
-            }}
-          >
-            <div>
-              <div
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontSize: 7,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  color: "var(--ink-faint)",
-                  marginBottom: 2,
-                }}
-              >
-                SLA Breach
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontSize: "var(--fs-base)",
-                  fontWeight: 400,
-                  color: "#e11d48",
-                }}
-              >
-                87%
-              </div>
+      {/* Rework loop arrow */}
+      <path d="M 176 62 C 176 78, 126 78, 126 62" stroke="#EF4444" strokeWidth={1} strokeDasharray="3 2" fill="none" />
+      <polygon points="126,62 123,68 129,68" fill="#EF4444" />
+      <text x={151} y={88} textAnchor="middle" fill="#EF4444" fontSize={7} fontFamily="Inter, sans-serif" fontWeight={500}>
+        rework loop
+      </text>
 
-              {/* Mini gauge */}
-              <svg
-                viewBox="0 0 60 8"
-                className="w-full"
-                style={{ marginTop: 4, height: 6 }}
-              >
-                <rect
-                  x={0}
-                  y={0}
-                  width={60}
-                  height={6}
-                  fill="var(--border)"
-                />
-                <rect
-                  x={0}
-                  y={0}
-                  width={52}
-                  height={6}
-                  fill="#e11d48"
-                />
-              </svg>
-            </div>
+      {/* ── Center: AI analysis ── */}
+      <line x1={210} y1={46} x2={240} y2={46} stroke="#D1D5DB" strokeWidth={1} />
 
-            <div>
-              <div
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontSize: 7,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  color: "var(--ink-faint)",
-                  marginBottom: 2,
-                }}
-              >
-                Est. Delay
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontSize: "var(--fs-base)",
-                  fontWeight: 400,
-                  color: "#B45309",
-                }}
-              >
-                +2.1d
-              </div>
-            </div>
+      {/* AI brain icon (simple) */}
+      <circle cx={268} cy={46} r={24} fill="#F5F3FF" stroke="#7C3AED" strokeWidth={1.5} />
+      <text x={268} y={42} textAnchor="middle" fill="#7C3AED" fontSize={7} fontFamily="Inter, sans-serif" fontWeight={600} letterSpacing="0.06em">
+        AI
+      </text>
+      <text x={268} y={54} textAnchor="middle" fill="#7C3AED" fontSize={7} fontFamily="Inter, sans-serif">
+        Model
+      </text>
 
-            <div>
-              <div
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontSize: 7,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  color: "var(--ink-faint)",
-                  marginBottom: 2,
-                }}
-              >
-                Action
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--body)",
-                  fontSize: "var(--fs-xs)",
-                  fontWeight: 500,
-                  color: "var(--emerald)",
-                }}
-              >
-                Escalate to SR
-              </div>
-            </div>
-          </div>
-        </div>
+      <line x1={292} y1={46} x2={320} y2={46} stroke="#D1D5DB" strokeWidth={1} />
 
-        {/* Action buttons */}
-        <div className="flex" style={{ gap: "var(--sp-2)" }}>
-          <button
-            className="btn btn-primary"
-            style={{
-              fontSize: 8,
-              padding: "6px 12px",
-              pointerEvents: "none",
-            }}
-          >
-            Escalate
-          </button>
-          <button
-            className="btn btn-ghost"
-            style={{
-              fontSize: 8,
-              padding: "6px 12px",
-              pointerEvents: "none",
-            }}
-          >
-            Dismiss
-          </button>
-          <button
-            className="btn btn-ghost"
-            style={{
-              fontSize: 8,
-              padding: "6px 12px",
-              pointerEvents: "none",
-            }}
-          >
-            Details
-          </button>
-        </div>
-      </div>
-    </BrowserFrame>
+      {/* ── Right: prediction output ── */}
+      <rect x={325} y={14} width={145} height={64} rx={6} fill="white" stroke="#E5E7EB" strokeWidth={1} />
+
+      {/* Alert dot */}
+      <circle cx={340} cy={30} r={4} fill="#EF4444" />
+      <text x={350} y={33} fill="#991B1B" fontSize={8} fontFamily="Inter, sans-serif" fontWeight={600}>
+        SLA Breach: 87%
+      </text>
+
+      <text x={340} y={48} fill="#6B7280" fontSize={8} fontFamily="Inter, sans-serif">
+        Est. delay: +2.1 days
+      </text>
+      <text x={340} y={62} fill="#047A55" fontSize={8} fontFamily="Inter, sans-serif" fontWeight={500}>
+        → Escalate to Senior AP
+      </text>
+
+      {/* ── Bottom: automated action flow ── */}
+      <line x1={268} y1={70} x2={268} y2={110} stroke="#7C3AED" strokeWidth={1.2} strokeDasharray="4 3" />
+      <polygon points="268,110 265,104 271,104" fill="#7C3AED" />
+
+      <text x={240} y={130} textAnchor="middle" fill="#9CA3AF" fontSize={9} fontFamily="Inter, sans-serif" fontWeight={500} letterSpacing="0.08em">
+        AUTOMATED RESPONSE
+      </text>
+
+      {/* Three action boxes */}
+      {[
+        { label: "Reassign", sub: "to senior team" },
+        { label: "Alert", sub: "manager notified" },
+        { label: "Log", sub: "audit trail" },
+      ].map((action, i) => {
+        const x = 100 + i * 140;
+        return (
+          <g key={action.label}>
+            <rect x={x} y={140} width={110} height={40} rx={4} fill="#F5F3FF" stroke="#7C3AED" strokeWidth={1} />
+            <text x={x + 55} y={158} textAnchor="middle" fill="#5B21B6" fontSize={9} fontFamily="Inter, sans-serif" fontWeight={500}>
+              {action.label}
+            </text>
+            <text x={x + 55} y={172} textAnchor="middle" fill="#8B5CF6" fontSize={7} fontFamily="Inter, sans-serif">
+              {action.sub}
+            </text>
+            {i < 2 && (
+              <line x1={x + 110} y1={160} x2={x + 140} y2={160} stroke="#DDD6FE" strokeWidth={1} />
+            )}
+          </g>
+        );
+      })}
+    </svg>
   );
 }
