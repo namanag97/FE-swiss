@@ -116,10 +116,10 @@ export default function UseCasesPage() {
                 }}
               >
                 {[
-                  { value: "-34%", label: "Cycle time reduction" },
-                  { value: "-3 days", label: "DSO improvement" },
-                  { value: "66%", label: "Straight-through rate" },
-                  { value: "23", label: "Variants discovered" },
+                  { value: "~34%", label: "Typical cycle time reduction" },
+                  { value: "~3 days", label: "Target DSO improvement" },
+                  { value: "66%+", label: "Straight-through target" },
+                  { value: "20+", label: "Variants detectable" },
                 ].map((m) => (
                   <div
                     key={m.label}
