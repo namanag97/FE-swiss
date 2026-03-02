@@ -30,15 +30,25 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: siteConfig.name,
-  description: siteConfig.description,
-  url: siteConfig.url,
-  applicationCategory: "BusinessApplication",
-  operatingSystem: "Web",
-};
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    description: siteConfig.description,
+    sameAs: [siteConfig.links.twitter, siteConfig.links.linkedin],
+  },
+];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
