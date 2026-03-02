@@ -5,6 +5,7 @@ import { PlatformTabs } from "@/components/home/PlatformTabs";
 import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
+  description: "See how your business actually runs. Connect your ERP, CRM, or ITSM — get a living map of every process, bottleneck, and workaround. Built automatically from your data.",
   alternates: { canonical: "/" },
 };
 
