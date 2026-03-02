@@ -368,10 +368,13 @@ export default function UseCasesPage() {
             <div>
               <span className="eyebrow eyebrow-bracket">ITSM</span>
               <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>IT Service Management</h2>
-              <p className="type-body" style={{ marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
-                Map ticket lifecycles from creation to resolution. Find where
-                escalations bounce, identify resolution bottlenecks, and
-                optimize your support tiers.
+              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
+                Tickets bounce between 4 teams before anyone fixes anything.
+              </p>
+              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
+                Map ticket lifecycles from creation to resolution. See where
+                escalations bounce, which tiers are bottlenecks, and why
+                first-call resolution keeps dropping.
               </p>
               <div style={{ marginTop: "var(--sp-5)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--sp-3)" }}>
                 {[
