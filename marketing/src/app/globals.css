@@ -952,12 +952,6 @@ select.input {
     grid-template-columns: 1fr;
     gap: var(--sp-5);
   }
-  .versus-grid {
-    grid-template-columns: 1fr;
-  }
-  .versus-reasons-grid {
-    grid-template-columns: 1fr;
-  }
   .security-grid {
     grid-template-columns: 1fr;
   }
