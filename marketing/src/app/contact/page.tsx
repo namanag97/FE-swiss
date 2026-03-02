@@ -20,7 +20,7 @@ export default function ContactPage() {
             <div style={{ marginTop: 'var(--sp-6)', display: 'flex', flexDirection: 'column', gap: 'var(--sp-4)' }}>
               {[
                 { icon: Mail, title: 'hello@meridian.dev', desc: 'General inquiries' },
-                { icon: Clock, title: '30-minute walkthrough', desc: 'Live demo of your use case' },
+                { icon: Clock, title: '30-minute walkthrough', desc: 'We map your process live on the call' },
                 { icon: Shield, title: 'security@meridian.dev', desc: 'Security inquiries' },
               ].map(({ icon: Icon, title, desc }) => (
                 <div key={title} style={{ display: 'flex', gap: 'var(--sp-3)', alignItems: 'start' }}>
