@@ -144,7 +144,7 @@ function O2cSvg() {
 /* ── P2P Process Map ── */
 function P2pSvg() {
   return (
-    <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto" }}>
+    <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Procure-to-Pay process map showing 3-way match path and maverick buy deviation at 12% off-policy" style={{ width: "100%", height: "auto" }}>
       <text x={240} y={16} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.faint} letterSpacing={1}>PROCURE-TO-PAY</text>
 
       <SvgNode x={24} y={36} label="Requisition" />
