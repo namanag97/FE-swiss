@@ -24,6 +24,7 @@ export const metadata: Metadata = {
   title: { default: `${siteConfig.name} — ${siteConfig.tagline}`, template: `%s | ${siteConfig.name}` },
   description: siteConfig.description,
   icons: { icon: "/favicon.svg" },
+  manifest: "/site.webmanifest",
   openGraph: { type: "website", locale: "en_US", siteName: siteConfig.name },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
