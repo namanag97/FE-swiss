@@ -330,9 +330,7 @@ export default function PlatformPage() {
             className="type-display"
             style={{ marginTop: "var(--sp-3)", maxWidth: 680, margin: "var(--sp-3) auto 0" }}
           >
-            The data platform for
-            <br />
-            <em>operational intelligence</em>
+            The data platform for <em>Operational Intelligence</em>
           </h1>
           <p
             className="type-body"
