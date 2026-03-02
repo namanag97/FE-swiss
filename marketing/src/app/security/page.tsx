@@ -69,11 +69,11 @@ export default function SecurityPage() {
         <div className="gi" style={{ textAlign: "center" }}>
           <span className="eyebrow eyebrow-bracket">Security</span>
           <h1 className="type-display" style={{ marginTop: "var(--sp-3)" }}>
-            Enterprise-grade <em>security</em>
+            Your data stays <em>yours</em>
           </h1>
           <p className="type-body" style={{ maxWidth: 560, margin: "0 auto", marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
-            Your process data is sensitive. We treat it that way. Every layer of the
-            platform is built with security as a first-class requirement.
+            Process data is sensitive — it maps how your entire business operates.
+            Every layer of Meridian is built with that reality in mind.
           </p>
         </div>
       </section>
