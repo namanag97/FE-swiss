@@ -3,24 +3,34 @@
 import { useState, useEffect } from "react";
 import posthog from "posthog-js";
 
+function getStorage(key: string): string | null {
+  try { return localStorage.getItem(key); } catch { return null; }
+}
+
+function setStorage(key: string, value: string) {
+  try { localStorage.setItem(key, value); } catch { /* private browsing */ }
+}
+
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem("cookie-consent");
+    const consent = getStorage("cookie-consent");
     if (!consent) setVisible(true);
   }, []);
 
   function accept() {
-    localStorage.setItem("cookie-consent", "accepted");
-    posthog.opt_in_capturing();
-    posthog.set_config({ persistence: "localStorage+cookie" });
+    setStorage("cookie-consent", "accepted");
+    try {
+      posthog.opt_in_capturing();
+      posthog.set_config({ persistence: "localStorage+cookie" });
+    } catch { /* posthog unavailable */ }
     setVisible(false);
   }
 
   function decline() {
-    localStorage.setItem("cookie-consent", "declined");
-    posthog.opt_out_capturing();
+    setStorage("cookie-consent", "declined");
+    try { posthog.opt_out_capturing(); } catch { /* posthog unavailable */ }
     setVisible(false);
   }
 
