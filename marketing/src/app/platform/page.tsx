@@ -425,7 +425,7 @@ export default function PlatformPage() {
         <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
           <div className="feature-row">
             <div>
-              <span className="eyebrow eyebrow-bracket">03 Predict</span>
+              <span className="eyebrow eyebrow-bracket">03 Analyze</span>
               <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
                 Visual <em>Analytics</em>
               </h2>
