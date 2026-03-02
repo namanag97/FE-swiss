@@ -184,7 +184,7 @@ function P2pSvg() {
 /* ── ITSM Ticket Lifecycle ── */
 function ItsmSvg() {
   return (
-    <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto" }}>
+    <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ITSM ticket lifecycle showing L1 resolution at 72%, L2 escalation at 28%, and L3 escalation at 15%" style={{ width: "100%", height: "auto" }}>
       <text x={240} y={16} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.faint} letterSpacing={1}>ITSM TICKET LIFECYCLE</text>
 
       <SvgNode x={180} y={36} w={120} h={30} label="Ticket Create" />
