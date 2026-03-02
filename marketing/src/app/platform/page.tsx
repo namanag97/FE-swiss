@@ -357,10 +357,13 @@ export default function PlatformPage() {
               <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
                 Process <em>Discovery</em>
               </h2>
-              <p className="type-body" style={{ marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
+              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
+                You&apos;ve never actually seen your own process. Now you will.
+              </p>
+              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
                 Automatically reconstruct process models from event log data. No
-                interviews, no workshops — just what actually happens in your
-                systems.
+                interviews, no workshops, no Post-it walls — just what actually
+                happens in your systems.
               </p>
               <ul style={{ marginTop: "var(--sp-4)", listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "var(--sp-2)" }}>
                 {[
