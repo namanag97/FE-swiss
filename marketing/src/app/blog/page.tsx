@@ -29,10 +29,10 @@ export default function BlogPage() {
         <div className="gi" style={{ textAlign: 'center' }}>
           <span className="eyebrow eyebrow-bracket">Blog</span>
           <h1 className="type-display" style={{ marginTop: 'var(--sp-3)' }}>
-            Insights &amp; <em>updates</em>
+            From the <em>team</em>
           </h1>
           <p className="type-body" style={{ maxWidth: 560, margin: '0 auto', marginTop: 'var(--sp-4)', color: 'var(--ink-mid)' }}>
-            Engineering deep-dives, product updates, and perspectives on process mining.
+            How we think about process mining, what we&apos;re building, and why.
           </p>
         </div>
       </section>
