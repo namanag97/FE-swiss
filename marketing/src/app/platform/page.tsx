@@ -330,7 +330,7 @@ export default function PlatformPage() {
             className="type-display"
             style={{ marginTop: "var(--sp-3)", maxWidth: 680, margin: "var(--sp-3) auto 0" }}
           >
-            The data platform for <em>Operational Intelligence</em>
+            From raw event logs to <em>automated action</em>
           </h1>
           <p
             className="type-body"
@@ -341,8 +341,8 @@ export default function PlatformPage() {
               color: "var(--ink-mid)",
             }}
           >
-            From raw event logs to automated process improvements. Four modules,
-            one platform.
+            Four modules. One platform. Connect your systems, see how work
+            actually flows, find what&apos;s broken, fix it — before it costs you.
           </p>
         </div>
       </section>
