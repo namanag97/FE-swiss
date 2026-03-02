@@ -524,11 +524,11 @@ export default function PlatformPage() {
       <section className="cta-band">
         <div className="gi" style={{ textAlign: "center", padding: "var(--sp-7) 0" }}>
           <h2 className="type-h2" style={{ color: "var(--white)" }}>
-            Get <em>early access</em>
+            See your processes <em>for the first time</em>
           </h2>
           <p style={{ fontFamily: "var(--body)", color: "rgba(255,255,255,0.7)", maxWidth: 480, margin: "0 auto", marginTop: "var(--sp-4)" }}>
-            Be among the first to use Meridian. Request early access and
-            we&apos;ll be in touch.
+            Connect your systems. Get your first process map in under an hour.
+            No consultants required.
           </p>
           <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--sp-5)" }}>
             <Link href="/contact" className="btn btn-primary" style={{ background: "var(--white)", color: "var(--ink-dark)", borderColor: "var(--white)" }}>
