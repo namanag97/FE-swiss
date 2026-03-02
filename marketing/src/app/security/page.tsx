@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { Shield, Lock, Server, Key, FileCheck, Database } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Security",
-  description: "Enterprise-grade security for your process data. SOC 2 Type II, encryption, and full data ownership.",
+  title: "Security — SOC 2, Encryption & Data Ownership",
+  description: "Your data stays yours. SOC 2 Type II, AES-256 encryption, customer-managed keys, and full data ownership. Built for enterprise process data.",
   alternates: { canonical: "/security" },
   openGraph: { images: ["/og.png"] },
 };
