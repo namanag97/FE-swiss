@@ -126,7 +126,7 @@ function ConformanceSvg() {
   const actSteps = ["Order", "Verify", "Approve", "Ship", "Invoice"];
 
   return (
-    <svg viewBox="0 0 520 310" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto" }}>
+    <svg viewBox="0 0 520 310" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Conformance checking: reference model compared against actual process showing deviations" style={{ width: "100%", height: "auto" }}>
       {/* Reference Model */}
       <text x={startX} y={24} fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.faint} letterSpacing={1}>REFERENCE MODEL</text>
       {refSteps.map((s, i) => {
