@@ -28,7 +28,7 @@ function ProcessComparisonSvg() {
   const nw = 76;
   const nh = 26;
   return (
-    <svg viewBox="0 0 460 280" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto" }}>
+    <svg viewBox="0 0 460 280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Process comparison: ideal linear flow versus messy reality with rework loops and unknown steps" style={{ width: "100%", height: "auto" }}>
       {/* Ideal */}
       <text x={16} y={20} fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.faint} letterSpacing={1}>HOW YOU THINK IT WORKS</text>
       {["Order", "Check", "Approve", "Ship"].map((s, i) => {
