@@ -35,14 +35,15 @@ export default function ContactPage() {
               ))}
             </div>
 
-            {/* Value prop */}
+            {/* What to expect */}
             <div style={{ marginTop: 'var(--sp-6)', padding: 'var(--sp-5)', border: '1px solid var(--border)' }}>
-              <p style={{ fontFamily: 'var(--caslon)', fontStyle: 'italic', color: 'var(--emerald)', lineHeight: 1.6 }}>
-                &ldquo;We built Meridian for operations teams who are tired of guessing where
-                their processes break down.&rdquo;
+              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 'var(--sp-3)' }}>
+                What to expect
               </p>
-              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', color: 'var(--ink-muted)', marginTop: 'var(--sp-3)' }}>
-                — The Meridian Team
+              <p style={{ fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', color: 'var(--ink-mid)', lineHeight: 1.6 }}>
+                Tell us what systems you run (SAP, Oracle, ServiceNow, etc.) and
+                which processes matter most to you. We&apos;ll walk you through how
+                Meridian maps them — and what it finds.
               </p>
             </div>
           </div>
