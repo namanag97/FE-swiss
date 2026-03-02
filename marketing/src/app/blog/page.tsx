@@ -51,10 +51,10 @@ export default function BlogPage() {
             Stay in the <em>loop</em>
           </h2>
           <p style={{ fontFamily: 'var(--body)', color: 'rgba(255,255,255,0.7)', maxWidth: 480, margin: '0 auto', marginTop: 'var(--sp-4)' }}>
-            Engineering deep-dives, product updates, and process mining perspectives.
+            See how Meridian turns raw event logs into operational clarity. Request early access.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--sp-5)' }}>
-            <Link href="/contact" className="btn btn-primary" style={{ background: 'var(--white)', color: 'var(--ink-dark)', borderColor: 'var(--white)' }}>Get in Touch</Link>
+            <Link href="/contact" className="btn btn-primary" style={{ background: 'var(--white)', color: 'var(--ink-dark)', borderColor: 'var(--white)' }}>Get Early Access</Link>
           </div>
         </div>
       </section>
