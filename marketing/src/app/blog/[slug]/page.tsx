@@ -50,12 +50,15 @@ export default async function BlogPostPage({ params }: Props) {
   const articleUrl = `${siteConfig.url}/blog/${slug}`;
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
     datePublished: post.date,
+    dateModified: post.date,
     author: { "@type": "Person", name: post.author },
+    publisher: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
     url: articleUrl,
+    mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
   };
 
   return (
