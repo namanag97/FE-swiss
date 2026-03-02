@@ -269,8 +269,9 @@ export default function UseCasesPage() {
             Built for <em>real workflows</em>
           </h1>
           <p className="type-body" style={{ maxWidth: 560, margin: "0 auto", marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
-            Process mining works wherever there&apos;s a sequence of events.
-            Here are the workflows where it delivers the most impact.
+            Wherever there&apos;s a sequence of events, there&apos;s a process
+            hiding in your data. These are the workflows where making it
+            visible changes everything.
           </p>
         </div>
       </section>
