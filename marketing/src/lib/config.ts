@@ -4,6 +4,7 @@ export const siteConfig = {
   description:
     "The data platform for operations teams. Process mining, visual analytics, and AI-powered insights — beyond what SQL can show you.",
   url: "https://meridian.dev",
+  calendlyUrl: "https://calendly.com/meridian-team/30min",
   ogImage: "/og.png",
   links: {
     twitter: "https://twitter.com/meridiandev",
