@@ -2,8 +2,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: "We believe every business process tells a story. Meridian makes those stories visible.",
+  title: "About — Why We're Building Meridian",
+  description: "Every company runs on processes. Almost none can see them. We're building the platform to make operational reality visible, measurable, and fixable.",
   alternates: { canonical: "/about" },
   openGraph: { images: ["/og.png"] },
 };
