@@ -408,10 +408,13 @@ export default function UseCasesPage() {
             <div>
               <span className="eyebrow eyebrow-bracket">Healthcare</span>
               <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>Patient Journey</h2>
-              <p className="type-body" style={{ marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
-                Track patient flow through clinical pathways. Identify wait
+              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
+                Average wait time says 20 minutes. The actual patient flow tells a different story.
+              </p>
+              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
+                Track patient flow through clinical pathways. Find the wait
                 time hotspots, care coordination gaps, and pathway deviations
-                that affect outcomes and patient satisfaction.
+                that your averages are hiding.
               </p>
               <div style={{ marginTop: "var(--sp-5)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--sp-3)" }}>
                 {[
