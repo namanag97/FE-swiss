@@ -399,7 +399,10 @@ export default function PlatformPage() {
               <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
                 Conformance <em>Checking</em>
               </h2>
-              <p className="type-body" style={{ marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
+              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
+                Here&apos;s what should happen. Here&apos;s what actually happens. Here&apos;s what it costs you.
+              </p>
+              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
                 Overlay your ideal process against reality. Instantly see where
                 execution deviates from design — and measure the cost of each
                 deviation.
