@@ -258,7 +258,7 @@ function AnalyticsSvg() {
 /* ── 04 AI Insights ── */
 function AiInsightsSvg() {
   return (
-    <svg viewBox="0 0 520 320" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto" }}>
+    <svg viewBox="0 0 520 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI anomaly detection panel showing SLA breach prediction and recommended escalation action" style={{ width: "100%", height: "auto" }}>
       {/* Panel frame */}
       <rect x={8} y={8} width={504} height={304} rx={2} fill={C.white} stroke={C.border} />
 
