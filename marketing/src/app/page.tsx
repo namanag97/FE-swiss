@@ -17,13 +17,12 @@ export default function HomePage() {
         <div className="gi" style={{ textAlign: "center" }}>
           <span className="eyebrow eyebrow-bracket">Early access</span>
           <h1 className="type-display" style={{ marginTop: 20 }}>
-            Unmatched <em>Intelligence</em>
+            See how your business <em>actually runs</em>
           </h1>
-          <p className="type-body" style={{ maxWidth: 560, margin: "0 auto", marginTop: 24, color: "var(--ink-mid)" }}>
-            AI supercharged with process intelligence. Connect your databases,
-            ERPs, and CRMs — mine event logs, map real processes, find
-            bottlenecks before they cost you. No guesswork. Just what actually
-            happens in your systems.
+          <p className="type-body" style={{ maxWidth: 540, margin: "0 auto", marginTop: 24, color: "var(--ink-mid)" }}>
+            Connect your ERP, CRM, or ITSM. Get a living map of every process,
+            every bottleneck, every workaround — built automatically from the
+            data you already have.
           </p>
           <div style={{ display: "flex", gap: "var(--sp-3)", justifyContent: "center", marginTop: 36 }}>
             <Link href="/contact" className="btn btn-primary">Request early access</Link>
@@ -35,30 +34,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Beyond SQL ── */}
+      {/* ── Three levels of seeing ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
           <Reveal>
             <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
-              <span className="eyebrow eyebrow-bracket">Beyond SQL</span>
+              <span className="eyebrow eyebrow-bracket">The problem</span>
               <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
                 Dashboards tell you <em>what.</em><br />
-                We tell you <em>why.</em>
+                We show you <em>why.</em>
               </h2>
-              <p className="type-body" style={{ maxWidth: 520, margin: "0 auto", marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
-                Traditional BI shows you that something is slow. It can&apos;t
-                show you why. Meridian combines process mining with LLMs to
-                read the raw event trail your systems already produce —
-                and reconstruct what actually happened.
-              </p>
             </div>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-3 reveal-stagger" style={{ gap: "var(--sp-4)" }}>
             {[
-              { title: "SQL + dashboards", desc: "\"Average cycle time is 47 days.\"", tone: "var(--ink-faint)" },
-              { title: "Process mining", desc: "\"Here are the 14 paths your orders actually take.\"", tone: "var(--ink-muted)" },
-              { title: "Meridian", desc: "\"Path 7 has a rework loop that costs you 11 days. Here's the fix.\"", tone: "var(--emerald)" },
+              { title: "SQL + dashboards", desc: "\"Something is slow. Somewhere. Good luck.\"", tone: "var(--ink-faint)" },
+              { title: "Process mining", desc: "\"Here are 14 paths. Now hire someone to figure out which one matters.\"", tone: "var(--ink-muted)" },
+              { title: "Meridian", desc: "\"Path 7 has a rework loop costing you 11 days. Here\u2019s the fix.\"", tone: "var(--emerald)" },
             ].map((c) => (
               <Reveal key={c.title}>
                 <div className="card-feature" style={{ padding: "var(--sp-5)", height: "100%" }}>
@@ -72,54 +65,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ── Intelligence = Adapt ── */}
-      <section className="gr">
-        <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-          <Reveal>
-            <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
-              <span className="eyebrow eyebrow-bracket">Intelligence</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
-                Intelligence is the ability to <em>adapt</em>
-              </h2>
-              <p className="type-body" style={{ maxWidth: 500, margin: "0 auto", marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
-                You can&apos;t adapt to what you can&apos;t see. Meridian gives you
-                a continuously running OODA loop — observe, orient, decide, act —
-                faster than the problems can evolve.
-              </p>
-            </div>
-          </Reveal>
-          <Reveal>
-            <OODALoop />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── Connectors ── */}
-      <section className="gr">
-        <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ padding: "var(--sp-5) 0" }}>
-          <p className="type-label" style={{ textAlign: "center", marginBottom: "var(--sp-4)" }}>
-            Connect everything. Miss nothing.
-          </p>
-          <div style={{ display: "flex", justifyContent: "center", gap: "var(--sp-3)", flexWrap: "wrap", alignItems: "center" }}>
-            {["SAP", "Oracle", "ServiceNow", "Salesforce", "Jira", "Postgres", "Snowflake", "BigQuery"].map((name) => (
-              <span key={name} style={{
-                fontFamily: "var(--sans)", fontSize: "var(--fs-xs)", color: "var(--ink-faint)",
-                letterSpacing: "0.06em", textTransform: "uppercase",
-                padding: "var(--sp-2) var(--sp-4)",
-                border: "1px solid var(--border)",
-                background: "var(--white)",
-              }}>
-                {name}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <div className="ascii-divider">&middot; &middot; &middot; &nbsp; &middot; &middot; &middot; &nbsp; &middot; &middot; &middot;</div>
 
       {/* ── The Gap ── */}
       <section className="gr">
@@ -155,6 +100,54 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Connectors ── */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ padding: "var(--sp-5) 0" }}>
+          <p className="type-label" style={{ textAlign: "center", marginBottom: "var(--sp-4)" }}>
+            Works with the systems you already run
+          </p>
+          <div style={{ display: "flex", justifyContent: "center", gap: "var(--sp-3)", flexWrap: "wrap", alignItems: "center" }}>
+            {["SAP", "Oracle", "ServiceNow", "Salesforce", "Jira", "Postgres", "Snowflake", "BigQuery"].map((name) => (
+              <span key={name} style={{
+                fontFamily: "var(--sans)", fontSize: "var(--fs-xs)", color: "var(--ink-faint)",
+                letterSpacing: "0.06em", textTransform: "uppercase",
+                padding: "var(--sp-2) var(--sp-4)",
+                border: "1px solid var(--border)",
+                background: "var(--white)",
+              }}>
+                {name}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="ascii-divider">&middot; &middot; &middot; &nbsp; &middot; &middot; &middot; &nbsp; &middot; &middot; &middot;</div>
+
+      {/* ── Continuous Intelligence ── */}
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
+          <Reveal>
+            <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
+              <span className="eyebrow eyebrow-bracket">Continuous</span>
+              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
+                It never stops <em>watching</em>
+              </h2>
+              <p className="type-body" style={{ maxWidth: 500, margin: "0 auto", marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
+                Meridian doesn&apos;t generate a report and walk away. It observes
+                your processes continuously, detects when something drifts,
+                predicts what breaks next, and recommends what to fix.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal>
+            <OODALoop />
+          </Reveal>
+        </div>
+      </section>
+
       {/* ── Speed ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
@@ -169,9 +162,9 @@ export default function HomePage() {
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-3 reveal-stagger" style={{ gap: "var(--sp-4)" }}>
             {[
-              { phase: "Day 1", title: "Your first process map", desc: "Plug in your ERP, CRM, or ITSM. See how work actually flows — the rework loops, the bottlenecks, the workarounds nobody talks about." },
-              { phase: "Week 1", title: "Team-wide visibility", desc: "Dashboards for every operations lead. No more waiting on analysts. No more stale PowerPoints." },
-              { phase: "Month 1", title: "Closed-loop intelligence", desc: "Conformance monitoring. Bottleneck prediction. Automated alerts that trigger action before things break." },
+              { phase: "Day 1", title: "Your first process map", desc: "Not a POC. Not a workshop. The real thing, from your real data. See the rework loops, the bottlenecks, the workarounds nobody talks about." },
+              { phase: "Week 1", title: "Every ops lead has a dashboard", desc: "No more waiting on analysts. No more stale PowerPoints passed around in email. Live data, always current." },
+              { phase: "Month 1", title: "Processes that improve themselves", desc: "Conformance monitoring catches drift. Predictions flag SLA breaches before they happen. Alerts trigger action automatically." },
             ].map((t) => (
               <Reveal key={t.phase}>
                 <div className="card-feature" style={{ padding: "var(--sp-5)", height: "100%" }}>
@@ -192,7 +185,7 @@ export default function HomePage() {
           <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
             <span className="eyebrow eyebrow-bracket">Platform</span>
             <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
-              The full <em>OODA loop</em>
+              From raw data to <em>action</em>
             </h2>
           </div>
           <PlatformTabs />
@@ -238,7 +231,7 @@ export default function HomePage() {
       <section className="cta-band">
         <div className="gi" style={{ textAlign: "center", padding: "var(--sp-7) 0" }}>
           <h2 className="type-h2" style={{ color: "var(--white)" }}>
-            Faster loops. <em>Better decisions.</em>
+            Your processes are talking. <em>Start listening.</em>
           </h2>
           <p style={{ fontFamily: "var(--body)", color: "rgba(255,255,255,0.5)", maxWidth: 440, margin: "0 auto", marginTop: "var(--sp-4)" }}>
             We&apos;re building the intelligence layer for operations.
