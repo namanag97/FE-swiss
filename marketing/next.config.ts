@@ -6,8 +6,13 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
+  poweredByHeader: false,
+  compress: true,
   images: {
     remotePatterns: [],
+  },
+  experimental: {
+    optimizePackageImports: ["lucide-react", "posthog-js"],
   },
   async headers() {
     return [
