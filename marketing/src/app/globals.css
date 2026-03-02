@@ -948,9 +948,6 @@ select.input {
   .about-values-grid {
     grid-template-columns: 1fr;
   }
-  .pricing-grid {
-    grid-template-columns: 1fr;
-  }
   .contact-split {
     grid-template-columns: 1fr;
     gap: var(--sp-5);
