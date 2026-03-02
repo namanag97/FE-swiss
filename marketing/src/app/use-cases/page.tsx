@@ -55,7 +55,7 @@ function SvgArrow({ x1, y1, x2, y2, color }: { x1: number; y1: number; x2: numbe
 /* ── Intro Diagram: Data Sources → Event Log → Process Map ── */
 function IntroSvg() {
   return (
-    <svg viewBox="0 0 600 280" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto" }}>
+    <svg viewBox="0 0 600 280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Data flow from ERP, CRM, and ITSM systems through event log to process map producing variants, bottlenecks, and deviations" style={{ width: "100%", height: "auto" }}>
       {/* Data sources */}
       <SvgNode x={40} y={20} w={100} h={32} label="Your ERP" />
       <SvgNode x={250} y={20} w={100} h={32} label="Your CRM" />
