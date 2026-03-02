@@ -104,7 +104,7 @@ function IntroSvg() {
 /* ── O2C Process Map ── */
 function O2cSvg() {
   return (
-    <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto" }}>
+    <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Order-to-Cash process map showing happy path and manual review deviation adding 4.2 days" style={{ width: "100%", height: "auto" }}>
       <text x={240} y={16} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.faint} letterSpacing={1}>ORDER-TO-CASH</text>
 
       {/* Main flow */}
