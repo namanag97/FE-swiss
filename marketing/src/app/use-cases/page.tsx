@@ -223,7 +223,7 @@ function ItsmSvg() {
 /* ── Patient Journey ── */
 function PatientSvg() {
   return (
-    <svg viewBox="0 0 480 340" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto" }}>
+    <svg viewBox="0 0 480 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Patient journey from referral through triage, lab tests, diagnosis, treatment plan, and follow-up" style={{ width: "100%", height: "auto" }}>
       <text x={240} y={16} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.faint} letterSpacing={1}>PATIENT JOURNEY</text>
 
       {/* Top row */}
