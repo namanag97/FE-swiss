@@ -9,13 +9,17 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
     const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
     if (!key) return;
 
-    const consent = localStorage.getItem("cookie-consent");
-    posthog.init(key, {
-      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
-      capture_pageview: false,
-      capture_pageleave: true,
-      persistence: consent === "accepted" ? "localStorage+cookie" : "memory",
-    });
+    let consent: string | null = null;
+    try { consent = localStorage.getItem("cookie-consent"); } catch { /* private browsing */ }
+
+    try {
+      posthog.init(key, {
+        api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
+        capture_pageview: false,
+        capture_pageleave: true,
+        persistence: consent === "accepted" ? "localStorage+cookie" : "memory",
+      });
+    } catch { /* posthog init failed */ }
   }, []);
 
   return <PHProvider client={posthog}>{children}</PHProvider>;
