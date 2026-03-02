@@ -172,11 +172,11 @@ export default function AboutPage() {
         <div className="gi" style={{ textAlign: "center" }}>
           <span className="eyebrow eyebrow-bracket">About</span>
           <h1 className="type-display" style={{ marginTop: "var(--sp-3)" }}>
-            We believe every process<br /><em>tells a story</em>
+            Why we&apos;re <em>building this</em>
           </h1>
           <p className="type-body" style={{ maxWidth: 560, margin: "0 auto", marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
-            Most businesses run on processes they can&apos;t see. We&apos;re building the tools to make
-            operational reality visible, measurable, and improvable.
+            Every company runs on processes. Almost none of them can see those
+            processes. We think that&apos;s the most expensive blind spot in business.
           </p>
         </div>
       </section>
@@ -187,19 +187,20 @@ export default function AboutPage() {
         <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
           <div className="about-split">
             <div>
-              <span className="eyebrow eyebrow-bracket">The Problem</span>
+              <span className="eyebrow eyebrow-bracket">The blind spot</span>
               <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
-                Processes are <em>invisible</em>
+                You have a process diagram<br />on the wall. <em>It&apos;s wrong.</em>
               </h2>
               <p className="type-body" style={{ marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
-                Every organization has a process diagram on the wall. None of them match reality.
-                The gap between how work is designed and how work actually happens is where
-                inefficiency hides — in rework loops, unnecessary approvals, and bottlenecks
-                that nobody can see because nobody is looking.
+                The gap between how work is designed and how work actually happens
+                is where inefficiency lives — in rework loops nobody mapped,
+                approvals nobody questioned, and bottlenecks nobody can see
+                because nobody is looking at the right data.
               </p>
               <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
-                Traditional analytics tells you what happened. It can&apos;t tell you how it happened —
-                the sequence of steps, the variants, the deviations from the plan.
+                Your BI tools tell you what happened. They can&apos;t tell you
+                how — the sequence of steps, the variants, the deviations.
+                That&apos;s a different kind of data. That&apos;s what we work with.
               </p>
             </div>
             <div style={{ border: "1px solid var(--border)", padding: "var(--sp-3)", background: "var(--bg)" }}>
@@ -214,13 +215,14 @@ export default function AboutPage() {
         <div className="h-rule h-rule--bottom" />
         <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
           <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
-            <span className="eyebrow eyebrow-bracket">Our Approach</span>
+            <span className="eyebrow eyebrow-bracket">Our approach</span>
             <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
-              Algorithms first, <em>then interface</em>
+              Algorithms first. <em>Interface second.</em>
             </h2>
             <p className="type-body" style={{ maxWidth: 560, margin: "0 auto", marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
-              We start with the math — process mining algorithms that reconstruct reality from data.
-              Then we build the interface that makes it actionable.
+              We start with the math — process mining algorithms that reconstruct
+              reality from raw event data. Then we build the interface that makes
+              it actionable. Not the other way around.
             </p>
           </div>
           <div style={{ maxWidth: 680, margin: "0 auto", border: "1px solid var(--border)", padding: "var(--sp-4)", background: "var(--bg)" }}>
@@ -229,20 +231,20 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values */}
+      {/* Beliefs */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
           <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
-            <span className="eyebrow eyebrow-bracket">Values</span>
-            <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>What we <em>stand for</em></h2>
+            <span className="eyebrow eyebrow-bracket">Beliefs</span>
+            <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>What we <em>believe</em></h2>
           </div>
           <div className="about-values-grid">
             {[
-              { title: "Clarity over complexity", desc: "The best tools make complex things simple, not simple things complex. Every feature earns its place." },
-              { title: "Data honesty", desc: "We show what the data says, not what you want to hear. Process mining reveals reality — and reality is the starting point for improvement." },
-              { title: "Speed matters", desc: "Insights that take weeks to produce are insights that arrive too late. Sub-second queries on millions of events." },
-              { title: "Craft", desc: "Software should be well-made. Clean interfaces, precise algorithms, thoughtful defaults. We sweat the details." },
+              { title: "Show reality, not comfort", desc: "We show what the data says, not what you want to hear. The first step to fixing a process is admitting what it actually looks like." },
+              { title: "Fast or useless", desc: "Insights that take weeks to produce arrive too late. If you can't query a million events in under a second, you've already lost the feedback loop." },
+              { title: "Complexity is the enemy", desc: "The best tools make complex things simple. If you need a consultant to use it, it's not a product — it's a project." },
+              { title: "Craft matters", desc: "Software should be well-made. Clean interfaces, precise algorithms, thoughtful defaults. The details are the product." },
             ].map((v) => (
               <div key={v.title} className="card-feature" style={{ padding: "var(--sp-5)" }}>
                 <h3 className="type-h3">{v.title}</h3>
@@ -263,9 +265,9 @@ export default function AboutPage() {
           </div>
           <div style={{ maxWidth: 560, margin: "0 auto" }}>
             {[
-              { year: "2024", event: "Founded. First process mining prototype built on columnar event store." },
-              { year: "2025", event: "Core platform built. Process discovery, conformance checking, visual analytics." },
-              { year: "2026", event: "Early access launch. AI-powered predictions. First design partners onboarded." },
+              { year: "2024", event: "Founded. First process mining prototype on a columnar event store." },
+              { year: "2025", event: "Core platform: process discovery, conformance checking, visual analytics." },
+              { year: "2026", event: "Early access. AI-powered predictions. First design partners." },
               { year: "Next", event: "General availability. Closed-loop optimization from insight to action." },
             ].map((t, i) => (
               <div key={t.year} className="about-timeline-row" style={{ paddingBottom: i < 3 ? "var(--sp-5)" : 0 }}>
@@ -298,10 +300,11 @@ export default function AboutPage() {
       <section className="cta-band">
         <div className="gi" style={{ textAlign: "center", padding: "var(--sp-7) 0" }}>
           <h2 className="type-h2" style={{ color: "var(--white)" }}>
-            Join us in making processes <em>visible</em>
+            We&apos;re building this <em>right now</em>
           </h2>
           <p style={{ fontFamily: "var(--body)", color: "rgba(255,255,255,0.7)", maxWidth: 480, margin: "0 auto", marginTop: "var(--sp-4)" }}>
-            We&apos;re building the future of operational intelligence. Get in touch.
+            Early access is open. Be among the first to see your processes
+            for what they really are.
           </p>
           <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--sp-5)" }}>
             <Link href="/contact" className="btn btn-primary" style={{ background: "var(--white)", color: "var(--ink-dark)", borderColor: "var(--white)" }}>Get Early Access</Link>
