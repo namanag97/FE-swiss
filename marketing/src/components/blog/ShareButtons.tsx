@@ -9,9 +9,14 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
   const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
   const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
 
-  function copyLink() {
-    navigator.clipboard.writeText(url);
-    setCopied(true);
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+    } catch {
+      // Fallback: prompt user to copy manually
+      window.prompt("Copy this link:", url);
+    }
     setTimeout(() => setCopied(false), 2000);
   }
 
