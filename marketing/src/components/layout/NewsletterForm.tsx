@@ -10,10 +10,9 @@ export function NewsletterForm() {
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const email = emailRef.current?.value;
-    if (email) {
-      posthog.capture("newsletter_signup", { email });
-    }
+    const email = emailRef.current?.value?.trim();
+    if (!email) return;
+    try { posthog.capture("newsletter_signup", { email }); } catch { /* analytics unavailable */ }
     setSubmitted(true);
   }
 
