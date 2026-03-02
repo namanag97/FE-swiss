@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Meridian",
   tagline: "See how your business actually runs.",
   description:
-    "The data platform for operations teams. Process mining, visual analytics, and AI-powered insights — beyond what SQL can show you.",
+    "See how your business actually runs. Process mining, visual analytics, and AI-powered insights — connect your systems and find what your dashboards can't show you.",
   url: "https://meridian.dev",
   calendlyUrl: "https://calendly.com/meridian-team/30min",
   ogImage: "/og.png",
