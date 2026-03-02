@@ -8,13 +8,13 @@ export default function ContactPage() {
         <div className="contact-split">
           {/* Left: Hero + Value Props */}
           <div>
-            <span className="eyebrow eyebrow-bracket">Contact</span>
+            <span className="eyebrow eyebrow-bracket">Early access</span>
             <h1 className="type-display" style={{ marginTop: 'var(--sp-3)' }}>
-              Book a <em>demo</em>
+              Get <em>early access</em>
             </h1>
             <p className="type-body" style={{ marginTop: 'var(--sp-4)', color: 'var(--ink-mid)' }}>
-              Whether you&apos;re exploring process mining for the first time or ready to deploy
-              at scale, we&apos;d love to hear from you.
+              We&apos;re onboarding design partners now. Book a call and tell us
+              what processes you want to see.
             </p>
 
             <div style={{ marginTop: 'var(--sp-6)', display: 'flex', flexDirection: 'column', gap: 'var(--sp-4)' }}>
