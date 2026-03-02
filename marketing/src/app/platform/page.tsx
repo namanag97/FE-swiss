@@ -435,10 +435,13 @@ export default function PlatformPage() {
               <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
                 Visual <em>Analytics</em>
               </h2>
-              <p className="type-body" style={{ marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
+              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
+                Click a spike. Land on the exact variant that caused it.
+              </p>
+              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
                 Dashboards built for process data. KPI tracking, variant
                 distribution, SLA monitoring — all connected to the process
-                layer beneath.
+                layer beneath. Not just charts. Charts that know what happened underneath.
               </p>
               <ul style={{ marginTop: "var(--sp-4)", listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "var(--sp-2)" }}>
                 {[
