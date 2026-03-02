@@ -34,7 +34,7 @@ function SecurityArchSvg() {
   ];
 
   return (
-    <svg viewBox="0 0 520 320" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto" }}>
+    <svg viewBox="0 0 520 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Security architecture: client layer with TLS, API gateway with RBAC, application layer with VPC, data layer with AES-256, and AWS infrastructure" style={{ width: "100%", height: "auto" }}>
       {/* Title */}
       <text x={260} y={20} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.faint} letterSpacing={1.5}>SECURITY ARCHITECTURE</text>
 
