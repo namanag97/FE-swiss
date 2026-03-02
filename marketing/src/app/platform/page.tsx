@@ -55,7 +55,7 @@ function Arrow({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: num
 /* ── 01 Process Discovery ── */
 function DiscoverySvg() {
   return (
-    <svg viewBox="0 0 520 310" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto" }}>
+    <svg viewBox="0 0 520 310" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Event log table transforming into a process map with 23 variants detected" style={{ width: "100%", height: "auto" }}>
       {/* Event Log Table */}
       <rect x={16} y={16} width={200} height={200} rx={2} fill={C.white} stroke={C.border} />
       <rect x={16} y={16} width={200} height={28} rx={2} fill={C.bg} stroke={C.border} />
