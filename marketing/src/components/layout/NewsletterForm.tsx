@@ -1,13 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import type { FormEvent } from "react";
+import posthog from "posthog-js";
 
 export function NewsletterForm() {
   const [submitted, setSubmitted] = useState(false);
+  const emailRef = useRef<HTMLInputElement>(null);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const email = emailRef.current?.value;
+    if (email) {
+      posthog.capture("newsletter_signup", { email });
+    }
     setSubmitted(true);
   }
 
@@ -22,7 +28,9 @@ export function NewsletterForm() {
   return (
     <form onSubmit={onSubmit} className="flex">
       <input
+        ref={emailRef}
         type="email"
+        name="email"
         required
         placeholder="Your email"
         className="input-dark"
