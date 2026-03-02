@@ -200,7 +200,7 @@ function ConformanceSvg() {
 /* ── 03 Analytics Dashboard ── */
 function AnalyticsSvg() {
   return (
-    <svg viewBox="0 0 520 310" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto" }}>
+    <svg viewBox="0 0 520 310" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KPI dashboard showing cycle time, throughput, on-time metrics and variant distribution" style={{ width: "100%", height: "auto" }}>
       {/* Dashboard frame */}
       <rect x={8} y={8} width={504} height={294} rx={2} fill={C.white} stroke={C.border} />
       <rect x={8} y={8} width={504} height={28} rx={2} fill={C.bg} stroke={C.border} />
