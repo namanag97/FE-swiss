@@ -334,10 +334,13 @@ export default function UseCasesPage() {
             <div>
               <span className="eyebrow eyebrow-bracket">P2P</span>
               <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>Procure-to-Pay</h2>
-              <p className="type-body" style={{ marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
+              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
+                3 in 10 POs bypass approval. Nobody knows why.
+              </p>
+              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
                 Uncover maverick buying, duplicate payments, and approval
-                bottlenecks. See exactly where your procurement process
-                deviates from policy — and how much those deviations cost.
+                bottlenecks. See exactly where procurement deviates from
+                policy — and how much those deviations cost you every quarter.
               </p>
               <div style={{ marginTop: "var(--sp-5)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--sp-3)" }}>
                 {[
