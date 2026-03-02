@@ -294,10 +294,13 @@ export default function UseCasesPage() {
             <div>
               <span className="eyebrow eyebrow-bracket">O2C</span>
               <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>Order-to-Cash</h2>
-              <p className="type-body" style={{ marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
-                Reduce Days Sales Outstanding by finding where invoices get
-                stuck. Identify the approval bottlenecks, credit check delays,
-                and manual interventions that slow your cash conversion cycle.
+              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
+                Your invoices take 47 days. The process says 5.
+              </p>
+              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
+                Find where invoices actually get stuck — the approval bottlenecks,
+                credit check delays, and rework loops that your dashboard
+                can&apos;t explain. See the 12 variants hiding between order and payment.
               </p>
               <div style={{ marginTop: "var(--sp-5)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--sp-3)" }}>
                 {[
