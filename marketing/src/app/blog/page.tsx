@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
 import { BlogFilterTabs } from "@/components/blog/BlogFilterTabs";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description: "Engineering deep-dives, product updates, and perspectives on process mining.",
+  alternates: { canonical: "/blog" },
+};
 
 export default function BlogPage() {
   const allPosts = getAllPosts();
