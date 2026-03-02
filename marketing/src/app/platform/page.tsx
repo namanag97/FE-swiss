@@ -477,10 +477,13 @@ export default function PlatformPage() {
               <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
                 AI-Powered <em>Insights</em>
               </h2>
-              <p className="type-body" style={{ marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
-                Machine learning models that understand process patterns. Predict
-                bottlenecks before they happen, detect anomalies, and recommend
-                actions.
+              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
+                It doesn&apos;t just find the problem. It tells you what to do about it.
+              </p>
+              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
+                LLMs that understand process patterns. Predict bottlenecks before
+                they happen, detect anomalies, and recommend actions — in plain
+                language, not query syntax.
               </p>
               <ul style={{ marginTop: "var(--sp-4)", listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "var(--sp-2)" }}>
                 {[
