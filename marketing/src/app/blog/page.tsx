@@ -4,8 +4,8 @@ import { getAllPosts } from "@/lib/blog";
 import { BlogFilterTabs } from "@/components/blog/BlogFilterTabs";
 
 export const metadata: Metadata = {
-  title: "Blog",
-  description: "Engineering deep-dives, product updates, and perspectives on process mining.",
+  title: "Blog — Engineering, Process Mining & Product Updates",
+  description: "How we think about process mining, what we're building, and why. Engineering deep-dives, architecture decisions, and perspectives from the Meridian team.",
   alternates: { canonical: "/blog" },
 };
 
