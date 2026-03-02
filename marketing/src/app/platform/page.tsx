@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Platform",
+  title: "Platform — Process Discovery, Conformance & AI Insights",
   description:
-    "Process mining, conformance checking, visual analytics, and AI insights — the complete platform for operational intelligence.",
+    "From raw event logs to automated action. Process discovery, conformance checking, visual analytics, and AI-powered insights in one platform.",
   alternates: { canonical: "/platform" },
   openGraph: { images: ["/og.png"] },
 };
