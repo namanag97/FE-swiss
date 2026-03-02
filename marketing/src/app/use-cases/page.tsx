@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Use Cases",
+  title: "Use Cases — O2C, P2P, ITSM & Patient Journey",
   description:
-    "See how process mining transforms Order-to-Cash, Procure-to-Pay, ITSM, and Patient Journey workflows.",
+    "See how Meridian maps real workflows. Order-to-Cash, Procure-to-Pay, IT Service Management, and Patient Journey — find what your dashboards can't show you.",
   alternates: { canonical: "/use-cases" },
   openGraph: { images: ["/og.png"] },
 };
