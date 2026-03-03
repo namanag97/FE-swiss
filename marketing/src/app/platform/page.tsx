@@ -88,7 +88,7 @@ function DiscoverySvg() {
       <rect x={290} y={198} width={52} height={26} rx={2} fill={C.greenLight} stroke={C.green} />
       <text x={316} y={213} textAnchor="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.green}>Done</text>
 
-      <rect x={354} y={198} width={52} height={26} rx={2} fill="#fef3c7" stroke={C.amber} />
+      <rect x={354} y={198} width={52} height={26} rx={2} fill={C.amberLight} stroke={C.amber} />
       <text x={380} y={213} textAnchor="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.amber}>Reject</text>
 
       <text x={400} y={260} textAnchor="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.muted}>23 variants detected</text>
@@ -160,7 +160,7 @@ function ConformanceSvg() {
             <Arrow x1={vx + nodeW + 4} y1={actY + nodeH / 2} x2={ax} y2={actY + nodeH / 2} />
 
             {/* Deviation node */}
-            <rect x={vx + nodeW - 12} y={devY} width={devW} height={nodeH} rx={2} fill="#fef3c7" stroke={C.amber} strokeWidth={1.5} />
+            <rect x={vx + nodeW - 12} y={devY} width={devW} height={nodeH} rx={2} fill={C.amberLight} stroke={C.amber} strokeWidth={1.5} />
             <text x={vx + nodeW - 12 + devW / 2} y={devY + nodeH / 2 + 1} textAnchor="middle" dominantBaseline="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.amber} fontWeight={500}>Manual Review</text>
 
             {/* Label */}
@@ -250,7 +250,7 @@ function AiInsightsSvg() {
       <rect x={8} y={8} width={504} height={304} rx={2} fill={C.white} stroke={C.border} />
 
       {/* Alert header */}
-      <rect x={8} y={8} width={504} height={36} rx={2} fill="#fef3c7" stroke="#f59e0b" strokeWidth={0.5} />
+      <rect x={8} y={8} width={504} height={36} rx={2} fill={C.amberLight} stroke="#f59e0b" strokeWidth={0.5} />
       <text x={36} y={30} fontSize={11} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill="#92400e">⚠ ANOMALY DETECTED</text>
       <text x={480} y={30} textAnchor="end" fontSize={9} fontFamily="'Geist Mono', monospace" fill={C.amber}>CASE #4,821</text>
 
@@ -264,7 +264,7 @@ function AiInsightsSvg() {
       {/* Mini flow inside pattern box */}
       <Node x={36} y={104} w={64} h={20} label="Review" />
       <Arrow x1={100} y1={114} x2={112} y2={114} />
-      <rect x={112} y={104} width={56} height={20} rx={2} fill="#fef3c7" stroke={C.amber} />
+      <rect x={112} y={104} width={56} height={20} rx={2} fill={C.amberLight} stroke={C.amber} />
       <text x={140} y={116} textAnchor="middle" dominantBaseline="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fill={C.amber}>Reject</text>
       <Arrow x1={168} y1={114} x2={180} y2={114} />
       <Node x={180} y={104} w={64} h={20} label="Review" />
