@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { C } from "@/lib/colors";
 
 export const metadata: Metadata = {
   title: "About — Why We're Building Meridian",
@@ -7,21 +8,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
   openGraph: { images: ["/og.png"] },
 };
-
-const C = {
-  dark: "#072A20",
-  text: "#1a2f28",
-  mid: "#4a6259",
-  muted: "#7a8f85",
-  faint: "#a3b3ab",
-  green: "#047A55",
-  greenLight: "#e8f5ef",
-  border: "#dde3e0",
-  white: "#ffffff",
-  bg: "#FAFBF8",
-  amber: "#b45309",
-  amberLight: "#fef3c7",
-} as const;
 
 /* ── Process Comparison: How you think vs reality ── */
 function ProcessComparisonSvg() {
