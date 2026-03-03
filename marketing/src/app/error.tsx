@@ -4,16 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import posthog from "posthog-js";
-
-const C = {
-  text: "#1a2f28",
-  muted: "#7a8f85",
-  faint: "#a3b3ab",
-  border: "#dde3e0",
-  white: "#ffffff",
-  red: "#dc2626",
-  redLight: "#fef2f2",
-} as const;
+import { C } from "@/lib/colors";
 
 function ErrorFlowSvg() {
   const steps = [
