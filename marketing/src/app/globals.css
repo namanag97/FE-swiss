@@ -419,10 +419,12 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
 .cta-band .btn-ghost {
   color: rgba(255,255,255,.7);
   border-color: rgba(255,255,255,.2);
+  background-color: rgba(255,255,255,.06);
 }
 .cta-band .btn-ghost:hover {
   color: var(--white);
   border-color: rgba(255,255,255,.4);
+  background-color: rgba(255,255,255,.12);
 }
 
 /* ═══════════════════════════════════════════════════════════════
