@@ -4,6 +4,7 @@ import { OODALoop } from "@/components/home/OODALoop";
 import { PlatformTabs } from "@/components/home/PlatformTabs";
 import { Reveal } from "@/components/ui/Reveal";
 import { CtaBand } from "@/components/layout/CtaBand";
+import { PageHero } from "@/components/layout/PageHero";
 
 export const metadata: Metadata = {
   description: "See how your business actually runs. Connect your ERP, CRM, or ITSM — get a living map of every process, bottleneck, and workaround. Built automatically from your data.",
