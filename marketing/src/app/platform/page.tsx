@@ -313,7 +313,7 @@ export default function PlatformPage() {
           <span className="eyebrow eyebrow-bracket">Platform</span>
           <h1
             className="type-display"
-            style={{ marginTop: "var(--sp-3)", maxWidth: 680, margin: "var(--sp-3) auto 0" }}
+            style={{ maxWidth: 680, margin: "var(--sp-3) auto 0" }}
           >
             From raw event logs to <em>automated action</em>
           </h1>
