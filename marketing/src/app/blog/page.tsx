@@ -45,19 +45,10 @@ export default function BlogPage() {
       </section>
 
       {/* CTA */}
-      <section className="cta-band">
-        <div className="gi" style={{ textAlign: 'center', padding: 'var(--sp-7) 0' }}>
-          <h2 className="type-h2" style={{ color: 'var(--white)' }}>
-            Stay in the <em>loop</em>
-          </h2>
-          <p style={{ fontFamily: 'var(--body)', color: 'rgba(255,255,255,0.7)', maxWidth: 480, margin: '0 auto', marginTop: 'var(--sp-4)' }}>
-            See how Meridian turns raw event logs into operational clarity. Request early access.
-          </p>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--sp-5)' }}>
-            <Link href="/contact" className="btn btn-primary" style={{ background: 'var(--white)', color: 'var(--ink-dark)', borderColor: 'var(--white)' }}>Get Early Access</Link>
-          </div>
-        </div>
-      </section>
+      <CtaBand
+        heading={<>Stay in the <em>loop</em></>}
+        description="See how Meridian turns raw event logs into operational clarity. Request early access."
+      />
     </>
   );
 }
