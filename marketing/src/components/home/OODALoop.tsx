@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 const phases = [
   {
@@ -33,27 +33,60 @@ const phases = [
   },
 ];
 
+const CYCLE_MS = 4000;
+const RESUME_MS = 6000;
+
 export function OODALoop() {
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const resumeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const startCycle = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setActive((prev) => (prev + 1) % phases.length);
+    }, CYCLE_MS);
+    setPaused(false);
+  }, []);
+
+  const pauseCycle = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+    if (resumeRef.current) clearTimeout(resumeRef.current);
+    setPaused(true);
+    resumeRef.current = setTimeout(startCycle, RESUME_MS);
+  }, [startCycle]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActive((prev) => (prev + 1) % phases.length);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, []);
+    startCycle();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      if (resumeRef.current) clearTimeout(resumeRef.current);
+    };
+  }, [startCycle]);
+
+  function handleClick(i: number) {
+    setActive(i);
+    pauseCycle();
+  }
 
   const current = phases[active];
 
   return (
-    <div>
+    <div
+      onMouseEnter={pauseCycle}
+      onMouseLeave={startCycle}
+    >
       {/* Phase indicators */}
       <div style={{ display: "flex", justifyContent: "center", gap: 0, marginBottom: "var(--sp-5)" }}>
         {phases.map((phase, i) => (
           <div key={phase.key} style={{ display: "flex", alignItems: "center" }}>
             {/* Node */}
             <button
-              onClick={() => setActive(i)}
+              onClick={() => handleClick(i)}
               style={{
                 width: 64,
                 height: 64,
@@ -91,14 +124,26 @@ export function OODALoop() {
                 {phase.label}
               </span>
               {/* Progress bar at bottom of active node */}
-              {i === active && (
+              {i === active && !paused && (
                 <div style={{
                   position: "absolute",
                   bottom: 0,
                   left: 0,
                   height: 2,
                   background: "var(--emerald)",
-                  animation: "ooda-progress 3s linear",
+                  animation: `ooda-progress ${CYCLE_MS}ms linear`,
+                }} />
+              )}
+              {/* Static indicator when paused */}
+              {i === active && paused && (
+                <div style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  width: "100%",
+                  height: 2,
+                  background: "var(--emerald)",
+                  opacity: 0.5,
                 }} />
               )}
             </button>
@@ -145,7 +190,7 @@ export function OODALoop() {
         <p style={{
           fontFamily: "var(--body)",
           fontSize: "var(--fs-md)",
-          fontWeight: 340,
+          fontWeight: 380,
           lineHeight: 1.6,
           color: "var(--ink-mid)",
           maxWidth: 480,
