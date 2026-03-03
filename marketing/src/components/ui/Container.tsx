@@ -10,7 +10,7 @@ interface ContainerProps {
 const widths = {
   content: "max-w-[680px]",
   wide: "max-w-[1400px]",
-  full: "max-w-[1400px]",
+  full: "max-w-full",
 } as const;
 
 export function Container({ children, className, size = "wide", style }: ContainerProps) {
