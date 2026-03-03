@@ -17,4 +17,5 @@ export const C = {
   amber: "#b45309",
   amberLight: "#fef3c7",
   red: "#dc2626",
+  redLight: "#fef2f2",
 } as const;
