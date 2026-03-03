@@ -242,152 +242,74 @@ export default function UseCasesPage() {
       </section>
 
       {/* O2C */}
-      <section id="o2c" className="gr" style={{ scrollMarginTop: "var(--nav-h)" }}>
-        <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-          <div className="feature-row">
-            <div>
-              <span className="eyebrow eyebrow-bracket">O2C</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>Order-to-Cash</h2>
-              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
-                Your invoices take 47 days. The process says 5.
-              </p>
-              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
-                Find where invoices actually get stuck — the approval bottlenecks,
-                credit check delays, and rework loops that your dashboard
-                can&apos;t explain. See the 12 variants hiding between order and payment.
-              </p>
-              <div style={{ marginTop: "var(--sp-5)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--sp-3)" }}>
-                {[
-                  { value: "~34%", label: "Typical cycle time reduction" },
-                  { value: "~3 days", label: "Target DSO improvement" },
-                  { value: "66%+", label: "Straight-through target" },
-                  { value: "20+", label: "Variants detectable" },
-                ].map((m) => (
-                  <div key={m.label} style={{ padding: "var(--sp-3)", border: "1px solid var(--border)" }}>
-                    <p style={{ fontFamily: "var(--sans)", fontSize: "var(--fs-lg)", fontWeight: 300, color: "var(--emerald)" }}>{m.value}</p>
-                    <p style={{ fontFamily: "var(--sans)", fontSize: "var(--fs-xs)", color: "var(--ink-muted)", marginTop: "var(--sp-1)" }}>{m.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div style={{ border: "1px solid var(--border)", padding: "var(--sp-3)", background: "var(--bg)" }}>
-              <O2cSvg />
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeatureRow
+        id="o2c"
+        eyebrow="O2C"
+        title="Order-to-Cash"
+        tagline="Your invoices take 47 days. The process says 5."
+        description="Find where invoices actually get stuck — the approval bottlenecks, credit check delays, and rework loops that your dashboard can't explain. See the 12 variants hiding between order and payment."
+        illustration={<O2cSvg />}
+      >
+        <MetricGrid metrics={[
+          { value: "~34%", label: "Typical cycle time reduction" },
+          { value: "~3 days", label: "Target DSO improvement" },
+          { value: "66%+", label: "Straight-through target" },
+          { value: "20+", label: "Variants detectable" },
+        ]} />
+      </FeatureRow>
 
       {/* P2P */}
-      <section id="p2p" className="gr" style={{ scrollMarginTop: "var(--nav-h)" }}>
-        <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-          <div className="feature-row feature-row--reverse">
-            <div style={{ border: "1px solid var(--border)", padding: "var(--sp-3)", background: "var(--bg)" }}>
-              <P2pSvg />
-            </div>
-            <div>
-              <span className="eyebrow eyebrow-bracket">P2P</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>Procure-to-Pay</h2>
-              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
-                3 in 10 POs bypass approval. Nobody knows why.
-              </p>
-              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
-                Uncover maverick buying, duplicate payments, and approval
-                bottlenecks. See exactly where procurement deviates from
-                policy — and how much those deviations cost you every quarter.
-              </p>
-              <div style={{ marginTop: "var(--sp-5)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--sp-3)" }}>
-                {[
-                  { value: "~12%", label: "Typical maverick spend found" },
-                  { value: "~2 days", label: "Target PO cycle time savings" },
-                  { value: "94%+", label: "3-way match target" },
-                  { value: "7+", label: "Deviation types detected" },
-                ].map((m) => (
-                  <div key={m.label} style={{ padding: "var(--sp-3)", border: "1px solid var(--border)" }}>
-                    <p style={{ fontFamily: "var(--sans)", fontSize: "var(--fs-lg)", fontWeight: 300, color: "var(--emerald)" }}>{m.value}</p>
-                    <p style={{ fontFamily: "var(--sans)", fontSize: "var(--fs-xs)", color: "var(--ink-muted)", marginTop: "var(--sp-1)" }}>{m.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeatureRow
+        id="p2p"
+        eyebrow="P2P"
+        title="Procure-to-Pay"
+        tagline="3 in 10 POs bypass approval. Nobody knows why."
+        description="Uncover maverick buying, duplicate payments, and approval bottlenecks. See exactly where procurement deviates from policy — and how much those deviations cost you every quarter."
+        illustration={<P2pSvg />}
+        reverse
+      >
+        <MetricGrid metrics={[
+          { value: "~12%", label: "Typical maverick spend found" },
+          { value: "~2 days", label: "Target PO cycle time savings" },
+          { value: "94%+", label: "3-way match target" },
+          { value: "7+", label: "Deviation types detected" },
+        ]} />
+      </FeatureRow>
 
       {/* ITSM */}
-      <section id="itsm" className="gr" style={{ scrollMarginTop: "var(--nav-h)" }}>
-        <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-          <div className="feature-row">
-            <div>
-              <span className="eyebrow eyebrow-bracket">ITSM</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>IT Service Management</h2>
-              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
-                Tickets bounce between 4 teams before anyone fixes anything.
-              </p>
-              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
-                Map ticket lifecycles from creation to resolution. See where
-                escalations bounce, which tiers are bottlenecks, and why
-                first-call resolution keeps dropping.
-              </p>
-              <div style={{ marginTop: "var(--sp-5)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--sp-3)" }}>
-                {[
-                  { value: "~28%", label: "Target resolution time savings" },
-                  { value: "~45%", label: "Fewer escalation bounces" },
-                  { value: "90%+", label: "First-call resolution target" },
-                  { value: "3+", label: "Escalation tiers mapped" },
-                ].map((m) => (
-                  <div key={m.label} style={{ padding: "var(--sp-3)", border: "1px solid var(--border)" }}>
-                    <p style={{ fontFamily: "var(--sans)", fontSize: "var(--fs-lg)", fontWeight: 300, color: "var(--emerald)" }}>{m.value}</p>
-                    <p style={{ fontFamily: "var(--sans)", fontSize: "var(--fs-xs)", color: "var(--ink-muted)", marginTop: "var(--sp-1)" }}>{m.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div style={{ border: "1px solid var(--border)", padding: "var(--sp-3)", background: "var(--bg)" }}>
-              <ItsmSvg />
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeatureRow
+        id="itsm"
+        eyebrow="ITSM"
+        title="IT Service Management"
+        tagline="Tickets bounce between 4 teams before anyone fixes anything."
+        description="Map ticket lifecycles from creation to resolution. See where escalations bounce, which tiers are bottlenecks, and why first-call resolution keeps dropping."
+        illustration={<ItsmSvg />}
+      >
+        <MetricGrid metrics={[
+          { value: "~28%", label: "Target resolution time savings" },
+          { value: "~45%", label: "Fewer escalation bounces" },
+          { value: "90%+", label: "First-call resolution target" },
+          { value: "3+", label: "Escalation tiers mapped" },
+        ]} />
+      </FeatureRow>
 
       {/* Healthcare */}
-      <section id="healthcare" className="gr" style={{ scrollMarginTop: "var(--nav-h)" }}>
-        <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-          <div className="feature-row feature-row--reverse">
-            <div style={{ border: "1px solid var(--border)", padding: "var(--sp-3)", background: "var(--bg)" }}>
-              <PatientSvg />
-            </div>
-            <div>
-              <span className="eyebrow eyebrow-bracket">Healthcare</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>Patient Journey</h2>
-              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
-                Average wait time says 20 minutes. The actual patient flow tells a different story.
-              </p>
-              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
-                Track patient flow through clinical pathways. Find the wait
-                time hotspots, care coordination gaps, and pathway deviations
-                that your averages are hiding.
-              </p>
-              <div style={{ marginTop: "var(--sp-5)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--sp-3)" }}>
-                {[
-                  { value: "~22%", label: "Target wait time reduction" },
-                  { value: "<4h", label: "Target time to diagnosis" },
-                  { value: "85%+", label: "Pathway adherence target" },
-                  { value: "5+", label: "Journey stages mapped" },
-                ].map((m) => (
-                  <div key={m.label} style={{ padding: "var(--sp-3)", border: "1px solid var(--border)" }}>
-                    <p style={{ fontFamily: "var(--sans)", fontSize: "var(--fs-lg)", fontWeight: 300, color: "var(--emerald)" }}>{m.value}</p>
-                    <p style={{ fontFamily: "var(--sans)", fontSize: "var(--fs-xs)", color: "var(--ink-muted)", marginTop: "var(--sp-1)" }}>{m.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeatureRow
+        id="healthcare"
+        eyebrow="Healthcare"
+        title="Patient Journey"
+        tagline="Average wait time says 20 minutes. The actual patient flow tells a different story."
+        description="Track patient flow through clinical pathways. Find the wait time hotspots, care coordination gaps, and pathway deviations that your averages are hiding."
+        illustration={<PatientSvg />}
+        reverse
+      >
+        <MetricGrid metrics={[
+          { value: "~22%", label: "Target wait time reduction" },
+          { value: "<4h", label: "Target time to diagnosis" },
+          { value: "85%+", label: "Pathway adherence target" },
+          { value: "5+", label: "Journey stages mapped" },
+        ]} />
+      </FeatureRow>
 
       <section className="gr">
         <div className="gi" style={{ padding: "var(--sp-5) 0", textAlign: "center" }}>
