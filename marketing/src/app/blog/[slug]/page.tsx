@@ -91,7 +91,9 @@ export default async function BlogPostPage({ params }: Props) {
           <ShareButtons url={articleUrl} title={post.title} />
         </div>
 
-        <TableOfContents content={post.content} />
+        <div className="lg:hidden">
+          <TableOfContents content={post.content} />
+        </div>
 
         <div className="divider-h my-8" />
 
