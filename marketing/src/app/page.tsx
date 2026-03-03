@@ -15,27 +15,20 @@ export default function HomePage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="gr" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-        <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ textAlign: "center" }}>
-          <span className="eyebrow eyebrow-bracket">Early access</span>
-          <h1 className="type-display" style={{ marginTop: "var(--sp-4)" }}>
-            See how your business <em>actually runs</em>
-          </h1>
-          <p className="type-body" style={{ maxWidth: 540, margin: "0 auto", marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
-            Connect your ERP, CRM, or ITSM. Get a living map of every process,
-            every bottleneck, every workaround — built automatically from the
-            data you already have.
-          </p>
-          <div style={{ display: "flex", gap: "var(--sp-3)", justifyContent: "center", marginTop: "var(--sp-6)" }}>
-            <Link href="/contact" className="btn btn-primary">Request early access</Link>
-            <Link href="/platform" className="btn btn-ghost">How it works</Link>
-          </div>
-          <p style={{ fontFamily: "var(--body)", fontSize: "var(--fs-sm)", color: "var(--ink-faint)", marginTop: "var(--sp-3)", letterSpacing: "-.01em" }}>
-            No credit card &middot; No consultants &middot; First process map in under an hour
-          </p>
+      <PageHero
+        eyebrow="Early access"
+        heading={<>See how your business <em>actually runs</em></>}
+        description="Connect your ERP, CRM, or ITSM. Get a living map of every process, every bottleneck, every workaround — built automatically from the data you already have."
+        maxWidth={540}
+      >
+        <div style={{ display: "flex", gap: "var(--sp-3)", justifyContent: "center", marginTop: "var(--sp-6)" }}>
+          <Link href="/contact" className="btn btn-primary">Request early access</Link>
+          <Link href="/platform" className="btn btn-ghost">How it works</Link>
         </div>
-      </section>
+        <p style={{ fontFamily: "var(--body)", fontSize: "var(--fs-sm)", color: "var(--ink-faint)", marginTop: "var(--sp-3)", letterSpacing: "-.01em" }}>
+          No credit card &middot; No consultants &middot; First process map in under an hour
+        </p>
+      </PageHero>
 
       {/* ── Three levels of seeing ── */}
       <section className="gr">
