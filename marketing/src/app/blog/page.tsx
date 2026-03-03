@@ -26,17 +26,11 @@ export default function BlogPage() {
   return (
     <>
       {/* Hero */}
-      <section className="gr" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-7)' }}>
-        <div className="gi" style={{ textAlign: 'center' }}>
-          <span className="eyebrow eyebrow-bracket">Blog</span>
-          <h1 className="type-display" style={{ marginTop: 'var(--sp-3)' }}>
-            From the <em>team</em>
-          </h1>
-          <p className="type-body" style={{ maxWidth: 560, margin: '0 auto', marginTop: 'var(--sp-4)', color: 'var(--ink-mid)' }}>
-            How we think about process mining, what we&apos;re building, and why.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Blog"
+        heading={<>From the <em>team</em></>}
+        description="How we think about process mining, what we're building, and why."
+      />
 
       {/* Filter tabs + entries */}
       <section className="gr">
