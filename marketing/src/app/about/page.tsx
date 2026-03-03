@@ -156,18 +156,11 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="gr" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-        <div className="gi" style={{ textAlign: "center" }}>
-          <span className="eyebrow eyebrow-bracket">About</span>
-          <h1 className="type-display" style={{ marginTop: "var(--sp-3)" }}>
-            Why we&apos;re <em>building this</em>
-          </h1>
-          <p className="type-body" style={{ maxWidth: 560, margin: "0 auto", marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
-            Every company runs on processes. Almost none of them can see those
-            processes. We think that&apos;s the most expensive blind spot in business.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="About"
+        heading={<>Why we&apos;re <em>building this</em></>}
+        description="Every company runs on processes. Almost none of them can see those processes. We think that's the most expensive blind spot in business."
+      />
 
       {/* The Problem */}
       <section className="gr">
