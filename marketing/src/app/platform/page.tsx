@@ -204,7 +204,7 @@ function AnalyticsSvg() {
           <rect x={kpi.x} y={48} width={148} height={64} rx={2} fill={C.white} stroke={C.border} />
           <text x={kpi.x + 12} y={66} fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={500} fill={C.muted} letterSpacing={0.3}>{kpi.label}</text>
           <text x={kpi.x + 12} y={90} fontSize={22} fontFamily="Inter, system-ui, sans-serif" fontWeight={300} fill={C.dark}>{kpi.value}</text>
-          <text x={kpi.x + 12} y={104} fontSize={10} fontFamily="Inter, system-ui, sans-serif" fontWeight={500} fill={kpi.down ? {C.amber} : C.green}>
+          <text x={kpi.x + 12} y={104} fontSize={10} fontFamily="Inter, system-ui, sans-serif" fontWeight={500} fill={kpi.down ? C.amber : C.green}>
             {kpi.down ? "↓" : "↑"} {kpi.change}
           </text>
         </g>
