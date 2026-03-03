@@ -127,20 +127,10 @@ export default function SecurityPage() {
       </section>
 
       {/* CTA */}
-      <section className="cta-band">
-        <div className="gi" style={{ textAlign: "center", padding: "var(--sp-7) 0" }}>
-          <h2 className="type-h2" style={{ color: "var(--white)" }}>
-            Need more <em>detail?</em>
-          </h2>
-          <p style={{ fontFamily: "var(--body)", color: "rgba(255,255,255,0.7)", maxWidth: 480, margin: "0 auto", marginTop: "var(--sp-4)" }}>
-            We&apos;re happy to share SOC 2 reports, answer security questionnaires,
-            or walk through our architecture with your team.
-          </p>
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--sp-5)" }}>
-            <Link href="/contact" className="btn btn-primary" style={{ background: "var(--white)", color: "var(--ink-dark)", borderColor: "var(--white)" }}>Get Early Access</Link>
-          </div>
-        </div>
-      </section>
+      <CtaBand
+        heading={<>Need more <em>detail?</em></>}
+        description="We're happy to share SOC 2 reports, answer security questionnaires, or walk through our architecture with your team."
+      />
     </>
   );
 }
