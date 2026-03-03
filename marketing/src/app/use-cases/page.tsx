@@ -429,21 +429,10 @@ export default function UseCasesPage() {
       </section>
 
       {/* CTA Band */}
-      <section className="cta-band">
-        <div className="gi" style={{ textAlign: "center", padding: "var(--sp-7) 0" }}>
-          <h2 className="type-h2" style={{ color: "var(--white)" }}>
-            Which process is costing you <em>the most?</em>
-          </h2>
-          <p style={{ fontFamily: "var(--body)", color: "rgba(255,255,255,0.7)", maxWidth: 480, margin: "0 auto", marginTop: "var(--sp-4)" }}>
-            Tell us what you run. We&apos;ll show you what&apos;s hiding in it.
-          </p>
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--sp-5)" }}>
-            <Link href="/contact" className="btn btn-primary" style={{ background: "var(--white)", color: "var(--ink-dark)", borderColor: "var(--white)" }}>
-              Get Early Access
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CtaBand
+        heading={<>Which process is costing you <em>the most?</em></>}
+        description="Tell us what you run. We'll show you what's hiding in it."
+      />
     </>
   );
 }
