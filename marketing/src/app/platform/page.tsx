@@ -59,7 +59,7 @@ function DiscoverySvg() {
       ].map(([c, a, t], i) => (
         <g key={i}>
           <text x={36} y={62 + i * 24} fontSize={10} fontFamily="'Geist Mono', monospace" fill={C.mid}>{c}</text>
-          <text x={96} y={62 + i * 24} fontSize={10} fontFamily="'Geist Mono', monospace" fill={a === "Reject" ? {C.amber} : C.text}>{a}</text>
+          <text x={96} y={62 + i * 24} fontSize={10} fontFamily="'Geist Mono', monospace" fill={a === "Reject" ? C.amber : C.text}>{a}</text>
           <text x={166} y={62 + i * 24} fontSize={10} fontFamily="'Geist Mono', monospace" fill={C.faint}>{t}</text>
           {i < 5 && <line x1={28} y1={68 + i * 24} x2={204} y2={68 + i * 24} stroke={C.border} strokeWidth={0.5} />}
         </g>
