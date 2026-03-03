@@ -249,19 +249,11 @@ export default function UseCasesPage() {
   return (
     <>
       {/* Hero */}
-      <section className="gr" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-        <div className="gi" style={{ textAlign: "center" }}>
-          <span className="eyebrow eyebrow-bracket">Use Cases</span>
-          <h1 className="type-display" style={{ marginTop: "var(--sp-3)" }}>
-            Built for <em>real workflows</em>
-          </h1>
-          <p className="type-body" style={{ maxWidth: 560, margin: "0 auto", marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
-            Wherever there&apos;s a sequence of events, there&apos;s a process
-            hiding in your data. These are the workflows where making it
-            visible changes everything.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Use Cases"
+        heading={<>Built for <em>real workflows</em></>}
+        description="Wherever there's a sequence of events, there's a process hiding in your data. These are the workflows where making it visible changes everything."
+      />
 
       {/* Intro Diagram */}
       <section className="gr">
