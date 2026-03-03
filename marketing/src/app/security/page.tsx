@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Shield, Lock, Server, Key, FileCheck, Database } from "lucide-react";
+import { C } from "@/lib/colors";
 
 export const metadata: Metadata = {
   title: "Security — SOC 2, Encryption & Data Ownership",
@@ -8,19 +9,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/security" },
   openGraph: { images: ["/og.png"] },
 };
-
-const C = {
-  dark: "#072A20",
-  text: "#1a2f28",
-  mid: "#4a6259",
-  muted: "#7a8f85",
-  faint: "#a3b3ab",
-  green: "#047A55",
-  greenLight: "#e8f5ef",
-  border: "#dde3e0",
-  white: "#ffffff",
-  bg: "#FAFBF8",
-} as const;
 
 function SecurityArchSvg() {
   const lx = 24;
