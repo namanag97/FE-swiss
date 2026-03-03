@@ -514,7 +514,7 @@ select.input {
 .card-body {
   font-family: var(--body);
   font-size: var(--fs-sm);
-  font-weight: 260;
+  font-weight: 350;
   line-height: 1.6;
   letter-spacing: -.01em;
   color: var(--ink-muted);
