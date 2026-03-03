@@ -59,7 +59,7 @@ function DiscoverySvg() {
       ].map(([c, a, t], i) => (
         <g key={i}>
           <text x={36} y={62 + i * 24} fontSize={10} fontFamily="'Geist Mono', monospace" fill={C.mid}>{c}</text>
-          <text x={96} y={62 + i * 24} fontSize={10} fontFamily="'Geist Mono', monospace" fill={a === "Reject" ? "#b45309" : C.text}>{a}</text>
+          <text x={96} y={62 + i * 24} fontSize={10} fontFamily="'Geist Mono', monospace" fill={a === "Reject" ? {C.amber} : C.text}>{a}</text>
           <text x={166} y={62 + i * 24} fontSize={10} fontFamily="'Geist Mono', monospace" fill={C.faint}>{t}</text>
           {i < 5 && <line x1={28} y1={68 + i * 24} x2={204} y2={68 + i * 24} stroke={C.border} strokeWidth={0.5} />}
         </g>
@@ -88,8 +88,8 @@ function DiscoverySvg() {
       <rect x={290} y={198} width={52} height={26} rx={2} fill={C.greenLight} stroke={C.green} />
       <text x={316} y={213} textAnchor="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.green}>Done</text>
 
-      <rect x={354} y={198} width={52} height={26} rx={2} fill="#fef3c7" stroke="#b45309" />
-      <text x={380} y={213} textAnchor="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill="#b45309">Reject</text>
+      <rect x={354} y={198} width={52} height={26} rx={2} fill="#fef3c7" stroke={C.amber} />
+      <text x={380} y={213} textAnchor="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.amber}>Reject</text>
 
       <text x={400} y={260} textAnchor="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.muted}>23 variants detected</text>
 
@@ -155,19 +155,19 @@ function ConformanceSvg() {
             {/* Normal path from Verify */}
             <line x1={vx + nodeW} y1={actY + nodeH / 2} x2={vx + nodeW + 4} y2={actY + nodeH / 2} stroke={C.muted} strokeWidth={1} />
             {/* Fork down */}
-            <line x1={vx + nodeW + 4} y1={actY + nodeH / 2} x2={vx + nodeW + 4} y2={devY + 14} stroke="#b45309" strokeWidth={1.5} />
+            <line x1={vx + nodeW + 4} y1={actY + nodeH / 2} x2={vx + nodeW + 4} y2={devY + 14} stroke={C.amber} strokeWidth={1.5} />
             {/* Fork right (normal) */}
             <Arrow x1={vx + nodeW + 4} y1={actY + nodeH / 2} x2={ax} y2={actY + nodeH / 2} />
 
             {/* Deviation node */}
-            <rect x={vx + nodeW - 12} y={devY} width={devW} height={nodeH} rx={2} fill="#fef3c7" stroke="#b45309" strokeWidth={1.5} />
-            <text x={vx + nodeW - 12 + devW / 2} y={devY + nodeH / 2 + 1} textAnchor="middle" dominantBaseline="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill="#b45309" fontWeight={500}>Manual Review</text>
+            <rect x={vx + nodeW - 12} y={devY} width={devW} height={nodeH} rx={2} fill="#fef3c7" stroke={C.amber} strokeWidth={1.5} />
+            <text x={vx + nodeW - 12 + devW / 2} y={devY + nodeH / 2 + 1} textAnchor="middle" dominantBaseline="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.amber} fontWeight={500}>Manual Review</text>
 
             {/* Label */}
-            <text x={vx + nodeW - 12 + devW / 2} y={devY + nodeH + 14} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fill="#b45309">34% of cases · +4.2 days</text>
+            <text x={vx + nodeW - 12 + devW / 2} y={devY + nodeH + 14} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fill={C.amber}>34% of cases · +4.2 days</text>
 
             {/* Return arrow from deviation to Approve */}
-            <line x1={vx + nodeW - 12 + devW} y1={devY + nodeH / 2} x2={ax + nodeW / 2} y2={devY + nodeH / 2} stroke="#b45309" strokeWidth={1.5} />
+            <line x1={vx + nodeW - 12 + devW} y1={devY + nodeH / 2} x2={ax + nodeW / 2} y2={devY + nodeH / 2} stroke={C.amber} strokeWidth={1.5} />
             <Arrow x1={ax + nodeW / 2} y1={devY + nodeH / 2} x2={ax + nodeW / 2} y2={actY + nodeH} />
           </g>
         );
@@ -177,7 +177,7 @@ function ConformanceSvg() {
       <rect x={24} y={270} width={472} height={32} rx={2} fill={C.bg} stroke={C.border} />
       <text x={80} y={290} textAnchor="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.mid}>Conformance <tspan fontWeight={600} fill={C.text}>66%</tspan></text>
       <line x1={160} y1={276} x2={160} y2={296} stroke={C.border} />
-      <text x={230} y={290} textAnchor="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.mid}>Deviations <tspan fontWeight={600} fill="#b45309">3</tspan></text>
+      <text x={230} y={290} textAnchor="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.mid}>Deviations <tspan fontWeight={600} fill={C.amber}>3</tspan></text>
       <line x1={310} y1={276} x2={310} y2={296} stroke={C.border} />
       <text x={390} y={290} textAnchor="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.mid}>Fitness <tspan fontWeight={600} fill={C.green}>0.82</tspan></text>
     </svg>
@@ -204,7 +204,7 @@ function AnalyticsSvg() {
           <rect x={kpi.x} y={48} width={148} height={64} rx={2} fill={C.white} stroke={C.border} />
           <text x={kpi.x + 12} y={66} fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={500} fill={C.muted} letterSpacing={0.3}>{kpi.label}</text>
           <text x={kpi.x + 12} y={90} fontSize={22} fontFamily="Inter, system-ui, sans-serif" fontWeight={300} fill={C.dark}>{kpi.value}</text>
-          <text x={kpi.x + 12} y={104} fontSize={10} fontFamily="Inter, system-ui, sans-serif" fontWeight={500} fill={kpi.down ? "#b45309" : C.green}>
+          <text x={kpi.x + 12} y={104} fontSize={10} fontFamily="Inter, system-ui, sans-serif" fontWeight={500} fill={kpi.down ? {C.amber} : C.green}>
             {kpi.down ? "↓" : "↑"} {kpi.change}
           </text>
         </g>
@@ -252,7 +252,7 @@ function AiInsightsSvg() {
       {/* Alert header */}
       <rect x={8} y={8} width={504} height={36} rx={2} fill="#fef3c7" stroke="#f59e0b" strokeWidth={0.5} />
       <text x={36} y={30} fontSize={11} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill="#92400e">⚠ ANOMALY DETECTED</text>
-      <text x={480} y={30} textAnchor="end" fontSize={9} fontFamily="'Geist Mono', monospace" fill="#b45309">CASE #4,821</text>
+      <text x={480} y={30} textAnchor="end" fontSize={9} fontFamily="'Geist Mono', monospace" fill={C.amber}>CASE #4,821</text>
 
       {/* Case info */}
       <text x={24} y={68} fontSize={10} fontFamily="Inter, system-ui, sans-serif" fontWeight={500} fill={C.text}>Invoice Processing — Unusual rework loop</text>
@@ -264,8 +264,8 @@ function AiInsightsSvg() {
       {/* Mini flow inside pattern box */}
       <Node x={36} y={104} w={64} h={20} label="Review" />
       <Arrow x1={100} y1={114} x2={112} y2={114} />
-      <rect x={112} y={104} width={56} height={20} rx={2} fill="#fef3c7" stroke="#b45309" />
-      <text x={140} y={116} textAnchor="middle" dominantBaseline="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fill="#b45309">Reject</text>
+      <rect x={112} y={104} width={56} height={20} rx={2} fill="#fef3c7" stroke={C.amber} />
+      <text x={140} y={116} textAnchor="middle" dominantBaseline="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fill={C.amber}>Reject</text>
       <Arrow x1={168} y1={114} x2={180} y2={114} />
       <Node x={180} y={104} w={64} h={20} label="Review" />
       <text x={280} y={116} fontSize={10} fontFamily="'Geist Mono', monospace" fill={C.mid}>× 3 iterations (avg: 1.1)</text>
@@ -279,7 +279,7 @@ function AiInsightsSvg() {
       <text x={220} y={184} fontSize={14} fontFamily="'Geist Mono', monospace" fontWeight={600} fill="#dc2626">87%</text>
 
       <text x={300} y={184} fontSize={11} fontFamily="Inter, system-ui, sans-serif" fill={C.text}>Est. Delay</text>
-      <text x={400} y={184} fontSize={14} fontFamily="'Geist Mono', monospace" fontWeight={600} fill="#b45309">+2.1 days</text>
+      <text x={400} y={184} fontSize={14} fontFamily="'Geist Mono', monospace" fontWeight={600} fill={C.amber}>+2.1 days</text>
 
       {/* Progress bar for probability */}
       <rect x={36} y={194} width={200} height={6} rx={1} fill={C.bg} />
