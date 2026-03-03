@@ -307,7 +307,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
 .type-body {
   font-family: var(--body);
   font-size: var(--fs-md);
-  font-weight: 340;
+  font-weight: 380;
   line-height: 1.65;
   letter-spacing: -.01em;
   color: var(--ink-muted);
@@ -316,7 +316,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
 .type-body-sm {
   font-family: var(--body);
   font-size: var(--fs-sm);
-  font-weight: 340;
+  font-weight: 380;
   line-height: 1.65;
   letter-spacing: -.01em;
   color: var(--ink-muted);
