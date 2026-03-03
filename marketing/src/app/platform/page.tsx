@@ -4,6 +4,7 @@ import { C } from "@/lib/colors";
 import { SvgNode as Node, SvgArrow as Arrow } from "@/components/svg/SvgPrimitives";
 import { CtaBand } from "@/components/layout/CtaBand";
 import { PageHero } from "@/components/layout/PageHero";
+import { FeatureRow } from "@/components/layout/FeatureRow";
 
 export const metadata: Metadata = {
   title: "Platform — Process Discovery, Conformance & AI Insights",
