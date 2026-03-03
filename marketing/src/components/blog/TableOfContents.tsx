@@ -94,7 +94,7 @@ export function TableOfContents({ content }: { content: string }) {
                   style={{
                     fontFamily: 'var(--body)',
                     fontSize: 'var(--fs-sm)',
-                    fontWeight: 260,
+                    fontWeight: 350,
                     color: 'var(--ink-muted)',
                     paddingLeft: h.level === 3 ? 'var(--sp-4)' : 0,
                   }}
