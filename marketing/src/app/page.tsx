@@ -230,21 +230,13 @@ export default function HomePage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="cta-band">
-        <div className="gi" style={{ textAlign: "center", padding: "var(--sp-7) 0" }}>
-          <h2 className="type-h2" style={{ color: "var(--white)" }}>
-            Your processes are talking. <em>Start listening.</em>
-          </h2>
-          <p style={{ fontFamily: "var(--body)", color: "rgba(255,255,255,0.7)", maxWidth: 440, margin: "0 auto", marginTop: "var(--sp-4)" }}>
-            We&apos;re building the intelligence layer for operations.
-            Be among the first to see it.
-          </p>
-          <div style={{ display: "flex", gap: "var(--sp-3)", justifyContent: "center", marginTop: "var(--sp-5)" }}>
-            <Link href="/contact" className="btn btn-primary">Request early access</Link>
-            <Link href="/platform" className="btn btn-ghost">Explore platform</Link>
-          </div>
-        </div>
-      </section>
+      <CtaBand
+        heading={<>Your processes are talking. <em>Start listening.</em></>}
+        description="We're building the intelligence layer for operations. Be among the first to see it."
+        buttonText="Request early access"
+        secondaryText="Explore platform"
+        secondaryHref="/platform"
+      />
     </>
   );
 }
