@@ -46,7 +46,7 @@ export function CookieConsent() {
       }}
     >
       <div className="mx-auto flex max-w-[1400px] flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p style={{ fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', fontWeight: 260, color: 'var(--ink-muted)' }}>
+        <p style={{ fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', fontWeight: 350, color: 'var(--ink-muted)' }}>
           We use cookies to improve your experience. By continuing, you agree to our{" "}
           <a href="/legal/privacy" style={{ color: 'var(--emerald)', textDecoration: 'underline', textUnderlineOffset: 2 }}>privacy policy</a>.
         </p>
