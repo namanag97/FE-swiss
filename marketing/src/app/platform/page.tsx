@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { C } from "@/lib/colors";
+import { SvgNode as Node, SvgArrow as Arrow } from "@/components/svg/SvgPrimitives";
 import { CtaBand } from "@/components/layout/CtaBand";
 import { PageHero } from "@/components/layout/PageHero";
 
@@ -11,35 +12,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/platform" },
   openGraph: { images: ["/og.png"] },
 };
-
-/* ── Shared SVG helpers ── */
-function Node({ x, y, w = 88, h = 32, label, accent }: { x: number; y: number; w?: number; h?: number; label: string; accent?: boolean }) {
-  return (
-    <g>
-      <rect x={x} y={y} width={w} height={h} rx={2} fill={accent ? C.greenLight : C.white} stroke={accent ? C.green : C.border} strokeWidth={1} />
-      <text x={x + w / 2} y={y + h / 2 + 1} textAnchor="middle" dominantBaseline="middle" fill={accent ? C.green : C.text} fontSize={11} fontFamily="Inter, system-ui, sans-serif" fontWeight={accent ? 500 : 400}>{label}</text>
-    </g>
-  );
-}
-
-function Arrow({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: number }) {
-  const dx = x2 - x1;
-  const dy = y2 - y1;
-  const len = Math.sqrt(dx * dx + dy * dy);
-  const ux = dx / len;
-  const uy = dy / len;
-  const tipX = x2 - ux * 1;
-  const tipY = y2 - uy * 1;
-  return (
-    <g>
-      <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={C.muted} strokeWidth={1} />
-      <polygon
-        points={`${tipX},${tipY} ${tipX - ux * 6 + uy * 3},${tipY - uy * 6 - ux * 3} ${tipX - ux * 6 - uy * 3},${tipY - uy * 6 + ux * 3}`}
-        fill={C.muted}
-      />
-    </g>
-  );
-}
 
 /* ── 01 Process Discovery ── */
 function DiscoverySvg() {
