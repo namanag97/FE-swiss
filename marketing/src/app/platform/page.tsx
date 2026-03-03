@@ -217,7 +217,7 @@ function AnalyticsSvg() {
       {[
         { label: "Happy path", pct: 66, color: C.green },
         { label: "With review", pct: 24, color: "#d97706" },
-        { label: "Rejected", pct: 10, color: "#dc2626" },
+        { label: "Rejected", pct: 10, color: {C.red} },
       ].map((v, i) => {
         const y = 156 + i * 38;
         return (
@@ -276,14 +276,14 @@ function AiInsightsSvg() {
       <text x={36} y={158} fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.green} letterSpacing={1}>PREDICTION</text>
 
       <text x={36} y={184} fontSize={11} fontFamily="Inter, system-ui, sans-serif" fill={C.text}>SLA Breach Probability</text>
-      <text x={220} y={184} fontSize={14} fontFamily="'Geist Mono', monospace" fontWeight={600} fill="#dc2626">87%</text>
+      <text x={220} y={184} fontSize={14} fontFamily="'Geist Mono', monospace" fontWeight={600} fill={C.red}>87%</text>
 
       <text x={300} y={184} fontSize={11} fontFamily="Inter, system-ui, sans-serif" fill={C.text}>Est. Delay</text>
       <text x={400} y={184} fontSize={14} fontFamily="'Geist Mono', monospace" fontWeight={600} fill={C.amber}>+2.1 days</text>
 
       {/* Progress bar for probability */}
       <rect x={36} y={194} width={200} height={6} rx={1} fill={C.bg} />
-      <rect x={36} y={194} width={174} height={6} rx={1} fill="#dc2626" opacity={0.7} />
+      <rect x={36} y={194} width={174} height={6} rx={1} fill={C.red} opacity={0.7} />
 
       <text x={36} y={216} fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.green} fontWeight={500}>Recommended: Escalate to Senior Reviewer</text>
 
