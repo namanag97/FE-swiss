@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { C } from "@/lib/colors";
 
 export const metadata: Metadata = {
   title: "Use Cases — O2C, P2P, ITSM & Patient Journey",
@@ -8,22 +9,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/use-cases" },
   openGraph: { images: ["/og.png"] },
 };
-
-const C = {
-  dark: "#072A20",
-  text: "#1a2f28",
-  mid: "#4a6259",
-  muted: "#7a8f85",
-  faint: "#a3b3ab",
-  green: "#047A55",
-  greenLight: "#e8f5ef",
-  border: "#dde3e0",
-  white: "#ffffff",
-  bg: "#FAFBF8",
-  amber: "#b45309",
-  amberLight: "#fef3c7",
-  red: "#dc2626",
-} as const;
 
 function SvgNode({ x, y, w = 80, h = 30, label, accent, warn }: { x: number; y: number; w?: number; h?: number; label: string; accent?: boolean; warn?: boolean }) {
   const fill = warn ? C.amberLight : accent ? C.greenLight : C.white;
