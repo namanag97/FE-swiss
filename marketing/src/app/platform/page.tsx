@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { C } from "@/lib/colors";
 
 export const metadata: Metadata = {
   title: "Platform — Process Discovery, Conformance & AI Insights",
@@ -8,20 +9,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/platform" },
   openGraph: { images: ["/og.png"] },
 };
-
-/* ── SVG Color Palette ── */
-const C = {
-  dark: "#072A20",
-  text: "#1a2f28",
-  mid: "#4a6259",
-  muted: "#7a8f85",
-  faint: "#a3b3ab",
-  green: "#047A55",
-  greenLight: "#e8f5ef",
-  border: "#dde3e0",
-  white: "#ffffff",
-  bg: "#FAFBF8",
-} as const;
 
 /* ── Shared SVG helpers ── */
 function Node({ x, y, w = 88, h = 32, label, accent }: { x: number; y: number; w?: number; h?: number; label: string; accent?: boolean }) {
