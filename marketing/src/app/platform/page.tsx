@@ -307,32 +307,11 @@ export default function PlatformPage() {
   return (
     <>
       {/* Hero */}
-      <section
-        className="gr"
-        style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}
-      >
-        <div className="gi" style={{ textAlign: "center" }}>
-          <span className="eyebrow eyebrow-bracket">Platform</span>
-          <h1
-            className="type-display"
-            style={{ maxWidth: 680, margin: "var(--sp-3) auto 0" }}
-          >
-            From raw event logs to <em>automated action</em>
-          </h1>
-          <p
-            className="type-body"
-            style={{
-              maxWidth: 560,
-              margin: "0 auto",
-              marginTop: "var(--sp-4)",
-              color: "var(--ink-mid)",
-            }}
-          >
-            Four modules. One platform. Connect your systems, see how work
-            actually flows, find what&apos;s broken, fix it — before it costs you.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Platform"
+        heading={<>From raw event logs to <em>automated action</em></>}
+        description="Four modules. One platform. Connect your systems, see how work actually flows, find what's broken, fix it — before it costs you."
+      />
 
       {/* Feature 1: Process Discovery */}
       <section className="gr">
