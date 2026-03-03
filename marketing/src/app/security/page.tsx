@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Shield, Lock, Server, Key, FileCheck, Database } from "lucide-react";
 import { C } from "@/lib/colors";
+import { CtaBand } from "@/components/layout/CtaBand";
 
 export const metadata: Metadata = {
   title: "Security — SOC 2, Encryption & Data Ownership",
