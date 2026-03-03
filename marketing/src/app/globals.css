@@ -402,7 +402,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
 .cta-band p {
   font-family: var(--body);
   font-size: var(--fs-md);
-  font-weight: 260;
+  font-weight: 350;
   line-height: 1.6;
   letter-spacing: -.015em;
   color: rgba(255,255,255,.5);
