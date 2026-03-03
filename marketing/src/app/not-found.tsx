@@ -1,17 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-
-const C = {
-  text: "#1a2f28",
-  mid: "#4a6259",
-  muted: "#7a8f85",
-  faint: "#a3b3ab",
-  green: "#047A55",
-  greenLight: "#e8f5ef",
-  border: "#dde3e0",
-  white: "#ffffff",
-  bg: "#FAFBF8",
-} as const;
+import { C } from "@/lib/colors";
 
 function NotFoundSvg() {
   const steps = [
