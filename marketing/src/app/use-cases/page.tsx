@@ -4,6 +4,8 @@ import { C } from "@/lib/colors";
 import { SvgNode, SvgArrow } from "@/components/svg/SvgPrimitives";
 import { CtaBand } from "@/components/layout/CtaBand";
 import { PageHero } from "@/components/layout/PageHero";
+import { FeatureRow } from "@/components/layout/FeatureRow";
+import { MetricGrid } from "@/components/layout/MetricGrid";
 
 export const metadata: Metadata = {
   title: "Use Cases — O2C, P2P, ITSM & Patient Journey",
