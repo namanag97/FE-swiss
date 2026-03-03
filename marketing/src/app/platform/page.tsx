@@ -115,12 +115,12 @@ function ConformanceSvg() {
     <svg viewBox="0 0 520 310" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Conformance checking: reference model compared against actual process showing deviations" style={{ width: "100%", height: "auto" }}>
       {/* Reference Model */}
       <text x={startX} y={24} fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.faint} letterSpacing={1}>REFERENCE MODEL</text>
-      {refSteps.map((s, i) => {
+      {steps.map((s, i) => {
         const x = startX + i * (nodeW + gap);
         return (
           <g key={`ref-${s}`}>
             <Node x={x} y={refY} w={nodeW} h={nodeH} label={s} />
-            {i < refSteps.length - 1 && (
+            {i < steps.length - 1 && (
               <Arrow x1={x + nodeW} y1={refY + nodeH / 2} x2={x + nodeW + gap} y2={refY + nodeH / 2} />
             )}
           </g>
