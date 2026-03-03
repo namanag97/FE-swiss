@@ -287,160 +287,46 @@ export default function PlatformPage() {
       />
 
       {/* Feature 1: Process Discovery */}
-      <section className="gr">
-        <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-          <div className="feature-row">
-            <div>
-              <span className="eyebrow eyebrow-bracket">01 Discover</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
-                Process <em>Discovery</em>
-              </h2>
-              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
-                You&apos;ve never actually seen your own process. Now you will.
-              </p>
-              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
-                Automatically reconstruct process models from event log data. No
-                interviews, no workshops, no Post-it walls — just what actually
-                happens in your systems.
-              </p>
-              <ul style={{ marginTop: "var(--sp-4)", listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "var(--sp-2)" }}>
-                {[
-                  "Alpha & Heuristic miners",
-                  "Multi-source log correlation",
-                  "Variant detection & clustering",
-                  "Interactive process maps",
-                ].map((item) => (
-                  <li key={item} style={{ fontFamily: "var(--body)", fontSize: "var(--fs-sm)", color: "var(--ink-mid)", paddingLeft: "var(--sp-4)", position: "relative" }}>
-                    <span style={{ position: "absolute", left: 0, color: "var(--emerald)" }}>&rarr;</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div style={{ border: "1px solid var(--border)", padding: "var(--sp-3)", background: "var(--bg)" }}>
-              <DiscoverySvg />
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeatureRow
+        eyebrow="01 Discover"
+        title={<>Process <em>Discovery</em></>}
+        tagline="You've never actually seen your own process. Now you will."
+        description="Automatically reconstruct process models from event log data. No interviews, no workshops, no Post-it walls — just what actually happens in your systems."
+        items={["Alpha & Heuristic miners", "Multi-source log correlation", "Variant detection & clustering", "Interactive process maps"]}
+        illustration={<DiscoverySvg />}
+      />
 
       {/* Feature 2: Conformance Checking */}
-      <section className="gr">
-        <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-          <div className="feature-row feature-row--reverse">
-            <div style={{ border: "1px solid var(--border)", padding: "var(--sp-3)", background: "var(--bg)" }}>
-              <ConformanceSvg />
-            </div>
-            <div>
-              <span className="eyebrow eyebrow-bracket">02 Diagnose</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
-                Conformance <em>Checking</em>
-              </h2>
-              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
-                Here&apos;s what should happen. Here&apos;s what actually happens. Here&apos;s what it costs you.
-              </p>
-              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
-                Overlay your ideal process against reality. Instantly see where
-                execution deviates from design — and measure the cost of each
-                deviation.
-              </p>
-              <ul style={{ marginTop: "var(--sp-4)", listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "var(--sp-2)" }}>
-                {[
-                  "Token-based replay analysis",
-                  "Deviation classification",
-                  "Cost-per-deviation metrics",
-                  "Root cause drill-down",
-                ].map((item) => (
-                  <li key={item} style={{ fontFamily: "var(--body)", fontSize: "var(--fs-sm)", color: "var(--ink-mid)", paddingLeft: "var(--sp-4)", position: "relative" }}>
-                    <span style={{ position: "absolute", left: 0, color: "var(--emerald)" }}>&rarr;</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeatureRow
+        eyebrow="02 Diagnose"
+        title={<>Conformance <em>Checking</em></>}
+        tagline="Here's what should happen. Here's what actually happens. Here's what it costs you."
+        description="Overlay your ideal process against reality. Instantly see where execution deviates from design — and measure the cost of each deviation."
+        items={["Token-based replay analysis", "Deviation classification", "Cost-per-deviation metrics", "Root cause drill-down"]}
+        illustration={<ConformanceSvg />}
+        reverse
+      />
 
       {/* Feature 3: Visual Analytics */}
-      <section className="gr">
-        <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-          <div className="feature-row">
-            <div>
-              <span className="eyebrow eyebrow-bracket">03 Analyze</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
-                Visual <em>Analytics</em>
-              </h2>
-              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
-                Click a spike. Land on the exact variant that caused it.
-              </p>
-              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
-                Dashboards built for process data. KPI tracking, variant
-                distribution, SLA monitoring — all connected to the process
-                layer beneath. Not just charts. Charts that know what happened underneath.
-              </p>
-              <ul style={{ marginTop: "var(--sp-4)", listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "var(--sp-2)" }}>
-                {[
-                  "Process-aware KPI dashboards",
-                  "Variant frequency distribution",
-                  "SLA monitoring & alerting",
-                  "Throughput time analysis",
-                ].map((item) => (
-                  <li key={item} style={{ fontFamily: "var(--body)", fontSize: "var(--fs-sm)", color: "var(--ink-mid)", paddingLeft: "var(--sp-4)", position: "relative" }}>
-                    <span style={{ position: "absolute", left: 0, color: "var(--emerald)" }}>&rarr;</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div style={{ border: "1px solid var(--border)", padding: "var(--sp-3)", background: "var(--bg)" }}>
-              <AnalyticsSvg />
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeatureRow
+        eyebrow="03 Analyze"
+        title={<>Visual <em>Analytics</em></>}
+        tagline="Click a spike. Land on the exact variant that caused it."
+        description="Dashboards built for process data. KPI tracking, variant distribution, SLA monitoring — all connected to the process layer beneath. Not just charts. Charts that know what happened underneath."
+        items={["Process-aware KPI dashboards", "Variant frequency distribution", "SLA monitoring & alerting", "Throughput time analysis"]}
+        illustration={<AnalyticsSvg />}
+      />
 
       {/* Feature 4: AI Insights */}
-      <section className="gr">
-        <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-          <div className="feature-row feature-row--reverse">
-            <div style={{ border: "1px solid var(--border)", padding: "var(--sp-3)", background: "var(--bg)" }}>
-              <AiInsightsSvg />
-            </div>
-            <div>
-              <span className="eyebrow eyebrow-bracket">04 Transform</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
-                AI-Powered <em>Insights</em>
-              </h2>
-              <p style={{ fontFamily: "var(--caslon)", fontStyle: "italic", fontSize: "var(--fs-md)", color: "var(--emerald)", marginTop: "var(--sp-3)", lineHeight: 1.5 }}>
-                It doesn&apos;t just find the problem. It tells you what to do about it.
-              </p>
-              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
-                LLMs that understand process patterns. Predict bottlenecks before
-                they happen, detect anomalies, and recommend actions — in plain
-                language, not query syntax.
-              </p>
-              <ul style={{ marginTop: "var(--sp-4)", listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "var(--sp-2)" }}>
-                {[
-                  "Predictive SLA monitoring",
-                  "Anomaly detection",
-                  "Root cause analysis",
-                  "Automated recommendations",
-                ].map((item) => (
-                  <li key={item} style={{ fontFamily: "var(--body)", fontSize: "var(--fs-sm)", color: "var(--ink-mid)", paddingLeft: "var(--sp-4)", position: "relative" }}>
-                    <span style={{ position: "absolute", left: 0, color: "var(--emerald)" }}>&rarr;</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeatureRow
+        eyebrow="04 Transform"
+        title={<>AI-Powered <em>Insights</em></>}
+        tagline="It doesn't just find the problem. It tells you what to do about it."
+        description="LLMs that understand process patterns. Predict bottlenecks before they happen, detect anomalies, and recommend actions — in plain language, not query syntax."
+        items={["Predictive SLA monitoring", "Anomaly detection", "Root cause analysis", "Automated recommendations"]}
+        illustration={<AiInsightsSvg />}
+        reverse
+      />
 
       {/* Cross-links */}
       <section className="gr">
