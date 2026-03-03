@@ -83,7 +83,7 @@ export function BlogFilterTabs({ posts }: { posts: Post[] }) {
                     style={{
                       fontFamily: "var(--body)",
                       fontSize: "var(--fs-sm)",
-                      fontWeight: 260,
+                      fontWeight: 350,
                       letterSpacing: "-.01em",
                       color: "var(--ink-muted)",
                     }}
