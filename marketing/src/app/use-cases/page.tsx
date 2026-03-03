@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { C } from "@/lib/colors";
 import { CtaBand } from "@/components/layout/CtaBand";
+import { PageHero } from "@/components/layout/PageHero";
 
 export const metadata: Metadata = {
   title: "Use Cases — O2C, P2P, ITSM & Patient Journey",
