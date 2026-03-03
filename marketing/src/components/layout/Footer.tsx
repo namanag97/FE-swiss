@@ -36,7 +36,7 @@ export function Footer() {
               <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', fontWeight: 400, letterSpacing: '-.01em', color: 'rgba(255,255,255,.7)' }}>
                 Stay in the loop
               </p>
-              <p style={{ fontFamily: 'var(--body)', fontSize: 'var(--fs-xs)', fontWeight: 260, lineHeight: 1.5, color: 'rgba(255,255,255,.35)' }}>
+              <p style={{ fontFamily: 'var(--body)', fontSize: 'var(--fs-xs)', fontWeight: 350, lineHeight: 1.5, color: 'rgba(255,255,255,.35)' }}>
                 Product updates, engineering insights, and process mining perspectives.
               </p>
               <NewsletterForm />
