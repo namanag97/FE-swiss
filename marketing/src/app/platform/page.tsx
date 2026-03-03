@@ -132,10 +132,9 @@ function ConformanceSvg() {
       <text x={startX} y={140} fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.faint} letterSpacing={1}>ACTUAL PROCESS</text>
       {steps.map((s, i) => {
         const x = startX + i * (nodeW + gap);
-        const isDeviation = false;
         return (
           <g key={`act-${s}`}>
-            <Node x={x} y={actY} w={nodeW} h={nodeH} label={s} accent={isDeviation} />
+            <Node x={x} y={actY} w={nodeW} h={nodeH} label={s} />
             {i < steps.length - 1 && i !== 1 && (
               <Arrow x1={x + nodeW} y1={actY + nodeH / 2} x2={x + nodeW + gap} y2={actY + nodeH / 2} />
             )}
