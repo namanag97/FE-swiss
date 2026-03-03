@@ -234,7 +234,7 @@ export default function HomePage() {
           <h2 className="type-h2" style={{ color: "var(--white)" }}>
             Your processes are talking. <em>Start listening.</em>
           </h2>
-          <p style={{ fontFamily: "var(--body)", color: "rgba(255,255,255,0.5)", maxWidth: 440, margin: "0 auto", marginTop: "var(--sp-4)" }}>
+          <p style={{ fontFamily: "var(--body)", color: "rgba(255,255,255,0.7)", maxWidth: 440, margin: "0 auto", marginTop: "var(--sp-4)" }}>
             We&apos;re building the intelligence layer for operations.
             Be among the first to see it.
           </p>
