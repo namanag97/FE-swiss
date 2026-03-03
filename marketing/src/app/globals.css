@@ -593,7 +593,7 @@ select.input {
 .footer-link {
   font-family: var(--body);
   font-size: var(--fs-sm);
-  font-weight: 260;
+  font-weight: 350;
   letter-spacing: -.01em;
   color: rgba(255,255,255,.55);
   transition: color var(--t-fast);
