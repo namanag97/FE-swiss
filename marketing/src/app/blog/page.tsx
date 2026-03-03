@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
 import { BlogFilterTabs } from "@/components/blog/BlogFilterTabs";
+import { CtaBand } from "@/components/layout/CtaBand";
 
 export const metadata: Metadata = {
   title: "Blog — Engineering, Process Mining & Product Updates",
