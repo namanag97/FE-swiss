@@ -55,18 +55,11 @@ export default function SecurityPage() {
   return (
     <>
       {/* Hero */}
-      <section className="gr" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-        <div className="gi" style={{ textAlign: "center" }}>
-          <span className="eyebrow eyebrow-bracket">Security</span>
-          <h1 className="type-display" style={{ marginTop: "var(--sp-3)" }}>
-            Your data stays <em>yours</em>
-          </h1>
-          <p className="type-body" style={{ maxWidth: 560, margin: "0 auto", marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
-            Process data is sensitive — it maps how your entire business operates.
-            Every layer of Meridian is built with that reality in mind.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Security"
+        heading={<>Your data stays <em>yours</em></>}
+        description="Process data is sensitive — it maps how your entire business operates. Every layer of Meridian is built with that reality in mind."
+      />
 
       {/* Architecture SVG */}
       <section className="gr">
