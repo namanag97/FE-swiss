@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import { Mail, Clock, Shield } from "lucide-react";
 import { CalendlyEmbed } from "@/components/CalendlyEmbed";
+
+export const metadata: Metadata = {
+  title: "Contact — Request Early Access",
+  description: "Book a call with the Meridian team. We'll map your process live and show you what's hiding in your data.",
+  alternates: { canonical: "/contact" },
+  openGraph: { images: ["/og.png"] },
+};
 
 export default function ContactPage() {
   return (
