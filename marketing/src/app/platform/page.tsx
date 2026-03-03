@@ -216,7 +216,7 @@ function AnalyticsSvg() {
       {/* Bars */}
       {[
         { label: "Happy path", pct: 66, color: C.green },
-        { label: "With review", pct: 24, color: "#d97706" },
+        { label: "With review", pct: 24, color: C.amber },
         { label: "Rejected", pct: 10, color: {C.red} },
       ].map((v, i) => {
         const y = 156 + i * 38;
