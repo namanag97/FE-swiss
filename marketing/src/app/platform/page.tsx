@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { C } from "@/lib/colors";
+import { CtaBand } from "@/components/layout/CtaBand";
 
 export const metadata: Metadata = {
   title: "Platform — Process Discovery, Conformance & AI Insights",
