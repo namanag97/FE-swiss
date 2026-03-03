@@ -109,8 +109,7 @@ function ConformanceSvg() {
   const refY = 40;
   const actY = 160;
 
-  const refSteps = ["Order", "Verify", "Approve", "Ship", "Invoice"];
-  const actSteps = ["Order", "Verify", "Approve", "Ship", "Invoice"];
+  const steps = ["Order", "Verify", "Approve", "Ship", "Invoice"];
 
   return (
     <svg viewBox="0 0 520 310" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Conformance checking: reference model compared against actual process showing deviations" style={{ width: "100%", height: "auto" }}>
