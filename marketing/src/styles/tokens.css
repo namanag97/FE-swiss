@@ -25,11 +25,11 @@
   --sp-6:  48px;
   --sp-7:  64px;
 
-  /* Font sizes */
-  --fs-xs:   11px;
-  --fs-sm:   13px;
-  --fs-md:   15px;
-  --fs-base: 16px;
+  /* Font sizes (rem-based, matching reference) */
+  --fs-xs:   .625rem;
+  --fs-sm:   .75rem;
+  --fs-md:   .875rem;
+  --fs-base: 1rem;
   --fs-lg:   20px;
   --fs-xl:   32px;
   --fs-2xl:  48px;
