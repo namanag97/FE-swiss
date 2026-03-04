@@ -50,21 +50,13 @@ export function TableOfContents({ content }: { content: string }) {
       {/* Desktop: sticky sidebar */}
       <nav className="hidden lg:block" aria-label="Table of contents">
         <p className="type-label">On this page</p>
-        <ul className="mt-3 flex flex-col" style={{ gap: 'var(--sp-2)', borderLeft: '1px solid var(--border)' }}>
+        <ul className="mt-3 flex flex-col gap-[var(--sp-2)] border-l border-[var(--border)]">
           {headings.map((h) => (
             <li key={h.id}>
               <a
                 href={`#${h.id}`}
-                className="block transition-colors"
-                style={{
-                  fontFamily: 'var(--body)',
-                  fontSize: 'var(--fs-sm)',
-                  fontWeight: activeId === h.id ? 500 : 260,
-                  color: activeId === h.id ? 'var(--ink)' : 'var(--ink-faint)',
-                  paddingLeft: h.level === 3 ? 'var(--sp-5)' : 'var(--sp-4)',
-                  borderLeft: activeId === h.id ? '2px solid var(--emerald)' : '2px solid transparent',
-                  marginLeft: -1,
-                }}
+                className={`toc-link -ml-px ${activeId === h.id ? "toc-link--active" : ""}`}
+                style={{ paddingLeft: h.level === 3 ? 'var(--sp-5)' : 'var(--sp-4)' }}
               >
                 {h.text}
               </a>
@@ -74,30 +66,23 @@ export function TableOfContents({ content }: { content: string }) {
       </nav>
 
       {/* Mobile: collapsible */}
-      <div className="mb-8 lg:hidden" style={{ border: '1px solid var(--border)', padding: 'var(--sp-4)' }}>
+      <div className="mb-8 lg:hidden border border-[var(--border)] p-[var(--sp-4)]">
         <button
           onClick={() => setOpen(!open)}
-          className="flex w-full items-center justify-between"
-          style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', fontWeight: 400, color: 'var(--ink)', background: 'transparent', border: 'none', cursor: 'pointer' }}
+          className="toc-button flex w-full items-center justify-between"
         >
           Table of contents
-          <ChevronDown style={{ width: 16, height: 16, transition: 'transform .15s ease', transform: open ? 'rotate(180deg)' : 'rotate(0)' }} />
+          <ChevronDown className={`w-4 h-4 transition-transform duration-150 ${open ? "rotate-180" : ""}`} />
         </button>
         {open && (
-          <ul className="flex flex-col" style={{ marginTop: 'var(--sp-3)', paddingTop: 'var(--sp-3)', borderTop: '1px solid var(--border)', gap: 'var(--sp-2)' }}>
+          <ul className="flex flex-col mt-[var(--sp-3)] pt-[var(--sp-3)] border-t border-[var(--border)] gap-[var(--sp-2)]">
             {headings.map((h) => (
               <li key={h.id}>
                 <a
                   href={`#${h.id}`}
                   onClick={() => setOpen(false)}
-                  className="block transition-colors"
-                  style={{
-                    fontFamily: 'var(--body)',
-                    fontSize: 'var(--fs-sm)',
-                    fontWeight: 350,
-                    color: 'var(--ink-muted)',
-                    paddingLeft: h.level === 3 ? 'var(--sp-4)' : 0,
-                  }}
+                  className="toc-link"
+                  style={{ paddingLeft: h.level === 3 ? 'var(--sp-4)' : 0 }}
                 >
                   {h.text}
                 </a>
