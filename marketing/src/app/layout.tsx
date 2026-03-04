@@ -53,7 +53,7 @@ const jsonLd = [
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${GeistMono.variable} ${caslon.variable}`}>
+    <html lang="en" className={`${inter.variable} ${GeistSans.variable} ${GeistMono.variable} ${caslon.variable}`}>
       <head>
         <script
           type="application/ld+json"
