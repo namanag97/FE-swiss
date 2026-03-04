@@ -52,30 +52,12 @@ export function PlatformTabs() {
   return (
     <div>
       {/* Tab buttons */}
-      <div style={{
-        display: "flex",
-        borderBottom: "1px solid var(--border)",
-        gap: "0",
-        overflowX: "auto",
-      }}>
+      <div className="flex overflow-x-auto border-b border-[var(--border)]">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActive(tab.id)}
-            style={{
-              flex: 1,
-              padding: "var(--sp-4) var(--sp-3)",
-              fontFamily: "var(--sans)",
-              fontSize: "var(--fs-xs)",
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              background: "none",
-              border: "none",
-              borderBottom: active === tab.id ? "2px solid var(--emerald)" : "2px solid transparent",
-              color: active === tab.id ? "var(--ink)" : "var(--ink-muted)",
-              cursor: "pointer",
-              transition: "all 0.2s",
-            }}
+            className={`tab-button${active === tab.id ? " tab-button--active" : ""}`}
           >
             {tab.label}
           </button>
@@ -83,16 +65,16 @@ export function PlatformTabs() {
       </div>
 
       {/* Tab content */}
-      <div style={{ padding: "var(--sp-6) 0" }}>
-        <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "var(--sp-6)", alignItems: "center" }}>
+      <div className="py-[var(--sp-6)]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-[var(--sp-6)] items-center">
           <div>
             <h3 className="type-h3">{current.label}</h3>
-            <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
+            <p className="type-body text-mid mt-[var(--sp-3)]">
               {current.desc}
             </p>
           </div>
           <div className="ascii-frame overflow-x-auto">
-            <pre className="ascii-art" style={{ margin: 0 }}>{current.ascii}</pre>
+            <pre className="ascii-art m-0">{current.ascii}</pre>
           </div>
         </div>
       </div>
