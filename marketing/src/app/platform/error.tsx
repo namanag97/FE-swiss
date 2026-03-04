@@ -13,7 +13,7 @@ export default function PlatformError({
     <div className="gr">
       <div className="gi section-pad">
         <div className="text-center py-[var(--sp-7)]">
-          <p className="font-[var(--sans)] text-[var(--fs-3xl)] text-[var(--border-nav)] font-extralight">
+          <p className="font-[var(--sans)] text-[length:var(--fs-3xl)] text-[color:var(--border-nav)] font-extralight">
             Error
           </p>
           <h1 className="type-h3 mt-3">
