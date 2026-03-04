@@ -47,8 +47,8 @@ export function BlogFilterTabs({ posts }: { posts: Post[] }) {
 
       <div className="flex flex-col">
         {filtered.length === 0 ? (
-          <div style={{ padding: "var(--sp-7) 0", textAlign: "center" }}>
-            <p className="type-body" style={{ color: "var(--ink-muted)" }}>
+          <div className="py-[var(--sp-7)] text-center">
+            <p className="type-body text-[color:var(--ink-muted)]">
               No posts yet in this category. Check back soon.
             </p>
           </div>
@@ -57,56 +57,19 @@ export function BlogFilterTabs({ posts }: { posts: Post[] }) {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group grid items-start transition-colors"
-              style={{
-                gridTemplateColumns: "1fr auto",
-                gap: "var(--sp-5)",
-                padding: "var(--sp-5) 0",
-                borderBottom: "1px solid var(--border)",
-              }}
+              className="group grid items-start gap-[var(--sp-5)] py-[var(--sp-5)] border-b border-[var(--border)] transition-colors"
+              style={{ gridTemplateColumns: "1fr auto" }}
             >
-              <div className="flex flex-col" style={{ gap: "var(--sp-2)" }}>
-                <h2
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontSize: "var(--fs-lg)",
-                    fontWeight: 400,
-                    letterSpacing: "-.02em",
-                    lineHeight: 1.15,
-                    color: "var(--ink)",
-                  }}
-                >
-                  {post.title}
-                </h2>
-                <div className="flex flex-wrap items-center" style={{ gap: "var(--sp-3)" }}>
-                  <span
-                    style={{
-                      fontFamily: "var(--body)",
-                      fontSize: "var(--fs-sm)",
-                      fontWeight: 350,
-                      letterSpacing: "-.01em",
-                      color: "var(--ink-muted)",
-                    }}
-                  >
-                    {post.author}
-                  </span>
-                  <span
-                    className={`blog-tag ${tagClass[post.tags[0]?.toLowerCase() || ""] || "blog-tag--engineering"}`}
-                  >
+              <div className="flex flex-col gap-[var(--sp-2)]">
+                <h2 className="type-h3">{post.title}</h2>
+                <div className="flex flex-wrap items-center gap-[var(--sp-3)]">
+                  <span className="type-body-sm">{post.author}</span>
+                  <span className={`blog-tag ${tagClass[post.tags[0]?.toLowerCase() || ""] || "blog-tag--engineering"}`}>
                     {post.tags[0] || "post"}
                   </span>
                 </div>
               </div>
-              <span
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontSize: "var(--fs-xs)",
-                  fontWeight: 400,
-                  letterSpacing: ".04em",
-                  color: "var(--ink-faint)",
-                  whiteSpace: "nowrap",
-                }}
-              >
+              <span className="type-label whitespace-nowrap">
                 {formatDate(post.date)}
               </span>
             </Link>
