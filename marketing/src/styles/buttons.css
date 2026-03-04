@@ -21,7 +21,7 @@
   cursor: pointer;
 }
 .btn-primary {
-  background-color: var(--ink-mid);
+  background-color: var(--ink-dark);
   color: var(--white);
   border: 1px solid transparent;
   background-image: repeating-linear-gradient(
@@ -67,3 +67,37 @@
   pointer-events: none;
 }
 .btn:hover::before, .btn:hover::after { opacity: 1; }
+
+/* Small variant — share buttons, inline actions */
+.btn-sm {
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  padding: var(--sp-2) var(--sp-3);
+  min-height: auto;
+}
+.btn-sm::before, .btn-sm::after { display: none; }
+
+/* Icon-only variant — back-to-top, hamburger */
+.btn-icon {
+  padding: 0;
+  min-height: auto;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border-mid);
+  background: var(--bg);
+  color: var(--ink-faint);
+}
+.btn-icon::before, .btn-icon::after { display: none; }
+
+/* Dark-bg small button — newsletter subscribe, dark actions */
+.btn-dark {
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  padding: var(--sp-2) var(--sp-3);
+  min-height: auto;
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.6);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.btn-dark:hover { background: rgba(255,255,255,.14); color: rgba(255,255,255,.8); }
+.btn-dark::before, .btn-dark::after { display: none; }
