@@ -196,12 +196,7 @@ export default function HomePage() {
             </div>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 reveal-stagger" style={{ gap: "var(--sp-4)" }}>
-            {[
-              { title: "Order-to-Cash", desc: "Your invoices take 47 days. The process says 5. Find the 12 rework loops hiding in between.", anchor: "#o2c" },
-              { title: "Procure-to-Pay", desc: "3 in 10 POs bypass approval. See exactly where procurement goes off-policy — and why.", anchor: "#p2p" },
-              { title: "IT Service Management", desc: "Tickets bounce between 4 teams before resolution. Map the real escalation path. Cut the noise.", anchor: "#itsm" },
-              { title: "Patient Journey", desc: "Average wait time says 20 minutes. Actual patient flow tells a different story. See it.", anchor: "#healthcare" },
-            ].map((uc) => (
+            {useCaseCards.map((uc) => (
               <Reveal key={uc.title}>
                 <div className="card-feature" style={{ padding: "var(--sp-5)", height: "100%" }}>
                   <h3 className="type-h3">{uc.title}</h3>
