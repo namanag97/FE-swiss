@@ -112,6 +112,7 @@
 .tab-button {
   flex: 1;
   padding: var(--sp-4) var(--sp-3);
+  min-height: 44px;
   font-family: var(--sans);
   font-size: var(--fs-xs);
   text-transform: uppercase;
