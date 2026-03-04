@@ -33,11 +33,11 @@ export default function ContactPage() {
               ].map(({ icon: Icon, title, desc }) => (
                 <div key={title} className="flex gap-[var(--sp-3)] items-start">
                   <div className="card-icon shrink-0">
-                    <Icon className="w-3.5 h-3.5 text-[var(--ink-muted)]" />
+                    <Icon className="w-3.5 h-3.5 text-[color:var(--ink-muted)]" />
                   </div>
                   <div>
                     <p className="font-[var(--sans)] text-[var(--fs-sm)] font-medium text-[var(--ink)]">{title}</p>
-                    <p className="font-[var(--sans)] text-[var(--fs-xs)] text-[var(--ink-muted)]">{desc}</p>
+                    <p className="font-[var(--sans)] text-[var(--fs-xs)] text-[color:var(--ink-muted)]">{desc}</p>
                   </div>
                 </div>
               ))}
