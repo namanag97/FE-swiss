@@ -1,8 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { C } from "@/lib/colors";
 import { CtaBand } from "@/components/layout/CtaBand";
 import { PageHero } from "@/components/layout/PageHero";
+import { ProcessComparisonSvg, ArchitectureSvg } from "@/components/illustrations";
 
 export const metadata: Metadata = {
   title: "About — Why We're Building Meridian",
@@ -10,147 +10,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
   openGraph: { images: ["/og.png"] },
 };
-
-/* ── Process Comparison: How you think vs reality ── */
-function ProcessComparisonSvg() {
-  const nw = 76;
-  const nh = 26;
-  return (
-    <svg viewBox="0 0 460 280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Process comparison: ideal linear flow versus messy reality with rework loops and unknown steps" style={{ width: "100%", height: "auto" }}>
-      {/* Ideal */}
-      <text x={16} y={20} fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.faint} letterSpacing={1}>HOW YOU THINK IT WORKS</text>
-      {["Order", "Check", "Approve", "Ship"].map((s, i) => {
-        const x = 16 + i * (nw + 24);
-        return (
-          <g key={`ideal-${s}`}>
-            <rect x={x} y={32} width={nw} height={nh} rx={2} fill={C.white} stroke={C.border} />
-            <text x={x + nw / 2} y={46} textAnchor="middle" dominantBaseline="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.text}>{s}</text>
-            {i < 3 && (
-              <g>
-                <line x1={x + nw} y1={45} x2={x + nw + 24} y2={45} stroke={C.muted} />
-                <polygon points={`${x + nw + 24},45 ${x + nw + 18},42 ${x + nw + 18},48`} fill={C.muted} />
-              </g>
-            )}
-          </g>
-        );
-      })}
-      <text x={230} y={76} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontStyle="italic" fill={C.faint}>clean, linear, simple</text>
-
-      {/* Divider */}
-      <line x1={16} y1={96} x2={444} y2={96} stroke={C.border} strokeDasharray="4 4" />
-
-      {/* Reality */}
-      <text x={16} y={124} fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.amber} letterSpacing={1}>HOW IT ACTUALLY WORKS</text>
-
-      {/* Order */}
-      <rect x={16} y={140} width={nw} height={nh} rx={2} fill={C.white} stroke={C.border} />
-      <text x={16 + nw / 2} y={154} textAnchor="middle" dominantBaseline="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.text}>Order</text>
-
-      {/* Arrow to Check */}
-      <line x1={92} y1={153} x2={116} y2={153} stroke={C.muted} />
-      <polygon points="116,153 110,150 110,156" fill={C.muted} />
-
-      {/* Check */}
-      <rect x={116} y={140} width={nw} height={nh} rx={2} fill={C.white} stroke={C.border} />
-      <text x={116 + nw / 2} y={154} textAnchor="middle" dominantBaseline="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.text}>Check</text>
-
-      {/* Arrow to ??? */}
-      <line x1={192} y1={153} x2={216} y2={153} stroke={C.amber} />
-      <polygon points="216,153 210,150 210,156" fill={C.amber} />
-
-      {/* ??? node (unknown) */}
-      <rect x={216} y={140} width={56} height={nh} rx={2} fill={C.amberLight} stroke={C.amber} strokeWidth={1.5} />
-      <text x={244} y={154} textAnchor="middle" dominantBaseline="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.amber} fontWeight={500}>???</text>
-
-      {/* Rework loop arrow from ??? back to Order */}
-      <line x1={244} y1={166} x2={244} y2={196} stroke={C.amber} strokeWidth={1.5} />
-
-      {/* Rework node */}
-      <rect x={206} y={196} width={76} height={nh} rx={2} fill={C.amberLight} stroke={C.amber} strokeWidth={1.5} />
-      <text x={244} y={210} textAnchor="middle" dominantBaseline="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.amber} fontWeight={500}>Rework</text>
-
-      {/* Loop back to Order */}
-      <line x1={206} y1={209} x2={54} y2={209} stroke={C.amber} strokeWidth={1.5} />
-      <line x1={54} y1={209} x2={54} y2={166} stroke={C.amber} strokeWidth={1.5} />
-      <polygon points="54,166 50,174 58,174" fill={C.amber} />
-
-      {/* Forward from Rework to Approve */}
-      <line x1={282} y1={209} x2={320} y2={209} stroke={C.muted} />
-      <polygon points="320,209 314,206 314,212" fill={C.muted} />
-
-      {/* Approve */}
-      <rect x={320} y={196} width={nw} height={nh} rx={2} fill={C.greenLight} stroke={C.green} />
-      <text x={320 + nw / 2} y={210} textAnchor="middle" dominantBaseline="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.green}>Approve</text>
-
-      {/* Approve to Ship */}
-      <line x1={396} y1={209} x2={420} y2={209} stroke={C.muted} />
-      <polygon points="420,209 414,206 414,212" fill={C.muted} />
-
-      {/* Ship */}
-      <rect x={420} y={196} width={36} height={nh} rx={2} fill={C.greenLight} stroke={C.green} />
-      <text x={438} y={210} textAnchor="middle" dominantBaseline="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fill={C.green}>Ship</text>
-
-      <text x={230} y={252} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontStyle="italic" fill={C.amber}>messy, looping, unknown</text>
-    </svg>
-  );
-}
-
-/* ── Architecture Diagram ── */
-function ArchitectureSvg() {
-  const lx = 24;
-  const rw = 472;
-  const rowH = 48;
-  return (
-    <svg viewBox="0 0 520 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Meridian platform architecture: UI layer, process mining engine, event log store, and connectors" style={{ width: "100%", height: "auto" }}>
-      {/* Outer frame */}
-      <rect x={lx} y={8} width={rw} height={304} rx={2} fill={C.white} stroke={C.border} />
-
-      {/* Title bar */}
-      <rect x={lx} y={8} width={rw} height={28} rx={2} fill={C.bg} stroke={C.border} />
-      <text x={260} y={26} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.muted} letterSpacing={1.5}>MERIDIAN PLATFORM</text>
-
-      {/* Layer 1: UI */}
-      {[
-        { label: "Process Maps", x: 44 },
-        { label: "Visual Analytics", x: 200 },
-        { label: "AI Insights", x: 356 },
-      ].map((mod) => (
-        <g key={mod.label}>
-          <rect x={mod.x} y={48} width={136} height={36} rx={2} fill={C.white} stroke={C.border} />
-          <text x={mod.x + 68} y={70} textAnchor="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fontWeight={500} fill={C.text}>{mod.label}</text>
-        </g>
-      ))}
-
-      {/* Connector lines down */}
-      <line x1={112} y1={84} x2={112} y2={100} stroke={C.muted} />
-      <line x1={268} y1={84} x2={268} y2={100} stroke={C.muted} />
-      <line x1={424} y1={84} x2={424} y2={100} stroke={C.muted} />
-      <line x1={112} y1={100} x2={424} y2={100} stroke={C.muted} />
-      <line x1={260} y1={100} x2={260} y2={110} stroke={C.muted} />
-
-      {/* Layer 2: Engine */}
-      <rect x={44} y={110} width={432} height={rowH} rx={2} fill={C.greenLight} stroke={C.green} />
-      <text x={260} y={130} textAnchor="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.green}>PROCESS MINING ENGINE</text>
-      <text x={260} y={146} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fill={C.mid}>Alpha · Heuristic · Inductive · Conformance · Prediction</text>
-
-      {/* Connector */}
-      <line x1={260} y1={158} x2={260} y2={172} stroke={C.muted} />
-
-      {/* Layer 3: Event Store */}
-      <rect x={44} y={172} width={432} height={rowH} rx={2} fill={C.white} stroke={C.border} />
-      <text x={260} y={192} textAnchor="middle" fontSize={10} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.text}>EVENT LOG STORE</text>
-      <text x={260} y={208} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fill={C.mid}>Columnar · Streaming · Indexed</text>
-
-      {/* Connector */}
-      <line x1={260} y1={220} x2={260} y2={234} stroke={C.muted} />
-
-      {/* Layer 4: Connectors */}
-      <rect x={44} y={234} width={432} height={40} rx={2} fill={C.bg} stroke={C.border} />
-      <text x={260} y={250} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.muted} letterSpacing={1}>CONNECTORS</text>
-      <text x={260} y={266} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fill={C.faint}>SAP · ServiceNow · Salesforce · Jira · Custom</text>
-    </svg>
-  );
-}
 
 export default function AboutPage() {
   return (
