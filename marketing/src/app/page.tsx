@@ -147,7 +147,7 @@ export default function HomePage() {
             {speedPhases.map((t) => (
               <Reveal key={t.phase}>
                 <div className="card-feature h-full">
-                  <span className="type-label text-[var(--emerald)]">{t.phase}</span>
+                  <span className="type-label text-[color:var(--emerald)]">{t.phase}</span>
                   <h3 className="type-h3 mt-[var(--sp-2)]">{t.title}</h3>
                   <p className="type-body mt-3 text-mid">{t.desc}</p>
                 </div>
