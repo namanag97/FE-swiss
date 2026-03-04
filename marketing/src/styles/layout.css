@@ -82,8 +82,5 @@
 .nav-link-text { font-family: var(--sans); font-size: var(--fs-sm); color: var(--ink); margin-top: var(--sp-1); }
 .illustration-frame { border: 1px solid var(--border); padding: var(--sp-3); background: var(--bg); }
 .illustration-frame-lg { max-width: 680px; margin: 0 auto; border: 1px solid var(--border); padding: var(--sp-4); background: var(--bg); }
-.mt-3 { margin-top: var(--sp-3); }
-.mt-4 { margin-top: var(--sp-4); }
-.mt-5 { margin-top: var(--sp-5); }
-.mt-6 { margin-top: var(--sp-6); }
+/* mt-3 through mt-7 are now handled by @theme --spacing-* overrides in theme.css */
 .text-mid { color: var(--ink-mid); }
