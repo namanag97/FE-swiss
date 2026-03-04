@@ -19,16 +19,10 @@ export function BackToTop() {
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className="fixed bottom-6 right-6 z-40 inline-flex h-10 w-10 items-center justify-center transition-colors"
-      style={{
-        border: '1px solid var(--border-mid)',
-        background: 'var(--bg)',
-        color: 'var(--ink-faint)',
-        borderRadius: 0,
-      }}
+      className="btn btn-icon fixed bottom-6 right-6 z-40"
       aria-label="Back to top"
     >
-      <ArrowUp style={{ width: 16, height: 16 }} />
+      <ArrowUp className="w-4 h-4" />
     </button>
   );
 }
