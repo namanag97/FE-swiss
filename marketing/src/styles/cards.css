@@ -30,7 +30,7 @@
 .card-body {
   font-family: var(--body);
   font-size: var(--fs-sm);
-  font-weight: 350;
+  font-weight: 400;
   line-height: 1.6;
   letter-spacing: -.01em;
   color: var(--ink-muted);
