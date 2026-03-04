@@ -63,11 +63,11 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <article className="gr">
-      <Container size="wide" style={{ padding: 'var(--sp-7) var(--sp-5)' }}>
+      <Container size="wide" className="p-[var(--sp-7)_var(--sp-5)]">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-        <Link href="/blog" className="inline-flex items-center gap-1.5 transition-colors" style={{ fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)' }}>
-          <ArrowLeft style={{ width: 14, height: 14 }} />
+        <Link href="/blog" className="inline-flex items-center gap-1.5 transition-colors text-[var(--fs-sm)] text-[var(--ink-faint)]">
+          <ArrowLeft className="w-3.5 h-3.5" />
           All posts
         </Link>
 
@@ -75,15 +75,15 @@ export default async function BlogPostPage({ params }: Props) {
           {post.tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}
         </div>
 
-        <h1 className="type-h2" style={{ marginTop: 'var(--sp-3)' }}>
+        <h1 className="type-h2 mt-3">
           {post.title}
         </h1>
 
-        <div className="mt-3 flex items-center" style={{ gap: 'var(--sp-3)', fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', fontWeight: 350, color: 'var(--ink-muted)' }}>
-          <span style={{ fontWeight: 500, color: 'var(--ink-dark)' }}>{post.author}</span>
-          <span style={{ color: 'var(--border-nav)' }}>/</span>
+        <div className="mt-3 flex items-center gap-[var(--sp-3)] text-[var(--fs-sm)] font-[350] text-[var(--ink-muted)]" style={{ fontFamily: 'var(--body)' }}>
+          <span className="font-medium text-[var(--ink-dark)]">{post.author}</span>
+          <span className="text-[var(--border-nav)]">/</span>
           <time dateTime={post.date}>{formatDate(post.date)}</time>
-          <span style={{ color: 'var(--border-nav)' }}>/</span>
+          <span className="text-[var(--border-nav)]">/</span>
           <span>{post.readingTime}</span>
         </div>
 
@@ -131,8 +131,8 @@ export default async function BlogPostPage({ params }: Props) {
           </section>
         )}
 
-        <Link href="/blog" className="mt-8 inline-flex items-center gap-1.5 transition-colors" style={{ fontSize: 'var(--fs-sm)', color: 'var(--ink-faint)' }}>
-          <ArrowLeft style={{ width: 14, height: 14 }} />
+        <Link href="/blog" className="mt-8 inline-flex items-center gap-1.5 transition-colors text-[var(--fs-sm)] text-[var(--ink-faint)]">
+          <ArrowLeft className="w-3.5 h-3.5" />
           All posts
         </Link>
       </Container>
