@@ -12,26 +12,23 @@ interface LegalLayoutProps {
 
 export function LegalLayout({ title, lastUpdated, sections, children }: LegalLayoutProps) {
   return (
-    <section className="gr" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-7)' }}>
+    <section className="gr section-pad">
       <div className="gi">
-        <div style={{ marginBottom: 'var(--sp-6)' }}>
+        <div className="mb-[var(--sp-6)]">
           <span className="eyebrow eyebrow-bracket">Legal</span>
-          <h1 className="type-h2" style={{ marginTop: 'var(--sp-3)' }}>
+          <h1 className="type-h2 mt-[var(--sp-3)]">
             {title}
           </h1>
-          <p className="type-label" style={{ marginTop: 'var(--sp-2)' }}>Last updated {lastUpdated}</p>
+          <p className="type-label mt-[var(--sp-2)]">Last updated {lastUpdated}</p>
         </div>
 
         <div className="legal-layout">
-          <nav className="legal-toc" style={{ position: 'sticky', top: 80, alignSelf: 'start' }}>
-            <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 'var(--sp-3)' }}>Contents</p>
-            <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 'var(--sp-2)' }}>
+          <nav className="legal-toc sticky top-20 self-start">
+            <p className="type-label mb-[var(--sp-3)]">Contents</p>
+            <ul className="flex flex-col gap-[var(--sp-2)] list-none p-0">
               {sections.map((s) => (
                 <li key={s.id}>
-                  <a
-                    href={`#${s.id}`}
-                    style={{ fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', color: 'var(--ink-muted)', textDecoration: 'none', transition: 'color var(--t-fast)' }}
-                  >
+                  <a href={`#${s.id}`} className="toc-link">
                     {s.title}
                   </a>
                 </li>
