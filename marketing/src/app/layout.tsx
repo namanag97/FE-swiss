@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Libre_Caslon_Text } from "next/font/google";
 import { Header } from "@/components/layout/Header";
