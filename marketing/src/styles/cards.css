@@ -1,0 +1,57 @@
+/* ═══════════════════════════════════════════════════════════════
+   CARDS
+═══════════════════════════════════════════════════════════════ */
+.card-feature {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  transition: border-color var(--t-std);
+}
+.card-feature:hover { border-color: var(--border-mid); }
+.card-icon {
+  width: 32px; height: 32px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.card-icon svg { color: var(--ink-mid); }
+.card-title {
+  font-family: var(--sans);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  letter-spacing: -.01em;
+  color: var(--ink-dark);
+}
+.card-body {
+  font-family: var(--body);
+  font-size: var(--fs-sm);
+  font-weight: 350;
+  line-height: 1.6;
+  letter-spacing: -.01em;
+  color: var(--ink-muted);
+}
+
+/* Quote card */
+.card-quote {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+/* Stat card */
+.card-stat {
+  padding: var(--sp-5);
+  border: 1px solid var(--border);
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
