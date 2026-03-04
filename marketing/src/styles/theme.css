@@ -1,6 +1,6 @@
 @theme {
-  --font-sans: var(--font-geist-mono), 'Geist Mono', monospace;
-  --font-body: var(--font-inter), 'Inter', sans-serif;
+  --font-sans: var(--font-geist-mono), 'GeistMono', monospace;
+  --font-body: var(--font-inter), 'Inter Variable', 'Inter', sans-serif;
 
   /* Design system spacing — overrides Tailwind defaults to match --sp-* tokens */
   --spacing-3: 12px;
