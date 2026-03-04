@@ -11,44 +11,44 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <section className="gr" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-7)' }}>
+    <section className="gr section-pad">
       <div className="gi">
         <div className="contact-split">
           {/* Left: Hero + Value Props */}
           <div>
             <span className="eyebrow eyebrow-bracket">Early access</span>
-            <h1 className="type-display" style={{ marginTop: 'var(--sp-3)' }}>
+            <h1 className="type-display mt-3">
               Get <em>early access</em>
             </h1>
-            <p className="type-body" style={{ marginTop: 'var(--sp-4)', color: 'var(--ink-mid)' }}>
+            <p className="type-body mt-4 text-mid">
               We&apos;re onboarding design partners now. Book a call and tell us
               what processes you want to see.
             </p>
 
-            <div style={{ marginTop: 'var(--sp-6)', display: 'flex', flexDirection: 'column', gap: 'var(--sp-4)' }}>
+            <div className="flex flex-col gap-[var(--sp-4)] mt-6">
               {[
                 { icon: Mail, title: 'hello@meridian.dev', desc: 'General inquiries' },
                 { icon: Clock, title: '30-minute walkthrough', desc: 'We map your process live on the call' },
                 { icon: Shield, title: 'security@meridian.dev', desc: 'Security inquiries' },
               ].map(({ icon: Icon, title, desc }) => (
-                <div key={title} style={{ display: 'flex', gap: 'var(--sp-3)', alignItems: 'start' }}>
-                  <div style={{ width: 32, height: 32, border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <Icon style={{ width: 14, height: 14, color: 'var(--ink-muted)' }} />
+                <div key={title} className="flex gap-[var(--sp-3)] items-start">
+                  <div className="card-icon shrink-0">
+                    <Icon className="w-3.5 h-3.5 text-[var(--ink-muted)]" />
                   </div>
                   <div>
-                    <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', fontWeight: 500, color: 'var(--ink)' }}>{title}</p>
-                    <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', color: 'var(--ink-muted)' }}>{desc}</p>
+                    <p className="font-[var(--sans)] text-[var(--fs-sm)] font-medium text-[var(--ink)]">{title}</p>
+                    <p className="font-[var(--sans)] text-[var(--fs-xs)] text-[var(--ink-muted)]">{desc}</p>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* What to expect */}
-            <div style={{ marginTop: 'var(--sp-6)', padding: 'var(--sp-5)', border: '1px solid var(--border)' }}>
-              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 'var(--sp-3)' }}>
+            <div className="mt-6 p-[var(--sp-5)] border border-[var(--border)]">
+              <p className="type-label mb-[var(--sp-3)]">
                 What to expect
               </p>
-              <p style={{ fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', color: 'var(--ink-mid)', lineHeight: 1.6 }}>
+              <p className="text-[var(--fs-sm)] text-mid leading-[1.6]" style={{ fontFamily: 'var(--body)' }}>
                 Tell us what systems you run (SAP, Oracle, ServiceNow, etc.) and
                 which processes matter most to you. We&apos;ll walk you through how
                 Meridian maps them — and what it finds.
