@@ -9,7 +9,7 @@ export default function NotFound() {
         <div className="flex justify-center mb-[var(--sp-5)]">
           <NotFoundSvg />
         </div>
-        <p className="font-[var(--sans)] text-[var(--fs-3xl)] text-[var(--border-nav)] font-extralight">404</p>
+        <p className="font-[var(--sans)] text-[length:var(--fs-3xl)] text-[color:var(--border-nav)] font-extralight">404</p>
         <h1 className="type-h3 mt-3">Page not found</h1>
         <p className="type-body mt-3 text-mid mx-auto">
           This page doesn&apos;t exist or has been moved.
