@@ -60,7 +60,7 @@ export default function UseCasesPage() {
 
       <section className="gr">
         <div className="gi py-[var(--sp-5)] text-center">
-          <Link href="/platform" className="type-label text-[var(--emerald)]">
+          <Link href="/platform" className="type-label text-[color:var(--emerald)]">
             &larr; Explore the full platform
           </Link>
         </div>
