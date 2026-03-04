@@ -26,7 +26,7 @@ export default function HomePage() {
           <Link href="/contact" className="btn btn-primary">Request early access</Link>
           <Link href="/platform" className="btn btn-ghost">How it works</Link>
         </div>
-        <p className="text-[length:var(--fs-sm)] text-[color:var(--ink-faint)] mt-3 tracking-[-0.01em]" style={{ fontFamily: "var(--body)" }}>
+        <p className="type-body-sm text-[color:var(--ink-faint)] mt-3">
           No credit card &middot; No consultants &middot; First process map in under an hour
         </p>
       </PageHero>
