@@ -36,7 +36,7 @@ export default function UseCasesPage() {
       {/* Intro Diagram */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ padding: "var(--sp-6) 0" }}>
+        <div className="gi py-[var(--sp-6)]">
           <div className="illustration-frame-lg">
             <IntroSvg />
           </div>
@@ -59,8 +59,8 @@ export default function UseCasesPage() {
       ))}
 
       <section className="gr">
-        <div className="gi" style={{ padding: "var(--sp-5) 0", textAlign: "center" }}>
-          <Link href="/platform" style={{ fontFamily: "var(--sans)", fontSize: "var(--fs-xs)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--emerald)" }}>
+        <div className="gi py-[var(--sp-5)] text-center">
+          <Link href="/platform" className="type-label text-[var(--emerald)]">
             &larr; Explore the full platform
           </Link>
         </div>
