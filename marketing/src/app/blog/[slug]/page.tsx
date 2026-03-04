@@ -81,9 +81,9 @@ export default async function BlogPostPage({ params }: Props) {
 
         <div className="mt-3 flex items-center gap-[var(--sp-3)] text-[length:var(--fs-sm)] font-[350] text-[color:var(--ink-muted)]" style={{ fontFamily: 'var(--body)' }}>
           <span className="font-medium text-[color:var(--ink-dark)]">{post.author}</span>
-          <span className="text-[var(--border-nav)]">/</span>
+          <span className="text-[color:var(--border-nav)]">/</span>
           <time dateTime={post.date}>{formatDate(post.date)}</time>
-          <span className="text-[var(--border-nav)]">/</span>
+          <span className="text-[color:var(--border-nav)]">/</span>
           <span>{post.readingTime}</span>
         </div>
 
