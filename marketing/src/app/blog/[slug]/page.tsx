@@ -66,7 +66,7 @@ export default async function BlogPostPage({ params }: Props) {
       <Container size="wide" className="p-[var(--sp-7)_var(--sp-5)]">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-        <Link href="/blog" className="inline-flex items-center gap-1.5 transition-colors text-[length:var(--fs-sm)] text-[var(--ink-faint)]">
+        <Link href="/blog" className="inline-flex items-center gap-1.5 transition-colors text-[length:var(--fs-sm)] text-[color:var(--ink-faint)]">
           <ArrowLeft className="w-3.5 h-3.5" />
           All posts
         </Link>
@@ -131,7 +131,7 @@ export default async function BlogPostPage({ params }: Props) {
           </section>
         )}
 
-        <Link href="/blog" className="mt-8 inline-flex items-center gap-1.5 transition-colors text-[length:var(--fs-sm)] text-[var(--ink-faint)]">
+        <Link href="/blog" className="mt-8 inline-flex items-center gap-1.5 transition-colors text-[length:var(--fs-sm)] text-[color:var(--ink-faint)]">
           <ArrowLeft className="w-3.5 h-3.5" />
           All posts
         </Link>
