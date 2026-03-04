@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { siteConfig } from "@/lib/config";
 
+const EMBED_HEIGHT = 660;
+const LOAD_TIMEOUT = 10000;
+
 export function CalendlyEmbed() {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
@@ -17,7 +20,7 @@ export function CalendlyEmbed() {
 
     const timeout = setTimeout(() => {
       if (!loaded) setError(true);
-    }, 10000);
+    }, LOAD_TIMEOUT);
 
     return () => {
       clearTimeout(timeout);
@@ -28,18 +31,8 @@ export function CalendlyEmbed() {
 
   if (error) {
     return (
-      <div
-        style={{
-          height: 660,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          border: "1px solid var(--border)",
-          gap: "var(--sp-3)",
-        }}
-      >
-        <p style={{ fontFamily: "var(--sans)", fontSize: "var(--fs-sm)", color: "var(--ink-mid)" }}>
+      <div className="flex flex-col items-center justify-center gap-[var(--sp-3)] border border-[var(--border)]" style={{ height: EMBED_HEIGHT }}>
+        <p className="type-body-sm text-mid">
           Unable to load scheduler.
         </p>
         <a
@@ -50,10 +43,7 @@ export function CalendlyEmbed() {
         >
           Open scheduler directly
         </a>
-        <a
-          href="mailto:hello@meridian.dev"
-          style={{ fontFamily: "var(--sans)", fontSize: "var(--fs-xs)", color: "var(--ink-muted)" }}
-        >
+        <a href="mailto:hello@meridian.dev" className="type-label">
           or email hello@meridian.dev
         </a>
       </div>
@@ -61,24 +51,10 @@ export function CalendlyEmbed() {
   }
 
   return (
-    <div style={{ minHeight: 660 }}>
+    <div style={{ minHeight: EMBED_HEIGHT }}>
       {!loaded && (
-        <div
-          style={{
-            height: 660,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: "1px solid var(--border)",
-          }}
-        >
-          <p
-            style={{
-              fontFamily: "var(--sans)",
-              fontSize: "var(--fs-sm)",
-              color: "var(--ink-muted)",
-            }}
-          >
+        <div className="flex items-center justify-center border border-[var(--border)]" style={{ height: EMBED_HEIGHT }}>
+          <p className="type-body-sm text-[color:var(--ink-muted)]">
             Loading scheduler&hellip;
           </p>
         </div>
@@ -86,7 +62,7 @@ export function CalendlyEmbed() {
       <div
         className="calendly-inline-widget"
         data-url={siteConfig.calendlyUrl}
-        style={{ minWidth: 320, height: 660, display: loaded ? "block" : "none" }}
+        style={{ minWidth: 320, height: EMBED_HEIGHT, display: loaded ? "block" : "none" }}
       />
     </div>
   );
