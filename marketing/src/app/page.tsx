@@ -154,11 +154,7 @@ export default function HomePage() {
             </div>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-3 reveal-stagger" style={{ gap: "var(--sp-4)" }}>
-            {[
-              { phase: "Day 1", title: "Your first process map", desc: "Not a POC. Not a workshop. The real thing, from your real data. See the rework loops, the bottlenecks, the workarounds nobody talks about." },
-              { phase: "Week 1", title: "Every ops lead has a dashboard", desc: "No more waiting on analysts. No more stale PowerPoints passed around in email. Live data, always current." },
-              { phase: "Month 1", title: "Processes that improve themselves", desc: "Conformance monitoring catches drift. Predictions flag SLA breaches before they happen. Alerts trigger action automatically." },
-            ].map((t) => (
+            {speedPhases.map((t) => (
               <Reveal key={t.phase}>
                 <div className="card-feature" style={{ padding: "var(--sp-5)", height: "100%" }}>
                   <span className="type-label" style={{ color: "var(--emerald)" }}>{t.phase}</span>
