@@ -84,3 +84,115 @@
 .illustration-frame-lg { max-width: 680px; margin: 0 auto; border: 1px solid var(--border); padding: var(--sp-4); background: var(--bg); }
 /* mt-3 through mt-7 are now handled by @theme --spacing-* overrides in theme.css */
 .text-mid { color: var(--ink-mid); }
+
+/* ═══════════════════════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════════════════════ */
+.nav-header {
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-nav);
+}
+.nav-brand {
+  font-family: var(--sans);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  letter-spacing: -.03em;
+  color: var(--ink-dark);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-brand--light { color: var(--white); }
+
+/* ═══════════════════════════════════════════════════════════════
+   TABS — PlatformTabs, BlogFilterTabs, future tabs
+═══════════════════════════════════════════════════════════════ */
+.tab-button {
+  flex: 1;
+  padding: var(--sp-4) var(--sp-3);
+  font-family: var(--sans);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: color var(--t-std), border-color var(--t-std);
+}
+.tab-button:hover { color: var(--ink); }
+.tab-button--active {
+  border-bottom-color: var(--emerald);
+  color: var(--ink);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SHARE BUTTONS
+═══════════════════════════════════════════════════════════════ */
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--sans);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--border-mid);
+  color: var(--ink-muted);
+  background: transparent;
+  border-radius: 0;
+  cursor: pointer;
+  transition: border-color var(--t-fast), color var(--t-fast);
+}
+.share-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ═══════════════════════════════════════════════════════════════
+   TABLE OF CONTENTS
+═══════════════════════════════════════════════════════════════ */
+.toc-button {
+  font-family: var(--sans);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.toc-link {
+  display: block;
+  font-family: var(--body);
+  font-size: var(--fs-sm);
+  font-weight: 260;
+  color: var(--ink-faint);
+  text-decoration: none;
+  transition: color var(--t-fast);
+}
+.toc-link:hover { color: var(--ink); }
+.toc-link--active {
+  font-weight: 500;
+  color: var(--ink);
+  border-left: 2px solid var(--emerald);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════════════════════ */
+.stat-value {
+  font-family: var(--sans);
+  font-size: var(--fs-2xl);
+  font-weight: 300;
+  color: var(--ink-dark);
+}
+.stat-label {
+  font-family: var(--sans);
+  font-size: var(--fs-xs);
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: var(--sp-2);
+}
