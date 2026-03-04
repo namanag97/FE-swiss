@@ -48,8 +48,8 @@ export default function PlatformPage() {
       {/* Cross-links */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: 'var(--sp-6)', paddingBottom: 'var(--sp-6)' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--sp-4)' }}>
+        <div className="gi py-[var(--sp-6)]">
+          <div className="grid grid-cols-2 gap-[var(--sp-4)]">
             <Link href="/use-cases" className="link-card">
               <p className="nav-link-label">Use Cases</p>
               <p className="nav-link-text">See real workflows &rarr;</p>
