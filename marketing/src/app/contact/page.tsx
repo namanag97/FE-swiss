@@ -48,7 +48,7 @@ export default function ContactPage() {
               <p className="type-label mb-[var(--sp-3)]">
                 What to expect
               </p>
-              <p className="text-[length:var(--fs-sm)] text-mid leading-[1.6]" style={{ fontFamily: 'var(--body)' }}>
+              <p className="type-body-sm text-mid">
                 Tell us what systems you run (SAP, Oracle, ServiceNow, etc.) and
                 which processes matter most to you. We&apos;ll walk you through how
                 Meridian maps them — and what it finds.
