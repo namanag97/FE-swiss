@@ -1,9 +1,11 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { CtaBand } from "@/components/layout/CtaBand";
 import { PageHero } from "@/components/layout/PageHero";
 import { FeatureRow } from "@/components/layout/FeatureRow";
 import { DiscoverySvg, ConformanceSvg, AnalyticsSvg, AiInsightsSvg } from "@/components/illustrations";
+import { platformFeatures } from "@/data/platform";
 
 export const metadata: Metadata = {
   title: "Platform — Process Discovery, Conformance & AI Insights",
@@ -11,6 +13,13 @@ export const metadata: Metadata = {
     "From raw event logs to automated action. Process discovery, conformance checking, visual analytics, and AI-powered insights in one platform.",
   alternates: { canonical: "/platform" },
   openGraph: { images: ["/og.png"] },
+};
+
+const illustrations: Record<string, ReactNode> = {
+  "01 Discover": <DiscoverySvg />,
+  "02 Diagnose": <ConformanceSvg />,
+  "03 Analyze": <AnalyticsSvg />,
+  "04 Transform": <AiInsightsSvg />,
 };
 
 export default function PlatformPage() {
@@ -23,47 +32,18 @@ export default function PlatformPage() {
         description="Four modules. One platform. Connect your systems, see how work actually flows, find what's broken, fix it — before it costs you."
       />
 
-      {/* Feature 1: Process Discovery */}
-      <FeatureRow
-        eyebrow="01 Discover"
-        title={<>Process <em>Discovery</em></>}
-        tagline="You've never actually seen your own process. Now you will."
-        description="Automatically reconstruct process models from event log data. No interviews, no workshops, no Post-it walls — just what actually happens in your systems."
-        items={["Alpha & Heuristic miners", "Multi-source log correlation", "Variant detection & clustering", "Interactive process maps"]}
-        illustration={<DiscoverySvg />}
-      />
-
-      {/* Feature 2: Conformance Checking */}
-      <FeatureRow
-        eyebrow="02 Diagnose"
-        title={<>Conformance <em>Checking</em></>}
-        tagline="Here's what should happen. Here's what actually happens. Here's what it costs you."
-        description="Overlay your ideal process against reality. Instantly see where execution deviates from design — and measure the cost of each deviation."
-        items={["Token-based replay analysis", "Deviation classification", "Cost-per-deviation metrics", "Root cause drill-down"]}
-        illustration={<ConformanceSvg />}
-        reverse
-      />
-
-      {/* Feature 3: Visual Analytics */}
-      <FeatureRow
-        eyebrow="03 Analyze"
-        title={<>Visual <em>Analytics</em></>}
-        tagline="Click a spike. Land on the exact variant that caused it."
-        description="Dashboards built for process data. KPI tracking, variant distribution, SLA monitoring — all connected to the process layer beneath. Not just charts. Charts that know what happened underneath."
-        items={["Process-aware KPI dashboards", "Variant frequency distribution", "SLA monitoring & alerting", "Throughput time analysis"]}
-        illustration={<AnalyticsSvg />}
-      />
-
-      {/* Feature 4: AI Insights */}
-      <FeatureRow
-        eyebrow="04 Transform"
-        title={<>AI-Powered <em>Insights</em></>}
-        tagline="It doesn't just find the problem. It tells you what to do about it."
-        description="LLMs that understand process patterns. Predict bottlenecks before they happen, detect anomalies, and recommend actions — in plain language, not query syntax."
-        items={["Predictive SLA monitoring", "Anomaly detection", "Root cause analysis", "Automated recommendations"]}
-        illustration={<AiInsightsSvg />}
-        reverse
-      />
+      {platformFeatures.map((f) => (
+        <FeatureRow
+          key={f.eyebrow}
+          eyebrow={f.eyebrow}
+          title={<>{f.title} <em>{f.titleEm}</em></>}
+          tagline={f.tagline}
+          description={f.description}
+          items={f.items}
+          illustration={illustrations[f.eyebrow]}
+          reverse={f.reverse}
+        />
+      ))}
 
       {/* Cross-links */}
       <section className="gr">
