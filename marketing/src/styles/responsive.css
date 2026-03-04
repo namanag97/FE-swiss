@@ -1,0 +1,100 @@
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — feature grids & mobile overrides
+═══════════════════════════════════════════════════════════════ */
+.feature-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-6);
+  align-items: center;
+}
+/* About page: 2-col split */
+.about-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-6);
+  align-items: start;
+}
+/* About page: 2-col value cards */
+.about-values-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-4);
+}
+/* About page: timeline */
+.about-timeline-row {
+  display: grid;
+  grid-template-columns: 80px 1px 1fr;
+  gap: var(--sp-4);
+}
+
+/* Contact / Demo split layout */
+.contact-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-7);
+  align-items: start;
+}
+
+/* Security page: 3-col feature grid */
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+}
+/* Security page: 3-col stats */
+.security-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-5);
+}
+
+/* Legal pages: sidebar ToC + content */
+.legal-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--sp-6);
+}
+.legal-toc a:hover {
+  color: var(--ink) !important;
+}
+
+@media (max-width: 768px) {
+  .feature-row {
+    grid-template-columns: 1fr;
+    gap: var(--sp-5);
+  }
+  .feature-row--reverse > :first-child {
+    order: 2;
+  }
+  .feature-row--reverse > :last-child {
+    order: 1;
+  }
+  .type-display {
+    font-size: clamp(32px, 8vw, 48px);
+  }
+  .about-split {
+    grid-template-columns: 1fr;
+    gap: var(--sp-5);
+  }
+  .about-values-grid {
+    grid-template-columns: 1fr;
+  }
+  .contact-split {
+    grid-template-columns: 1fr;
+    gap: var(--sp-5);
+  }
+  .security-grid {
+    grid-template-columns: 1fr;
+  }
+  .security-stats {
+    grid-template-columns: 1fr;
+    gap: var(--sp-4);
+  }
+  .legal-layout {
+    grid-template-columns: 1fr;
+    gap: var(--sp-4);
+  }
+  .legal-toc {
+    position: static !important;
+  }
+}
