@@ -101,7 +101,7 @@ export default function HomePage() {
             Works with the systems you already run
           </p>
           <div style={{ display: "flex", justifyContent: "center", gap: "var(--sp-3)", flexWrap: "wrap", alignItems: "center" }}>
-            {["SAP", "Oracle", "ServiceNow", "Salesforce", "Jira", "Postgres", "Snowflake", "BigQuery"].map((name) => (
+            {connectors.map((name) => (
               <span key={name} style={{
                 fontFamily: "var(--sans)", fontSize: "var(--fs-xs)", color: "var(--ink-faint)",
                 letterSpacing: "0.06em", textTransform: "uppercase",
