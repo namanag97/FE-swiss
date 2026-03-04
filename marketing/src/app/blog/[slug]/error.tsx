@@ -12,52 +12,24 @@ export default function BlogPostError({
 }) {
   return (
     <article className="gr">
-      <Container size="wide" style={{ padding: "var(--sp-7) var(--sp-5)" }}>
-        <div style={{ textAlign: "center", padding: "var(--sp-7) 0" }}>
-          <p
-            style={{
-              fontSize: "var(--fs-3xl)",
-              color: "var(--border-nav)",
-              fontFamily: "var(--sans)",
-              fontWeight: 200,
-            }}
-          >
+      <Container size="wide" className="section-pad">
+        <div className="text-center py-[var(--sp-7)]">
+          <p className="font-[var(--sans)] text-[var(--fs-3xl)] text-[var(--border-nav)] font-extralight">
             Error
           </p>
-          <h1 className="type-h3" style={{ marginTop: "var(--sp-3)" }}>
+          <h1 className="type-h3 mt-3">
             Failed to load this post
           </h1>
-          <p
-            className="type-body"
-            style={{
-              marginTop: "var(--sp-3)",
-              color: "var(--ink-mid)",
-            }}
-          >
+          <p className="type-body mt-3 text-mid">
             Something went wrong while rendering this article. Please try again.
           </p>
-          <div
-            style={{
-              display: "flex",
-              gap: "var(--sp-3)",
-              justifyContent: "center",
-              marginTop: "var(--sp-5)",
-            }}
-          >
-            <button
-              onClick={reset}
-              className="btn btn-primary"
-              style={{ display: "inline-flex", alignItems: "center", gap: "var(--sp-2)" }}
-            >
-              <RotateCcw style={{ width: 12, height: 12 }} />
+          <div className="flex gap-[var(--sp-3)] justify-center mt-5">
+            <button onClick={reset} className="btn btn-primary">
+              <RotateCcw className="w-3 h-3" />
               Try again
             </button>
-            <Link
-              href="/blog"
-              className="btn btn-ghost"
-              style={{ display: "inline-flex", alignItems: "center", gap: "var(--sp-2)" }}
-            >
-              <ArrowLeft style={{ width: 12, height: 12 }} />
+            <Link href="/blog" className="btn btn-ghost">
+              <ArrowLeft className="w-3 h-3" />
               All posts
             </Link>
           </div>
