@@ -51,6 +51,7 @@
   text-transform: uppercase;
   color: var(--ink-faint);
   padding: var(--sp-3) var(--sp-4);
+  min-height: 44px;
   border: none;
   border-bottom: 2px solid transparent;
   background: none;
