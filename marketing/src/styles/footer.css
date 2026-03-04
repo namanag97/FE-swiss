@@ -33,3 +33,35 @@
   transition: color var(--t-fast);
 }
 .footer-social:hover { color: rgba(255,255,255,.5); }
+.footer-heading {
+  font-family: var(--sans);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: var(--footer-text-muted);
+}
+.footer-desc {
+  font-family: var(--body);
+  font-size: var(--fs-xs);
+  font-weight: 350;
+  line-height: 1.5;
+  color: var(--footer-text-muted);
+}
+.footer-subtitle {
+  font-family: var(--sans);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  letter-spacing: -.01em;
+  color: var(--footer-text);
+}
+.footer-copyright {
+  font-family: var(--sans);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  letter-spacing: .04em;
+  color: var(--footer-text-dim);
+}
+.footer-divider {
+  border-bottom: 1px solid var(--footer-border);
+}
