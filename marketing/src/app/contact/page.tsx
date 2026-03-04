@@ -36,7 +36,7 @@ export default function ContactPage() {
                     <Icon className="w-3.5 h-3.5 text-[color:var(--ink-muted)]" />
                   </div>
                   <div>
-                    <p className="font-[var(--sans)] text-[var(--fs-sm)] font-medium text-[color:var(--ink)]">{title}</p>
+                    <p className="font-[var(--sans)] text-[length:var(--fs-sm)] font-medium text-[color:var(--ink)]">{title}</p>
                     <p className="font-[var(--sans)] text-[var(--fs-xs)] text-[color:var(--ink-muted)]">{desc}</p>
                   </div>
                 </div>
@@ -48,7 +48,7 @@ export default function ContactPage() {
               <p className="type-label mb-[var(--sp-3)]">
                 What to expect
               </p>
-              <p className="text-[var(--fs-sm)] text-mid leading-[1.6]" style={{ fontFamily: 'var(--body)' }}>
+              <p className="text-[length:var(--fs-sm)] text-mid leading-[1.6]" style={{ fontFamily: 'var(--body)' }}>
                 Tell us what systems you run (SAP, Oracle, ServiceNow, etc.) and
                 which processes matter most to you. We&apos;ll walk you through how
                 Meridian maps them — and what it finds.
