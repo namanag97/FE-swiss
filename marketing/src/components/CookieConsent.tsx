@@ -37,20 +37,13 @@ export function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <div
-      className="fixed bottom-0 left-0 right-0 z-50"
-      style={{
-        borderTop: '1px solid var(--border)',
-        background: 'var(--bg)',
-        padding: 'var(--sp-4)',
-      }}
-    >
+    <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-[var(--border)] bg-[var(--bg)] p-[var(--sp-4)]">
       <div className="mx-auto flex max-w-[1400px] flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p style={{ fontFamily: 'var(--body)', fontSize: 'var(--fs-sm)', fontWeight: 350, color: 'var(--ink-muted)' }}>
+        <p className="type-body-sm">
           We use cookies to improve your experience. By continuing, you agree to our{" "}
-          <a href="/legal/privacy" style={{ color: 'var(--emerald)', textDecoration: 'underline', textUnderlineOffset: 2 }}>privacy policy</a>.
+          <a href="/legal/privacy" className="text-[color:var(--emerald)] underline underline-offset-2">privacy policy</a>.
         </p>
-        <div className="flex" style={{ gap: 'var(--sp-2)' }}>
+        <div className="flex gap-[var(--sp-2)]">
           <button onClick={decline} className="btn btn-ghost">Decline</button>
           <button onClick={accept} className="btn btn-primary">Accept</button>
         </div>
