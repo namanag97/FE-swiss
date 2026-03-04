@@ -14,30 +14,19 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
       await navigator.clipboard.writeText(url);
       setCopied(true);
     } catch {
-      // Fallback: prompt user to copy manually
       window.prompt("Copy this link:", url);
     }
     setTimeout(() => setCopied(false), 2000);
   }
 
   return (
-    <div className="flex items-center" style={{ gap: 'var(--sp-3)' }}>
+    <div className="flex items-center gap-[var(--sp-3)]">
       <span className="type-label">Share</span>
       <a
         href={twitterUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="transition-colors"
-        style={{
-          fontFamily: 'var(--sans)',
-          fontSize: 'var(--fs-xs)',
-          fontWeight: 400,
-          letterSpacing: '.06em',
-          textTransform: 'uppercase',
-          padding: 'var(--sp-2) var(--sp-3)',
-          border: '1px solid var(--border-mid)',
-          color: 'var(--ink-muted)',
-        }}
+        className="share-btn"
       >
         X / Twitter
       </a>
@@ -45,38 +34,12 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
         href={linkedinUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="transition-colors"
-        style={{
-          fontFamily: 'var(--sans)',
-          fontSize: 'var(--fs-xs)',
-          fontWeight: 400,
-          letterSpacing: '.06em',
-          textTransform: 'uppercase',
-          padding: 'var(--sp-2) var(--sp-3)',
-          border: '1px solid var(--border-mid)',
-          color: 'var(--ink-muted)',
-        }}
+        className="share-btn"
       >
         LinkedIn
       </a>
-      <button
-        onClick={copyLink}
-        className="inline-flex items-center gap-1.5 transition-colors"
-        style={{
-          fontFamily: 'var(--sans)',
-          fontSize: 'var(--fs-xs)',
-          fontWeight: 400,
-          letterSpacing: '.06em',
-          textTransform: 'uppercase',
-          padding: 'var(--sp-2) var(--sp-3)',
-          border: '1px solid var(--border-mid)',
-          color: 'var(--ink-muted)',
-          cursor: 'pointer',
-          background: 'transparent',
-          borderRadius: 0,
-        }}
-      >
-        {copied ? <Check style={{ width: 12, height: 12 }} /> : <Link2 style={{ width: 12, height: 12 }} />}
+      <button onClick={copyLink} className="share-btn">
+        {copied ? <Check className="w-3 h-3" /> : <Link2 className="w-3 h-3" />}
         {copied ? "Copied" : "Copy link"}
       </button>
     </div>
