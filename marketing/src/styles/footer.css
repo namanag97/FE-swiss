@@ -21,10 +21,10 @@
   font-size: var(--fs-sm);
   font-weight: 350;
   letter-spacing: -.01em;
-  color: rgba(255,255,255,.55);
+  color: rgba(255,255,255,.72);
   transition: color var(--t-fast);
 }
-.footer-link:hover { color: rgba(255,255,255,.9); }
+.footer-link:hover { color: rgba(255,255,255,.95); }
 .footer-social {
   font-family: var(--sans);
   font-size: var(--fs-xs);
