@@ -54,7 +54,7 @@ function FeatureContent({ eyebrow, title, tagline, description, items, children 
         <ul className="mt-4 list-none p-0 flex flex-col gap-[var(--sp-2)]">
           {items.map((item) => (
             <li key={item} className="text-[length:var(--fs-sm)] text-mid pl-[var(--sp-4)] relative" style={{ fontFamily: "var(--body)" }}>
-              <span className="absolute left-0 text-[var(--emerald)]">&rarr;</span>
+              <span className="absolute left-0 text-[color:var(--emerald)]">&rarr;</span>
               {item}
             </li>
           ))}
