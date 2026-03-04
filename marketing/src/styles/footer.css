@@ -29,10 +29,10 @@
   font-family: var(--sans);
   font-size: var(--fs-xs);
   font-weight: 400;
-  color: rgba(255,255,255,.2);
+  color: rgba(255,255,255,.45);
   transition: color var(--t-fast);
 }
-.footer-social:hover { color: rgba(255,255,255,.5); }
+.footer-social:hover { color: rgba(255,255,255,.8); }
 .footer-heading {
   font-family: var(--sans);
   font-size: var(--fs-xs);
