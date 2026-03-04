@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { CtaBand } from "@/components/layout/CtaBand";
 import { PageHero } from "@/components/layout/PageHero";
 import { ProcessComparisonSvg, ArchitectureSvg } from "@/components/illustrations";
+import { beliefs, timeline } from "@/data/about";
 
 export const metadata: Metadata = {
   title: "About — Why We're Building Meridian",
@@ -80,12 +81,7 @@ export default function AboutPage() {
             <h2 className="type-h2 mt-3">What we <em>believe</em></h2>
           </div>
           <div className="about-values-grid">
-            {[
-              { title: "Show reality, not comfort", desc: "We show what the data says, not what you want to hear. The first step to fixing a process is admitting what it actually looks like." },
-              { title: "Fast or useless", desc: "Insights that take weeks to produce arrive too late. If you can't query a million events in under a second, you've already lost the feedback loop." },
-              { title: "Complexity is the enemy", desc: "The best tools make complex things simple. If you need a consultant to use it, it's not a product — it's a project." },
-              { title: "Craft matters", desc: "Software should be well-made. Clean interfaces, precise algorithms, thoughtful defaults. The details are the product." },
-            ].map((v) => (
+            {beliefs.map((v) => (
               <div key={v.title} className="card-feature" style={{ padding: "var(--sp-5)" }}>
                 <h3 className="type-h3">{v.title}</h3>
                 <p className="type-body mt-3 text-mid">{v.desc}</p>
@@ -104,13 +100,8 @@ export default function AboutPage() {
             <h2 className="type-h2 mt-3">Building in <em>the open</em></h2>
           </div>
           <div style={{ maxWidth: 560, margin: "0 auto" }}>
-            {[
-              { year: "2024", event: "Founded. First process mining prototype on a columnar event store." },
-              { year: "2025", event: "Core platform: process discovery, conformance checking, visual analytics." },
-              { year: "2026", event: "Early access. AI-powered predictions. First design partners." },
-              { year: "Next", event: "General availability. Closed-loop optimization from insight to action." },
-            ].map((t, i) => (
-              <div key={t.year} className="about-timeline-row" style={{ paddingBottom: i < 3 ? "var(--sp-5)" : 0 }}>
+            {timeline.map((t, i) => (
+              <div key={t.year} className="about-timeline-row" style={{ paddingBottom: i < timeline.length - 1 ? "var(--sp-5)" : 0 }}>
                 <span style={{ fontFamily: "var(--sans)", fontSize: "var(--fs-sm)", color: "var(--emerald)", textAlign: "right", fontWeight: 500 }}>
                   {t.year}
                 </span>
