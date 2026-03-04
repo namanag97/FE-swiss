@@ -74,7 +74,7 @@ export default function SecurityPage() {
       {/* Security Features Grid */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
+        <div className="gi section-pad">
           <div className="security-grid">
             {[
               { icon: Shield, title: "SOC 2 Type II", desc: "Annual audits by independent assessors. Controls verified for security, availability, and confidentiality." },
