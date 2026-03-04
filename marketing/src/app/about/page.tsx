@@ -118,10 +118,10 @@ export default function AboutPage() {
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi py-[var(--sp-6)] flex justify-center gap-[var(--sp-4)]">
-          <Link href="/platform" className="link-card nav-link-label inline-block py-[var(--sp-3)] px-[var(--sp-5)]">
+          <Link href="/platform" className="inline-block py-[var(--sp-3)] px-[var(--sp-5)] border border-[var(--border)] nav-link-label no-underline hover:border-[var(--border-mid)]">
             See the platform &rarr;
           </Link>
-          <Link href="/security" className="link-card nav-link-label inline-block py-[var(--sp-3)] px-[var(--sp-5)]">
+          <Link href="/security" className="inline-block py-[var(--sp-3)] px-[var(--sp-5)] border border-[var(--border)] nav-link-label no-underline hover:border-[var(--border-mid)]">
             Security &amp; compliance &rarr;
           </Link>
         </div>
