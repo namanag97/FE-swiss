@@ -1,0 +1,28 @@
+/* ═══════════════════════════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════════════════════════ */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  font-family: var(--body);
+  font-weight: 380;
+  color: var(--ink);
+  background-color: var(--bg);
+}
+::selection {
+  background: rgba(4, 122, 85, 0.15);
+  color: var(--ink);
+}
+
+/* Focus visible */
+*:focus-visible {
+  outline: 2px solid var(--ink-dark);
+  outline-offset: 2px;
+}
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible {
+  outline: 2px solid var(--ink-dark);
+  outline-offset: 2px;
+}
