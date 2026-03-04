@@ -88,7 +88,7 @@ export default function AboutPage() {
             ].map((v) => (
               <div key={v.title} className="card-feature" style={{ padding: "var(--sp-5)" }}>
                 <h3 className="type-h3">{v.title}</h3>
-                <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>{v.desc}</p>
+                <p className="type-body mt-3 text-mid">{v.desc}</p>
               </div>
             ))}
           </div>
