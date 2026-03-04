@@ -117,7 +117,7 @@ export default function AboutPage() {
                 <div style={{ background: "var(--border-mid)", position: "relative" }}>
                   <div style={{ width: 7, height: 7, border: "1px solid var(--emerald)", background: "var(--bg)", position: "absolute", top: 4, left: -3 }} />
                 </div>
-                <p className="type-body" style={{ color: "var(--ink-mid)" }}>{t.event}</p>
+                <p className="type-body text-mid">{t.event}</p>
               </div>
             ))}
           </div>
