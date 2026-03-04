@@ -1,0 +1,72 @@
+/* ═══════════════════════════════════════════════════════════════
+   PAGE WAVES — decorative background SVG container
+═══════════════════════════════════════════════════════════════ */
+.page-waves {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  opacity: 0.4;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.page-waves svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ASCII classes retained for landing page only */
+.ascii-art {
+  font-family: 'SF Mono', 'Menlo', 'Consolas', 'DejaVu Sans Mono', monospace;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--ink-muted);
+  white-space: pre;
+  overflow-x: auto;
+  tab-size: 4;
+  font-variant-ligatures: none;
+}
+.ascii-frame {
+  border: 1px solid var(--border);
+  padding: var(--sp-4) var(--sp-5);
+  position: relative;
+}
+.ascii-frame::before,
+.ascii-frame::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--border-mid);
+}
+.ascii-frame::before {
+  top: -1px; left: -1px;
+  border-right: none; border-bottom: none;
+}
+.ascii-frame::after {
+  bottom: -1px; right: -1px;
+  border-left: none; border-top: none;
+}
+.ascii-divider {
+  text-align: center;
+  color: var(--ink-faint);
+  font-family: var(--sans);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.2em;
+  padding: var(--sp-6) 0;
+  user-select: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   OODA LOOP ANIMATION
+═══════════════════════════════════════════════════════════════ */
+@keyframes ooda-progress {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+@keyframes ooda-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
