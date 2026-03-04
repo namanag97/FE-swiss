@@ -1,0 +1,38 @@
+/* ═══════════════════════════════════════════════════════════════
+   FORM ELEMENTS
+═══════════════════════════════════════════════════════════════ */
+.input {
+  font-family: var(--body);
+  font-size: var(--fs-md);
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--border-mid);
+  border-radius: 0;
+  padding: var(--sp-3) var(--sp-4);
+  outline: none;
+  transition: border-color var(--t-std);
+  width: 100%;
+}
+.input::placeholder { color: var(--ink-faint); }
+.input:focus { border-color: var(--ink); }
+select.input {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' fill='none' stroke='%236B7268' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--sp-3) center;
+  padding-right: calc(var(--sp-4) + 16px);
+}
+.input-dark {
+  font-family: var(--body);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  color: rgba(255,255,255,.7);
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 0;
+  padding: var(--sp-2) var(--sp-3);
+  outline: none;
+}
+.input-dark::placeholder { color: rgba(255,255,255,.25); }
