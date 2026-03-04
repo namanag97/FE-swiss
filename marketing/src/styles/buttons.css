@@ -21,7 +21,7 @@
   cursor: pointer;
 }
 .btn-primary {
-  background-color: var(--ink-dark);
+  background-color: var(--ink-mid);
   color: var(--white);
   border: 1px solid transparent;
   background-image: repeating-linear-gradient(
