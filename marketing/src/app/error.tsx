@@ -27,7 +27,7 @@ export default function Error({
         <div className="flex justify-center mb-[var(--sp-5)]">
           <ErrorFlowSvg />
         </div>
-        <p className="font-[var(--sans)] text-[var(--fs-3xl)] text-[var(--border-nav)] font-extralight">
+        <p className="font-[var(--sans)] text-[length:var(--fs-3xl)] text-[color:var(--border-nav)] font-extralight">
           500
         </p>
         <h1 className="type-h3 mt-3">
