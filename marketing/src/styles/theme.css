@@ -2,7 +2,8 @@
   --font-sans: var(--font-geist-mono), 'Geist Mono', monospace;
   --font-body: var(--font-inter), 'Inter', sans-serif;
 
-  /* Design system spacing (overrides Tailwind defaults for steps 4-7) */
+  /* Design system spacing — overrides Tailwind defaults to match --sp-* tokens */
+  --spacing-3: 12px;
   --spacing-4: 18px;
   --spacing-5: 30px;
   --spacing-6: 48px;
