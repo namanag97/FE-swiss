@@ -53,19 +53,19 @@ export default function AboutPage() {
       {/* Our Approach */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-          <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
+        <div className="gi section-pad">
+          <div className="section-center">
             <span className="eyebrow eyebrow-bracket">Our approach</span>
-            <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
+            <h2 className="type-h2 mt-3">
               Algorithms first. <em>Interface second.</em>
             </h2>
-            <p className="type-body" style={{ maxWidth: 560, margin: "0 auto", marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
+            <p className="type-body text-mid" style={{ maxWidth: 560, margin: "0 auto", marginTop: "var(--sp-4)" }}>
               We start with the math — process mining algorithms that reconstruct
               reality from raw event data. Then we build the interface that makes
               it actionable. Not the other way around.
             </p>
           </div>
-          <div style={{ maxWidth: 680, margin: "0 auto", border: "1px solid var(--border)", padding: "var(--sp-4)", background: "var(--bg)" }}>
+          <div className="illustration-frame-lg">
             <ArchitectureSvg />
           </div>
         </div>
