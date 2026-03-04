@@ -191,7 +191,7 @@ export default function HomePage() {
                 <div className="card-feature h-full">
                   <h3 className="type-h3">{uc.title}</h3>
                   <p className="type-body mt-3 text-mid">{uc.desc}</p>
-                  <Link href={`/use-cases${uc.anchor}`} className="type-label text-[var(--emerald)] mt-4 inline-block">
+                  <Link href={`/use-cases${uc.anchor}`} className="type-label text-[color:var(--emerald)] mt-4 inline-block">
                     Learn more &rarr;
                   </Link>
                 </div>
