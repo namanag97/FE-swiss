@@ -65,7 +65,7 @@ export default function SecurityPage() {
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi" style={{ padding: "var(--sp-6) 0" }}>
-          <div style={{ maxWidth: 680, margin: "0 auto", border: "1px solid var(--border)", padding: "var(--sp-4)", background: "var(--bg)" }}>
+          <div className="illustration-frame-lg">
             <SecurityArchSvg />
           </div>
         </div>
