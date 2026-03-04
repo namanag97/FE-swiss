@@ -34,7 +34,7 @@ export function NewsletterForm() {
 
   if (submitted) {
     return (
-      <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', fontWeight: 400, letterSpacing: '.04em', textTransform: 'uppercase', color: 'var(--emerald)', marginTop: 4 }}>
+      <p className="type-label text-[color:var(--emerald)] mt-1">
         Subscribed!
       </p>
     );
@@ -42,39 +42,21 @@ export function NewsletterForm() {
 
   return (
     <div>
-      <form onSubmit={onSubmit} className="flex" style={{ maxWidth: 320, width: "100%" }}>
+      <form onSubmit={onSubmit} className="flex max-w-[320px] w-full">
         <input
           ref={emailRef}
           type="email"
           name="email"
           required
           placeholder="Your email"
-          className="input-dark"
-          style={{ flex: 1, minWidth: 0, borderRight: 'none' }}
+          className="input-dark flex-1 min-w-0 border-r-0"
         />
-        <button
-          type="submit"
-          style={{
-            fontFamily: 'var(--sans)',
-            fontSize: 'var(--fs-xs)',
-            fontWeight: 400,
-            textTransform: 'uppercase',
-            letterSpacing: '.06em',
-            padding: 'var(--sp-2) var(--sp-3)',
-            borderRadius: 0,
-            background: 'rgba(255,255,255,.08)',
-            color: 'rgba(255,255,255,.6)',
-            border: '1px solid rgba(255,255,255,.12)',
-            borderLeft: 'none',
-            cursor: 'pointer',
-            flexShrink: 0,
-          }}
-        >
+        <button type="submit" className="btn btn-dark shrink-0 border-l-0">
           Subscribe
         </button>
       </form>
       {error && (
-        <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', color: '#f87171', marginTop: 4, letterSpacing: '.02em' }}>
+        <p className="type-label text-[color:var(--error)] mt-1">
           {error}
         </p>
       )}
