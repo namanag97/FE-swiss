@@ -74,7 +74,7 @@
 .prose hr { border: none; border-top: 1px solid var(--border); margin: 2.5em 0; }
 
 .prose table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
-.prose th, .prose td { border: 1px solid var(--border); padding: 0.65rem 0.85rem; text-align: left; }
+.prose th, .prose td { border: 1px solid var(--border); padding: 0.75rem 0.85rem; text-align: left; }
 .prose th {
   background: rgba(46,59,54,.04);
   font-family: var(--sans);
