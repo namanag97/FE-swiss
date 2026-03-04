@@ -74,10 +74,10 @@ export default function AboutPage() {
       {/* Beliefs */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-          <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
+        <div className="gi section-pad">
+          <div className="section-center">
             <span className="eyebrow eyebrow-bracket">Beliefs</span>
-            <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>What we <em>believe</em></h2>
+            <h2 className="type-h2 mt-3">What we <em>believe</em></h2>
           </div>
           <div className="about-values-grid">
             {[
