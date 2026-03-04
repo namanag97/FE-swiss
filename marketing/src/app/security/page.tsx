@@ -67,7 +67,7 @@ export default function SecurityPage() {
             { value: "Annual", label: "Penetration tests" },
           ].map((stat) => (
             <div key={stat.label}>
-              <p className="font-[var(--sans)] text-[var(--fs-2xl)] font-light text-[var(--ink-dark)]">{stat.value}</p>
+              <p className="font-[var(--sans)] text-[var(--fs-2xl)] font-light text-[color:var(--ink-dark)]">{stat.value}</p>
               <p className="font-[var(--sans)] text-[var(--fs-xs)] text-[color:var(--ink-muted)] mt-[var(--sp-2)] uppercase tracking-[0.1em]">{stat.label}</p>
             </div>
           ))}
