@@ -69,3 +69,21 @@
 
 /* Dividers */
 .divider-h { width: 100%; height: 1px; background: var(--border); }
+
+/* ═══════════════════════════════════════════════════════════════
+   UTILITY CLASSES — common inline patterns → reusable classes
+═══════════════════════════════════════════════════════════════ */
+.section-pad { padding-top: var(--sp-7); padding-bottom: var(--sp-7); }
+.section-center { text-align: center; margin-bottom: var(--sp-6); }
+.tagline { font-family: var(--caslon); font-style: italic; font-size: var(--fs-md); color: var(--emerald); line-height: 1.5; margin-top: var(--sp-3); }
+.link-card { padding: var(--sp-4); border: 1px solid var(--border); text-decoration: none; color: inherit; display: block; }
+.link-card:hover { border-color: var(--border-mid); }
+.nav-link-label { font-family: var(--sans); font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-muted); }
+.nav-link-text { font-family: var(--sans); font-size: var(--fs-sm); color: var(--ink); margin-top: var(--sp-1); }
+.illustration-frame { border: 1px solid var(--border); padding: var(--sp-3); background: var(--bg); }
+.illustration-frame-lg { max-width: 680px; margin: 0 auto; border: 1px solid var(--border); padding: var(--sp-4); background: var(--bg); }
+.mt-3 { margin-top: var(--sp-3); }
+.mt-4 { margin-top: var(--sp-4); }
+.mt-5 { margin-top: var(--sp-5); }
+.mt-6 { margin-top: var(--sp-6); }
+.text-mid { color: var(--ink-mid); }
