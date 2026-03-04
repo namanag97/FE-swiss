@@ -34,11 +34,11 @@ export default function HomePage() {
       {/* ── Three levels of seeing ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
+        <div className="gi section-pad">
           <Reveal>
-            <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
+            <div className="section-center">
               <span className="eyebrow eyebrow-bracket">The problem</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
+              <h2 className="type-h2 mt-3">
                 Dashboards tell you <em>what.</em><br />
                 We show you <em>why.</em>
               </h2>
