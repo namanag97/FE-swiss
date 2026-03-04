@@ -1,0 +1,11 @@
+export { DiscoverySvg } from "./DiscoverySvg";
+export { ConformanceSvg } from "./ConformanceSvg";
+export { AnalyticsSvg } from "./AnalyticsSvg";
+export { AiInsightsSvg } from "./AiInsightsSvg";
+export { IntroSvg } from "./IntroSvg";
+export { O2cSvg } from "./O2cSvg";
+export { P2pSvg } from "./P2pSvg";
+export { ItsmSvg } from "./ItsmSvg";
+export { PatientSvg } from "./PatientSvg";
+export { ProcessComparisonSvg } from "./ProcessComparisonSvg";
+export { ArchitectureSvg } from "./ArchitectureSvg";
