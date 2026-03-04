@@ -23,8 +23,8 @@ export async function BlogContent({ source }: Props) {
     return <MDXContent />;
   } catch {
     return (
-      <div style={{ padding: "var(--sp-5)", border: "1px solid var(--border)" }}>
-        <p style={{ fontFamily: "var(--sans)", fontSize: "var(--fs-sm)", color: "var(--ink-mid)" }}>
+      <div className="card-feature">
+        <p className="type-body-sm text-mid">
           This post could not be rendered. Please try refreshing the page.
         </p>
       </div>
