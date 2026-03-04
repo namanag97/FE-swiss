@@ -19,15 +19,15 @@ export function CtaBand({
 }: CtaBandProps) {
   return (
     <section className="cta-band">
-      <div className="gi" style={{ textAlign: "center", padding: "var(--sp-7) 0" }}>
-        <h2 className="type-h2" style={{ color: "var(--white)" }}>
+      <div className="gi text-center py-[var(--sp-7)]">
+        <h2 className="type-h2 text-[color:var(--white)]">
           {heading}
         </h2>
-        <p style={{ fontFamily: "var(--body)", color: "rgba(255,255,255,0.7)", maxWidth: 480, margin: "0 auto", marginTop: "var(--sp-4)" }}>
+        <p className="type-body-sm text-[color:rgba(255,255,255,0.7)] max-w-[480px] mx-auto mt-[var(--sp-4)]">
           {description}
         </p>
-        <div style={{ display: "flex", gap: "var(--sp-3)", justifyContent: "center", marginTop: "var(--sp-5)" }}>
-          <Link href={buttonHref} className="btn btn-primary" style={{ background: "var(--white)", color: "var(--ink-dark)", borderColor: "var(--white)" }}>
+        <div className="flex gap-[var(--sp-3)] justify-center mt-[var(--sp-5)]">
+          <Link href={buttonHref} className="btn btn-primary">
             {buttonText}
           </Link>
           {secondaryText && secondaryHref && (
