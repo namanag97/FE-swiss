@@ -81,96 +81,52 @@ export function OODALoop() {
       onMouseLeave={startCycle}
     >
       {/* Phase indicators */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 0, marginBottom: "var(--sp-5)" }}>
+      <div className="flex justify-center mb-[var(--sp-5)]">
         {phases.map((phase, i) => (
-          <div key={phase.key} style={{ display: "flex", alignItems: "center" }}>
+          <div key={phase.key} className="flex items-center">
             {/* Node */}
             <button
               onClick={() => handleClick(i)}
+              className="relative flex flex-col items-center justify-center w-16 h-16 gap-0.5 cursor-pointer transition-all duration-[400ms]"
               style={{
-                width: 64,
-                height: 64,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 2,
                 border: i === active ? "1px solid var(--ink-dark)" : "1px solid var(--border)",
                 background: i === active ? "var(--ink-dark)" : "var(--white)",
-                cursor: "pointer",
-                transition: "all 0.4s ease",
-                position: "relative",
               }}
             >
-              <span style={{
-                fontFamily: "var(--sans)",
-                fontSize: 20,
-                fontWeight: 600,
-                letterSpacing: "0.02em",
-                color: i === active ? "var(--white)" : "var(--ink-faint)",
-                transition: "color 0.4s ease",
-              }}>
+              <span
+                className="font-[var(--sans)] text-[20px] font-semibold tracking-[0.02em] transition-colors duration-[400ms]"
+                style={{ color: i === active ? "var(--white)" : "var(--ink-faint)" }}
+              >
                 {phase.letter}
               </span>
-              <span style={{
-                fontFamily: "var(--sans)",
-                fontSize: 7,
-                fontWeight: 500,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: i === active ? "rgba(255,255,255,0.6)" : "var(--ink-faint)",
-                transition: "color 0.4s ease",
-              }}>
+              <span
+                className="font-[var(--sans)] text-[7px] font-medium tracking-[0.1em] uppercase transition-colors duration-[400ms]"
+                style={{ color: i === active ? "rgba(255,255,255,0.6)" : "var(--ink-faint)" }}
+              >
                 {phase.label}
               </span>
               {/* Progress bar at bottom of active node */}
               {i === active && !paused && (
-                <div style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  height: 2,
-                  background: "var(--emerald)",
-                  animation: `ooda-progress ${CYCLE_MS}ms linear`,
-                }} />
+                <div className="absolute bottom-0 left-0 h-0.5 bg-[var(--emerald)]" style={{ animation: `ooda-progress ${CYCLE_MS}ms linear` }} />
               )}
               {/* Static indicator when paused */}
               {i === active && paused && (
-                <div style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  width: "100%",
-                  height: 2,
-                  background: "var(--emerald)",
-                  opacity: 0.5,
-                }} />
+                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[var(--emerald)] opacity-50" />
               )}
             </button>
             {/* Arrow connector */}
             {i < phases.length - 1 && (
-              <div style={{
-                width: 40,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}>
+              <div className="flex items-center justify-center w-10">
                 <svg width="40" height="12" viewBox="0 0 40 12" fill="none">
-                  <line x1="0" y1="6" x2="32" y2="6" stroke={i < active ? "var(--ink-dark)" : "var(--border)"} strokeWidth="1" style={{ transition: "stroke 0.4s ease" }} />
-                  <polygon points="32,3 38,6 32,9" fill={i < active ? "var(--ink-dark)" : "var(--border)"} style={{ transition: "fill 0.4s ease" }} />
+                  <line x1="0" y1="6" x2="32" y2="6" stroke={i < active ? "var(--ink-dark)" : "var(--border)"} strokeWidth="1" className="transition-[stroke] duration-[400ms]" />
+                  <polygon points="32,3 38,6 32,9" fill={i < active ? "var(--ink-dark)" : "var(--border)"} className="transition-[fill] duration-[400ms]" />
                 </svg>
               </div>
             )}
           </div>
         ))}
         {/* Loop-back arrow */}
-        <div style={{
-          width: 32,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          marginLeft: 4,
-        }}>
+        <div className="flex items-center justify-center w-8 ml-1">
           <svg width="24" height="40" viewBox="0 0 24 40" fill="none">
             <path d="M4 8 C 20 8, 20 32, 4 32" stroke="var(--border-mid)" strokeWidth="1" fill="none" />
             <polygon points="4,28 4,36 8,32" fill="var(--border-mid)" />
@@ -179,32 +135,11 @@ export function OODALoop() {
       </div>
 
       {/* Active phase detail */}
-      <div
-        key={current.key}
-        style={{
-          textAlign: "center",
-          animation: "ooda-fade 0.4s ease",
-          minHeight: 80,
-        }}
-      >
-        <p style={{
-          fontFamily: "var(--body)",
-          fontSize: "var(--fs-md)",
-          fontWeight: 380,
-          lineHeight: 1.6,
-          color: "var(--ink-mid)",
-          maxWidth: 480,
-          margin: "0 auto",
-        }}>
+      <div key={current.key} className="text-center min-h-[80px]" style={{ animation: "ooda-fade 0.4s ease" }}>
+        <p className="type-body text-mid max-w-[480px] mx-auto">
           {current.desc}
         </p>
-        <p style={{
-          fontFamily: "var(--sans)",
-          fontSize: "var(--fs-xs)",
-          letterSpacing: "0.04em",
-          color: "var(--ink-faint)",
-          marginTop: "var(--sp-3)",
-        }}>
+        <p className="type-label mt-[var(--sp-3)]">
           {current.systems}
         </p>
       </div>
