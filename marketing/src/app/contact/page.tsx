@@ -37,7 +37,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="font-[var(--sans)] text-[length:var(--fs-sm)] font-medium text-[color:var(--ink)]">{title}</p>
-                    <p className="font-[var(--sans)] text-[var(--fs-xs)] text-[color:var(--ink-muted)]">{desc}</p>
+                    <p className="font-[var(--sans)] text-[length:var(--fs-xs)] text-[color:var(--ink-muted)]">{desc}</p>
                   </div>
                 </div>
               ))}
