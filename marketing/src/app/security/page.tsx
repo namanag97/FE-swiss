@@ -76,8 +76,8 @@ export default function SecurityPage() {
 
       <section className="gr">
         <div className="gi py-[var(--sp-5)] flex justify-center gap-[var(--sp-5)] flex-wrap">
-          <Link href="/legal/privacy" className="type-label text-[var(--emerald)]">Privacy Policy &rarr;</Link>
-          <Link href="/legal/terms" className="type-label text-[var(--emerald)]">Terms of Service &rarr;</Link>
+          <Link href="/legal/privacy" className="type-label text-[color:var(--emerald)]">Privacy Policy &rarr;</Link>
+          <Link href="/legal/terms" className="type-label text-[color:var(--emerald)]">Terms of Service &rarr;</Link>
         </div>
       </section>
 
