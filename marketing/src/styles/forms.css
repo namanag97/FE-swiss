@@ -15,7 +15,7 @@
   width: 100%;
 }
 .input::placeholder { color: var(--ink-faint); }
-.input:focus { border-color: var(--ink); }
+.input:focus { border-color: var(--ink); transition: border-color var(--t-fast); }
 select.input {
   appearance: none;
   -webkit-appearance: none;
