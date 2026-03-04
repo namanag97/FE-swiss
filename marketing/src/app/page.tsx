@@ -22,11 +22,11 @@ export default function HomePage() {
         description="Connect your ERP, CRM, or ITSM. Get a living map of every process, every bottleneck, every workaround — built automatically from the data you already have."
         maxWidth={540}
       >
-        <div style={{ display: "flex", gap: "var(--sp-3)", justifyContent: "center", marginTop: "var(--sp-6)" }}>
+        <div className="flex justify-center gap-[var(--sp-3)] mt-6">
           <Link href="/contact" className="btn btn-primary">Request early access</Link>
           <Link href="/platform" className="btn btn-ghost">How it works</Link>
         </div>
-        <p style={{ fontFamily: "var(--body)", fontSize: "var(--fs-sm)", color: "var(--ink-faint)", marginTop: "var(--sp-3)", letterSpacing: "-.01em" }}>
+        <p className="text-[var(--fs-sm)] text-[var(--ink-faint)] mt-3 tracking-[-0.01em]" style={{ fontFamily: "var(--body)" }}>
           No credit card &middot; No consultants &middot; First process map in under an hour
         </p>
       </PageHero>
@@ -44,12 +44,12 @@ export default function HomePage() {
               </h2>
             </div>
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 reveal-stagger" style={{ gap: "var(--sp-4)" }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 reveal-stagger gap-[var(--sp-4)]">
             {comparisonCards.map((c) => (
               <Reveal key={c.title}>
-                <div className="card-feature" style={{ padding: "var(--sp-5)", height: "100%" }}>
+                <div className="card-feature h-full">
                   <span className="type-label" style={{ color: c.tone }}>{c.title}</span>
-                  <p style={{ fontFamily: "var(--caslon)", fontSize: "var(--fs-md)", fontStyle: "italic", color: "var(--ink-mid)", lineHeight: 1.6, marginTop: "var(--sp-3)" }}>
+                  <p className="tagline">
                     {c.desc}
                   </p>
                 </div>
@@ -64,15 +64,15 @@ export default function HomePage() {
         <div className="h-rule h-rule--bottom" />
         <div className="gi section-pad">
           <Reveal>
-            <p className="type-label" style={{ textAlign: "center", marginBottom: "var(--sp-4)" }}>Your process on paper</p>
-            <div className="ascii-frame overflow-x-auto" style={{ maxWidth: 500, margin: "0 auto" }}>
-              <pre className="ascii-art" style={{ margin: 0, textAlign: "center" }}>{`Order  ──▶  Approve  ──▶  Invoice  ──▶  Payment`}</pre>
+            <p className="type-label text-center mb-[var(--sp-4)]">Your process on paper</p>
+            <div className="ascii-frame overflow-x-auto max-w-[500px] mx-auto">
+              <pre className="ascii-art m-0 text-center">{`Order  ──▶  Approve  ──▶  Invoice  ──▶  Payment`}</pre>
             </div>
           </Reveal>
           <Reveal>
-            <p className="type-label" style={{ textAlign: "center", marginTop: "var(--sp-6)", marginBottom: "var(--sp-4)" }}>Your process in reality</p>
-            <div className="ascii-frame overflow-x-auto" style={{ maxWidth: 640, margin: "0 auto" }}>
-              <pre className="ascii-art" style={{ margin: 0 }}>{`Order ──▶ Approve ──▶ Reject ──▶ Re-submit ──▶ Approve
+            <p className="type-label text-center mt-6 mb-[var(--sp-4)]">Your process in reality</p>
+            <div className="ascii-frame overflow-x-auto max-w-[640px] mx-auto">
+              <pre className="ascii-art m-0">{`Order ──▶ Approve ──▶ Reject ──▶ Re-submit ──▶ Approve
   │                       │            ▲
   ├──▶ Manual override    │            │
   │                       └── Escalate ┘
@@ -82,11 +82,7 @@ export default function HomePage() {
             </div>
           </Reveal>
           <Reveal>
-            <p style={{
-              fontFamily: "var(--caslon)", fontSize: "var(--fs-lg)", fontStyle: "italic",
-              color: "var(--emerald)", lineHeight: 1.5, textAlign: "center",
-              maxWidth: 440, margin: "0 auto", marginTop: "var(--sp-6)",
-            }}>
+            <p className="tagline text-center max-w-[440px] mx-auto mt-6">
               Meridian shows you the second one. Automatically. From your own data.
             </p>
           </Reveal>
@@ -96,19 +92,13 @@ export default function HomePage() {
       {/* ── Connectors ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ padding: "var(--sp-5) 0" }}>
-          <p className="type-label" style={{ textAlign: "center", marginBottom: "var(--sp-4)" }}>
+        <div className="gi py-[var(--sp-5)]">
+          <p className="type-label text-center mb-[var(--sp-4)]">
             Works with the systems you already run
           </p>
-          <div style={{ display: "flex", justifyContent: "center", gap: "var(--sp-3)", flexWrap: "wrap", alignItems: "center" }}>
+          <div className="flex justify-center gap-[var(--sp-3)] flex-wrap items-center">
             {connectors.map((name) => (
-              <span key={name} style={{
-                fontFamily: "var(--sans)", fontSize: "var(--fs-xs)", color: "var(--ink-faint)",
-                letterSpacing: "0.06em", textTransform: "uppercase",
-                padding: "var(--sp-2) var(--sp-4)",
-                border: "1px solid var(--border)",
-                background: "var(--white)",
-              }}>
+              <span key={name} className="font-[var(--sans)] text-[var(--fs-xs)] text-[var(--ink-faint)] uppercase tracking-[0.06em] py-[var(--sp-2)] px-[var(--sp-4)] border border-[var(--border)] bg-[var(--white)]">
                 {name}
               </span>
             ))}
@@ -121,14 +111,14 @@ export default function HomePage() {
       {/* ── Continuous Intelligence ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
+        <div className="gi section-pad">
           <Reveal>
-            <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
+            <div className="section-center">
               <span className="eyebrow eyebrow-bracket">Continuous</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
+              <h2 className="type-h2 mt-3">
                 It never stops <em>watching</em>
               </h2>
-              <p className="type-body" style={{ maxWidth: 500, margin: "0 auto", marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
+              <p className="type-body mt-3 text-mid max-w-[500px] mx-auto">
                 Meridian doesn&apos;t generate a report and walk away. It observes
                 your processes continuously, detects when something drifts,
                 predicts what breaks next, and recommends what to fix.
@@ -144,22 +134,22 @@ export default function HomePage() {
       {/* ── Speed ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
+        <div className="gi section-pad">
           <Reveal>
-            <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
+            <div className="section-center">
               <span className="eyebrow eyebrow-bracket">Speed</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
+              <h2 className="type-h2 mt-3">
                 Not months. <em>Minutes.</em>
               </h2>
             </div>
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 reveal-stagger" style={{ gap: "var(--sp-4)" }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 reveal-stagger gap-[var(--sp-4)]">
             {speedPhases.map((t) => (
               <Reveal key={t.phase}>
-                <div className="card-feature" style={{ padding: "var(--sp-5)", height: "100%" }}>
-                  <span className="type-label" style={{ color: "var(--emerald)" }}>{t.phase}</span>
-                  <h3 className="type-h3" style={{ marginTop: "var(--sp-2)" }}>{t.title}</h3>
-                  <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>{t.desc}</p>
+                <div className="card-feature h-full">
+                  <span className="type-label text-[var(--emerald)]">{t.phase}</span>
+                  <h3 className="type-h3 mt-[var(--sp-2)]">{t.title}</h3>
+                  <p className="type-body mt-3 text-mid">{t.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -170,10 +160,10 @@ export default function HomePage() {
       {/* ── Platform ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
-          <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
+        <div className="gi section-pad">
+          <div className="section-center">
             <span className="eyebrow eyebrow-bracket">Platform</span>
-            <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
+            <h2 className="type-h2 mt-3">
               From raw data to <em>action</em>
             </h2>
           </div>
@@ -186,22 +176,22 @@ export default function HomePage() {
       {/* ── Use Cases ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
+        <div className="gi section-pad">
           <Reveal>
-            <div style={{ textAlign: "center", marginBottom: "var(--sp-6)" }}>
+            <div className="section-center">
               <span className="eyebrow eyebrow-bracket">Use cases</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
+              <h2 className="type-h2 mt-3">
                 Where it <em>hits</em>
               </h2>
             </div>
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 reveal-stagger" style={{ gap: "var(--sp-4)" }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 reveal-stagger gap-[var(--sp-4)]">
             {useCaseCards.map((uc) => (
               <Reveal key={uc.title}>
-                <div className="card-feature" style={{ padding: "var(--sp-5)", height: "100%" }}>
+                <div className="card-feature h-full">
                   <h3 className="type-h3">{uc.title}</h3>
-                  <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>{uc.desc}</p>
-                  <Link href={`/use-cases${uc.anchor}`} className="type-label" style={{ color: "var(--emerald)", marginTop: "var(--sp-4)", display: "inline-block" }}>
+                  <p className="type-body mt-3 text-mid">{uc.desc}</p>
+                  <Link href={`/use-cases${uc.anchor}`} className="type-label text-[var(--emerald)] mt-4 inline-block">
                     Learn more &rarr;
                   </Link>
                 </div>
