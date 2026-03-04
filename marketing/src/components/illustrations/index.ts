@@ -9,3 +9,6 @@ export { ItsmSvg } from "./ItsmSvg";
 export { PatientSvg } from "./PatientSvg";
 export { ProcessComparisonSvg } from "./ProcessComparisonSvg";
 export { ArchitectureSvg } from "./ArchitectureSvg";
+export { SecurityArchSvg } from "./SecurityArchSvg";
+export { ErrorFlowSvg } from "./ErrorFlowSvg";
+export { NotFoundSvg } from "./NotFoundSvg";
