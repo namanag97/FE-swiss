@@ -45,11 +45,7 @@ export default function HomePage() {
             </div>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-3 reveal-stagger" style={{ gap: "var(--sp-4)" }}>
-            {[
-              { title: "SQL + dashboards", desc: "\"Something is slow. Somewhere. Good luck.\"", tone: "var(--ink-faint)" },
-              { title: "Process mining", desc: "\"Here are 14 paths. Now hire someone to figure out which one matters.\"", tone: "var(--ink-muted)" },
-              { title: "Meridian", desc: "\"Path 7 has a rework loop costing you 11 days. Here\u2019s the fix.\"", tone: "var(--emerald)" },
-            ].map((c) => (
+            {comparisonCards.map((c) => (
               <Reveal key={c.title}>
                 <div className="card-feature" style={{ padding: "var(--sp-5)", height: "100%" }}>
                   <span className="type-label" style={{ color: c.tone }}>{c.title}</span>
