@@ -62,7 +62,7 @@ export default function HomePage() {
       {/* ── The Gap ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
+        <div className="gi section-pad">
           <Reveal>
             <p className="type-label" style={{ textAlign: "center", marginBottom: "var(--sp-4)" }}>Your process on paper</p>
             <div className="ascii-frame overflow-x-auto" style={{ maxWidth: 500, margin: "0 auto" }}>
