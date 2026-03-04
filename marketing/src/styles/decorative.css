@@ -19,7 +19,7 @@
 
 /* ASCII classes retained for landing page only */
 .ascii-art {
-  font-family: 'SF Mono', 'Menlo', 'Consolas', 'DejaVu Sans Mono', monospace;
+  font-family: var(--sans);
   font-size: 13px;
   line-height: 1.35;
   color: var(--ink-muted);
