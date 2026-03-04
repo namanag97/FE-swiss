@@ -2,14 +2,8 @@
    ANNOUNCEMENT BANNER
 ═══════════════════════════════════════════════════════════════ */
 .banner {
-  background-color: var(--emerald);
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent, transparent 3px,
-    rgba(0,0,0,.08) 4px, rgba(0,0,0,.08) 6px
-  );
-  height: 44px;
-  min-height: 44px;
+  background: var(--ink-dark);
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,7 +15,7 @@
   font-weight: 400;
   letter-spacing: .06em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.55);
+  color: rgba(255,255,255,.72);
 }
 .banner-dot {
   width: 3px; height: 3px;
