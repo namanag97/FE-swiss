@@ -60,7 +60,7 @@ export default function AboutPage() {
             <h2 className="type-h2 mt-3">
               Algorithms first. <em>Interface second.</em>
             </h2>
-            <p className="type-body text-mid" style={{ maxWidth: 560, margin: "0 auto", marginTop: "var(--sp-4)" }}>
+            <p className="type-body text-mid max-w-[560px] mx-auto mt-4">
               We start with the math — process mining algorithms that reconstruct
               reality from raw event data. Then we build the interface that makes
               it actionable. Not the other way around.
@@ -82,7 +82,7 @@ export default function AboutPage() {
           </div>
           <div className="about-values-grid">
             {beliefs.map((v) => (
-              <div key={v.title} className="card-feature" style={{ padding: "var(--sp-5)" }}>
+              <div key={v.title} className="card-feature">
                 <h3 className="type-h3">{v.title}</h3>
                 <p className="type-body mt-3 text-mid">{v.desc}</p>
               </div>
@@ -99,14 +99,14 @@ export default function AboutPage() {
             <span className="eyebrow eyebrow-bracket">Timeline</span>
             <h2 className="type-h2 mt-3">Building in <em>the open</em></h2>
           </div>
-          <div style={{ maxWidth: 560, margin: "0 auto" }}>
+          <div className="max-w-[560px] mx-auto">
             {timeline.map((t, i) => (
               <div key={t.year} className="about-timeline-row" style={{ paddingBottom: i < timeline.length - 1 ? "var(--sp-5)" : 0 }}>
-                <span style={{ fontFamily: "var(--sans)", fontSize: "var(--fs-sm)", color: "var(--emerald)", textAlign: "right", fontWeight: 500 }}>
+                <span className="font-[var(--sans)] text-[var(--fs-sm)] text-[var(--emerald)] text-right font-medium">
                   {t.year}
                 </span>
-                <div style={{ background: "var(--border-mid)", position: "relative" }}>
-                  <div style={{ width: 7, height: 7, border: "1px solid var(--emerald)", background: "var(--bg)", position: "absolute", top: 4, left: -3 }} />
+                <div className="bg-[var(--border-mid)] relative">
+                  <div className="w-[7px] h-[7px] border border-[var(--emerald)] bg-[var(--bg)] absolute top-[4px] left-[-3px]" />
                 </div>
                 <p className="type-body text-mid">{t.event}</p>
               </div>
@@ -117,11 +117,11 @@ export default function AboutPage() {
 
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ padding: "var(--sp-6) 0", display: "flex", justifyContent: "center", gap: "var(--sp-4)" }}>
-          <Link href="/platform" style={{ padding: "var(--sp-3) var(--sp-5)", border: "1px solid var(--border)", fontFamily: "var(--sans)", fontSize: "var(--fs-xs)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--ink)", textDecoration: "none" }}>
+        <div className="gi py-[var(--sp-6)] flex justify-center gap-[var(--sp-4)]">
+          <Link href="/platform" className="link-card nav-link-label inline-block py-[var(--sp-3)] px-[var(--sp-5)]">
             See the platform &rarr;
           </Link>
-          <Link href="/security" style={{ padding: "var(--sp-3) var(--sp-5)", border: "1px solid var(--border)", fontFamily: "var(--sans)", fontSize: "var(--fs-xs)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--ink)", textDecoration: "none" }}>
+          <Link href="/security" className="link-card nav-link-label inline-block py-[var(--sp-3)] px-[var(--sp-5)]">
             Security &amp; compliance &rarr;
           </Link>
         </div>
