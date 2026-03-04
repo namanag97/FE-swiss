@@ -37,9 +37,10 @@
   --fs-3xl:  64px;
 
   /* Fonts */
-  --sans:   var(--font-geist-mono), 'Geist Mono', monospace;
-  --body:   var(--font-inter), 'Inter', sans-serif;
-  --caslon: var(--font-caslon), 'Libre Caslon Text', Georgia, serif;
+  --sans:   var(--font-geist-mono), 'GeistMono', monospace;
+  --geist:  var(--font-geist-sans), 'Geist', sans-serif;
+  --body:   var(--font-inter), 'Inter Variable', 'Inter', sans-serif;
+  --caslon: var(--font-caslon), 'LibreCaslon', 'Libre Caslon Text', Georgia, serif;
 
   /* Transitions */
   --t-fast: .15s ease;
