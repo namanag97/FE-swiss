@@ -24,26 +24,26 @@ export default function AboutPage() {
       {/* The Problem */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi" style={{ paddingTop: "var(--sp-7)", paddingBottom: "var(--sp-7)" }}>
+        <div className="gi section-pad">
           <div className="about-split">
             <div>
               <span className="eyebrow eyebrow-bracket">The blind spot</span>
-              <h2 className="type-h2" style={{ marginTop: "var(--sp-3)" }}>
+              <h2 className="type-h2 mt-3">
                 You have a process diagram<br />on the wall. <em>It&apos;s wrong.</em>
               </h2>
-              <p className="type-body" style={{ marginTop: "var(--sp-4)", color: "var(--ink-mid)" }}>
+              <p className="type-body mt-4 text-mid">
                 The gap between how work is designed and how work actually happens
                 is where inefficiency lives — in rework loops nobody mapped,
                 approvals nobody questioned, and bottlenecks nobody can see
                 because nobody is looking at the right data.
               </p>
-              <p className="type-body" style={{ marginTop: "var(--sp-3)", color: "var(--ink-mid)" }}>
+              <p className="type-body mt-3 text-mid">
                 Your BI tools tell you what happened. They can&apos;t tell you
                 how — the sequence of steps, the variants, the deviations.
                 That&apos;s a different kind of data. That&apos;s what we work with.
               </p>
             </div>
-            <div style={{ border: "1px solid var(--border)", padding: "var(--sp-3)", background: "var(--bg)" }}>
+            <div className="illustration-frame">
               <ProcessComparisonSvg />
             </div>
           </div>
