@@ -73,7 +73,7 @@
   font-size: var(--fs-xs);
   font-weight: 400;
   padding: var(--sp-2) var(--sp-3);
-  min-height: auto;
+  min-height: 44px;
 }
 .btn-sm::before, .btn-sm::after { display: none; }
 
