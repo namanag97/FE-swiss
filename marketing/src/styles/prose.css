@@ -34,7 +34,7 @@
   font-family: var(--sans);
   font-size: 0.85em;
   color: var(--ink);
-  background: rgba(46,59,54,.06);
+  background: rgba(46,59,54,.10);
   border: 1px solid var(--border);
   padding: 0.1em 0.35em;
   border-radius: 3px;
