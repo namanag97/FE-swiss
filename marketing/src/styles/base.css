@@ -11,6 +11,9 @@ body {
   font-weight: 380;
   color: var(--ink);
   background-color: var(--bg);
+  background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+  background-size: 8px 8px;
+  background-attachment: fixed;
 }
 ::selection {
   background: rgba(4, 122, 85, 0.15);
