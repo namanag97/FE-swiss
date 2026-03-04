@@ -2,8 +2,14 @@
    ANNOUNCEMENT BANNER
 ═══════════════════════════════════════════════════════════════ */
 .banner {
-  background: var(--ink-dark);
-  height: 36px;
+  background-color: var(--emerald);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent, transparent 3px,
+    rgba(0,0,0,.08) 4px, rgba(0,0,0,.08) 6px
+  );
+  height: 44px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
