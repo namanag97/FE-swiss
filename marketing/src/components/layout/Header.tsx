@@ -25,16 +25,16 @@ export function Header() {
       </div>
 
       {/* Navigation */}
-      <header className="nav-wrap sticky top-0 z-50" style={{ background: 'var(--bg)', borderBottom: '1px solid var(--border-nav)' }}>
-        <nav className="relative mx-auto flex items-center justify-between" style={{ height: 'var(--nav-h)', padding: '0 var(--sp-4)', maxWidth: 'var(--max-w)' }}>
+      <header className="nav-wrap nav-header sticky top-0 z-50">
+        <nav className="relative mx-auto flex items-center justify-between h-[var(--nav-h)] px-[var(--sp-4)] max-w-[var(--max-w)]">
           {/* Left/right vertical rails */}
-          <div className="pointer-events-none absolute left-0 top-0 h-full w-px" style={{ background: 'var(--border)' }} />
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-px" style={{ background: 'var(--border)' }} />
+          <div className="pointer-events-none absolute left-0 top-0 h-full w-px bg-[var(--border)]" />
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-px bg-[var(--border)]" />
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-[6px]" style={{ fontFamily: 'var(--sans)', fontSize: 15, fontWeight: 600, letterSpacing: '-.03em', color: 'var(--ink-dark)' }}>
-            <div className="flex shrink-0 items-center justify-center" style={{ width: 18, height: 18, border: '1.5px solid var(--ink-dark)' }}>
-              <span className="rounded-full" style={{ width: 6, height: 6, background: 'var(--emerald)' }} />
+          <Link href="/" className="nav-brand">
+            <div className="flex shrink-0 items-center justify-center w-[18px] h-[18px] border-[1.5px] border-[var(--ink-dark)]">
+              <span className="rounded-full w-[6px] h-[6px] bg-[var(--emerald)]" />
             </div>
             {siteConfig.name}
           </Link>
@@ -45,34 +45,24 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-1 whitespace-nowrap transition-colors"
-                style={{
-                  fontFamily: 'var(--body)',
-                  fontWeight: 400,
-                  fontSize: 'var(--fs-md)',
-                  color: path === item.href ? 'var(--emerald)' : 'var(--ink)',
-                  padding: '0 var(--sp-4)',
-                  height: 'var(--nav-h)',
-                  letterSpacing: '-.015em',
-                  borderLeft: '1px solid var(--border)',
-                }}
+                className="flex items-center gap-1 whitespace-nowrap transition-colors font-[var(--body)] font-normal text-[length:var(--fs-md)] tracking-[-0.015em] px-[var(--sp-4)] h-[var(--nav-h)] border-l border-[var(--border)]"
+                style={{ color: path === item.href ? 'var(--emerald)' : 'var(--ink)' }}
               >
                 {item.label}
               </Link>
             ))}
             {/* Close the last link border */}
-            <div style={{ borderRight: '1px solid var(--border)', height: 'var(--nav-h)' }} />
+            <div className="border-r border-[var(--border)] h-[var(--nav-h)]" />
           </div>
 
           {/* Actions */}
-          <div className="flex items-center" style={{ gap: 'var(--sp-2)' }}>
+          <div className="flex items-center gap-[var(--sp-2)]">
             <Link href="/contact" data-track="cta-header-early-access" className="btn btn-primary hidden md:inline-flex">
               Get Early Access
             </Link>
             <button
               onClick={() => setOpen(!open)}
-              className="inline-flex h-9 w-9 items-center justify-center md:hidden"
-              style={{ color: 'var(--ink)' }}
+              className="inline-flex h-9 w-9 items-center justify-center text-[color:var(--ink)] md:hidden"
               aria-label="Menu"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -82,18 +72,14 @@ export function Header() {
 
         {/* Mobile menu */}
         {open && (
-          <div className="border-t px-[30px] pb-5 pt-3 md:hidden" style={{ borderColor: 'var(--border)', background: 'var(--bg)' }}>
+          <div className="border-t border-[var(--border)] bg-[var(--bg)] px-[30px] pb-5 pt-3 md:hidden">
             {siteConfig.nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="block py-2.5 transition-colors"
-                style={{
-                  fontFamily: 'var(--body)',
-                  fontSize: 'var(--fs-md)',
-                  color: path === item.href ? 'var(--emerald)' : 'var(--ink)',
-                }}
+                className="block py-2.5 transition-colors font-[var(--body)] text-[length:var(--fs-md)]"
+                style={{ color: path === item.href ? 'var(--emerald)' : 'var(--ink)' }}
               >
                 {item.label}
               </Link>
