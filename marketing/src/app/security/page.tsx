@@ -47,7 +47,7 @@ export default function SecurityPage() {
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="card-feature">
                 <div className="card-icon mb-[var(--sp-3)]">
-                  <Icon className="w-4 h-4 text-[var(--ink-muted)]" />
+                  <Icon className="w-4 h-4 text-[color:var(--ink-muted)]" />
                 </div>
                 <h3 className="type-h3">{title}</h3>
                 <p className="type-body mt-[var(--sp-2)] text-mid">{desc}</p>
@@ -68,7 +68,7 @@ export default function SecurityPage() {
           ].map((stat) => (
             <div key={stat.label}>
               <p className="font-[var(--sans)] text-[var(--fs-2xl)] font-light text-[var(--ink-dark)]">{stat.value}</p>
-              <p className="font-[var(--sans)] text-[var(--fs-xs)] text-[var(--ink-muted)] mt-[var(--sp-2)] uppercase tracking-[0.1em]">{stat.label}</p>
+              <p className="font-[var(--sans)] text-[var(--fs-xs)] text-[color:var(--ink-muted)] mt-[var(--sp-2)] uppercase tracking-[0.1em]">{stat.label}</p>
             </div>
           ))}
         </div>
