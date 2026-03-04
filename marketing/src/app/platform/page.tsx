@@ -70,13 +70,13 @@ export default function PlatformPage() {
         <div className="h-rule h-rule--bottom" />
         <div className="gi" style={{ paddingTop: 'var(--sp-6)', paddingBottom: 'var(--sp-6)' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--sp-4)' }}>
-            <Link href="/use-cases" style={{ padding: 'var(--sp-4)', border: '1px solid var(--border)', textDecoration: 'none', color: 'inherit' }}>
-              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)' }}>Use Cases</p>
-              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', color: 'var(--ink)', marginTop: 'var(--sp-1)' }}>See real workflows &rarr;</p>
+            <Link href="/use-cases" className="link-card">
+              <p className="nav-link-label">Use Cases</p>
+              <p className="nav-link-text">See real workflows &rarr;</p>
             </Link>
-            <Link href="/security" style={{ padding: 'var(--sp-4)', border: '1px solid var(--border)', textDecoration: 'none', color: 'inherit' }}>
-              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)' }}>Security</p>
-              <p style={{ fontFamily: 'var(--sans)', fontSize: 'var(--fs-sm)', color: 'var(--ink)', marginTop: 'var(--sp-1)' }}>Your data stays yours &rarr;</p>
+            <Link href="/security" className="link-card">
+              <p className="nav-link-label">Security</p>
+              <p className="nav-link-text">Your data stays yours &rarr;</p>
             </Link>
           </div>
         </div>
