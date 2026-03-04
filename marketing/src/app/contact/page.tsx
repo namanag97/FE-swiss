@@ -36,8 +36,8 @@ export default function ContactPage() {
                     <Icon className="w-3.5 h-3.5 text-[color:var(--ink-muted)]" />
                   </div>
                   <div>
-                    <p className="font-[var(--sans)] text-[length:var(--fs-sm)] font-medium text-[color:var(--ink)]">{title}</p>
-                    <p className="font-[var(--sans)] text-[length:var(--fs-xs)] text-[color:var(--ink-muted)]">{desc}</p>
+                    <p className="card-title">{title}</p>
+                    <p className="type-label">{desc}</p>
                   </div>
                 </div>
               ))}
