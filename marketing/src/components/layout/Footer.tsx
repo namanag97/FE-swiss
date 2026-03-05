@@ -50,7 +50,7 @@ export function Footer() {
           <p className="footer-copyright">
             &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
-          <div className="flex gap-5">
+          <div className="flex gap-[var(--sp-4)]">
             {Object.entries(siteConfig.links).map(([name, url]) => (
               <a
                 key={name}
