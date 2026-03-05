@@ -82,7 +82,7 @@ export default function HomePage() {
             </div>
           </Reveal>
           <Reveal>
-            <p className="tagline text-center max-w-[440px] mx-auto mt-6">
+            <p className="tagline text-center max-w-[440px] mx-auto mt-[var(--sp-6)]">
               Meridian shows you the second one. Automatically. From your own data.
             </p>
           </Reveal>
