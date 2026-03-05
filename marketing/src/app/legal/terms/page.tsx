@@ -104,8 +104,8 @@ export default function TermsPage() {
         We may suspend or terminate your access if you breach these Terms, if your account is inactive for
         12 consecutive months, or if required by law. Upon termination, your right to use the service
         ceases immediately. We will provide a reasonable period for you to export your data before
-        deletion, unless termination is due to a material breach. Sections relating to data ownership,
-        limitation of liability, and dispute resolution survive termination.
+        deletion, unless termination is due to a material breach. Sections relating to data ownership
+        and limitation of liability survive termination.
       </p>
 
       <h2 id="changes">9. Changes to Terms</h2>
