@@ -98,7 +98,7 @@ export function ProcessMapHero() {
       </div>
 
       {/* Bottom metrics */}
-      <div className="flex items-center justify-between" style={{ borderTop: '1px solid var(--border)', padding: 'var(--sp-2) var(--sp-4)', fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', fontWeight: 400 }}>
+      <div className="flex items-center justify-between flex-wrap gap-[var(--sp-2)]" style={{ borderTop: '1px solid var(--border)', padding: 'var(--sp-2) var(--sp-4)', fontFamily: 'var(--sans)', fontSize: 'var(--fs-xs)', fontWeight: 400 }}>
         <div className="flex" style={{ gap: 'var(--sp-5)' }}>
           <span style={{ color: 'var(--ink-faint)' }}>Cases: <span style={{ fontWeight: 600, color: 'var(--ink)' }}>12,847</span></span>
           <span style={{ color: 'var(--ink-faint)' }}>Variants: <span style={{ fontWeight: 600, color: 'var(--ink)' }}>23</span></span>
