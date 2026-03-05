@@ -46,12 +46,14 @@ export function AnalyticsSvg() {
       })}
 
       {/* Mini sparkline */}
-      <text x={24} y={276} fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.muted} letterSpacing={1}>THROUGHPUT — 30D</text>
+      <text x={24} y={270} fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.muted} letterSpacing={1}>THROUGHPUT — 30D</text>
       <polyline
-        points="24,294 60,290 96,286 132,288 168,282 204,278 240,284 276,276 312,272 348,268 384,274 420,264 456,260 488,256"
+        points="24,294 60,291 96,288 132,289 168,284 204,281 240,285 276,279 312,276 348,273 384,277 420,270 456,267 488,264"
         fill="none"
         stroke={C.green}
         strokeWidth={1.5}
+        strokeLinejoin="round"
+        strokeLinecap="round"
       />
     </svg>
   );
