@@ -117,7 +117,7 @@ export function OODALoop() {
             {/* Arrow connector */}
             {i < phases.length - 1 && (
               <div className="flex items-center justify-center w-10">
-                <svg width="40" height="12" viewBox="0 0 40 12" fill="none">
+                <svg width="40" height="12" viewBox="0 0 40 12" fill="none" aria-hidden="true">
                   <line x1="0" y1="6" x2="32" y2="6" stroke={i < active ? "var(--ink-dark)" : "var(--border)"} strokeWidth="1" className="transition-[stroke] duration-[400ms]" />
                   <polygon points="32,3 38,6 32,9" fill={i < active ? "var(--ink-dark)" : "var(--border)"} className="transition-[fill] duration-[400ms]" />
                 </svg>
