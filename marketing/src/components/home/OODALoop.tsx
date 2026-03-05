@@ -81,7 +81,7 @@ export function OODALoop() {
       onMouseLeave={startCycle}
     >
       {/* Phase indicators */}
-      <div className="flex justify-center mb-[var(--sp-5)]">
+      <div className="flex justify-center mb-[var(--sp-5)] overflow-x-auto">
         {phases.map((phase, i) => (
           <div key={phase.key} className="flex items-center">
             {/* Node */}
