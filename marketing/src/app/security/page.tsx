@@ -60,7 +60,7 @@ export default function SecurityPage() {
       {/* Stats */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi security-stats py-[var(--sp-6)] text-center">
+        <div className="gi security-stats section-pad-sm text-center">
           {[
             { value: "99.9%", label: "Uptime SLA" },
             { value: "You control", label: "Data retention" },
