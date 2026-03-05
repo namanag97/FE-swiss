@@ -70,7 +70,7 @@ export default function HomePage() {
             </div>
           </Reveal>
           <Reveal>
-            <p className="type-label text-center mt-6 mb-[var(--sp-4)]">Your process in reality</p>
+            <p className="type-label text-center mt-[var(--sp-6)] mb-[var(--sp-4)]">Your process in reality</p>
             <div className="ascii-frame overflow-x-auto max-w-[640px] mx-auto">
               <pre className="ascii-art m-0">{`Order ──▶ Approve ──▶ Reject ──▶ Re-submit ──▶ Approve
   │                       │            ▲
