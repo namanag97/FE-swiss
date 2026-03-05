@@ -106,4 +106,8 @@
   .about-values-grid {
     grid-template-columns: 1fr;
   }
+  .about-timeline-row {
+    grid-template-columns: 1fr;
+    gap: var(--sp-2);
+  }
 }
