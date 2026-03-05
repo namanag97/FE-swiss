@@ -63,7 +63,7 @@ export function ProcessMapHero() {
               return (
                 <g key={`${e.from}-${e.to}`}>
                   <path d={`M ${fx} ${fy} C ${fx + 40} ${fy}, ${tx - 40} ${ty}, ${tx} ${ty}`} stroke="var(--border-nav)" strokeWidth="1.5" strokeDasharray="4 3" markerEnd="url(#arrowhead)" />
-                  {e.label && <text x={(fx + tx) / 2 + 15} y={(fy + ty) / 2 - 5} style={{ fontSize: 9, fontWeight: 500 }} fill="#92400e">{e.label}</text>}
+                  {e.label && <text x={(fx + tx) / 2 + 15} y={(fy + ty) / 2 - 5} style={{ fontSize: 9, fontWeight: 500 }} fill="var(--amber-text)">{e.label}</text>}
                 </g>
               );
             }
