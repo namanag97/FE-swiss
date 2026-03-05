@@ -37,7 +37,7 @@ export default function GlobalError({
           <h1 style={{ fontSize: 20, fontWeight: 500, marginTop: 16 }}>
             Something went wrong
           </h1>
-          <p style={{ color: "#7a8f85", marginTop: 8, fontSize: 14 }}>
+          <p style={{ color: "#6B7268", marginTop: 8, fontSize: 14 }}>
             An unexpected error occurred. Please try again.
           </p>
           <div
