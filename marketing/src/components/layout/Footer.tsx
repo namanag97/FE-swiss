@@ -21,7 +21,7 @@ export function Footer() {
   return (
     <footer className="footer">
       <div className="footer-inner">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:[grid-template-columns:1.8fr_repeat(4,1fr)] lg:gap-[64px] pb-[var(--sp-6)] footer-divider">
+        <div className="grid grid-cols-2 gap-[var(--sp-5)] md:grid-cols-3 lg:[grid-template-columns:1.8fr_repeat(4,1fr)] lg:gap-[var(--sp-7)] pb-[var(--sp-6)] footer-divider">
           {/* Brand + newsletter */}
           <div className="col-span-2 md:col-span-3 lg:col-span-1 flex flex-col gap-[var(--sp-4)]">
             <Link href="/" className="nav-brand nav-brand--light">
