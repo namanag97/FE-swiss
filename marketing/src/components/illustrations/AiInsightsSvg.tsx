@@ -20,13 +20,13 @@ export function AiInsightsSvg() {
       <text x={36} y={98} fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.muted} letterSpacing={0.5}>PATTERN</text>
 
       {/* Mini flow inside pattern box */}
-      <SvgNode x={36} y={104} w={64} h={20} label="Review" />
-      <SvgArrow x1={100} y1={114} x2={112} y2={114} />
-      <rect x={112} y={104} width={56} height={20} rx={2} fill={C.amberLight} stroke={C.amber} />
-      <text x={140} y={116} textAnchor="middle" dominantBaseline="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fill={C.amber}>Reject</text>
-      <SvgArrow x1={168} y1={114} x2={180} y2={114} />
-      <SvgNode x={180} y={104} w={64} h={20} label="Review" />
-      <text x={280} y={116} fontSize={10} fontFamily="'Geist Mono', monospace" fill={C.mid}>{"\u00D7"} 3 iterations (avg: 1.1)</text>
+      <SvgNode x={36} y={104} w={58} h={20} label="Review" />
+      <SvgArrow x1={94} y1={114} x2={106} y2={114} />
+      <rect x={106} y={104} width={50} height={20} rx={2} fill={C.amberLight} stroke={C.amber} />
+      <text x={131} y={115} textAnchor="middle" dominantBaseline="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fill={C.amber}>Reject</text>
+      <SvgArrow x1={156} y1={114} x2={168} y2={114} />
+      <SvgNode x={168} y={104} w={58} h={20} label="Review" />
+      <text x={260} y={116} fontSize={10} fontFamily="'Geist Mono', monospace" fill={C.mid}>{"\u00D7"} 3 loops (avg: 1.1)</text>
 
       {/* Prediction box */}
       <rect x={24} y={142} width={472} height={80} rx={2} fill={C.white} stroke={C.green} strokeWidth={1.5} />
