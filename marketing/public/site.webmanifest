@@ -1,6 +1,11 @@
 {
   "name": "Meridian",
   "short_name": "Meridian",
+  "start_url": "/",
+  "display": "browser",
   "theme_color": "#072A20",
-  "background_color": "#FAFBF8"
+  "background_color": "#FAFBF8",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" }
+  ]
 }
