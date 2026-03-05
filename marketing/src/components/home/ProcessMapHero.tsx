@@ -104,7 +104,7 @@ export function ProcessMapHero() {
           <span style={{ color: 'var(--ink-faint)' }}>Variants: <span style={{ fontWeight: 600, color: 'var(--ink)' }}>23</span></span>
           <span style={{ color: 'var(--ink-faint)' }}>Avg Duration: <span style={{ fontWeight: 600, color: 'var(--ink)' }}>4.2 days</span></span>
         </div>
-        <span style={{ color: 'var(--ink-faint)' }}>Bottleneck: <span style={{ fontWeight: 600, color: '#B45309' }}>Manual Review (34%)</span></span>
+        <span style={{ color: 'var(--ink-faint)' }}>Bottleneck: <span style={{ fontWeight: 600, color: 'var(--amber)' }}>Manual Review (34%)</span></span>
       </div>
     </div>
   );
