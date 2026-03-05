@@ -8,8 +8,8 @@ export function AiInsightsSvg() {
       <rect x={8} y={8} width={504} height={304} rx={2} fill={C.white} stroke={C.border} />
 
       {/* Alert header */}
-      <rect x={8} y={8} width={504} height={36} rx={2} fill={C.amberLight} stroke="#f59e0b" strokeWidth={0.5} />
-      <text x={36} y={30} fontSize={11} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill="#92400e">{"\u26A0"} ANOMALY DETECTED</text>
+      <rect x={8} y={8} width={504} height={36} rx={2} fill={C.amberLight} stroke={C.amberBorder} strokeWidth={0.5} />
+      <text x={36} y={30} fontSize={11} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.amberText}>{"\u26A0"} ANOMALY DETECTED</text>
       <text x={480} y={30} textAnchor="end" fontSize={9} fontFamily="'Geist Mono', monospace" fill={C.amber}>CASE #4,821</text>
 
       {/* Case info */}
