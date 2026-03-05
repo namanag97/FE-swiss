@@ -25,7 +25,7 @@ export default function ContactPage() {
               what processes you want to see.
             </p>
 
-            <div className="flex flex-col gap-[var(--sp-4)] mt-6">
+            <div className="flex flex-col gap-[var(--sp-4)] mt-[var(--sp-6)]">
               {[
                 { icon: Mail, title: 'hello@meridian.dev', desc: 'General inquiries' },
                 { icon: Clock, title: '30-minute walkthrough', desc: 'We map your process live on the call' },
