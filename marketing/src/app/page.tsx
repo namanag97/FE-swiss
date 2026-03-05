@@ -10,6 +10,7 @@ import { comparisonCards, connectors, speedPhases, useCaseCards } from "@/data/h
 export const metadata: Metadata = {
   description: "See how your business actually runs. Connect your ERP, CRM, or ITSM — get a living map of every process, bottleneck, and workaround. Built automatically from your data.",
   alternates: { canonical: "/" },
+  openGraph: { images: ["/og.png"] },
 };
 
 export default function HomePage() {
