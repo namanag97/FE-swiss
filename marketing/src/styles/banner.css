@@ -71,10 +71,10 @@
 .cta-band p {
   font-family: var(--body);
   font-size: var(--fs-md);
-  font-weight: 400;
+  font-weight: 260;
   line-height: 1.6;
   letter-spacing: -.015em;
-  color: rgba(255,255,255,.72);
+  color: rgba(255,255,255,.5);
   max-width: 480px;
 }
 .cta-band .btn-primary {
