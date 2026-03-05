@@ -35,7 +35,7 @@ export function NewsletterForm() {
   if (submitted) {
     return (
       <p className="type-label text-[color:var(--emerald)] mt-1">
-        Subscribed!
+        Thanks! We&apos;ll be in touch.
       </p>
     );
   }
