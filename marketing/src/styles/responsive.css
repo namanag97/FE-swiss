@@ -4,8 +4,22 @@
 .feature-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--sp-6);
-  align-items: center;
+  gap: 0;
+  align-items: stretch;
+  border-top: 1px solid var(--border);
+}
+.feature-row > :last-child {
+  border-left: 1px solid var(--border);
+}
+.feature-row--reverse {
+  direction: rtl;
+}
+.feature-row--reverse > * {
+  direction: ltr;
+}
+.feature-row--reverse > :last-child {
+  border-left: none;
+  border-right: 1px solid var(--border);
 }
 /* About page: 2-col split */
 .about-split {
