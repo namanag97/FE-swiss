@@ -4,11 +4,13 @@ interface PageHeroProps {
   description?: string;
   children?: React.ReactNode;
   maxWidth?: number;
+  showDotField?: boolean;
 }
 
-export function PageHero({ eyebrow, heading, description, children, maxWidth = 560 }: PageHeroProps) {
+export function PageHero({ eyebrow, heading, description, children, maxWidth = 560, showDotField = true }: PageHeroProps) {
   return (
-    <section className="gr section-pad">
+    <section className="gr section-pad" style={{ position: 'relative', overflow: 'visible' }}>
+      {showDotField && <div className="dot-field" aria-hidden="true" />}
       <div className="gi text-center">
         <span className="eyebrow eyebrow-bracket">{eyebrow}</span>
         <h1 className="type-display mt-3">
