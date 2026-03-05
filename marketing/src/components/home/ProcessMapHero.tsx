@@ -23,7 +23,7 @@ const nodeMap = Object.fromEntries(nodes.map((n) => [n.id, n]));
 const styles = {
   start: { bg: "var(--bg)", border: "var(--border-mid)", text: "var(--ink-dark)" },
   end: { bg: "var(--bg)", border: "var(--border-mid)", text: "var(--ink-dark)" },
-  warn: { bg: "#fffbeb", border: "#fcd34d", text: "#92400e" },
+  warn: { bg: "var(--amber-bg)", border: "var(--amber-border)", text: "var(--amber-text)" },
   default: { bg: "var(--white)", border: "var(--border-mid)", text: "var(--ink)" },
 } as const;
 
