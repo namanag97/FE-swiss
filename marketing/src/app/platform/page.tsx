@@ -49,7 +49,7 @@ export default function PlatformPage() {
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi section-pad-sm">
-          <div className="grid grid-cols-2 gap-[var(--sp-4)]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[var(--sp-4)]">
             <Link href="/use-cases" className="link-card">
               <p className="nav-link-label">Use Cases</p>
               <p className="nav-link-text">See real workflows &rarr;</p>
