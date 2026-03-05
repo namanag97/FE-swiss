@@ -40,12 +40,16 @@ const nextConfig: NextConfig = {
             value: "camera=(), microphone=(), geolocation=()",
           },
           {
+            key: "X-XSS-Protection",
+            value: "0",
+          },
+          {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.calendly.com https://us.i.posthog.com",
+              "script-src 'self' 'unsafe-inline' https://assets.calendly.com https://us.i.posthog.com",
               "style-src 'self' 'unsafe-inline' https://assets.calendly.com",
-              "img-src 'self' data: https:",
+              "img-src 'self' data:",
               "font-src 'self' data:",
               "frame-src https://calendly.com",
               "connect-src 'self' https://us.i.posthog.com https://calendly.com",
