@@ -77,12 +77,16 @@
   .feature-row {
     grid-template-columns: 1fr;
     gap: var(--sp-5);
+    border-top: none;
   }
+  .feature-row > :last-child { border-left: none; }
+  .feature-row--reverse { direction: ltr; }
   .feature-row--reverse > :first-child {
     order: 2;
   }
   .feature-row--reverse > :last-child {
     order: 1;
+    border-right: none;
   }
   .about-split {
     grid-template-columns: 1fr;
