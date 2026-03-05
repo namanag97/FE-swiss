@@ -15,7 +15,7 @@ export function NotFoundSvg() {
         return (
           <g key={s.label}>
             <rect x={x} y={8} width={96} height={36} rx={2} fill={isFail ? C.amberLight : C.white} stroke={isFail ? C.amber : C.border} strokeWidth={isFail ? 1.5 : 1} />
-            <text x={x + 48} y={30} textAnchor="middle" dominantBaseline="middle" fontSize={11} fontFamily="Inter, system-ui, sans-serif" fontWeight={isFail ? 600 : 400} fill={isFail ? "#b45309" : C.text}>{s.label}</text>
+            <text x={x + 48} y={30} textAnchor="middle" dominantBaseline="middle" fontSize={11} fontFamily="Inter, system-ui, sans-serif" fontWeight={isFail ? 600 : 400} fill={isFail ? C.amber : C.text}>{s.label}</text>
             <text x={x + 48} y={62} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fill={C.faint}>{s.sub}</text>
             {i < 3 && (
               <g>
