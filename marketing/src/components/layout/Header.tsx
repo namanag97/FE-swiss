@@ -72,7 +72,7 @@ export function Header() {
 
         {/* Mobile menu */}
         {open && (
-          <div className="border-t border-[var(--border)] bg-[var(--bg)] px-[30px] pb-5 pt-3 md:hidden">
+          <div className="border-t border-[var(--border)] bg-[var(--bg)] px-[var(--sp-5)] pb-[var(--sp-5)] pt-[var(--sp-3)] md:hidden">
             {siteConfig.nav.map((item) => (
               <Link
                 key={item.href}
