@@ -45,7 +45,7 @@
 .footer-desc {
   font-family: var(--body);
   font-size: var(--fs-xs);
-  font-weight: 400;
+  font-weight: 260;
   line-height: 1.5;
   color: var(--footer-text-muted);
 }
