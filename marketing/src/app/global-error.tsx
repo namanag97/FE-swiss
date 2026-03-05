@@ -28,7 +28,7 @@ export default function GlobalError({
             style={{
               fontSize: 64,
               fontWeight: 200,
-              color: "#dde3e0",
+              color: "#D7DAD7",
               margin: 0,
             }}
           >
