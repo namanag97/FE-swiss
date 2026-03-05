@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Blog — Engineering, Process Mining & Product Updates",
   description: "How we think about process mining, what we're building, and why. Engineering deep-dives, architecture decisions, and perspectives from the Meridian team.",
   alternates: { canonical: "/blog" },
+  openGraph: { images: ["/og.png"] },
 };
 
 export default function BlogPage() {
