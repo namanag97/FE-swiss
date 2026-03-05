@@ -12,7 +12,7 @@ interface CtaBandProps {
 export function CtaBand({
   heading,
   description,
-  buttonText = "Get Early Access",
+  buttonText = "Request early access",
   buttonHref = "/contact",
   secondaryText,
   secondaryHref,
