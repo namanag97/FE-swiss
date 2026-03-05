@@ -34,7 +34,7 @@ export function CookieConsent() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-[var(--border)] bg-[var(--bg)] p-[var(--sp-4)]">
-      <div className="mx-auto flex max-w-[1400px] flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto flex max-w-[1400px] flex-col items-start gap-[var(--sp-3)] sm:flex-row sm:items-center sm:justify-between">
         <p className="type-body-sm">
           We use cookies to improve your experience. By continuing, you agree to our{" "}
           <a href="/legal/privacy" className="text-[color:var(--emerald)] underline underline-offset-2">privacy policy</a>.
