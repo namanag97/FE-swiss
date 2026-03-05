@@ -15,7 +15,7 @@ const widths = {
 
 export function Container({ children, className, size = "wide", style }: ContainerProps) {
   return (
-    <div className={cn("mx-auto px-[30px]", widths[size], className)} style={style}>
+    <div className={cn("mx-auto px-[var(--sp-5)]", widths[size], className)} style={style}>
       {children}
     </div>
   );
