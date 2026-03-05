@@ -22,7 +22,7 @@ export default function HomePage() {
         description="Connect your ERP, CRM, or ITSM. Get a living map of every process, every bottleneck, every workaround — built automatically from the data you already have."
         maxWidth={540}
       >
-        <div className="flex justify-center gap-[var(--sp-3)] mt-6">
+        <div className="flex justify-center gap-[var(--sp-3)] mt-[var(--sp-6)]">
           <Link href="/contact" className="btn btn-primary">Request early access</Link>
           <Link href="/platform" className="btn btn-ghost">How it works</Link>
         </div>
