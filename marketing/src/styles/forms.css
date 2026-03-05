@@ -27,7 +27,7 @@ select.input {
 .input-dark {
   font-family: var(--body);
   font-size: var(--fs-sm);
-  font-weight: 400;
+  font-weight: 260;
   color: rgba(255,255,255,.7);
   background: rgba(255,255,255,.05);
   border: 1px solid rgba(255,255,255,.12);
