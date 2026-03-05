@@ -61,6 +61,8 @@
   --t-slow: .30s ease;
 
   /* Layout */
-  --max-w:  1400px;
-  --nav-h:  48px;
+  --max-w:     1400px;
+  --nav-h:     48px;
+  --banner-h:  36px;
+  --header-h:  calc(var(--nav-h) + var(--banner-h)); /* 84px total */
 }
