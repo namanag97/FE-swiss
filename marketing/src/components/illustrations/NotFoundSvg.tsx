@@ -8,7 +8,7 @@ export function NotFoundSvg() {
     { label: "404", sub: "no match", active: true },
   ];
   return (
-    <svg viewBox="0 0 480 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", maxWidth: 480, height: "auto" }}>
+    <svg viewBox="0 0 480 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="404 flow showing request, route lookup, and no match result" style={{ width: "100%", maxWidth: 480, height: "auto" }}>
       {steps.map((s, i) => {
         const x = i * 120;
         const isFail = i === 3;
