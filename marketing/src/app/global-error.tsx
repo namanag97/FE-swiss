@@ -20,7 +20,7 @@ export default function GlobalError({
           justifyContent: "center",
           fontFamily: "Inter, system-ui, sans-serif",
           backgroundColor: "#FAFBF8",
-          color: "#1a2f28",
+          color: "#2E3B36",
         }}
       >
         <div style={{ textAlign: "center", padding: "2rem" }}>
@@ -73,7 +73,7 @@ export default function GlobalError({
                 textTransform: "uppercase",
                 letterSpacing: "0.06em",
                 background: "transparent",
-                color: "#1a2f28",
+                color: "#2E3B36",
                 border: "1px solid #dde3e0",
                 textDecoration: "none",
               }}
