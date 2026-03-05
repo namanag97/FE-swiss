@@ -44,7 +44,7 @@ export default function ContactPage() {
             </div>
 
             {/* What to expect */}
-            <div className="mt-6 p-[var(--sp-5)] border border-[var(--border)]">
+            <div className="mt-[var(--sp-6)] p-[var(--sp-5)] border border-[var(--border)]">
               <p className="type-label mb-[var(--sp-3)]">
                 What to expect
               </p>
