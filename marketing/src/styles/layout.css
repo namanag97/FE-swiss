@@ -168,7 +168,7 @@
   display: block;
   font-family: var(--body);
   font-size: var(--fs-sm);
-  font-weight: 260;
+  font-weight: 300;
   color: var(--ink-faint);
   text-decoration: none;
   transition: color var(--t-fast);
