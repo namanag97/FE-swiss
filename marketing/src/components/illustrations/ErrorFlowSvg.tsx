@@ -8,7 +8,7 @@ export function ErrorFlowSvg() {
     { label: "Error", sub: "exception", fail: true },
   ];
   return (
-    <svg viewBox="0 0 480 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", maxWidth: 480, height: "auto" }}>
+    <svg viewBox="0 0 480 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Error flow showing request, process, render, and error steps" style={{ width: "100%", maxWidth: 480, height: "auto" }}>
       {steps.map((s, i) => {
         const x = i * 120;
         return (
