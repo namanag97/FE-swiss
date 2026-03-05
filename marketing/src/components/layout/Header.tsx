@@ -78,7 +78,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="block py-2.5 transition-colors font-[var(--body)] text-[length:var(--fs-md)]"
+                className="block py-[var(--sp-3)] transition-colors font-[var(--body)] text-[length:var(--fs-md)]"
                 style={{ color: path === item.href ? 'var(--emerald)' : 'var(--ink)' }}
               >
                 {item.label}
