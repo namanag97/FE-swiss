@@ -25,7 +25,7 @@ export default function SecurityPage() {
       {/* Architecture SVG */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi py-[var(--sp-6)]">
+        <div className="gi section-pad-sm">
           <div className="illustration-frame-lg">
             <SecurityArchSvg />
           </div>
