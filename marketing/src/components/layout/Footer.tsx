@@ -46,7 +46,7 @@ export function Footer() {
         </div>
 
         {/* Bottom copyright */}
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between pt-[var(--sp-5)]">
+        <div className="flex flex-col gap-[var(--sp-4)] md:flex-row md:items-center md:justify-between pt-[var(--sp-5)]">
           <p className="footer-copyright">
             &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
