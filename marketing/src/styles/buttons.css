@@ -6,7 +6,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--sp-2);
   font-family: var(--sans);
   font-size: var(--fs-sm);
   font-weight: 500;
