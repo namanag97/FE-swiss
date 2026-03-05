@@ -17,6 +17,23 @@
   height: 100%;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   DOT FIELD — radial dot grid decoration for hero sections
+═══════════════════════════════════════════════════════════════ */
+.dot-field {
+  position: absolute;
+  width: 200px;
+  height: 160px;
+  background-image: radial-gradient(var(--ink-muted) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+  opacity: 0.25;
+  pointer-events: none;
+  right: 60px;
+  top: 40px;
+  mask-image: radial-gradient(ellipse 80% 80% at 80% 50%, black, transparent);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 80% 50%, black, transparent);
+}
+
 /* ASCII classes retained for landing page only */
 .ascii-art {
   font-family: var(--sans);
