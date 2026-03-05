@@ -127,7 +127,7 @@ export function OODALoop() {
         ))}
         {/* Loop-back arrow */}
         <div className="flex items-center justify-center w-8 ml-1">
-          <svg width="24" height="40" viewBox="0 0 24 40" fill="none">
+          <svg width="24" height="40" viewBox="0 0 24 40" fill="none" aria-hidden="true">
             <path d="M4 8 C 20 8, 20 32, 4 32" stroke="var(--border-mid)" strokeWidth="1" fill="none" />
             <polygon points="4,28 4,36 8,32" fill="var(--border-mid)" />
           </svg>
