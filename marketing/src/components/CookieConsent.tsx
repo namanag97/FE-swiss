@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import posthog from "posthog-js";
+import { initPostHog } from "./PostHogProvider";
 
 function getStorage(key: string): string | null {
   try { return localStorage.getItem(key); } catch { return null; }
