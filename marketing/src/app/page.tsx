@@ -92,7 +92,7 @@ export default function HomePage() {
       {/* ── Connectors ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi py-[var(--sp-5)]">
+        <div className="gi section-pad-sm">
           <p className="type-label text-center mb-[var(--sp-4)]">
             Works with the systems you already run
           </p>
