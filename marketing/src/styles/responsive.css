@@ -102,6 +102,8 @@
     order: 1;
     border-right: none;
   }
+  .feature-text { padding: var(--sp-5) 0; }
+  .feature-visual { min-height: 280px; }
   .about-split {
     grid-template-columns: 1fr;
     gap: var(--sp-5);
