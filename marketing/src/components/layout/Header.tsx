@@ -64,6 +64,7 @@ export function Header() {
               onClick={() => setOpen(!open)}
               className="inline-flex h-9 w-9 items-center justify-center text-[color:var(--ink)] md:hidden"
               aria-label="Menu"
+              aria-expanded={open}
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
