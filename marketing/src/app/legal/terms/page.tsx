@@ -122,7 +122,8 @@ export default function TermsPage() {
         For security concerns, reach our security team at <a href="mailto:security@meridian.dev">security@meridian.dev</a>.
         Our mailing address is Meridian Inc., 548 Market St, Suite 36879, San Francisco, CA 94104.
         These Terms are governed by the laws of the State of California, without regard to conflict of
-        law principles.
+        law principles. Any disputes arising under these Terms shall be subject to the exclusive
+        jurisdiction of the state and federal courts located in San Francisco County, California.
       </p>
     </LegalLayout>
   );
