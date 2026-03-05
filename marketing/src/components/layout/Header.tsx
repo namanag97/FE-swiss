@@ -87,7 +87,7 @@ export function Header() {
             ))}
             <div className="mt-[var(--sp-3)] flex flex-col gap-[var(--sp-2)]">
               <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary w-full text-center">
-                Get Early Access
+                Request early access
               </Link>
             </div>
           </div>
