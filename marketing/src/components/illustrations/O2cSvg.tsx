@@ -28,7 +28,7 @@ export function O2cSvg() {
       <text x={384} y={150} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fill={C.green}>66% happy path</text>
 
       {/* Both merge to Invoice */}
-      <line x1={160} y1={162} x2={160} y2={180} stroke={C.muted} strokeWidth={1} />
+      <line x1={160} y1={136} x2={160} y2={180} stroke={C.muted} strokeWidth={1} />
       <line x1={384} y1={136} x2={384} y2={180} stroke={C.muted} strokeWidth={1} />
       <line x1={160} y1={180} x2={384} y2={180} stroke={C.muted} strokeWidth={1} />
       <SvgArrow x1={272} y1={180} x2={272} y2={200} />
