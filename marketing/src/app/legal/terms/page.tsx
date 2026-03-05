@@ -74,8 +74,7 @@ export default function TermsPage() {
         maintenance windows. Enterprise plan customers receive a formal Service Level Agreement with
         financial credits for downtime exceeding the guaranteed threshold. Scheduled maintenance is
         performed during off-peak hours with at least 48 hours&apos; notice. We will use commercially
-        reasonable efforts to minimize disruption, but we do not guarantee uninterrupted service. Status
-        updates are available at our public status page.
+        reasonable efforts to minimize disruption, but we do not guarantee uninterrupted service.
       </p>
 
       <h2 id="use">6. Acceptable Use</h2>
