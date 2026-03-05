@@ -23,7 +23,7 @@ export function LegalLayout({ title, lastUpdated, sections, children }: LegalLay
         </div>
 
         <div className="legal-layout">
-          <nav className="legal-toc sticky top-20 self-start">
+          <nav className="legal-toc sticky top-[calc(var(--header-h)+var(--sp-3))] self-start">
             <p className="type-label mb-[var(--sp-3)]">Contents</p>
             <ul className="flex flex-col gap-[var(--sp-2)] list-none p-0">
               {sections.map((s) => (
