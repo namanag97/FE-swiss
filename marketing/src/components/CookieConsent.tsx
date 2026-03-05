@@ -21,16 +21,12 @@ export function CookieConsent() {
 
   function accept() {
     setStorage("cookie-consent", "accepted");
-    try {
-      posthog.opt_in_capturing();
-      posthog.set_config({ persistence: "localStorage+cookie" });
-    } catch { /* posthog unavailable */ }
+    initPostHog();
     setVisible(false);
   }
 
   function decline() {
     setStorage("cookie-consent", "declined");
-    try { posthog.opt_out_capturing(); } catch { /* posthog unavailable */ }
     setVisible(false);
   }
 
