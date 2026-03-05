@@ -16,6 +16,13 @@
   --border-mid: rgba(46,59,54,.18);
   --border-nav: #9EA397;
 
+  /* Amber / Warning */
+  --amber: #B45309;
+  --amber-bg: #fffbeb;
+  --amber-border: #fcd34d;
+  --amber-text: #92400e;
+  --error-bg: #fef2f2;
+
   /* Semantic */
   --error:             #f87171;
   --nav-bg:            rgba(250,251,248,.94);
