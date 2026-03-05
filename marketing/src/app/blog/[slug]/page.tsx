@@ -102,7 +102,7 @@ export default async function BlogPostPage({ params }: Props) {
             <BlogContent source={post.content} />
           </div>
           <aside className="hidden lg:block">
-            <div className="sticky top-24">
+            <div className="sticky top-[calc(var(--header-h)+var(--sp-3))]">
               <TableOfContents content={post.content} />
             </div>
           </aside>
