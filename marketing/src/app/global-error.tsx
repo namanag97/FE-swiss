@@ -74,7 +74,7 @@ export default function GlobalError({
                 letterSpacing: "0.06em",
                 background: "transparent",
                 color: "#2E3B36",
-                border: "1px solid #dde3e0",
+                border: "1px solid #D7DAD7",
                 textDecoration: "none",
               }}
             >
