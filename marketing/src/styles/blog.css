@@ -78,6 +78,6 @@
 }
 .blog-tag--announcements { background: rgba(4,122,85,.12); color: var(--emerald); }
 .blog-tag--engineering   { background: rgba(46,59,54,.07); color: var(--ink-muted); }
-.blog-tag--team          { background: rgba(217,119,6,.08); color: #B45309; }
+.blog-tag--team          { background: rgba(217,119,6,.08); color: var(--amber); }
 .blog-tag--research      { background: rgba(99,102,241,.08); color: #4F46E5; }
 .blog-tag--insights      { background: rgba(46,59,54,.07); color: var(--ink-mid); }
