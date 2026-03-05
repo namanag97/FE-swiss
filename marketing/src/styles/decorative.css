@@ -92,3 +92,11 @@
   @keyframes ooda-progress { from, to { width: 100%; } }
   @keyframes ooda-fade { from, to { opacity: 1; transform: none; } }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   SVG SPARKLINE STROKE ANIMATION
+═══════════════════════════════════════════════════════════════ */
+@keyframes strokeDash {
+  from { stroke-dashoffset: 30; }
+  to   { stroke-dashoffset: -100; }
+}
