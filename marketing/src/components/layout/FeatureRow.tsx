@@ -13,20 +13,23 @@ interface FeatureRowProps {
 export function FeatureRow({ eyebrow, title, tagline, description, items, children, illustration, reverse, id }: FeatureRowProps) {
   return (
     <section id={id} className="gr" style={id ? { scrollMarginTop: "var(--header-h)" } : undefined}>
-      <div className="h-rule h-rule--bottom" />
-      <div className="gi section-pad">
+      <div className="gi">
         <div className={`feature-row${reverse ? " feature-row--reverse" : ""}`}>
           {reverse ? (
             <>
-              <div className="illustration-frame">
+              <div className="feature-visual">
                 {illustration}
               </div>
-              <FeatureContent eyebrow={eyebrow} title={title} tagline={tagline} description={description} items={items}>{children}</FeatureContent>
+              <div className="feature-text">
+                <FeatureContent eyebrow={eyebrow} title={title} tagline={tagline} description={description} items={items}>{children}</FeatureContent>
+              </div>
             </>
           ) : (
             <>
-              <FeatureContent eyebrow={eyebrow} title={title} tagline={tagline} description={description} items={items}>{children}</FeatureContent>
-              <div className="illustration-frame">
+              <div className="feature-text">
+                <FeatureContent eyebrow={eyebrow} title={title} tagline={tagline} description={description} items={items}>{children}</FeatureContent>
+              </div>
+              <div className="feature-visual">
                 {illustration}
               </div>
             </>
