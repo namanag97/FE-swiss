@@ -149,7 +149,7 @@
   border: 1px solid var(--border-mid);
   color: var(--ink-muted);
   background: transparent;
-  border-radius: 0;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: border-color var(--t-fast), color var(--t-fast);
 }
