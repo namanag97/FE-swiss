@@ -85,4 +85,4 @@
   color: var(--ink-faint);
 }
 
-.prose img { border-radius: 0; border: 1px solid var(--border); }
+.prose img { border-radius: var(--radius-sm); border: 1px solid var(--border); }
