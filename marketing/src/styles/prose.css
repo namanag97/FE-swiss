@@ -44,7 +44,7 @@
 .prose pre {
   background: var(--ink-dark);
   color: rgba(255,255,255,.7);
-  border-radius: 0;
+  border-radius: var(--radius-sm);
   padding: 1.5rem;
   overflow-x: auto;
   margin: 2em 0;
