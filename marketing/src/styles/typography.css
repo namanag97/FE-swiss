@@ -12,7 +12,7 @@
   align-items: center;
   gap: 8px;
   line-height: 1;
-  opacity: .85;
+  opacity: 1;
 }
 .eyebrow-bracket::before { content: "[ "; }
 .eyebrow-bracket::after  { content: " ]"; }
