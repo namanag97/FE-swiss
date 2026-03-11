@@ -33,8 +33,8 @@ export function Header() {
 
           {/* Logo */}
           <Link href="/" className="nav-brand">
-            <div className="flex shrink-0 items-center justify-center w-[18px] h-[18px] border-[1.5px] border-[var(--ink-dark)]">
-              <span className="rounded-full w-[6px] h-[6px] bg-[var(--emerald)]" />
+            <div className="flex shrink-0 items-center justify-center w-[22px] h-[22px] border-[1.5px] border-[var(--ink-dark)] rounded-[3px]">
+              <span className="rounded-full w-[8px] h-[8px] bg-[var(--emerald)]" />
             </div>
             {siteConfig.name}
           </Link>
