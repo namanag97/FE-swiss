@@ -130,6 +130,7 @@
 .tab-button--active {
   border-bottom-color: var(--emerald);
   color: var(--ink);
+  background: rgba(4,122,85,.04);
 }
 
 /* ═══════════════════════════════════════════════════════════════
