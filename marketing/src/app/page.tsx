@@ -33,7 +33,7 @@ export default function HomePage() {
       </PageHero>
 
       {/* ── Three levels of seeing ── */}
-      <section className="gr">
+      <section className="gr section-alt">
         <div className="h-rule h-rule--bottom" />
         <div className="gi section-pad">
           <Reveal>
@@ -91,7 +91,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Connectors ── */}
-      <section className="gr">
+      <section className="gr section-alt">
         <div className="h-rule h-rule--bottom" />
         <div className="gi section-pad-sm">
           <p className="type-label text-center mb-[var(--sp-4)]">
@@ -99,15 +99,13 @@ export default function HomePage() {
           </p>
           <div className="flex justify-center gap-[var(--sp-3)] flex-wrap items-center">
             {connectors.map((name) => (
-              <span key={name} className="font-[var(--sans)] text-[length:var(--fs-xs)] text-[color:var(--ink-faint)] uppercase tracking-[0.06em] py-[var(--sp-2)] px-[var(--sp-4)] border border-[var(--border)] bg-[var(--white)]">
+              <span key={name} className="font-[var(--sans)] text-[length:var(--fs-xs)] text-[color:var(--ink-faint)] uppercase tracking-[0.06em] py-[var(--sp-2)] px-[var(--sp-4)] border border-[var(--border)] bg-[var(--bg-elevated)] rounded-[var(--radius-sm)] shadow-[var(--shadow-sm)]">
                 {name}
               </span>
             ))}
           </div>
         </div>
       </section>
-
-      <div className="ascii-divider">&middot; &middot; &middot; &nbsp; &middot; &middot; &middot; &nbsp; &middot; &middot; &middot;</div>
 
       {/* ── Continuous Intelligence ── */}
       <section className="gr">
@@ -133,7 +131,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Speed ── */}
-      <section className="gr">
+      <section className="gr section-alt">
         <div className="h-rule h-rule--bottom" />
         <div className="gi section-pad">
           <Reveal>
@@ -172,10 +170,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="ascii-divider">&middot; &middot; &middot; &nbsp; &middot; &middot; &middot; &nbsp; &middot; &middot; &middot;</div>
-
       {/* ── Use Cases ── */}
-      <section className="gr">
+      <section className="gr section-alt">
         <div className="h-rule h-rule--bottom" />
         <div className="gi section-pad">
           <Reveal>
