@@ -62,7 +62,7 @@
   white-space: nowrap;
 }
 .filter-tab:hover { color: var(--ink); }
-.filter-tab--active { color: var(--ink); border-bottom-color: var(--ink); }
+.filter-tab--active { color: var(--ink); border-bottom-color: var(--emerald); border-bottom-width: 3px; }
 
 /* Blog tags */
 .blog-tag {
