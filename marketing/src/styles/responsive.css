@@ -28,12 +28,27 @@
   justify-content: center;
 }
 .feature-visual {
-  background: var(--white);
+  background-color: var(--bg);
+  background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');
+  background-size: auto;
+  background-repeat: repeat;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--sp-6) var(--sp-5);
-  min-height: 400px;
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+}
+.feature-visual::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/monet-background.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: .1;
+  z-index: 0;
 }
 .feature-visual > svg {
   width: 100%;
