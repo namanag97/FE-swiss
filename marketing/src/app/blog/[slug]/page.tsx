@@ -71,13 +71,11 @@ export default async function BlogPostPage({ params }: Props) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* ── Slim breadcrumb ── */}
-      <div className="gr border-b border-[var(--border)]">
+      {/* ── Breadcrumb ── */}
+      <div className="gr">
+        <div className="h-rule h-rule--bottom" />
         <div className="gi h-11 flex items-center justify-between">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-1.5 font-[var(--sans)] text-[length:9px] uppercase tracking-[0.1em] text-[color:var(--ink-faint)] hover:text-[color:var(--ink)] transition-colors duration-200"
-          >
+          <Link href="/blog" className="nav-link-label hover:text-[color:var(--ink)] transition-colors inline-flex items-center gap-1.5">
             <ArrowLeft size={9} />
             Journal
           </Link>
@@ -88,39 +86,35 @@ export default async function BlogPostPage({ params }: Props) {
       </div>
 
       {/* ── Article header ── */}
-      <header className="gr border-b border-[var(--border)]">
-        <div className="gi" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-6)', maxWidth: '680px' }}>
-          <h1
-            className="font-[var(--body)] text-[color:var(--ink)] leading-[1.05] tracking-[-0.02em] mb-[var(--sp-4)]"
-            style={{ fontSize: 'clamp(1.875rem, 4.5vw, 3.25rem)', fontWeight: 300, maxWidth: '20ch', textWrap: 'balance' }}
-          >
+      <header className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi section-pad" style={{ maxWidth: 680 }}>
+          <h1 className="type-h2" style={{ maxWidth: '20ch' }}>
             {post.title}
           </h1>
 
-          <p
-            className="font-[var(--body)] text-[color:var(--ink-muted)] leading-[1.75] mb-[var(--sp-6)]"
-            style={{ fontSize: 'clamp(0.9375rem, 1.5vw, 1.0625rem)', fontWeight: 300, maxWidth: '32rem' }}
-          >
+          <p className="type-body mt-4" style={{ maxWidth: '32rem' }}>
             {post.description}
           </p>
 
           {/* Byline */}
-          <div className="flex flex-wrap items-center gap-[var(--sp-2)] font-[var(--sans)] text-[length:11px] tracking-[0.04em] text-[color:var(--ink-faint)]" style={{ fontFeatureSettings: '"tnum", "lnum"' }}>
+          <div className="mt-[var(--sp-5)] flex flex-wrap items-center gap-[var(--sp-2)]">
             <span className="w-6 h-6 bg-[var(--ink-dark)] text-[color:var(--white)] flex items-center justify-center font-[var(--sans)] font-bold text-[length:9px] select-none shrink-0">
               {post.author.charAt(0)}
             </span>
-            <span className="font-medium text-[color:var(--ink)]">{post.author}</span>
-            <span className="text-[color:var(--border-nav)]">&middot;</span>
-            <time dateTime={post.date}>{formatDate(post.date)}</time>
-            <span className="text-[color:var(--border-nav)]">&middot;</span>
-            <span>{post.readingTime}</span>
+            <span className="type-label font-medium text-[color:var(--ink)]">{post.author}</span>
+            <span className="type-label">&middot;</span>
+            <time className="type-label" dateTime={post.date}>{formatDate(post.date)}</time>
+            <span className="type-label">&middot;</span>
+            <span className="type-label">{post.readingTime}</span>
           </div>
         </div>
       </header>
 
       {/* ── Share ── */}
-      <div className="gr border-b border-[var(--border)]">
-        <div className="gi py-[var(--sp-3)]" style={{ maxWidth: '680px' }}>
+      <div className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi py-[var(--sp-3)]">
           <ShareButtons url={articleUrl} title={post.title} />
         </div>
       </div>
@@ -134,8 +128,8 @@ export default async function BlogPostPage({ params }: Props) {
 
       {/* ── Article body + sidebar TOC ── */}
       <div className="gr">
-        <div className="gi" style={{ paddingTop: 'var(--sp-7)', paddingBottom: 'var(--sp-7)' }}>
-          <div className="grid gap-12 lg:grid-cols-[1fr_200px]" style={{ maxWidth: '920px' }}>
+        <div className="gi section-pad">
+          <div className="grid gap-12 lg:grid-cols-[1fr_200px]" style={{ maxWidth: 920 }}>
             <div className="prose">
               <BlogContent source={post.content} />
             </div>
@@ -148,18 +142,15 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
       </div>
 
-      {/* ── Related posts ── */}
+      {/* ── Related ── */}
       {related.length > 0 && (
-        <div className="gr border-t border-[var(--border)]">
-          <div className="gi" style={{ paddingTop: 'var(--sp-6)', paddingBottom: 'var(--sp-6)' }}>
+        <div className="gr">
+          <div className="h-rule h-rule--top" />
+          <div className="gi section-pad-sm">
             <span className="type-label mb-[var(--sp-4)] block">Related</span>
             <div className="grid gap-0 sm:grid-cols-2">
               {related.map((r) => (
-                <Link
-                  key={r.slug}
-                  href={`/blog/${r.slug}`}
-                  className="card-feature group"
-                >
+                <Link key={r.slug} href={`/blog/${r.slug}`} className="card-feature group">
                   <div className="flex gap-1.5">
                     {r.tags.slice(0, 2).map((t) => (
                       <span key={t} className={`blog-tag ${tagClass[t.toLowerCase()] ?? "blog-tag--engineering"}`}>{t}</span>
@@ -175,18 +166,14 @@ export default async function BlogPostPage({ params }: Props) {
       )}
 
       {/* ── Footer nav ── */}
-      <div className="gr border-t border-[var(--border)]">
+      <div className="gr">
+        <div className="h-rule h-rule--top" />
         <div className="gi h-12 flex items-center justify-between">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-1.5 font-[var(--sans)] text-[length:9px] uppercase tracking-[0.1em] text-[color:var(--ink-faint)] hover:text-[color:var(--ink)] transition-colors duration-200"
-          >
+          <Link href="/blog" className="nav-link-label hover:text-[color:var(--ink)] transition-colors inline-flex items-center gap-1.5">
             <ArrowLeft size={9} />
             All posts
           </Link>
-          <span className="font-[var(--sans)] text-[length:9px] uppercase tracking-[0.1em] text-[color:var(--ink-faint)]">
-            Meridian Journal
-          </span>
+          <span className="nav-link-label">Meridian Journal</span>
         </div>
       </div>
     </>
