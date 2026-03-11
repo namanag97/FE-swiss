@@ -3,7 +3,7 @@
 ═══════════════════════════════════════════════════════════════ */
 .banner {
   background: var(--ink-dark);
-  height: 36px;
+  height: var(--banner-h);
   display: flex;
   align-items: center;
   justify-content: center;
