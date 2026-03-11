@@ -28,8 +28,7 @@
   justify-content: center;
 }
 .feature-visual {
-  background: var(--bg-alt);
-  border-radius: var(--radius-sm);
+  background: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;

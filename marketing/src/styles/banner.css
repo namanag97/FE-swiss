@@ -3,7 +3,7 @@
 ═══════════════════════════════════════════════════════════════ */
 .banner {
   background: var(--ink-dark);
-  height: var(--banner-h);
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,7 +42,12 @@
 ═══════════════════════════════════════════════════════════════ */
 .cta-band {
   background-color: var(--ink-dark);
-  padding: var(--sp-8) var(--sp-5);
+  background-image:
+    url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp'),
+    repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,.007) 3px, rgba(255,255,255,.007) 6px);
+  background-size: auto, auto;
+  background-repeat: repeat, repeat;
+  padding: var(--sp-7) var(--sp-5);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -65,11 +70,11 @@
 }
 .cta-band p {
   font-family: var(--body);
-  font-size: var(--fs-base);
-  font-weight: 400;
+  font-size: var(--fs-md);
+  font-weight: 260;
   line-height: 1.6;
   letter-spacing: -.015em;
-  color: rgba(255,255,255,.55);
+  color: rgba(255,255,255,.5);
   max-width: 480px;
 }
 .cta-band .btn-primary {

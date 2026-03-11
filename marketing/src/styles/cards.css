@@ -2,25 +2,18 @@
    CARDS
 ═══════════════════════════════════════════════════════════════ */
 .card-feature {
-  background: var(--bg-elevated);
+  background: var(--white);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
   padding: var(--sp-5);
-  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   gap: var(--sp-3);
-  transition: border-color var(--t-std), box-shadow var(--t-std), transform var(--t-std);
+  transition: border-color var(--t-std);
 }
-.card-feature:hover {
-  border-color: var(--border-mid);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
+.card-feature:hover { border-color: var(--border-mid); }
 .card-icon {
-  width: 40px; height: 40px;
+  width: 32px; height: 32px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,15 +22,15 @@
 .card-icon svg { color: var(--ink-mid); }
 .card-title {
   font-family: var(--sans);
-  font-size: var(--fs-md);
-  font-weight: 500;
+  font-size: var(--fs-sm);
+  font-weight: 400;
   letter-spacing: -.01em;
   color: var(--ink-dark);
 }
 .card-body {
   font-family: var(--body);
-  font-size: var(--fs-md);
-  font-weight: 400;
+  font-size: var(--fs-sm);
+  font-weight: 260;
   line-height: 1.6;
   letter-spacing: -.01em;
   color: var(--ink-muted);
@@ -45,11 +38,9 @@
 
 /* Quote card */
 .card-quote {
-  background: var(--bg-elevated);
+  background: var(--white);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
   padding: var(--sp-5);
-  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   gap: var(--sp-4);
@@ -59,9 +50,7 @@
 .card-stat {
   padding: var(--sp-5);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--bg-elevated);
-  box-shadow: var(--shadow-sm);
+  background: var(--white);
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);

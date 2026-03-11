@@ -45,36 +45,37 @@ export function BlogFilterTabs({ posts }: { posts: Post[] }) {
         ))}
       </div>
 
-      {filtered.length === 0 ? (
-        <div className="py-[var(--sp-7)] text-center">
-          <p className="type-body text-[color:var(--ink-muted)]">
-            No posts yet in this category. Check back soon.
-          </p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-[var(--sp-4)]">
-          {filtered.map((post) => (
+      <div className="flex flex-col">
+        {filtered.length === 0 ? (
+          <div className="py-[var(--sp-7)] text-center">
+            <p className="type-body text-[color:var(--ink-muted)]">
+              No posts yet in this category. Check back soon.
+            </p>
+          </div>
+        ) : (
+          filtered.map((post) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="card-feature group"
+              className="group grid items-start gap-[var(--sp-5)] py-[var(--sp-5)] border-b border-[var(--border)] transition-colors"
+              style={{ gridTemplateColumns: "1fr auto" }}
             >
-              <div className="flex items-center gap-[var(--sp-2)]">
-                <span className={`blog-tag ${tagClass[post.tags[0]?.toLowerCase() || ""] || "blog-tag--engineering"}`}>
-                  {post.tags[0] || "post"}
-                </span>
-                <span className="type-label">{post.readingTime}</span>
+              <div className="flex flex-col gap-[var(--sp-2)]">
+                <h2 className="type-h3">{post.title}</h2>
+                <div className="flex flex-wrap items-center gap-[var(--sp-3)]">
+                  <span className="type-body-sm">{post.author}</span>
+                  <span className={`blog-tag ${tagClass[post.tags[0]?.toLowerCase() || ""] || "blog-tag--engineering"}`}>
+                    {post.tags[0] || "post"}
+                  </span>
+                </div>
               </div>
-              <h2 className="type-h3 mt-[var(--sp-2)]">{post.title}</h2>
-              <p className="card-body line-clamp-2 mt-[var(--sp-1)]">{post.description}</p>
-              <div className="flex items-center justify-between mt-auto pt-[var(--sp-3)]">
-                <span className="type-body-sm">{post.author}</span>
-                <span className="type-label">{formatDate(post.date)}</span>
-              </div>
+              <span className="type-label whitespace-nowrap">
+                {formatDate(post.date)}
+              </span>
             </Link>
-          ))}
-        </div>
-      )}
+          ))
+        )}
+      </div>
     </>
   );
 }

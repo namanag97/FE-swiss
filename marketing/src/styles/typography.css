@@ -12,7 +12,7 @@
   align-items: center;
   gap: 8px;
   line-height: 1;
-  opacity: 1;
+  opacity: .85;
 }
 .eyebrow-bracket::before { content: "[ "; }
 .eyebrow-bracket::after  { content: " ]"; }
@@ -54,7 +54,7 @@
 .type-display {
   font-family: var(--sans);
   font-size: clamp(40px, 5vw, 68px);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.1;
   letter-spacing: -.025em;
   color: var(--ink);
@@ -73,7 +73,7 @@
 .type-h2 {
   font-family: var(--sans);
   font-size: clamp(28px, 2.8vw, 40px);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.15;
   letter-spacing: -.025em;
   color: var(--ink);
@@ -87,24 +87,24 @@
 .type-h3 {
   font-family: var(--sans);
   font-size: var(--fs-lg);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.1;
   letter-spacing: -.02em;
   color: var(--ink);
 }
 .type-body {
   font-family: var(--body);
-  font-size: var(--fs-base);
-  font-weight: 400;
-  line-height: 1.7;
+  font-size: var(--fs-md);
+  font-weight: 260;
+  line-height: 1.65;
   letter-spacing: -.015em;
-  color: var(--ink-mid);
-  max-width: 540px;
+  color: var(--ink-muted);
+  max-width: 480px;
 }
 .type-body-sm {
   font-family: var(--body);
-  font-size: var(--fs-md);
-  font-weight: 400;
+  font-size: var(--fs-sm);
+  font-weight: 260;
   line-height: 1.65;
   letter-spacing: -.01em;
   color: var(--ink-muted);
