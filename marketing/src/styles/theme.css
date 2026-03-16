@@ -1,8 +1,43 @@
+/* ═══════════════════════════════════════════════════════════════
+   TAILWIND v4 @theme — registers tokens as Tailwind utilities.
+   e.g.  text-emerald, bg-ink-dark, border-on-dark, gap-5, etc.
+═══════════════════════════════════════════════════════════════ */
 @theme {
+  /* ── Font families ── */
   --font-sans: var(--font-geist-mono), 'Geist Mono', monospace;
   --font-body: var(--font-inter), 'Inter', sans-serif;
 
-  /* Design system spacing — overrides Tailwind defaults to match --sp-* tokens (rem) */
+  /* ── Colors — mapped to Tailwind utilities ── */
+  --color-ink:        var(--ink);
+  --color-ink-dark:   var(--ink-dark);
+  --color-ink-mid:    var(--ink-mid);
+  --color-ink-light:  var(--ink-light);
+  --color-ink-muted:  var(--ink-muted);
+  --color-ink-faint:  var(--ink-faint);
+  --color-ink-hover:  var(--ink-hover);
+  --color-emerald:    var(--emerald);
+  --color-bg:         var(--bg);
+  --color-surface:    var(--white);
+  --color-border:     var(--border);
+  --color-border-mid: var(--border-mid);
+  --color-border-nav: var(--border-nav);
+
+  /* Accent colors */
+  --color-amber:      var(--amber);
+  --color-amber-bg:   var(--amber-bg);
+  --color-red:        var(--red);
+  --color-indigo:     var(--indigo);
+
+  /* Dark surface semantic colors */
+  --color-on-dark:         var(--on-dark);
+  --color-on-dark-bright:  var(--on-dark-bright);
+  --color-on-dark-heading: var(--on-dark-heading);
+  --color-on-dark-muted:   var(--on-dark-muted);
+  --color-on-dark-subtle:  var(--on-dark-subtle);
+  --color-on-dark-dim:     var(--on-dark-dim);
+  --color-on-dark-border:  var(--on-dark-border);
+
+  /* ── Spacing — overrides Tailwind defaults to match --sp-* tokens ── */
   --spacing-1: .25rem;
   --spacing-2: .375rem;
   --spacing-3: .75rem;
@@ -10,7 +45,10 @@
   --spacing-5: 1.875rem;
   --spacing-6: 3rem;
   --spacing-7: 4rem;
+  --spacing-8: 5rem;
+  --spacing-9: 6rem;
 
+  /* ── Animations ── */
   --animate-fade-in: fade-in 0.6s ease-out both;
   --animate-slide-up: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
