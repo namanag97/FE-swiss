@@ -163,7 +163,8 @@
   text-transform: uppercase;
   padding: var(--sp-2) var(--sp-3);
   border: 1px solid var(--border-mid);
-  color: var(--ink-muted);
+  color: var(--ink);
+  opacity: .7;
   background: transparent;
   border-radius: 0;
   cursor: pointer;
