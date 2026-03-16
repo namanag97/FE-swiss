@@ -46,7 +46,7 @@ export default function SecurityPage() {
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="card-feature">
                 <div className="card-icon mb-[var(--sp-3)]">
-                  <Icon className="w-4 h-4 text-[color:var(--ink-muted)]" />
+                  <Icon className="w-4 h-4 text-[color:var(--ink)] opacity-60" />
                 </div>
                 <h3 className="type-h3">{title}</h3>
                 <p className="type-body mt-[var(--sp-2)] text-mid">{desc}</p>
