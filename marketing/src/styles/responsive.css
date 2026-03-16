@@ -22,23 +22,31 @@
   border-right: 1px solid var(--border);
 }
 .feature-text {
-  padding: var(--sp-7) var(--sp-5);
+  padding: var(--sp-5);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: var(--sp-3);
 }
 .feature-visual {
   background: var(--white);
+  background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');
+  background-size: auto;
+  background-repeat: repeat;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--sp-6) var(--sp-5);
-  min-height: 400px;
+  padding: var(--sp-5);
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
 }
 .feature-visual > svg {
   width: 100%;
   max-width: 520px;
   height: auto;
+  position: relative;
+  z-index: 1;
 }
 /* About page: 2-col split */
 .about-split {
