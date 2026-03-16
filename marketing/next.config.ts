@@ -49,7 +49,7 @@ const nextConfig: NextConfig = {
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' https://assets.calendly.com https://us.i.posthog.com",
               "style-src 'self' 'unsafe-inline' https://assets.calendly.com",
-              "img-src 'self' data:",
+              "img-src 'self' data: https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev",
               "font-src 'self' data:",
               "frame-src https://calendly.com",
               "connect-src 'self' https://us.i.posthog.com https://calendly.com",
