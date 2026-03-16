@@ -67,7 +67,8 @@
 
   /* Layout */
   --max-w:     1400px;
-  --nav-h:     80px;
+  --nav-h:     40px;
+  --nav-py:    .75rem;    /* 12px vertical padding in nav */
   --banner-h:  44px;
-  --header-h:  calc(var(--nav-h) + var(--banner-h));
+  --header-h:  calc(var(--nav-h) + 2 * var(--nav-py) + var(--banner-h));
 }
