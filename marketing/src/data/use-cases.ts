@@ -48,10 +48,10 @@ export const useCases: UseCase[] = [
     tagline: "Tickets bounce between 4 teams before anyone fixes anything.",
     description: "Map ticket lifecycles from creation to resolution. See where escalations bounce, which tiers are bottlenecks, and why first-call resolution keeps dropping.",
     metrics: [
-      { value: "~28%", label: "Target resolution time savings" },
-      { value: "~45%", label: "Fewer escalation bounces" },
-      { value: "90%+", label: "First-call resolution target" },
-      { value: "3+", label: "Escalation tiers mapped" },
+      { value: "~28%", label: "Resolution time savings (industry avg.)¹" },
+      { value: "~45%", label: "Escalation bounce reduction potential" },
+      { value: "90%+", label: "First-call resolution goal" },
+      { value: "3+", label: "Escalation tiers typically mapped" },
     ],
   },
   {
