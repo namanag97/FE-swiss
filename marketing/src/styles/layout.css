@@ -189,11 +189,12 @@
   font-family: var(--body);
   font-size: var(--fs-sm);
   font-weight: 300;
-  color: var(--ink-faint);
+  color: var(--ink);
+  opacity: .5;
   text-decoration: none;
-  transition: color var(--t-fast);
+  transition: opacity var(--t-fast);
 }
-.toc-link:hover { color: var(--ink); }
+.toc-link:hover { opacity: 1; }
 .toc-link--active {
   font-weight: 500;
   color: var(--ink);
