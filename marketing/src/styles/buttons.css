@@ -14,7 +14,7 @@
   letter-spacing: .06em;
   padding: var(--sp-3) var(--sp-5);
   min-height: 44px;
-  border-radius: 0;
+  border-radius: var(--radius-md);
   outline: none;
   transition: background-color var(--t-std), border-color var(--t-std), color var(--t-std);
   white-space: nowrap;
