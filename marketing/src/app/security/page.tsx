@@ -38,7 +38,7 @@ export default function SecurityPage() {
           <div className="security-grid">
             {[
               { icon: Shield, title: "SOC 2 Type II", desc: "Audit in progress. Designed from day one around SOC 2 controls for security, availability, and confidentiality." },
-              { icon: Lock, title: "Encryption", desc: "AES-256 encryption at rest. TLS 1.3 in transit. Customer-managed encryption keys available on Enterprise." },
+              { icon: Lock, title: "Encryption", desc: "AES-256 encryption at rest. TLS 1.3 in transit. Customer-managed encryption keys planned for Enterprise tier." },
               { icon: Server, title: "Infrastructure", desc: "Hosted on AWS with isolated VPCs, multi-AZ deployment, automated backups, and 99.9% uptime SLA." },
               { icon: Key, title: "Access Controls", desc: "Role-based access control, SSO (SAML 2.0, OIDC), multi-factor authentication, and audit logging." },
               { icon: FileCheck, title: "Compliance", desc: "GDPR compliant. HIPAA-ready with BAA. ISO 27001 aligned. Annual penetration testing by third parties." },
