@@ -32,8 +32,10 @@
   --color-on-dark:         var(--on-dark);
   --color-on-dark-bright:  var(--on-dark-bright);
   --color-on-dark-heading: var(--on-dark-heading);
+  --color-on-dark-body:    var(--on-dark-body);
   --color-on-dark-muted:   var(--on-dark-muted);
   --color-on-dark-subtle:  var(--on-dark-subtle);
+  --color-on-dark-icon:    var(--on-dark-icon);
   --color-on-dark-dim:     var(--on-dark-dim);
   --color-on-dark-border:  var(--on-dark-border);
 
