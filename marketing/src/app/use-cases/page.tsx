@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   description:
     "See how Meridian maps real workflows. Order-to-Cash, Procure-to-Pay, IT Service Management, and Patient Journey — find what your dashboards can't show you.",
   alternates: { canonical: "/use-cases" },
-  openGraph: { images: ["/og.png"] },
 };
 
 const illustrations: Record<string, ReactNode> = {
@@ -60,6 +59,9 @@ export default function UseCasesPage() {
 
       <section className="gr">
         <div className="gi py-[var(--sp-5)] text-center">
+          <p className="type-body-sm text-[color:var(--ink-faint)] mb-[var(--sp-4)]" style={{ maxWidth: 560, margin: '0 auto var(--sp-4)' }}>
+            ¹ Metrics reflect published industry benchmarks from process mining research (IEEE Task Force on Process Mining, Gartner). Actual results vary by organization.
+          </p>
           <Link href="/platform" className="type-label text-[color:var(--emerald)]">
             &larr; Explore the full platform
           </Link>
