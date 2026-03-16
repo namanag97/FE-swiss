@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   title: "Security — SOC 2, Encryption & Data Ownership",
   description: "Your data stays yours. SOC 2 Type II, AES-256 encryption, customer-managed keys, and full data ownership. Built for enterprise process data.",
   alternates: { canonical: "/security" },
-  openGraph: { images: ["/og.png"] },
 };
 
 export default function SecurityPage() {
@@ -38,7 +37,7 @@ export default function SecurityPage() {
         <div className="gi section-pad">
           <div className="security-grid">
             {[
-              { icon: Shield, title: "SOC 2 Type II", desc: "Annual audits by independent assessors. Controls verified for security, availability, and confidentiality." },
+              { icon: Shield, title: "SOC 2 Type II", desc: "Audit in progress. Designed from day one around SOC 2 controls for security, availability, and confidentiality." },
               { icon: Lock, title: "Encryption", desc: "AES-256 encryption at rest. TLS 1.3 in transit. Customer-managed encryption keys available on Enterprise." },
               { icon: Server, title: "Infrastructure", desc: "Hosted on AWS with isolated VPCs, multi-AZ deployment, automated backups, and 99.9% uptime SLA." },
               { icon: Key, title: "Access Controls", desc: "Role-based access control, SSO (SAML 2.0, OIDC), multi-factor authentication, and audit logging." },
