@@ -5,7 +5,6 @@ export const siteConfig = {
     "See how your business actually runs. Process mining, visual analytics, and AI-powered insights — connect your systems and find what your dashboards can't show you.",
   url: "https://meridian.dev",
   calendlyUrl: "https://calendly.com/meridian-team/30min",
-  ogImage: "/og.png",
   links: {
     twitter: "https://twitter.com/meridiandev",
     linkedin: "https://linkedin.com/company/meridiandev",
