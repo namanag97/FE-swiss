@@ -90,26 +90,26 @@ Process mining analysis is fundamentally about sequences. You take a large set o
   APAC Order-to-Delivery Process
 
   +--------+     +---------+     +--------+     +------+
-  | Order  +---->| Credit  +---->| Pick & +---->| Ship |
-  | Created|     | Check   |     | Pack   |     |      |
+  | Order  +---->| Validate +---->| Pick & +---->| Ship |
+  | Created|     | Address  |     | Pack   |     |      |
   +--------+     +----+----+     +--------+     +------+
-                      |                    61% of cases
+                      |                    58% of cases
                       v
                  +----+----+     +--------+
-                 | Manual  +---->| Approve|----+
-                 | Review  |     |        |    |
+                 | Regional +---->| Customs|----+
+                 | Routing  |     | Clear  |    |
                  +----+----+     +---+----+    |
                       |              |         v
                       v              v      (rejoin)
-                 +----+----+    Reject &
-                 | Escalate|    Rework
-                 | to Mgr  |    (8% of cases)
+                 +----+----+    Held &
+                 | Escalate|    Re-route
+                 | to Ops  |    (11% of cases)
                  +---------+
-                 39% of cases hit manual review
-                 Adds 5.1 days avg to cycle time
+                 42% of cases hit regional routing
+                 Adds 6.8 days avg to cycle time
 
-  Insight: 39% of APAC orders require manual credit review.
-  Next step: Investigate credit threshold for APAC region.
+  Insight: 42% of APAC orders require regional routing and customs clearance.
+  Next step: Investigate pre-clearance options for high-volume APAC corridors.
 ```
 
 BI tells you APAC is slow. Process mining shows you which step in the APAC process is causing the delay. The aggregation paradigm compresses away the process detail that explains the metric.
