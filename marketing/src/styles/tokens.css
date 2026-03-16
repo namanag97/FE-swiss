@@ -1,8 +1,9 @@
 /* ═══════════════════════════════════════════════════════════════
-   TOKENS — design system
+   TOKENS — single source of truth for the entire design system.
+   Change a value here and it propagates everywhere.
 ═══════════════════════════════════════════════════════════════ */
 :root {
-  /* Colors */
+  /* ── Core Palette ─────────────────────────────────────────── */
   --ink:        #2E3B36;
   --ink-dark:   #072A20;
   --ink-mid:    #3D5D55;
@@ -13,27 +14,108 @@
   --emerald:    #047A55;
   --bg:         #FAFBF8;
   --white:      #FFFFFF;
-  --border:     rgba(46,59,54,.10);
-  --border-mid: rgba(46,59,54,.18);
+
+  /* ── Accent Palette ───────────────────────────────────────── */
+  --amber:        #B45309;
+  --amber-bg:     #fffbeb;
+  --amber-border: #fcd34d;
+  --amber-text:   #92400e;
+  --red:          #B91C1C;
+  --red-bright:   #cc4444;
+  --indigo:       #4F46E5;
+
+  /* ── Ink Opacity Scale (46,59,54) ─────────────────────────── */
+  --ink-a4:   rgba(46,59,54,.04);
+  --ink-a7:   rgba(46,59,54,.07);
+  --ink-a10:  rgba(46,59,54,.10);
+  --ink-a18:  rgba(46,59,54,.18);
+
+  /* ── Emerald Opacity Scale (4,122,85) ─────────────────────── */
+  --emerald-a8:   rgba(4,122,85,.08);
+  --emerald-a12:  rgba(4,122,85,.12);
+  --emerald-a15:  rgba(4,122,85,.15);
+  --emerald-a30:  rgba(4,122,85,.30);
+  --emerald-a35:  rgba(4,122,85,.35);
+  --emerald-a50:  rgba(4,122,85,.50);
+
+  /* ── Red Opacity Scale (220,38,38) ────────────────────────── */
+  --red-a8:   rgba(220,38,38,.08);
+  --red-a15:  rgba(220,38,38,.15);
+
+  /* ── Amber Opacity Scale (217,119,6) ──────────────────────── */
+  --amber-a8:  rgba(217,119,6,.08);
+  --amber-a15: rgba(217,119,6,.15);
+
+  /* ── Indigo Opacity Scale (99,102,241) ────────────────────── */
+  --indigo-a8: rgba(99,102,241,.08);
+
+  /* ── White Opacity Scale ──────────────────────────────────── */
+  --white-a95:  rgba(255,255,255,.95);
+  --white-a85:  rgba(255,255,255,.85);
+  --white-a80:  rgba(255,255,255,.80);
+  --white-a72:  rgba(255,255,255,.72);
+  --white-a70:  rgba(255,255,255,.70);
+  --white-a60:  rgba(255,255,255,.60);
+  --white-a50:  rgba(255,255,255,.50);
+  --white-a45:  rgba(255,255,255,.45);
+  --white-a40:  rgba(255,255,255,.40);
+  --white-a35:  rgba(255,255,255,.35);
+  --white-a25:  rgba(255,255,255,.25);
+  --white-a20:  rgba(255,255,255,.20);
+  --white-a14:  rgba(255,255,255,.14);
+  --white-a12:  rgba(255,255,255,.12);
+  --white-a08:  rgba(255,255,255,.08);
+  --white-a06:  rgba(255,255,255,.06);
+  --white-a05:  rgba(255,255,255,.05);
+  --white-a04:  rgba(255,255,255,.04);
+  --white-a03:  rgba(255,255,255,.03);
+  --white-a007: rgba(255,255,255,.007);
+
+  /* ── Black Opacity Scale ──────────────────────────────────── */
+  --black-a8:   rgba(0,0,0,.08);
+  --black-a025: rgba(0,0,0,.025);
+
+  /* ── Borders (semantic aliases) ───────────────────────────── */
+  --border:     var(--ink-a10);
+  --border-mid: var(--ink-a18);
   --border-nav: #9EA397;
 
-  /* Amber / Warning */
-  --amber: #B45309;
-  --amber-bg: #fffbeb;
-  --amber-border: #fcd34d;
-  --amber-text: #92400e;
-  --error-bg: #fef2f2;
+  /* ── Semantic: Error ──────────────────────────────────────── */
+  --error:      var(--red-bright);
+  --error-text: var(--red);
+  --error-bg:   #fef2f2;
 
-  /* Semantic */
-  --error:             #cc4444;
-  --error-text:        #b91c1c;
-  --nav-bg:            rgba(250,251,248,.94);
-  --footer-text:       rgba(255,255,255,.7);
-  --footer-text-muted: rgba(255,255,255,.35);
-  --footer-text-dim:   rgba(255,255,255,.2);
-  --footer-border:     rgba(255,255,255,.08);
+  /* ── Semantic: Navigation ─────────────────────────────────── */
+  --nav-bg: rgba(250,251,248,.94);
 
-  /* Spacing (rem) */
+  /* ── Dark Surface System (footer, CTA, code blocks) ───────── */
+  --on-dark:          var(--white-a70);
+  --on-dark-bright:   var(--white-a95);
+  --on-dark-heading:  var(--white);
+  --on-dark-muted:    var(--white-a50);
+  --on-dark-subtle:   var(--white-a35);
+  --on-dark-dim:      var(--white-a20);
+  --on-dark-border:   var(--white-a08);
+  --on-dark-surface:  var(--white-a06);
+  --on-dark-hover:    var(--white-a12);
+
+  /* Legacy aliases — kept for any direct references */
+  --footer-text:       var(--on-dark);
+  --footer-text-muted: var(--on-dark-subtle);
+  --footer-text-dim:   var(--on-dark-dim);
+  --footer-border:     var(--on-dark-border);
+
+  /* ── Background Texture ───────────────────────────────────── */
+  --texture: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');
+
+  /* ── Stripe Patterns ──────────────────────────────────────── */
+  --stripe-btn:        repeating-linear-gradient(45deg, transparent, transparent 2px, var(--white-a03) 2px, var(--white-a03) 4px);
+  --stripe-btn-ghost:  repeating-linear-gradient(45deg, transparent, transparent 2px, var(--black-a025) 2px, var(--black-a025) 4px);
+  --stripe-banner:     repeating-linear-gradient(45deg, transparent, transparent 3px, var(--black-a8) 4px, var(--black-a8) 6px);
+  --stripe-dark:       repeating-linear-gradient(45deg, transparent, transparent 3px, var(--white-a007) 3px, var(--white-a007) 6px);
+  --stripe-newsletter: repeating-linear-gradient(45deg, transparent, transparent 3px, var(--white-a04) 3px, var(--white-a04) 6px);
+
+  /* ── Spacing Scale (rem) ──────────────────────────────────── */
   --sp-1:  .25rem;    /*  4px */
   --sp-2:  .375rem;   /*  6px */
   --sp-3:  .75rem;    /* 12px */
@@ -41,33 +123,44 @@
   --sp-5:  1.875rem;  /* 30px */
   --sp-6:  3rem;      /* 48px */
   --sp-7:  4rem;      /* 64px */
+  --sp-8:  5rem;      /* 80px */
+  --sp-9:  6rem;      /* 96px */
 
-  /* Font sizes (rem) */
+  /* ── Font Size Scale (rem) ────────────────────────────────── */
+  --fs-2xs:  9px;
   --fs-xs:   .625rem;   /* 10px */
   --fs-sm:   .75rem;    /* 12px */
   --fs-md:   .875rem;   /* 14px */
   --fs-base: 1rem;      /* 16px */
+  --fs-prose: 1.0625rem; /* 17px — blog body */
   --fs-lg:   1.25rem;   /* 20px */
   --fs-xl:   2rem;      /* 32px */
   --fs-2xl:  3rem;      /* 48px */
   --fs-3xl:  4rem;      /* 64px */
 
-  /* Fonts */
+  /* ── Font Families ────────────────────────────────────────── */
   --sans:   var(--font-geist-mono), 'Geist Mono', monospace;
   --body:   var(--font-inter), 'Inter', sans-serif;
   --caslon: var(--font-caslon), 'Libre Caslon Text', Georgia, serif;
 
-  /* Transitions */
+  /* ── Transitions ──────────────────────────────────────────── */
   --t-fast: .15s ease;
   --t-std:  .20s ease;
   --t-slow: .30s ease;
 
-  /* Shadows (for dropdowns/overlays only) */
-  --shadow-dropdown: 0 4px 20px rgba(0,0,0,.08);
+  /* ── Shadows ──────────────────────────────────────────────── */
+  --shadow-dropdown: 0 4px 20px var(--black-a8);
 
-  /* Layout */
+  /* ── Layout ───────────────────────────────────────────────── */
   --max-w:     1400px;
   --nav-h:     64px;
   --banner-h:  44px;
   --header-h:  calc(var(--nav-h) + var(--banner-h));
+
+  /* ── Component Sizing ─────────────────────────────────────── */
+  --touch-target: 44px;
+  --radius-tag:   3px;
+  --prose-w:      680px;
+  --faq-w:        720px;
+  --frame-w:      800px;
 }
