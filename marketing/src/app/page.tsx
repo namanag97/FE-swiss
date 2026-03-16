@@ -96,9 +96,9 @@ export default function HomePage() {
           <p className="type-label text-center mb-[var(--sp-4)]">
             Works with the systems you already run
           </p>
-          <div className="flex justify-center gap-[var(--sp-3)] flex-wrap items-center">
+          <div className="flex justify-center gap-[var(--sp-4)] flex-wrap items-center">
             {connectors.map((name) => (
-              <span key={name} className="font-[var(--sans)] text-[length:var(--fs-xs)] text-[color:var(--ink-faint)] uppercase tracking-[0.06em] py-[var(--sp-2)] px-[var(--sp-4)] border border-[var(--border)] bg-[var(--white)]">
+              <span key={name} className="font-[var(--sans)] text-[length:var(--fs-sm)] text-[color:var(--ink-muted)] uppercase tracking-[0.06em] py-[var(--sp-3)] px-[var(--sp-5)] border border-[var(--border)] bg-[var(--white)]">
                 {name}
               </span>
             ))}
