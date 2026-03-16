@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -8,7 +8,21 @@ import { siteConfig } from "@/lib/config";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const path = usePathname();
+
+  /* Smooth mobile menu open/close */
+  useEffect(() => {
+    const el = menuRef.current;
+    if (!el) return;
+    if (open) {
+      el.style.maxHeight = el.scrollHeight + "px";
+      el.style.opacity = "1";
+    } else {
+      el.style.maxHeight = "0";
+      el.style.opacity = "0";
+    }
+  }, [open]);
 
   return (
     <>
@@ -71,27 +85,36 @@ export function Header() {
           </div>
         </nav>
 
-        {/* Mobile menu */}
-        {open && (
-          <div className="border-t border-[var(--border)] bg-[var(--bg)] px-[var(--sp-5)] pb-[var(--sp-5)] pt-[var(--sp-3)] md:hidden">
-            {siteConfig.nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="block py-[var(--sp-3)] transition-colors font-[var(--body)] text-[length:var(--fs-md)]"
-                style={{ color: path === item.href ? 'var(--emerald)' : 'var(--ink)' }}
-              >
-                {item.label}
-              </Link>
-            ))}
-            <div className="mt-[var(--sp-3)] flex flex-col gap-[var(--sp-2)]">
-              <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary w-full text-center">
-                Request early access
-              </Link>
-            </div>
+        {/* Mobile menu — always rendered, animated via max-height */}
+        <div
+          ref={menuRef}
+          className="border-t border-[var(--border)] bg-[var(--bg)] px-[var(--sp-5)] md:hidden"
+          style={{
+            maxHeight: 0,
+            opacity: 0,
+            overflow: "hidden",
+            transition: "max-height var(--t-slow), opacity var(--t-slow), padding var(--t-slow)",
+            paddingTop: open ? "var(--sp-3)" : 0,
+            paddingBottom: open ? "var(--sp-5)" : 0,
+          }}
+        >
+          {siteConfig.nav.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setOpen(false)}
+              className="block py-[var(--sp-3)] transition-colors font-[var(--body)] text-[length:var(--fs-md)]"
+              style={{ color: path === item.href ? 'var(--emerald)' : 'var(--ink)' }}
+            >
+              {item.label}
+            </Link>
+          ))}
+          <div className="mt-[var(--sp-3)] flex flex-col gap-[var(--sp-2)]">
+            <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary w-full text-center">
+              Request early access
+            </Link>
           </div>
-        )}
+        </div>
       </header>
     </>
   );
