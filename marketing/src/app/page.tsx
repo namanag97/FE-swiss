@@ -38,7 +38,7 @@ export default function HomePage() {
           <Reveal>
             <div className="section-center">
               <span className="eyebrow eyebrow-bracket">The problem</span>
-              <h2 className="type-h2 mt-3">
+              <h2 className="type-h2 mt-5">
                 Dashboards tell you <em>what.</em><br />
                 We show you <em>why.</em>
               </h2>
@@ -115,7 +115,7 @@ export default function HomePage() {
           <Reveal>
             <div className="section-center">
               <span className="eyebrow eyebrow-bracket">Continuous</span>
-              <h2 className="type-h2 mt-3">
+              <h2 className="type-h2 mt-5">
                 It never stops <em>watching</em>
               </h2>
               <p className="type-body mt-3 text-mid max-w-[500px] mx-auto">
@@ -138,7 +138,7 @@ export default function HomePage() {
           <Reveal>
             <div className="section-center">
               <span className="eyebrow eyebrow-bracket">Speed</span>
-              <h2 className="type-h2 mt-3">
+              <h2 className="type-h2 mt-5">
                 Not months. <em>Minutes.</em>
               </h2>
             </div>
@@ -180,7 +180,7 @@ export default function HomePage() {
           <Reveal>
             <div className="section-center">
               <span className="eyebrow eyebrow-bracket">Use cases</span>
-              <h2 className="type-h2 mt-3">
+              <h2 className="type-h2 mt-5">
                 Where it <em>hits</em>
               </h2>
             </div>
