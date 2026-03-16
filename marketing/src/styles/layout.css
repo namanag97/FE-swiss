@@ -81,10 +81,26 @@
 .link-card:hover { border-color: var(--border-mid); }
 .nav-link-label { font-family: var(--sans); font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-muted); }
 .nav-link-text { font-family: var(--sans); font-size: var(--fs-sm); color: var(--ink); margin-top: var(--sp-1); }
-.illustration-frame { border: 1px solid var(--border); padding: var(--sp-5); background: var(--bg); }
-.illustration-frame-lg { max-width: 800px; margin: 0 auto; border: 1px solid var(--border); padding: var(--sp-5); background: var(--bg); }
-/* mt-3 through mt-7 are now handled by @theme --spacing-* overrides in theme.css */
-.text-mid { color: var(--ink-mid); }
+.illustration-frame {
+  border: 1px solid var(--border);
+  padding: var(--sp-5);
+  background-color: var(--bg);
+  background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');
+  background-size: auto;
+  background-repeat: repeat;
+}
+.illustration-frame-lg {
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  padding: var(--sp-5);
+  background-color: var(--bg);
+  background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');
+  background-size: auto;
+  background-repeat: repeat;
+}
+/* Opacity-based text dimming (replaces old color-based .text-mid) */
+.text-mid { color: var(--ink); opacity: .8; }
 
 /* ═══════════════════════════════════════════════════════════════
    NAV
