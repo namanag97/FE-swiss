@@ -28,12 +28,12 @@ select.input {
   font-family: var(--body);
   font-size: var(--fs-sm);
   font-weight: 260;
-  color: rgba(255,255,255,.7);
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.12);
+  color: var(--on-dark);
+  background: var(--white-a05);
+  border: 1px solid var(--on-dark-hover);
   border-radius: 0;
   padding: var(--sp-2) var(--sp-3);
   outline: none;
 }
-.input-dark::placeholder { color: rgba(255,255,255,.25); }
-.input-dark:focus { border-color: rgba(255,255,255,.4); }
+.input-dark::placeholder { color: var(--white-a25); }
+.input-dark:focus { border-color: var(--white-a40); }
