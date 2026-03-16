@@ -61,10 +61,10 @@ export const useCases: UseCase[] = [
     tagline: "Average wait time says 20 minutes. The actual patient flow tells a different story.",
     description: "Track patient flow through clinical pathways. Find the wait time hotspots, care coordination gaps, and pathway deviations that your averages are hiding.",
     metrics: [
-      { value: "~22%", label: "Target wait time reduction" },
-      { value: "<4h", label: "Target time to diagnosis" },
+      { value: "~22%", label: "Wait time reduction (industry avg.)¹" },
+      { value: "<4h", label: "Time-to-diagnosis goal" },
       { value: "85%+", label: "Pathway adherence target" },
-      { value: "5+", label: "Journey stages mapped" },
+      { value: "5+", label: "Journey stages typically mapped" },
     ],
     reverse: true,
   },
