@@ -53,10 +53,11 @@
 ═══════════════════════════════════════════════════════════════ */
 .type-display {
   font-family: var(--sans);
-  font-size: clamp(40px, 5vw, 68px);
+  font-size: var(--fs-display);
   font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -.025em;
+  line-height: var(--lh-display);
+  letter-spacing: -.03em;
+  word-spacing: var(--ws-display);
   color: var(--ink);
 }
 .type-display em {
@@ -64,6 +65,7 @@
   font-style: italic;
   font-weight: 400;
   color: var(--emerald);
+  word-spacing: var(--ws-reset);
   text-decoration: underline;
   text-decoration-color: var(--emerald);
   text-decoration-thickness: 3px;
@@ -72,10 +74,11 @@
 }
 .type-h2 {
   font-family: var(--sans);
-  font-size: clamp(28px, 2.8vw, 40px);
+  font-size: var(--fs-h2);
   font-weight: 400;
-  line-height: 1.15;
+  line-height: var(--lh-h2);
   letter-spacing: -.025em;
+  word-spacing: var(--ws-h2);
   color: var(--ink);
 }
 .type-h2 em {
@@ -83,13 +86,15 @@
   font-style: italic;
   font-weight: 400;
   color: var(--emerald);
+  word-spacing: var(--ws-reset);
 }
 .type-h3 {
   font-family: var(--sans);
   font-size: var(--fs-lg);
   font-weight: 400;
-  line-height: 1.1;
+  line-height: var(--lh-h3);
   letter-spacing: -.02em;
+  word-spacing: var(--ws-h3);
   color: var(--ink);
 }
 .type-body {
