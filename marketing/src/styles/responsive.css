@@ -142,6 +142,7 @@
   .gi { padding: 0 var(--sp-4); }
   .type-display {
     font-size: clamp(32px, 8vw, 48px);
+    word-spacing: 0;
   }
   .security-grid {
     grid-template-columns: 1fr;
