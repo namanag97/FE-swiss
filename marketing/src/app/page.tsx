@@ -118,7 +118,7 @@ export default function HomePage() {
               <h2 className="type-h2 mt-5">
                 It never stops <em>watching</em>
               </h2>
-              <p className="type-body mt-3 text-mid max-w-[500px] mx-auto">
+              <p className="type-body mt-5 text-mid max-w-[500px] mx-auto">
                 Meridian doesn&apos;t generate a report and walk away. It observes
                 your processes continuously, detects when something drifts,
                 predicts what breaks next, and recommends what to fix.
