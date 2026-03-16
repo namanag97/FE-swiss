@@ -3,7 +3,7 @@
 ═══════════════════════════════════════════════════════════════ */
 .card-feature {
   background-color: var(--bg);
-  background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');
+  background-image: var(--texture);
   background-size: auto;
   background-repeat: repeat;
   border: 1px solid var(--border);
@@ -43,7 +43,7 @@
 /* Quote card */
 .card-quote {
   background-color: var(--bg);
-  background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');
+  background-image: var(--texture);
   background-size: auto;
   background-repeat: repeat;
   border: 1px solid var(--border);
