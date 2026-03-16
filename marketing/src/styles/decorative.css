@@ -37,8 +37,8 @@
 /* ASCII classes retained for landing page only */
 .ascii-art {
   font-family: var(--sans);
-  font-size: 13px;
-  line-height: 1.35;
+  font-size: .875rem;
+  line-height: 1.45;
   color: var(--ink-muted);
   white-space: pre;
   overflow-x: auto;
@@ -47,8 +47,9 @@
 }
 .ascii-frame {
   border: 1px solid var(--border);
-  padding: var(--sp-4) var(--sp-5);
+  padding: var(--sp-5) var(--sp-6);
   position: relative;
+  background: var(--white);
 }
 .ascii-frame::before,
 .ascii-frame::after {
