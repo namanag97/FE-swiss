@@ -3,9 +3,9 @@
 ═══════════════════════════════════════════════════════════════ */
 .prose {
   color: var(--ink-muted);
-  font-size: 1.0625rem;
+  font-size: var(--fs-prose);
   line-height: 1.8;
-  max-width: 680px;
+  max-width: var(--prose-w);
 }
 .prose > * + * { margin-top: 1.5em; }
 
@@ -17,7 +17,7 @@
   line-height: 1.3;
 }
 .prose h2 { font-size: 1.5rem; margin-top: 2.5em; }
-.prose h3 { font-size: 1.25rem; margin-top: 2em; }
+.prose h3 { font-size: var(--fs-lg); margin-top: 2em; }
 
 .prose strong { color: var(--ink); font-weight: 500; }
 
@@ -26,7 +26,7 @@
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
-  text-decoration-color: rgba(4, 122, 85, 0.35);
+  text-decoration-color: var(--emerald-a35);
 }
 .prose a:hover { text-decoration-color: var(--emerald); }
 
@@ -34,23 +34,23 @@
   font-family: var(--sans);
   font-size: 0.85em;
   color: var(--ink);
-  background: rgba(46,59,54,.10);
+  background: var(--ink-a10);
   border: 1px solid var(--border);
   padding: 0.1em 0.35em;
-  border-radius: 3px;
+  border-radius: var(--radius-tag);
   font-variant-ligatures: none;
 }
 
 .prose pre {
   background: var(--ink-dark);
-  color: rgba(255,255,255,.7);
+  color: var(--on-dark);
   border-radius: 0;
   padding: 1.5rem;
   overflow-x: auto;
   margin: 2em 0;
   font-size: 0.8rem;
   line-height: 1.6;
-  border: 1px solid rgba(255,255,255,.08);
+  border: 1px solid var(--on-dark-border);
 }
 .prose pre code {
   font-family: var(--sans);
@@ -76,10 +76,10 @@
 .prose table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; display: block; overflow-x: auto; }
 .prose th, .prose td { border: 1px solid var(--border); padding: 0.75rem 0.85rem; text-align: left; }
 .prose th {
-  background: rgba(46,59,54,.04);
+  background: var(--ink-a4);
   font-family: var(--sans);
   font-weight: 400;
-  font-size: 0.75rem;
+  font-size: var(--fs-sm);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--ink-faint);
