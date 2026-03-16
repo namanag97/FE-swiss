@@ -103,7 +103,7 @@
 .type-body-sm {
   font-family: var(--body);
   font-size: var(--fs-md);
-  font-weight: 400;
+  font-weight: 260;
   line-height: 1.65;
   letter-spacing: -.01em;
   color: var(--ink-muted);
