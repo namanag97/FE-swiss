@@ -22,7 +22,7 @@
   font-size: var(--fs-sm);
   font-weight: 260;
   letter-spacing: -.01em;
-  color: var(--white-a72);
+  color: var(--on-dark);
   transition: color var(--t-fast);
 }
 .footer-link:hover { color: var(--on-dark-bright); }
