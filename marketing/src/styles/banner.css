@@ -3,12 +3,8 @@
 ═══════════════════════════════════════════════════════════════ */
 .banner {
   background-color: var(--emerald);
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent, transparent 3px,
-    rgba(0,0,0,.08) 4px, rgba(0,0,0,.08) 6px
-  );
-  min-height: 44px;
+  background-image: var(--stripe-banner);
+  min-height: var(--banner-h);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,12 +18,12 @@
   font-weight: 400;
   letter-spacing: .06em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.72);
+  color: var(--white-a72);
 }
 .banner-dot {
   width: 3px; height: 3px;
   border-radius: 50%;
-  background: rgba(255,255,255,.2);
+  background: var(--white-a20);
   flex-shrink: 0;
 }
 .banner-link {
@@ -36,13 +32,13 @@
   font-weight: 500;
   letter-spacing: .06em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.85);
+  color: var(--white-a85);
   display: inline-flex;
   align-items: center;
   gap: var(--sp-1);
   transition: color var(--t-fast);
 }
-.banner-link:hover { color: #fff; }
+.banner-link:hover { color: var(--white); }
 
 /* ═══════════════════════════════════════════════════════════════
    CTA BAND (dark section)
@@ -50,11 +46,11 @@
 .cta-band {
   background-color: var(--ink-dark);
   background-image:
-    url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp'),
-    repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,.007) 3px, rgba(255,255,255,.007) 6px);
+    var(--texture),
+    var(--stripe-dark);
   background-size: auto, auto;
   background-repeat: repeat, repeat;
-  padding: 6rem var(--sp-5);
+  padding: var(--sp-9) var(--sp-5);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -68,7 +64,7 @@
   font-weight: 400;
   line-height: .95;
   letter-spacing: -.03em;
-  color: var(--white);
+  color: var(--on-dark-heading);
 }
 .cta-band h2 em {
   font-family: var(--caslon);
@@ -81,7 +77,7 @@
   font-weight: 260;
   line-height: 1.6;
   letter-spacing: -.015em;
-  color: rgba(255,255,255,.5);
+  color: var(--on-dark-muted);
   max-width: 480px;
 }
 .cta-band .btn-primary {
@@ -90,17 +86,17 @@
   border: 1px solid transparent;
 }
 .cta-band .btn-primary:hover {
-  background-color: rgba(255,255,255,.85);
+  background-color: var(--white-a85);
 }
 .cta-band .btn-ghost {
-  color: rgba(255,255,255,.7);
-  border-color: rgba(255,255,255,.2);
-  background-color: rgba(255,255,255,.06);
+  color: var(--on-dark);
+  border-color: var(--on-dark-dim);
+  background-color: var(--on-dark-surface);
 }
 .cta-band .btn-ghost:hover {
-  color: var(--white);
-  border-color: rgba(255,255,255,.4);
-  background-color: rgba(255,255,255,.12);
+  color: var(--on-dark-heading);
+  border-color: var(--white-a40);
+  background-color: var(--on-dark-hover);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -108,11 +104,7 @@
 ═══════════════════════════════════════════════════════════════ */
 .newsletter-band {
   background-color: var(--emerald);
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent, transparent 3px,
-    rgba(255,255,255,.04) 3px, rgba(255,255,255,.04) 6px
-  );
+  background-image: var(--stripe-newsletter);
   padding: var(--sp-6) var(--sp-5);
   text-align: center;
   display: flex;
