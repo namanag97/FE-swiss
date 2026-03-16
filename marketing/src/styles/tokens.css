@@ -1,6 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════
    TOKENS — single source of truth for the entire design system.
    Change a value here and it propagates everywhere.
+   Values aligned with reference HTML mockups.
 ═══════════════════════════════════════════════════════════════ */
 :root {
   /* ── Core Palette ─────────────────────────────────────────── */
@@ -25,15 +26,19 @@
   --indigo:       #4F46E5;
 
   /* ── Ink Opacity Scale (46,59,54) ─────────────────────────── */
+  --ink-a2:   rgba(46,59,54,.02);
   --ink-a4:   rgba(46,59,54,.04);
+  --ink-a5:   rgba(46,59,54,.05);
   --ink-a7:   rgba(46,59,54,.07);
   --ink-a10:  rgba(46,59,54,.10);
   --ink-a18:  rgba(46,59,54,.18);
 
   /* ── Emerald Opacity Scale (4,122,85) ─────────────────────── */
+  --emerald-a4:   rgba(4,122,85,.04);
   --emerald-a8:   rgba(4,122,85,.08);
   --emerald-a12:  rgba(4,122,85,.12);
   --emerald-a15:  rgba(4,122,85,.15);
+  --emerald-a18:  rgba(4,122,85,.18);
   --emerald-a30:  rgba(4,122,85,.30);
   --emerald-a35:  rgba(4,122,85,.35);
   --emerald-a50:  rgba(4,122,85,.50);
@@ -51,28 +56,36 @@
 
   /* ── White Opacity Scale ──────────────────────────────────── */
   --white-a95:  rgba(255,255,255,.95);
+  --white-a90:  rgba(255,255,255,.90);
   --white-a85:  rgba(255,255,255,.85);
   --white-a80:  rgba(255,255,255,.80);
   --white-a72:  rgba(255,255,255,.72);
   --white-a70:  rgba(255,255,255,.70);
+  --white-a65:  rgba(255,255,255,.65);
   --white-a60:  rgba(255,255,255,.60);
+  --white-a55:  rgba(255,255,255,.55);
   --white-a50:  rgba(255,255,255,.50);
   --white-a45:  rgba(255,255,255,.45);
   --white-a40:  rgba(255,255,255,.40);
   --white-a35:  rgba(255,255,255,.35);
+  --white-a30:  rgba(255,255,255,.30);
+  --white-a28:  rgba(255,255,255,.28);
   --white-a25:  rgba(255,255,255,.25);
   --white-a20:  rgba(255,255,255,.20);
   --white-a14:  rgba(255,255,255,.14);
   --white-a12:  rgba(255,255,255,.12);
   --white-a08:  rgba(255,255,255,.08);
+  --white-a07:  rgba(255,255,255,.07);
   --white-a06:  rgba(255,255,255,.06);
   --white-a05:  rgba(255,255,255,.05);
   --white-a04:  rgba(255,255,255,.04);
   --white-a03:  rgba(255,255,255,.03);
+  --white-a012: rgba(255,255,255,.012);
   --white-a007: rgba(255,255,255,.007);
 
   /* ── Black Opacity Scale ──────────────────────────────────── */
   --black-a8:   rgba(0,0,0,.08);
+  --black-a5:   rgba(0,0,0,.05);
   --black-a025: rgba(0,0,0,.025);
 
   /* ── Borders (semantic aliases) ───────────────────────────── */
@@ -89,11 +102,13 @@
   --nav-bg: rgba(250,251,248,.94);
 
   /* ── Dark Surface System (footer, CTA, code blocks) ───────── */
-  --on-dark:          var(--white-a70);
-  --on-dark-bright:   var(--white-a95);
+  --on-dark:          var(--white-a55);
+  --on-dark-bright:   var(--white-a90);
   --on-dark-heading:  var(--white);
+  --on-dark-body:     var(--white-a65);
   --on-dark-muted:    var(--white-a50);
   --on-dark-subtle:   var(--white-a35);
+  --on-dark-icon:     var(--white-a28);
   --on-dark-dim:      var(--white-a20);
   --on-dark-border:   var(--white-a08);
   --on-dark-surface:  var(--white-a06);
@@ -113,7 +128,8 @@
   --stripe-btn-ghost:  repeating-linear-gradient(45deg, transparent, transparent 2px, var(--black-a025) 2px, var(--black-a025) 4px);
   --stripe-banner:     repeating-linear-gradient(45deg, transparent, transparent 3px, var(--black-a8) 4px, var(--black-a8) 6px);
   --stripe-dark:       repeating-linear-gradient(45deg, transparent, transparent 3px, var(--white-a007) 3px, var(--white-a007) 6px);
-  --stripe-newsletter: repeating-linear-gradient(45deg, transparent, transparent 3px, var(--white-a04) 3px, var(--white-a04) 6px);
+  --stripe-featured:   repeating-linear-gradient(45deg, transparent, transparent 3px, var(--white-a012) 3px, var(--white-a012) 6px);
+  --stripe-newsletter: repeating-linear-gradient(45deg, transparent, transparent 3px, var(--black-a5) 3px, var(--black-a5) 6px);
 
   /* ── Spacing Scale (rem) ──────────────────────────────────── */
   --sp-1:  .25rem;    /*  4px */
@@ -138,6 +154,26 @@
   --fs-2xl:  3rem;      /* 48px */
   --fs-3xl:  4rem;      /* 64px */
 
+  /* ── Responsive Type (clamp/max — used in typography classes) ── */
+  --fs-display:  max(var(--fs-3xl), 4vw);
+  --fs-h2:       clamp(28px, 2.8vw, 40px);
+  --fs-h2-lg:    clamp(24px, 2.5vw, 36px);
+  --fs-h3-resp:  clamp(20px, 2vw, 28px);
+  --fs-h4-resp:  clamp(18px, 1.8vw, 24px);
+
+  /* ── Line Heights ─────────────────────────────────────────── */
+  --lh-display: .89;
+  --lh-h2:      .95;
+  --lh-h3:      .96;
+  --lh-body:    1.65;
+  --lh-tight:   1.1;
+
+  /* ── Word Spacing (condensed display type) ────────────────── */
+  --ws-display: -.20em;
+  --ws-h2:      -.15em;
+  --ws-h3:      -.10em;
+  --ws-reset:   0;
+
   /* ── Font Families ────────────────────────────────────────── */
   --sans:   var(--font-geist-mono), 'Geist Mono', monospace;
   --body:   var(--font-inter), 'Inter', sans-serif;
@@ -149,18 +185,26 @@
   --t-slow: .30s ease;
 
   /* ── Shadows ──────────────────────────────────────────────── */
-  --shadow-dropdown: 0 4px 20px var(--black-a8);
+  --shadow-dropdown:   0 4px 20px var(--black-a8);
+  --shadow-card-hover: 0 10px 40px rgba(0,0,0,.12);
+  --shadow-sparkline:  drop-shadow(0 0 3px var(--emerald-a50));
 
   /* ── Layout ───────────────────────────────────────────────── */
   --max-w:     1400px;
-  --nav-h:     64px;
+  --nav-h:     40px;
   --banner-h:  44px;
   --header-h:  calc(var(--nav-h) + var(--banner-h));
 
   /* ── Component Sizing ─────────────────────────────────────── */
   --touch-target: 44px;
   --radius-tag:   3px;
+  --radius-panel: 8px;
+  --radius-card:  12px;
   --prose-w:      680px;
   --faq-w:        720px;
   --frame-w:      800px;
+
+  /* ── Code Syntax (dark bg) ────────────────────────────────── */
+  --syntax-cyan:       rgba(100,190,160,.9);
+  --syntax-cyan-light: rgba(167,218,200,.9);
 }
