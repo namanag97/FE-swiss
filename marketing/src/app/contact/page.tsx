@@ -6,7 +6,6 @@ export const metadata: Metadata = {
   title: "Contact — Request Early Access",
   description: "Book a call with the Meridian team. We'll map your process live and show you what's hiding in your data.",
   alternates: { canonical: "/contact" },
-  openGraph: { images: ["/og.png"] },
 };
 
 export default function ContactPage() {
@@ -33,7 +32,7 @@ export default function ContactPage() {
               ].map(({ icon: Icon, title, desc }) => (
                 <div key={title} className="flex gap-[var(--sp-3)] items-start">
                   <div className="card-icon shrink-0">
-                    <Icon className="w-3.5 h-3.5 text-[color:var(--ink-muted)]" />
+                    <Icon className="w-3.5 h-3.5 text-[color:var(--ink)] opacity-60" />
                   </div>
                   <div>
                     <p className="card-title">{title}</p>
