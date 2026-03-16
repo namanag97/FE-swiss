@@ -31,7 +31,7 @@ export default function OgImage() {
         >
           <path
             d="M8 22 L16 10 L24 22"
-            stroke="#d97757"
+            stroke="#047A55"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
