@@ -61,9 +61,9 @@ export default function SecurityPage() {
         <div className="h-rule h-rule--bottom" />
         <div className="gi security-stats section-pad-sm text-center">
           {[
-            { value: "99.9%", label: "Uptime SLA" },
+            { value: "99.9%", label: "Uptime target" },
             { value: "You control", label: "Data retention" },
-            { value: "Annual", label: "Penetration tests" },
+            { value: "Planned", label: "Annual pen tests" },
           ].map((stat) => (
             <div key={stat.label}>
               <p className="stat-value">{stat.value}</p>
