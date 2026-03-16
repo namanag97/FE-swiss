@@ -146,6 +146,7 @@
 .tab-button--active {
   border-bottom-color: var(--emerald);
   color: var(--ink);
+  opacity: 1;
 }
 
 /* ═══════════════════════════════════════════════════════════════
