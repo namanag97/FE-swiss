@@ -1,15 +1,17 @@
 /* ═══════════════════════════════════════════════════════════════
-   CARDS
+   CARDS — transparent surfaces, texture shows through
 ═══════════════════════════════════════════════════════════════ */
 .card-feature {
-  background: var(--white);
+  background-color: var(--bg);
+  background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');
+  background-size: auto;
+  background-repeat: repeat;
   border: 1px solid var(--border);
   padding: var(--sp-5);
   display: flex;
   flex-direction: column;
   gap: var(--sp-4);
   transition: border-color var(--t-std);
-  min-height: 180px;
 }
 .card-feature:hover { border-color: var(--border-mid); }
 .card-icon {
@@ -20,13 +22,13 @@
   justify-content: center;
   flex-shrink: 0;
 }
-.card-icon svg { color: var(--ink-mid); }
+.card-icon svg { color: var(--ink); opacity: .6; }
 .card-title {
   font-family: var(--sans);
   font-size: var(--fs-sm);
   font-weight: 400;
   letter-spacing: -.01em;
-  color: var(--ink-dark);
+  color: var(--ink);
 }
 .card-body {
   font-family: var(--body);
@@ -34,12 +36,16 @@
   font-weight: 260;
   line-height: 1.6;
   letter-spacing: -.01em;
-  color: var(--ink-muted);
+  color: var(--ink);
+  opacity: .8;
 }
 
 /* Quote card */
 .card-quote {
-  background: var(--white);
+  background-color: var(--bg);
+  background-image: url('https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev/assets/images/backgrounds/background.webp');
+  background-size: auto;
+  background-repeat: repeat;
   border: 1px solid var(--border);
   padding: var(--sp-5);
   display: flex;
@@ -51,7 +57,7 @@
 .card-stat {
   padding: var(--sp-5);
   border: 1px solid var(--border);
-  background: var(--white);
+  background: transparent;
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);
