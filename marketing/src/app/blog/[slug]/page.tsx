@@ -30,7 +30,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: post.date,
       authors: [post.author],
       url: `${siteConfig.url}/blog/${slug}`,
-      images: ["/og.png"],
     },
   };
 }
