@@ -37,9 +37,9 @@ export default function OgImage() {
             strokeLinejoin="round"
             fill="none"
           />
-          <circle cx="8" cy="22" r="2" fill="#d97757" />
-          <circle cx="16" cy="10" r="2" fill="#d97757" />
-          <circle cx="24" cy="22" r="2" fill="#d97757" />
+          <circle cx="8" cy="22" r="2" fill="#047A55" />
+          <circle cx="16" cy="10" r="2" fill="#047A55" />
+          <circle cx="24" cy="22" r="2" fill="#047A55" />
         </svg>
 
         <div
