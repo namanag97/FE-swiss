@@ -170,7 +170,7 @@
   cursor: pointer;
   transition: border-color var(--t-fast), color var(--t-fast);
 }
-.share-btn:hover { border-color: var(--ink); color: var(--ink); }
+.share-btn:hover { border-color: var(--ink); opacity: 1; }
 
 /* ═══════════════════════════════════════════════════════════════
    TABLE OF CONTENTS
