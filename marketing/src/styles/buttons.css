@@ -13,7 +13,7 @@
   text-transform: uppercase;
   letter-spacing: .06em;
   padding: var(--sp-3) var(--sp-5);
-  min-height: 44px;
+  min-height: var(--touch-target);
   border-radius: 0;
   outline: none;
   transition: background-color var(--t-std), border-color var(--t-std), color var(--t-std);
@@ -24,22 +24,14 @@
   background-color: var(--ink-mid);
   color: var(--white);
   border: 1px solid transparent;
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent, transparent 2px,
-    rgba(255,255,255,.03) 2px, rgba(255,255,255,.03) 4px
-  );
+  background-image: var(--stripe-btn);
 }
 .btn-primary:hover { background-color: var(--emerald); }
 .btn-ghost {
   background-color: transparent;
   color: var(--ink);
   border: 1px solid var(--ink);
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent, transparent 2px,
-    rgba(0,0,0,.025) 2px, rgba(0,0,0,.025) 4px
-  );
+  background-image: var(--stripe-btn-ghost);
 }
 .btn-ghost:hover { border-color: var(--ink-dark); color: var(--ink-dark); }
 .btn-full { width: 100%; }
@@ -81,8 +73,8 @@
 .btn-icon {
   padding: 0;
   min-height: auto;
-  width: 44px;
-  height: 44px;
+  width: var(--touch-target);
+  height: var(--touch-target);
   border: 1px solid var(--border-mid);
   background: var(--bg);
   color: var(--ink-faint);
@@ -95,9 +87,9 @@
   font-weight: 400;
   padding: var(--sp-2) var(--sp-3);
   min-height: auto;
-  background: rgba(255,255,255,.08);
-  color: rgba(255,255,255,.6);
-  border: 1px solid rgba(255,255,255,.12);
+  background: var(--on-dark-border);
+  color: var(--white-a60);
+  border: 1px solid var(--on-dark-hover);
 }
-.btn-dark:hover { background: rgba(255,255,255,.14); color: rgba(255,255,255,.8); }
+.btn-dark:hover { background: var(--white-a14); color: var(--white-a80); }
 .btn-dark::before, .btn-dark::after { display: none; }
