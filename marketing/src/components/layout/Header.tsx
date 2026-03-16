@@ -40,7 +40,7 @@ export function Header() {
 
       {/* Navigation */}
       <header className="nav-wrap nav-header sticky top-0 z-50">
-        <nav className="relative mx-auto flex items-center justify-between h-[var(--nav-h)] py-[var(--nav-py)] px-[var(--sp-4)] max-w-[var(--max-w)]">
+        <nav className="relative mx-auto flex items-center justify-between h-[var(--nav-h)] px-[var(--sp-4)] max-w-[var(--max-w)]">
           {/* Left/right vertical rails */}
           <div className="pointer-events-none absolute left-0 top-0 h-full w-px bg-[var(--border)]" />
           <div className="pointer-events-none absolute right-0 top-0 h-full w-px bg-[var(--border)]" />
