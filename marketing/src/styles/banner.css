@@ -54,12 +54,12 @@
     repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,.007) 3px, rgba(255,255,255,.007) 6px);
   background-size: auto, auto;
   background-repeat: repeat, repeat;
-  padding: var(--sp-7) var(--sp-5);
+  padding: 6rem var(--sp-5);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--sp-4);
+  gap: var(--sp-5);
   position: relative;
 }
 .cta-band h2 {
