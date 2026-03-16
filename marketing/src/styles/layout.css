@@ -137,11 +137,12 @@
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
-  color: var(--ink-muted);
+  color: var(--ink);
+  opacity: .6;
   cursor: pointer;
-  transition: color var(--t-std), border-color var(--t-std);
+  transition: color var(--t-std), border-color var(--t-std), opacity var(--t-std);
 }
-.tab-button:hover { color: var(--ink); }
+.tab-button:hover { opacity: 1; }
 .tab-button--active {
   border-bottom-color: var(--emerald);
   color: var(--ink);
