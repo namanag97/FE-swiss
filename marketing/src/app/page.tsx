@@ -10,7 +10,6 @@ import { comparisonCards, connectors, speedPhases, useCaseCards } from "@/data/h
 export const metadata: Metadata = {
   description: "See how your business actually runs. Connect your ERP, CRM, or ITSM — get a living map of every process, bottleneck, and workaround. Built automatically from your data.",
   alternates: { canonical: "/" },
-  openGraph: { images: ["/og.png"] },
 };
 
 export default function HomePage() {
@@ -65,14 +64,14 @@ export default function HomePage() {
         <div className="h-rule h-rule--bottom" />
         <div className="gi section-pad">
           <Reveal>
-            <p className="type-label text-center mb-[var(--sp-4)]">Your process on paper</p>
-            <div className="ascii-frame overflow-x-auto max-w-[500px] mx-auto">
+            <p className="type-label text-center mb-[var(--sp-5)]">Your process on paper</p>
+            <div className="ascii-frame overflow-x-auto max-w-[600px] mx-auto">
               <pre className="ascii-art m-0 text-center">{`Order  ──▶  Approve  ──▶  Invoice  ──▶  Payment`}</pre>
             </div>
           </Reveal>
           <Reveal>
-            <p className="type-label text-center mt-[var(--sp-6)] mb-[var(--sp-4)]">Your process in reality</p>
-            <div className="ascii-frame overflow-x-auto max-w-[640px] mx-auto">
+            <p className="type-label text-center mt-[var(--sp-7)] mb-[var(--sp-5)]">Your process in reality</p>
+            <div className="ascii-frame overflow-x-auto max-w-[720px] mx-auto">
               <pre className="ascii-art m-0">{`Order ──▶ Approve ──▶ Reject ──▶ Re-submit ──▶ Approve
   │                       │            ▲
   ├──▶ Manual override    │            │
@@ -83,7 +82,7 @@ export default function HomePage() {
             </div>
           </Reveal>
           <Reveal>
-            <p className="tagline text-center max-w-[440px] mx-auto mt-[var(--sp-6)]">
+            <p className="tagline text-center max-w-[500px] mx-auto mt-[var(--sp-7)]">
               Meridian shows you the second one. Automatically. From your own data.
             </p>
           </Reveal>
