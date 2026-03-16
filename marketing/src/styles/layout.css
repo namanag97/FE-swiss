@@ -79,7 +79,7 @@
 .tagline { font-family: var(--caslon); font-style: italic; font-size: var(--fs-md); color: var(--emerald); line-height: 1.5; margin-top: var(--sp-3); }
 .link-card { padding: var(--sp-4); border: 1px solid var(--border); text-decoration: none; color: inherit; display: block; transition: border-color var(--t-std); }
 .link-card:hover { border-color: var(--border-mid); }
-.nav-link-label { font-family: var(--sans); font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-muted); }
+.nav-link-label { font-family: var(--sans); font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink); opacity: .7; }
 .nav-link-text { font-family: var(--sans); font-size: var(--fs-sm); color: var(--ink); margin-top: var(--sp-1); }
 .illustration-frame {
   border: 1px solid var(--border);
