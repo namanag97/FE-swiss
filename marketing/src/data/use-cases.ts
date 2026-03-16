@@ -21,10 +21,10 @@ export const useCases: UseCase[] = [
     tagline: "Your invoices take 47 days. The process says 5.",
     description: "Find where invoices actually get stuck \u2014 the approval bottlenecks, credit check delays, and rework loops that your dashboard can\u2019t explain. See the 12 variants hiding between order and payment.",
     metrics: [
-      { value: "~34%", label: "Typical cycle time reduction" },
-      { value: "~3 days", label: "Target DSO improvement" },
-      { value: "66%+", label: "Straight-through target" },
-      { value: "20+", label: "Variants detectable" },
+      { value: "~34%", label: "Industry avg. cycle time reduction¹" },
+      { value: "~3 days", label: "Potential DSO improvement" },
+      { value: "66%+", label: "Straight-through processing goal" },
+      { value: "20+", label: "Variants typically discovered" },
     ],
   },
   {
