@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: "Sancalana",
-  tagline: "Process intelligence. No consultants required.",
+  tagline: "See how your business actually runs.",
   description:
-    "Your first process map in under an hour. Connect your ERP, CRM, or ITSM — Sancalana reconstructs how work actually flows, finds what's broken, and tells you what to fix.",
+    "See how your business actually runs. Process mining, visual analytics, and AI-powered insights — connect your systems and find what your dashboards can't show you.",
   url: "https://sancalana.com",
   calendlyUrl: "https://calendly.com/sancalana/30min",
   links: {
