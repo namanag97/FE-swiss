@@ -18,7 +18,7 @@ export default function SecurityPage() {
       <PageHero
         eyebrow="Security"
         heading={<>Your data stays <em>yours</em></>}
-        description="Process data is sensitive — it maps how your entire business operates. Every layer of Meridian is built with that reality in mind."
+        description="Process data is sensitive — it maps how your entire business operates. Every layer of Sancalana is built with that reality in mind."
       />
 
       {/* Architecture SVG */}
