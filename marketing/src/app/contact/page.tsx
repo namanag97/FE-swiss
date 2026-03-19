@@ -26,9 +26,9 @@ export default function ContactPage() {
 
             <div className="flex flex-col gap-[var(--sp-4)] mt-[var(--sp-6)]">
               {[
-                { icon: Mail, title: 'hello@meridian.dev', desc: 'General inquiries' },
+                { icon: Mail, title: 'hello@sancalana.com', desc: 'General inquiries' },
                 { icon: Clock, title: '30-minute walkthrough', desc: 'We map your process live on the call' },
-                { icon: Shield, title: 'security@meridian.dev', desc: 'Security inquiries' },
+                { icon: Shield, title: 'security@sancalana.com', desc: 'Security inquiries' },
               ].map(({ icon: Icon, title, desc }) => (
                 <div key={title} className="flex gap-[var(--sp-3)] items-start">
                   <div className="card-icon shrink-0">
