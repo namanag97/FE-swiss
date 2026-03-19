@@ -20,6 +20,7 @@ Deep research documentation covering the full ontology, ecosystem, domain maps, 
 | [12-value-attribution-roi.md](./12-value-attribution-roi.md) | ROI frameworks, 15+ case studies with $$ numbers, value levers, TCO, business case construction, failure economics |
 | [13-ecosystem-partners-careers.md](./13-ecosystem-partners-careers.md) | Consulting/SI ecosystem, certifications, community, competitive dynamics (Celonis vs SAP lawsuit), careers & salaries |
 | [14-technical-architecture.md](./14-technical-architecture.md) | SAP table joins (SQL), data pipelines, dbt patterns, scaling billions of events, pm4py code, GDPR/privacy, integration patterns |
+| [15-india-market.md](./15-india-market.md) | India SAP landscape (15K+ customers), target customer list by vertical with ERP/use cases, GCCs, pricing dynamics, regulatory drivers, Indian PM startups |
 
 ## Why This Field Exists
 
