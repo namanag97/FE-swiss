@@ -10,7 +10,7 @@ export function ArchitectureSvg() {
 
       {/* Title bar */}
       <rect x={lx} y={8} width={rw} height={28} rx={2} fill={C.bg} stroke={C.border} />
-      <text x={260} y={26} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.muted} letterSpacing={1.5}>MERIDIAN PLATFORM</text>
+      <text x={260} y={26} textAnchor="middle" fontSize={9} fontFamily="Inter, system-ui, sans-serif" fontWeight={600} fill={C.muted} letterSpacing={1.5}>SANCALANA PLATFORM</text>
 
       {/* Layer 1: UI */}
       {[
