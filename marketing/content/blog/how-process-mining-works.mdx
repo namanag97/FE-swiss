@@ -42,7 +42,7 @@ Three columns are mandatory: `case_id` (what ties events together), `activity` (
 
 This is where it gets tricky. In many systems, there isn't a single clean case ID. A procure-to-pay process might start with a purchase requisition number, transition to a purchase order number, then link to a goods receipt number, and finally to an invoice document number.
 
-Meridian's connector framework handles this by defining join logic specific to each source system. For SAP, we follow the document flow table (VBFA) to chain related documents together. For ServiceNow, we trace the parent-child relationship across incident, problem, and change records.
+Sancalana's connector framework handles this by defining join logic specific to each source system. For SAP, we follow the document flow table (VBFA) to chain related documents together. For ServiceNow, we trace the parent-child relationship across incident, problem, and change records.
 
 The result is a single case ID that follows the process from start to finish, even when the underlying system uses different identifiers at each stage.
 
@@ -50,7 +50,7 @@ The result is a single case ID that follows the process from start to finish, ev
 
 Raw system events are often too granular or too cryptic to be useful. SAP transaction codes like MIGO, MIRO, and FB60 mean something to consultants but nothing to a process owner. ServiceNow state changes from 1 to 2 to 3 need labels.
 
-Activity mapping translates system-level events into business-level activities. Meridian ships with default mappings for common source systems, but every mapping is configurable. The goal is an event log where anyone can read the activity names and understand the process.
+Activity mapping translates system-level events into business-level activities. Sancalana ships with default mappings for common source systems, but every mapping is configurable. The goal is an event log where anyone can read the activity names and understand the process.
 
 ## Step 4: Process discovery algorithms
 
@@ -62,7 +62,7 @@ With a clean event log in hand, the discovery algorithm reconstructs the process
 
 **The Inductive Miner** takes a divide-and-conquer approach, recursively splitting the event log until it finds base cases. It guarantees a sound model — one where every trace can replay from start to finish — which is important for conformance checking later.
 
-Meridian uses a variant of the inductive miner as its default, with configurable frequency thresholds and the ability to switch algorithms depending on the analysis goal.
+Sancalana uses a variant of the inductive miner as its default, with configurable frequency thresholds and the ability to switch algorithms depending on the analysis goal.
 
 ## Step 5: Process map generation
 
@@ -75,7 +75,7 @@ The rendering challenge is significant. Process maps need to convey:
 - **Variants** — which paths are common and which are rare
 - **Deviations** — where the actual process diverges from the expected one
 
-Meridian renders process maps client-side using a force-directed layout with hierarchical constraints. The computation — discovery, variant analysis, performance calculation — happens server-side. The client receives a pre-computed graph structure and handles layout and interaction.
+Sancalana renders process maps client-side using a force-directed layout with hierarchical constraints. The computation — discovery, variant analysis, performance calculation — happens server-side. The client receives a pre-computed graph structure and handles layout and interaction.
 
 ## Step 6: Variant analysis
 
@@ -103,11 +103,11 @@ A variant is a unique sequence of activities that a case follows from start to f
 
 The power here is segmentation. Once you've identified variants, you can ask: what's different about the cases that follow Variant 2? Are they from a specific vendor? Above a certain dollar threshold? Assigned to a particular buyer? These questions turn process mining from a visualization exercise into a root cause analysis tool.
 
-## How Meridian handles this pipeline
+## How Sancalana handles this pipeline
 
 The full pipeline — extraction, correlation, mapping, discovery, rendering — runs on every data refresh. For most customers, that means daily. For streaming use cases, sub-hourly.
 
-The technical challenge at scale is variant analysis. With 500,000 cases and 4,000 variants, the naive approach of comparing every case to every other case is O(n^2) and doesn't work. Meridian uses a trie-based variant index that computes variant frequencies in linear time and supports incremental updates as new events arrive.
+The technical challenge at scale is variant analysis. With 500,000 cases and 4,000 variants, the naive approach of comparing every case to every other case is O(n^2) and doesn't work. Sancalana uses a trie-based variant index that computes variant frequencies in linear time and supports incremental updates as new events arrive.
 
 The result is a system where you connect your data source, configure the mapping, and within minutes have a full process model with variants, bottlenecks, and conformance analysis — ready to act on.
 
