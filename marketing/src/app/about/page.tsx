@@ -6,10 +6,9 @@ import { ProcessComparisonSvg, ArchitectureSvg } from "@/components/illustration
 import { beliefs, timeline } from "@/data/about";
 
 export const metadata: Metadata = {
-  title: "About — Why We're Building Meridian",
+  title: "About — Why We're Building Sancalana",
   description: "Every company runs on processes. Almost none can see them. We're building the platform to make operational reality visible, measurable, and fixable.",
   alternates: { canonical: "/about" },
-  openGraph: { images: ["/og.png"] },
 };
 
 export default function AboutPage() {
