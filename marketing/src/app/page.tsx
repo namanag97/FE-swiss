@@ -8,7 +8,7 @@ import { PageHero } from "@/components/layout/PageHero";
 import { comparisonCards, connectors, speedPhases, useCaseCards } from "@/data/home";
 
 export const metadata: Metadata = {
-  description: "See how your business actually runs. Connect your ERP, CRM, or ITSM — get a living map of every process, bottleneck, and workaround. Built automatically from your data.",
+  description: "Your first process map in under an hour. Connect your ERP, CRM, or ITSM — Sancalana reconstructs how work actually flows, finds what's broken, and tells you what to fix.",
   alternates: { canonical: "/" },
 };
 
