@@ -80,7 +80,7 @@ export default function PrivacyPage() {
         If you are located in the European Economic Area, you have the right to access, rectify, erase,
         restrict processing of, and port your personal data. You also have the right to object to processing
         and to withdraw consent at any time without affecting the lawfulness of prior processing. To exercise
-        any of these rights, contact our Data Protection Officer at <a href="mailto:dpo@meridian.dev">dpo@meridian.dev</a>.
+        any of these rights, contact our Data Protection Officer at <a href="mailto:dpo@sancalana.com">dpo@sancalana.com</a>.
         We will respond to all requests within 30 days. If you believe your rights have been violated, you
         have the right to lodge a complaint with your local supervisory authority.
       </p>
@@ -115,8 +115,8 @@ export default function PrivacyPage() {
       <h2 id="contact">10. Contact &amp; DPO</h2>
       <p>
         For privacy-related inquiries, contact our Data Protection Officer
-        at <a href="mailto:dpo@meridian.dev">dpo@meridian.dev</a>. For general questions,
-        reach us at <a href="mailto:privacy@meridian.dev">privacy@meridian.dev</a>. Our mailing
+        at <a href="mailto:dpo@sancalana.com">dpo@sancalana.com</a>. For general questions,
+        reach us at <a href="mailto:privacy@sancalana.com">privacy@sancalana.com</a>. Our mailing
         address is Sancalana Inc., 548 Market St, Suite 36879, San Francisco, CA 94104. We aim to
         respond to all inquiries within five business days and to formal data subject requests within
         30 calendar days.
