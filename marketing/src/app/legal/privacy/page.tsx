@@ -3,9 +3,8 @@ import { LegalLayout } from "@/components/layout/LegalLayout";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How Meridian collects, uses, and protects your personal data. GDPR compliant.",
+  description: "How Sancalana collects, uses, and protects your personal data. GDPR compliant.",
   alternates: { canonical: "/legal/privacy" },
-  openGraph: { images: ["/og.png"] },
 };
 
 const sections = [
@@ -25,7 +24,7 @@ export default function PrivacyPage() {
   return (
     <LegalLayout title={<>Privacy <em>Policy</em></>} lastUpdated="February 2026" sections={sections}>
       <p>
-        This Privacy Policy describes how Meridian (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) collects, uses, and
+        This Privacy Policy describes how Sancalana (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) collects, uses, and
         protects information when you use our platform and services. We are committed to safeguarding
         your privacy and handling your data with transparency.
       </p>
@@ -97,7 +96,7 @@ export default function PrivacyPage() {
 
       <h2 id="children">8. Children&apos;s Privacy</h2>
       <p>
-        Meridian is a business-to-business platform and is not intended for use by individuals under the
+        Sancalana is a business-to-business platform and is not intended for use by individuals under the
         age of 16. We do not knowingly collect personal information from children. If we become aware that
         a child has provided us with personal data, we will take steps to delete such information promptly.
         If you believe a child has submitted personal data to us, please contact us immediately.
@@ -118,7 +117,7 @@ export default function PrivacyPage() {
         For privacy-related inquiries, contact our Data Protection Officer
         at <a href="mailto:dpo@meridian.dev">dpo@meridian.dev</a>. For general questions,
         reach us at <a href="mailto:privacy@meridian.dev">privacy@meridian.dev</a>. Our mailing
-        address is Meridian Inc., 548 Market St, Suite 36879, San Francisco, CA 94104. We aim to
+        address is Sancalana Inc., 548 Market St, Suite 36879, San Francisco, CA 94104. We aim to
         respond to all inquiries within five business days and to formal data subject requests within
         30 calendar days.
       </p>
