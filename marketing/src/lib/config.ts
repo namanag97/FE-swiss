@@ -3,11 +3,11 @@ export const siteConfig = {
   tagline: "See how your business actually runs.",
   description:
     "See how your business actually runs. Process mining, visual analytics, and AI-powered insights — connect your systems and find what your dashboards can't show you.",
-  url: "https://meridian.dev",
-  calendlyUrl: "https://calendly.com/meridian-team/30min",
+  url: "https://sancalana.com",
+  calendlyUrl: "https://calendly.com/sancalana/30min",
   links: {
-    twitter: "https://twitter.com/meridiandev",
-    linkedin: "https://linkedin.com/company/meridiandev",
+    twitter: "https://twitter.com/sancalana",
+    linkedin: "https://linkedin.com/company/sancalana",
   },
   nav: [
     { label: "Platform", href: "/platform" },
