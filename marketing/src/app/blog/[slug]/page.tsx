@@ -172,7 +172,7 @@ export default async function BlogPostPage({ params }: Props) {
             <ArrowLeft size={9} />
             All posts
           </Link>
-          <span className="nav-link-label">Meridian Journal</span>
+          <span className="nav-link-label">Sancalana Journal</span>
         </div>
       </div>
     </>
