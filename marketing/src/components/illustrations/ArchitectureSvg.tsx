@@ -4,7 +4,7 @@ export function ArchitectureSvg() {
   const lx = 24;
   const rw = 472;
   return (
-    <svg viewBox="0 0 520 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Meridian platform architecture: UI layer, process mining engine, event log store, and connectors" style={{ width: "100%", height: "auto" }}>
+    <svg viewBox="0 0 520 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sancalana platform architecture: UI layer, process mining engine, event log store, and connectors" style={{ width: "100%", height: "auto" }}>
       {/* Outer frame */}
       <rect x={lx} y={8} width={rw} height={304} rx={2} fill={C.white} stroke={C.border} />
 
