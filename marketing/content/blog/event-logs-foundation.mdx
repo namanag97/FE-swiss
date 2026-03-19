@@ -64,13 +64,13 @@ In theory, building an event log is straightforward. In practice, enterprise dat
 
 The most common problem. An event happened in reality but wasn't recorded — or was recorded in a system you're not extracting from. A phone call that changed an approval decision. A manual step done outside the system. These show up as unexplained jumps in the process: a case goes from "Submit Request" directly to "Fulfilled" with no approval step in between.
 
-Meridian flags these gaps by comparing each case's trace against the discovered process model. Cases with missing expected activities get annotated, and you can filter to analyze them separately.
+Sancalana flags these gaps by comparing each case's trace against the discovered process model. Cases with missing expected activities get annotated, and you can filter to analyze them separately.
 
 ### Timestamp granularity
 
 Some systems record timestamps to the second. Others only to the day. When multiple events share the same timestamp, the discovery algorithm can't determine their order. This creates false parallelism in the process map — activities appear concurrent when they were actually sequential.
 
-Meridian handles this with configurable tie-breaking rules. You can specify a priority order for activities (e.g., "Create" always comes before "Approve"), or use secondary sort keys like a database sequence ID.
+Sancalana handles this with configurable tie-breaking rules. You can specify a priority order for activities (e.g., "Create" always comes before "Approve"), or use secondary sort keys like a database sequence ID.
 
 ### Duplicate events
 
@@ -80,11 +80,11 @@ System integrations and batch retries can produce duplicate records. The same ac
 
 The same business activity might appear as "Approve PO," "PO Approved," "Purchase Order Approval," and "APPROVE_PURCHASE_ORDER" across different time periods or system modules. Activity mapping must normalize these into a single canonical name.
 
-## Meridian's connector framework
+## Sancalana's connector framework
 
 Extraction is where most process mining projects stall. Writing SQL to join SAP tables into a clean event log can take weeks. The schema knowledge alone — understanding which tables hold which events and how document flow works — is specialized expertise.
 
-Meridian ships with pre-built connectors for the most common source systems:
+Sancalana ships with pre-built connectors for the most common source systems:
 
 ```
   Connector Coverage
@@ -128,14 +128,14 @@ The cardinality challenge isn't just about row count. It's about the combinatori
   Refresh frequency          Daily       Daily       Hourly
 ```
 
-At the "large" end, naive approaches break down. You can't load 50 million events into browser memory. You can't recompute variant frequencies on every filter change. Meridian uses columnar storage with pre-aggregated variant indices to keep query response times under 200ms even at this scale.
+At the "large" end, naive approaches break down. You can't load 50 million events into browser memory. You can't recompute variant frequencies on every filter change. Sancalana uses columnar storage with pre-aggregated variant indices to keep query response times under 200ms even at this scale.
 
 ## Getting the log right
 
 The event log is the foundation. Every insight downstream — every bottleneck identified, every conformance violation detected, every variant analyzed — is only as reliable as the log it was derived from.
 
-This is why Meridian invests heavily in the extraction and normalization layer. We'd rather spend engineering effort on getting the data right than on building flashier visualizations on top of bad data.
+This is why Sancalana invests heavily in the extraction and normalization layer. We'd rather spend engineering effort on getting the data right than on building flashier visualizations on top of bad data.
 
 If you're evaluating process mining tools, start by asking how they handle extraction. The discovery algorithm matters, but the event log matters more.
 
-[See how Meridian connects to your systems](/platform) or [talk to our team about your data](/contact).
+[See how Sancalana connects to your systems](/platform) or [talk to our team about your data](/contact).
