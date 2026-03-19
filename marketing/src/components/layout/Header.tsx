@@ -28,7 +28,7 @@ export function Header() {
     <>
       {/* Announcement Banner */}
       <div className="banner">
-        <span className="banner-text">Meridian is now accepting early access requests</span>
+        <span className="banner-text">Sancalana is now accepting early access requests</span>
         <div className="banner-dot" />
         <Link href="/contact" className="banner-link">
           Apply now
