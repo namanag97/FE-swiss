@@ -1,5 +1,5 @@
 ---
-title: "Building Meridian: Our Architecture Decisions"
+title: "Building Sancalana: Our Architecture Decisions"
 description: "The engineering choices behind a process mining platform that handles 10M+ events daily."
 date: "2026-02-15"
 author: "Naman Agarwal"
@@ -7,7 +7,7 @@ tags: ["engineering"]
 published: true
 ---
 
-When we started building Meridian, we had a clear problem statement: process mining at enterprise scale is computationally hard, and the existing approaches either compromise on interactivity or on data volume. We wanted both — real-time exploration of process models derived from tens of millions of events.
+When we started building Sancalana, we had a clear problem statement: process mining at enterprise scale is computationally hard, and the existing approaches either compromise on interactivity or on data volume. We wanted both — real-time exploration of process models derived from tens of millions of events.
 
 Here are the architecture decisions we made and why.
 
@@ -30,7 +30,7 @@ Columnar storage (the approach used by DuckDB, ClickHouse, and Parquet) stores e
   10M rows x 200 bytes/row = 2 GB scanned for 400 MB of useful data
 
 
-  Columnar storage (Meridian)
+  Columnar storage (Sancalana)
   ==========================================
   case_id column:  [val1, val2, val3, ...]     ~120 MB
   activity column: [val1, val2, val3, ...]     ~80 MB
@@ -57,7 +57,7 @@ Our approach: streaming ingestion with batch-computed snapshots.
   Ingestion Pipeline
   ==========================================
 
-  Source Systems                     Meridian
+  Source Systems                     Sancalana
   ----------------                   ----------------------------
 
   SAP  ----+
@@ -155,6 +155,6 @@ No architecture survives contact with reality unchanged. A few things we've lear
 
 **The trie needs garbage collection.** Cases that complete drop out of the active variant trie, but we initially kept all historical variants in memory. For long-running deployments, the trie grew unboundedly. We added a compaction step that archives completed variants to disk-based storage.
 
-Building a process mining engine is an exercise in applied data engineering. The algorithms are well-understood. The challenge is making them work at scale, interactively, on messy enterprise data. That's the engineering problem we're solving at Meridian.
+Building a process mining engine is an exercise in applied data engineering. The algorithms are well-understood. The challenge is making them work at scale, interactively, on messy enterprise data. That's the engineering problem we're solving at Sancalana.
 
 [See the platform in action](/platform) or [talk to our engineering team](/contact).
