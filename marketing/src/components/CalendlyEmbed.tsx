@@ -43,8 +43,8 @@ export function CalendlyEmbed() {
         >
           Open scheduler directly
         </a>
-        <a href="mailto:hello@meridian.dev" className="type-label">
-          or email hello@meridian.dev
+        <a href="mailto:hello@sancalana.com" className="type-label">
+          or email hello@sancalana.com
         </a>
       </div>
     );
