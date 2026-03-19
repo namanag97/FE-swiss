@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Meridian",
+  name: "Sancalana",
   tagline: "See how your business actually runs.",
   description:
     "See how your business actually runs. Process mining, visual analytics, and AI-powered insights — connect your systems and find what your dashboards can't show you.",
