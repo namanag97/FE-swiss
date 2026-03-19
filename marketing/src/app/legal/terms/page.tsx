@@ -3,9 +3,8 @@ import { LegalLayout } from "@/components/layout/LegalLayout";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
-  description: "Terms governing your use of the Meridian platform and services.",
+  description: "Terms governing your use of the Sancalana platform and services.",
   alternates: { canonical: "/legal/terms" },
-  openGraph: { images: ["/og.png"] },
 };
 
 const sections = [
@@ -25,15 +24,15 @@ export default function TermsPage() {
   return (
     <LegalLayout title={<>Terms of <em>Service</em></>} lastUpdated="February 2026" sections={sections}>
       <p>
-        These Terms of Service (&quot;Terms&quot;) govern your access to and use of the Meridian platform and
+        These Terms of Service (&quot;Terms&quot;) govern your access to and use of the Sancalana platform and
         related services. By accessing or using our services, you agree to be bound by these Terms.
         Please read them carefully.
       </p>
 
       <h2 id="acceptance">1. Acceptance of Terms</h2>
       <p>
-        By creating an account or using any part of the Meridian platform, you confirm that you have
-        read, understood, and agree to these Terms and our Privacy Policy. If you are using Meridian on
+        By creating an account or using any part of the Sancalana platform, you confirm that you have
+        read, understood, and agree to these Terms and our Privacy Policy. If you are using Sancalana on
         behalf of an organization, you represent that you have the authority to bind that organization to
         these Terms. If you do not agree with any provision, you must discontinue use of the service
         immediately.
@@ -41,7 +40,7 @@ export default function TermsPage() {
 
       <h2 id="description">2. Service Description</h2>
       <p>
-        Meridian provides a process intelligence platform that enables organizations to analyze, monitor,
+        Sancalana provides a process intelligence platform that enables organizations to analyze, monitor,
         and optimize their business processes through data-driven insights. The service includes process
         mining, conformance checking, analytics dashboards, automation workflows, and related tools. We
         reserve the right to modify, enhance, or discontinue features with reasonable notice. New features
@@ -70,7 +69,7 @@ export default function TermsPage() {
 
       <h2 id="availability">5. Service Availability &amp; SLA</h2>
       <p>
-        We target 99.9% uptime for the Meridian platform, measured on a monthly basis excluding scheduled
+        We target 99.9% uptime for the Sancalana platform, measured on a monthly basis excluding scheduled
         maintenance windows. Enterprise plan customers receive a formal Service Level Agreement with
         financial credits for downtime exceeding the guaranteed threshold. Scheduled maintenance is
         performed during off-peak hours with at least 48 hours&apos; notice. We will use commercially
@@ -79,7 +78,7 @@ export default function TermsPage() {
 
       <h2 id="use">6. Acceptable Use</h2>
       <p>
-        You agree to use Meridian only for lawful purposes and in compliance with all applicable laws and
+        You agree to use Sancalana only for lawful purposes and in compliance with all applicable laws and
         regulations. You may not attempt to gain unauthorized access to any part of the service, interfere
         with or disrupt the platform or its infrastructure, reverse-engineer or decompile any part of the
         software, or use the service to store or transmit malicious code. You are responsible for ensuring
@@ -89,7 +88,7 @@ export default function TermsPage() {
 
       <h2 id="liability">7. Limitation of Liability</h2>
       <p>
-        To the maximum extent permitted by applicable law, Meridian and its affiliates shall not be liable
+        To the maximum extent permitted by applicable law, Sancalana and its affiliates shall not be liable
         for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits,
         revenue, data, or business opportunities arising from your use of the service. Our total aggregate
         liability for any claims arising under these Terms shall not exceed the amount you paid to us in
@@ -120,7 +119,7 @@ export default function TermsPage() {
       <p>
         For questions about these Terms, contact us at <a href="mailto:legal@meridian.dev">legal@meridian.dev</a>.
         For security concerns, reach our security team at <a href="mailto:security@meridian.dev">security@meridian.dev</a>.
-        Our mailing address is Meridian Inc., 548 Market St, Suite 36879, San Francisco, CA 94104.
+        Our mailing address is Sancalana Inc., 548 Market St, Suite 36879, San Francisco, CA 94104.
         These Terms are governed by the laws of the State of California, without regard to conflict of
         law principles. Any disputes arising under these Terms shall be subject to the exclusive
         jurisdiction of the state and federal courts located in San Francisco County, California.
