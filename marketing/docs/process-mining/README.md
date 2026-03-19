@@ -16,6 +16,10 @@ Deep research documentation covering the full ontology, ecosystem, domain maps, 
 | [08-implementation.md](./08-implementation.md) | Implementation methodology, data sources, KPI frameworks, maturity model, CoE governance |
 | [09-future-directions.md](./09-future-directions.md) | OCPM, predictive monitoring, prescriptive analytics, AI augmentation, quantum PM, responsible PM |
 | [10-intellectual-foundations.md](./10-intellectual-foundations.md) | Petri nets, workflow nets, BPMN, EPCs, formal language theory, data science connections |
+| [11-celonis-deep-dive.md](./11-celonis-deep-dive.md) | Full platform architecture, Data Core, PI Graph, OCPM implementation, Action Engine, SDK/APIs, pricing, security |
+| [12-value-attribution-roi.md](./12-value-attribution-roi.md) | ROI frameworks, 15+ case studies with $$ numbers, value levers, TCO, business case construction, failure economics |
+| [13-ecosystem-partners-careers.md](./13-ecosystem-partners-careers.md) | Consulting/SI ecosystem, certifications, community, competitive dynamics (Celonis vs SAP lawsuit), careers & salaries |
+| [14-technical-architecture.md](./14-technical-architecture.md) | SAP table joins (SQL), data pipelines, dbt patterns, scaling billions of events, pm4py code, GDPR/privacy, integration patterns |
 
 ## Why This Field Exists
 
