@@ -83,7 +83,7 @@ export default function HomePage() {
           </Reveal>
           <Reveal>
             <p className="tagline text-center max-w-[500px] mx-auto mt-[var(--sp-7)]">
-              Meridian shows you the second one. Automatically. From your own data.
+              Sancalana shows you the second one. Automatically. From your own data.
             </p>
           </Reveal>
         </div>
@@ -119,7 +119,7 @@ export default function HomePage() {
                 It never stops <em>watching</em>
               </h2>
               <p className="type-body mt-5 text-mid max-w-[500px] mx-auto">
-                Meridian doesn&apos;t generate a report and walk away. It observes
+                Sancalana doesn&apos;t generate a report and walk away. It observes
                 your processes continuously, detects when something drifts,
                 predicts what breaks next, and recommends what to fix.
               </p>
