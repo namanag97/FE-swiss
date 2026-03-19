@@ -7,9 +7,8 @@ import { formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Blog — Engineering, Process Mining & Product Updates",
-  description: "How we think about process mining, what we're building, and why. Engineering deep-dives, architecture decisions, and perspectives from the Meridian team.",
+  description: "How we think about process mining, what we're building, and why. Engineering deep-dives, architecture decisions, and perspectives from the Sancalana team.",
   alternates: { canonical: "/blog" },
-  openGraph: { images: ["/og.png"] },
 };
 
 const tagClass: Record<string, string> = {
@@ -95,7 +94,7 @@ export default function BlogPage() {
                       </div>
                       <div>
                         <div className="type-body-sm font-medium text-[color:var(--ink)] leading-none mb-1">{featured.author}</div>
-                        <span className="type-label">Meridian Team</span>
+                        <span className="type-label">Sancalana Team</span>
                       </div>
                     </div>
                   </div>
@@ -168,7 +167,7 @@ export default function BlogPage() {
 
       <CtaBand
         heading={<>Stay in the <em>loop</em></>}
-        description="See how Meridian turns raw event logs into operational clarity. Request early access."
+        description="See how Sancalana turns raw event logs into operational clarity. Request early access."
       />
     </>
   );
