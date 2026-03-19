@@ -4,7 +4,7 @@ import { CalendlyEmbed } from "@/components/CalendlyEmbed";
 
 export const metadata: Metadata = {
   title: "Contact — Request Early Access",
-  description: "Book a call with the Meridian team. We'll map your process live and show you what's hiding in your data.",
+  description: "Book a call with the Sancalana team. We'll map your process live and show you what's hiding in your data.",
   alternates: { canonical: "/contact" },
 };
 
@@ -50,7 +50,7 @@ export default function ContactPage() {
               <p className="type-body-sm text-mid">
                 Tell us what systems you run (SAP, Oracle, ServiceNow, etc.) and
                 which processes matter most to you. We&apos;ll walk you through how
-                Meridian maps them — and what it finds.
+                Sancalana maps them — and what it finds.
               </p>
             </div>
           </div>
