@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Meridian — See how your business actually runs.";
+export const alt = "Sancalana — See how your business actually runs.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -50,7 +50,7 @@ export default function OgImage() {
             marginTop: 24,
           }}
         >
-          Meridian
+          Sancalana
         </div>
 
         <div
