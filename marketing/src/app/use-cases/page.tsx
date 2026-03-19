@@ -11,7 +11,7 @@ import { useCases } from "@/data/use-cases";
 export const metadata: Metadata = {
   title: "Use Cases — O2C, P2P, ITSM & Patient Journey",
   description:
-    "See how Meridian maps real workflows. Order-to-Cash, Procure-to-Pay, IT Service Management, and Patient Journey — find what your dashboards can't show you.",
+    "See how Sancalana maps real workflows. Order-to-Cash, Procure-to-Pay, IT Service Management, and Patient Journey — find what your dashboards can't show you.",
   alternates: { canonical: "/use-cases" },
 };
 
