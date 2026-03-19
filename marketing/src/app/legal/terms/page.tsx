@@ -117,8 +117,8 @@ export default function TermsPage() {
 
       <h2 id="contact">10. Contact</h2>
       <p>
-        For questions about these Terms, contact us at <a href="mailto:legal@meridian.dev">legal@meridian.dev</a>.
-        For security concerns, reach our security team at <a href="mailto:security@meridian.dev">security@meridian.dev</a>.
+        For questions about these Terms, contact us at <a href="mailto:legal@sancalana.com">legal@sancalana.com</a>.
+        For security concerns, reach our security team at <a href="mailto:security@sancalana.com">security@sancalana.com</a>.
         Our mailing address is Sancalana Inc., 548 Market St, Suite 36879, San Francisco, CA 94104.
         These Terms are governed by the laws of the State of California, without regard to conflict of
         law principles. Any disputes arising under these Terms shall be subject to the exclusive
