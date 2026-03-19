@@ -19,7 +19,7 @@ export interface UseCaseCard {
 export const comparisonCards: ComparisonCard[] = [
   { title: "SQL + dashboards", desc: "\"Something is slow. Somewhere. Good luck.\"", tone: "var(--ink-faint)" },
   { title: "Process mining", desc: "\"Here are 14 paths. Now hire someone to figure out which one matters.\"", tone: "var(--ink-muted)" },
-  { title: "Meridian", desc: "\"Path 7 has a rework loop costing you 11 days. Here\u2019s the fix.\"", tone: "var(--emerald)" },
+  { title: "Sancalana", desc: "\"Path 7 has a rework loop costing you 11 days. Here\u2019s the fix.\"", tone: "var(--emerald)" },
 ];
 
 export const connectors: string[] = ["SAP", "Oracle", "ServiceNow", "Salesforce", "Jira", "Postgres", "Snowflake", "BigQuery"];
