@@ -1,3 +1,5 @@
+"use client";
+
 import { C } from "@/lib/colors";
 import { scaleBand, scaleLinear } from "@visx/scale";
 
@@ -11,49 +13,44 @@ export interface WaterfallDatum {
 
 interface WaterfallChartProps {
   data: WaterfallDatum[];
-  formatValue?: (v: number) => string;
 }
 
-const FONT = "Inter, system-ui, sans-serif";
-const TOP_PAD = 28;
-const BOTTOM_PAD = 48;
-const SIDE_PAD = 16;
+const MONO = "'Geist Mono', monospace";
+const TOP = 24;
+const BOT = 52;
+const SIDE = 12;
 
-export function WaterfallChart({ data, formatValue }: WaterfallChartProps) {
-  const width = 560;
-  const height = 280;
-  const chartHeight = height - TOP_PAD - BOTTOM_PAD;
+export function WaterfallChart({ data }: WaterfallChartProps) {
+  const W = 520;
+  const H = 260;
+  const chartH = H - TOP - BOT;
 
-  const fmt = formatValue ?? ((v: number) => String(v));
-
-  // Calculate cumulative positions
   let cumulative = 0;
   const bars = data.map((d) => {
     if (d.isTotal) {
-      const bar = { ...d, start: 0, end: cumulative, barHeight: cumulative };
-      return bar;
+      return { ...d, start: 0, end: cumulative, barH: cumulative };
     }
     const start = cumulative;
     cumulative += d.value;
-    return { ...d, start, end: cumulative, barHeight: d.value };
+    return { ...d, start, end: cumulative, barH: d.value };
   });
 
   const maxVal = Math.max(...bars.map((b) => Math.max(b.start, b.end)));
 
   const xScale = scaleBand({
     domain: data.map((d) => d.label),
-    range: [SIDE_PAD, width - SIDE_PAD],
-    padding: 0.35,
+    range: [SIDE, W - SIDE],
+    padding: 0.32,
   });
 
   const yScale = scaleLinear({
-    domain: [0, maxVal * 1.15],
-    range: [chartHeight, 0],
+    domain: [0, maxVal * 1.18],
+    range: [chartH, 0],
   });
 
   return (
     <svg
-      viewBox={`0 0 ${width} ${height}`}
+      viewBox={`0 0 ${W} ${H}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
@@ -62,12 +59,12 @@ export function WaterfallChart({ data, formatValue }: WaterfallChartProps) {
     >
       {/* Baseline */}
       <line
-        x1={SIDE_PAD}
-        y1={TOP_PAD + chartHeight}
-        x2={width - SIDE_PAD}
-        y2={TOP_PAD + chartHeight}
+        x1={SIDE}
+        y1={TOP + chartH}
+        x2={W - SIDE}
+        y2={TOP + chartH}
         stroke={C.border}
-        strokeWidth={1}
+        strokeWidth={0.5}
       />
 
       {bars.map((bar, i) => {
@@ -75,75 +72,81 @@ export function WaterfallChart({ data, formatValue }: WaterfallChartProps) {
         const bw = xScale.bandwidth();
         const yTop = yScale(Math.max(bar.start, bar.end));
         const yBot = yScale(Math.min(bar.start, bar.end));
-        const barH = yBot - yTop;
+        const barH = Math.max(yBot - yTop, 2);
 
-        const fill = bar.isTotal
-          ? C.ink
-          : bar.color ?? C.emerald;
-
-        // Connector line to next bar
+        const fill = bar.isTotal ? C.ink : bar.color ?? C.emerald;
         const nextBar = bars[i + 1];
-        const connectorY = TOP_PAD + yScale(bar.end);
+        const connY = TOP + yScale(bar.end);
 
         return (
           <g key={bar.label}>
-            {/* Bar */}
             <rect
               x={x}
-              y={TOP_PAD + yTop}
+              y={TOP + yTop}
               width={bw}
-              height={Math.max(barH, 1)}
+              height={barH}
               rx={1}
               fill={fill}
-              opacity={bar.isTotal ? 0.9 : 0.75}
+              opacity={bar.isTotal ? 0.85 : 0.7}
             />
 
-            {/* Value label above bar */}
+            {/* Value label */}
             <text
               x={x + bw / 2}
-              y={TOP_PAD + yTop - 6}
-              textAnchor="middle"
-              fontSize={10}
-              fontFamily={FONT}
-              fontWeight={500}
-              fill={bar.isTotal ? C.ink : C.muted}
-            >
-              {bar.displayValue ?? fmt(bar.barHeight)}
-            </text>
-
-            {/* X-axis label */}
-            <text
-              x={x + bw / 2}
-              y={TOP_PAD + chartHeight + 14}
+              y={TOP + yTop - 6}
               textAnchor="middle"
               fontSize={9}
-              fontFamily={FONT}
-              fontWeight={400}
-              fill={C.muted}
+              fontFamily={MONO}
+              fontWeight={bar.isTotal ? 500 : 400}
+              fill={bar.isTotal ? C.ink : C.inkMid}
+              letterSpacing="0.02em"
             >
-              {bar.label.length > 12
-                ? bar.label.split(" ").map((word, wi) => (
-                    <tspan
-                      key={wi}
-                      x={x + bw / 2}
-                      dy={wi === 0 ? 0 : 11}
-                    >
-                      {word}
-                    </tspan>
-                  ))
-                : bar.label}
+              {bar.displayValue ?? String(bar.barH)}
             </text>
 
-            {/* Connector line */}
+            {/* X-axis label — wrap long labels */}
+            {bar.label.includes(" ") ? (
+              <text
+                x={x + bw / 2}
+                y={TOP + chartH + 12}
+                textAnchor="middle"
+                fontSize={8}
+                fontFamily={MONO}
+                fontWeight={400}
+                fill={C.muted}
+                letterSpacing="0.02em"
+              >
+                {bar.label.split(" ").map((word, wi) => (
+                  <tspan key={wi} x={x + bw / 2} dy={wi === 0 ? 0 : 10}>
+                    {word}
+                  </tspan>
+                ))}
+              </text>
+            ) : (
+              <text
+                x={x + bw / 2}
+                y={TOP + chartH + 12}
+                textAnchor="middle"
+                fontSize={8}
+                fontFamily={MONO}
+                fontWeight={400}
+                fill={C.muted}
+                letterSpacing="0.02em"
+              >
+                {bar.label}
+              </text>
+            )}
+
+            {/* Connector */}
             {nextBar && !bar.isTotal && (
               <line
                 x1={x + bw}
-                y1={connectorY}
-                x2={(xScale(nextBar.label) ?? 0)}
-                y2={connectorY}
+                y1={connY}
+                x2={xScale(nextBar.label) ?? 0}
+                y2={connY}
                 stroke={C.border}
-                strokeWidth={1}
-                strokeDasharray="3,2"
+                strokeWidth={0.5}
+                strokeDasharray="2,2"
               />
             )}
           </g>
