@@ -1,0 +1,264 @@
+---
+title: "The Enterprise Data Ecosystem: Where Process Mining Fits"
+description: "A clear map of how data flows through enterprise systems — and why dashboards, ETL tools, and data warehouses can't replace process intelligence."
+date: "2026-03-18"
+author: "Naman Agarwal"
+tags: ["insights", "process-mining"]
+published: true
+---
+
+Every enterprise has a data stack. Most have spent millions building it. ERP systems, data warehouses, ETL pipelines, BI dashboards — layers upon layers of infrastructure designed to capture, move, store, and visualize data.
+
+And yet, when an operations leader asks "why does our procurement cycle take 23 days instead of 15?" the answer is usually a six-week investigation involving spreadsheets, meetings, and guesswork.
+
+The infrastructure isn't broken. It's incomplete. There's a missing layer — and understanding where it fits requires mapping the entire ecosystem.
+
+## The 6 layers of enterprise data
+
+Every enterprise data stack, whether explicitly designed or organically grown, follows a similar architecture. Six layers, each with a distinct job:
+
+```
+  The Enterprise Data Stack
+  ================================================================
+
+  Layer 1: SOURCE SYSTEMS
+  ERP (SAP, Oracle) | CRM (Salesforce) | ITSM (ServiceNow) | WMS
+  ----------------------------------------------------------------
+       |         |          |            |
+       v         v          v            v
+  Layer 2: INTEGRATION
+  Informatica | Fivetran | Talend | MuleSoft | custom scripts
+  ----------------------------------------------------------------
+       |         |          |            |
+       v         v          v            v
+  Layer 3: STORAGE
+  Snowflake | Databricks | SAP HANA | BigQuery | data lakes
+  ----------------------------------------------------------------
+       |         |          |            |
+       v         v          v            v
+  Layer 4: ANALYTICS (BI)
+  Power BI | Tableau | Looker | SAP Analytics Cloud
+  ----------------------------------------------------------------
+       |
+       v
+  Layer 5: PROCESS INTELLIGENCE        <--- the missing layer
+  Process mining | conformance checking | variant analysis
+  ----------------------------------------------------------------
+       |
+       v
+  Layer 6: AUTOMATION
+  RPA (UiPath) | workflow engines | orchestration platforms
+  ----------------------------------------------------------------
+```
+
+Most enterprises have layers 1 through 4 well-covered. Layer 6 is increasingly common. Layer 5 — process intelligence — is where the gap is. And it's a gap that none of the other layers can fill, no matter how much money you spend on them.
+
+Here's why.
+
+## Why BI tools can't do this: aggregation vs sequencing
+
+Power BI, Tableau, Looker — they're all built on the same computational model. Take a table of data. Group by a dimension. Aggregate a measure. Show the result.
+
+This model is extraordinarily powerful for monitoring. Revenue by quarter. Cycle time by region. Throughput by product line. It answers "what" and "how much" with precision.
+
+But it structurally cannot answer "in what order" — and that's the question process mining exists to answer.
+
+```
+  What BI does (aggregation)
+  ==========================================
+
+  SELECT department, AVG(cycle_time)
+  FROM orders
+  GROUP BY department
+
+  Result: "Professional Services averages 31.8 days"
+
+  What's missing: WHERE in the process is the time spent?
+  Is it approvals? Vendor response? A rework loop?
+  The aggregate destroys the sequence.
+
+
+  What process mining does (sequencing)
+  ==========================================
+
+  For each case:
+    Order events by timestamp
+    Extract the activity sequence: A -> B -> C -> D -> B -> C -> D -> E
+    Identify the rework loop: B -> C -> D repeats
+    Measure time between each transition
+
+  Result: "41% of cases loop through Review -> Revise -> Resubmit,
+           adding 12.3 days on average"
+```
+
+The difference is fundamental. BI tools aggregate rows into numbers. Process mining sequences events into paths. You can't derive a path from an aggregate — the information is destroyed during the GROUP BY.
+
+This isn't a feature gap that Tableau could close with a plugin. It's a different computational model. Dashboards and process mining answer fundamentally different questions, which is why they coexist rather than compete.
+
+## Why Informatica is plumbing, not intelligence
+
+Informatica, Fivetran, Talend, and the rest of the integration layer do a critical job: they move data from point A to point B. Extract from SAP, transform the schema, load into Snowflake. CDC streams, API connectors, data quality rules.
+
+But that's layer 2 — plumbing. And plumbing doesn't understand what flows through it.
+
+```
+  What Informatica does
+  ==========================================
+
+  SAP (EKKO table)                    Snowflake
+  -----------------                   ------------------
+  PO Number: 450012      --------->   po_number: 450012
+  Created: 2025-03-01    transform    created_date: 2025-03-01
+  Vendor: V-1092          & load      vendor_id: V-1092
+  Amount: $45,000                     amount_usd: 45000
+  Status: Approved                    status: approved
+
+  The data is moved. Cleaned. Typed. Available.
+  But nobody asked: "How did this PO get from Created to Approved?
+  What happened in between? How long did each step take?
+  Did it follow the standard path or an exception path?"
+```
+
+Integration tools are essential infrastructure. Without them, process mining has no data to work with. But they're a prerequisite, not a substitute. Informatica tells you that a purchase order exists and what its current state is. It doesn't tell you the journey that purchase order took through your organization — the approvals, the rejections, the rework loops, the handoffs between departments.
+
+## Why SAP HANA is a database, not a process mining tool
+
+This one is worth addressing directly because it comes up in every enterprise conversation. "We already have SAP HANA. It's an in-memory database. It's fast. Can't we just query our event data directly?"
+
+Yes, HANA is fast. It's an excellent column-store database. You can absolutely store event logs in HANA and run SQL queries against them.
+
+But process mining isn't a query. It's a set of algorithms — process discovery, conformance checking, variant analysis, social network analysis, predictive process monitoring — that operate on ordered sequences of events grouped by case. Writing these algorithms as SQL queries is technically possible and practically insane. A variant analysis query on 10 million events in raw SQL would be hundreds of lines of recursive CTEs, window functions, and self-joins. It would be unmaintainable, slow, and wrong in subtle ways that take weeks to debug.
+
+SAP knows this. That's why they acquired Signavio for $1.2 billion in 2023.
+
+```
+  SAP's own architecture validates the point
+  ==========================================
+
+  Before Signavio acquisition:
+    SAP HANA (database) + SAP Analytics Cloud (BI)
+    = Could store events, could aggregate metrics
+    = Could NOT do process discovery, conformance, or variant analysis
+
+  After Signavio acquisition ($1.2B):
+    SAP HANA + SAP Analytics Cloud + Signavio (process mining)
+    = Now has the missing layer
+
+  If HANA could do process mining, SAP wouldn't have spent
+  $1.2 billion to acquire a company that does.
+```
+
+The database stores the data. Process mining algorithms make sense of it. These are different jobs requiring different tools — a distinction SAP itself confirmed with a billion-dollar check.
+
+## Why Snowflake and Databricks store data but don't understand processes
+
+Snowflake and Databricks are the modern data platform layer. They store petabytes of structured and semi-structured data. They support SQL, Python, Spark. They're fast, scalable, and well-integrated with the rest of the stack.
+
+And they're layer 3 — storage and compute. Not intelligence.
+
+The argument for "just build it in Databricks" usually goes like this: "We have all the event data in our lakehouse. Our data team can write Spark jobs to compute process maps." This is true in the same way that you can build a CRM in PostgreSQL — technically possible, but you'll spend 18 months recreating what purpose-built tools do out of the box, and the result will be worse.
+
+Process mining requires:
+
+- **Process discovery algorithms** (Alpha Miner, Inductive Miner, Heuristics Miner) that convert event logs into process models
+- **Conformance checking** that compares actual behavior against reference models and quantifies deviations
+- **Variant analysis** that identifies, clusters, and compares execution paths across millions of cases
+- **Visual process maps** that render directed graphs with frequency and performance overlays, filterable in real-time
+- **Root cause analysis** that correlates process deviations with case attributes (region, vendor, amount, etc.)
+
+None of this ships with Snowflake or Databricks. You could build it on top of them — and the compute layer of a process mining platform typically does sit on top of a data store. But "the data is in Snowflake" is the starting point, not the finish line.
+
+```
+  The "just build it in Databricks" trajectory
+  ==========================================
+
+  Month 1:   "We'll write a Spark job to compute variants"
+  Month 3:   "We need a visualization layer, let's use D3"
+  Month 6:   "Conformance checking is harder than we thought"
+  Month 9:   "The Spark job takes 4 hours, users need interactive speed"
+  Month 12:  "We need filtering, drill-down, and case-level detail"
+  Month 15:  "We've rebuilt 30% of a process mining tool, poorly"
+  Month 18:  "Let's just buy one"
+```
+
+Snowflake and Databricks are infrastructure. Process mining is an application. You don't skip the application because you have the infrastructure — just like you don't skip Salesforce because you have PostgreSQL.
+
+## The fundamental difference: aggregation vs sequencing
+
+Every tool in layers 2 through 4 operates on data as records — rows with columns, grouped and aggregated. This is the relational model, and it's been the foundation of enterprise data for 50 years.
+
+Process mining operates on data as sequences — ordered events grouped into cases, analyzed as paths through a graph. This is the event log model, and it answers questions the relational model structurally cannot.
+
+```
+  Two models of the same data
+  ==========================================
+
+  RELATIONAL MODEL (BI / data warehouse)
+  -----------------------------------------------
+  | PO Number | Status   | Cycle Time | Region  |
+  |-----------|----------|------------|---------|
+  | 450012    | Closed   | 23 days    | EMEA    |
+  | 450013    | Closed   | 14 days    | NA      |
+  | 450014    | Open     | 31 days    | APAC    |
+  -----------------------------------------------
+  Questions it answers:
+    - Average cycle time by region
+    - Count of open vs closed POs
+    - Trend of cycle time over quarters
+
+  EVENT LOG MODEL (process mining)
+  -----------------------------------------------
+  | Case ID | Activity        | Timestamp        |
+  |---------|-----------------|------------------|
+  | 450012  | Create PO       | 2025-03-01 09:00 |
+  | 450012  | Approve         | 2025-03-01 14:00 |
+  | 450012  | Reject (budget) | 2025-03-04 10:00 |
+  | 450012  | Revise          | 2025-03-06 11:00 |
+  | 450012  | Re-approve      | 2025-03-08 09:00 |
+  | 450012  | Send to vendor  | 2025-03-08 15:00 |
+  | 450012  | Receive goods   | 2025-03-18 10:00 |
+  | 450012  | Invoice match   | 2025-03-20 14:00 |
+  | 450012  | Payment         | 2025-03-24 09:00 |
+  -----------------------------------------------
+  Questions it answers:
+    - Why did this PO take 23 days? (rejection + revision loop)
+    - How many POs go through rejection? (variant analysis)
+    - Where is the biggest bottleneck? (transition performance)
+    - Does this deviate from the standard path? (conformance)
+```
+
+The relational model tells you PO 450012 took 23 days. The event log model tells you it took 23 days because it was rejected for budget reasons, revised two days later, re-approved after a weekend delay, and then waited 10 days for goods receipt. One is a fact. The other is a diagnosis.
+
+## Where Sancalana sits in this stack
+
+Sancalana is a layer 5 tool. It connects to your layer 3 infrastructure (Snowflake, Databricks, HANA, or any database with event data), ingests event logs, and provides the process intelligence capabilities that layers 1 through 4 cannot.
+
+```
+  Sancalana in your existing stack
+  ==========================================
+
+  Your ERP / CRM / ITSM          (layer 1 - you have this)
+       |
+  Your ETL / integration          (layer 2 - you have this)
+       |
+  Your data warehouse / lake      (layer 3 - you have this)
+       |
+       +---> Your BI dashboards   (layer 4 - you have this)
+       |
+       +---> Sancalana            (layer 5 - the missing piece)
+                |
+                +---> Process discovery
+                +---> Variant analysis
+                +---> Conformance checking
+                +---> Root cause analysis
+                +---> Performance mining
+                |
+                v
+             Automation triggers  (layer 6 - where the ROI lands)
+```
+
+It doesn't replace anything in your stack. It doesn't compete with your BI tools, your data warehouse, or your ETL pipelines. It adds the analytical capability that none of those tools were designed to provide — the ability to understand processes, not just metrics.
+
+The enterprise data ecosystem is mature at the storage and visualization layers. The process intelligence layer is where the diagnostic gap lives. Closing that gap doesn't require ripping out your existing infrastructure. It requires adding the layer that was always missing.
+
+[See how Sancalana connects to your data stack](/platform) or [book a technical walkthrough](/contact).
