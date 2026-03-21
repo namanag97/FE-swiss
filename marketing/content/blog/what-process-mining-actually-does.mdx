@@ -1,0 +1,167 @@
+---
+title: "What Process Mining Actually Does (And Why It Matters)"
+description: "Every company has processes. Most companies have no idea how those processes actually work. Here's what process mining is, what it finds, and why the numbers are so large."
+date: "2026-03-21"
+author: "Naman Agarwal"
+tags: ["insights", "process-mining"]
+published: true
+---
+
+Every company runs on processes. Purchase orders get created, invoices get approved, tickets get resolved, orders get shipped. These processes have steps, people, systems, handoffs, and rules.
+
+And in almost every company, nobody actually knows how these processes work in practice.
+
+They know how they're *supposed* to work. There's an SOP somewhere. There's a flowchart on a wiki page from 2019. The ERP system has a defined workflow. But what actually happens — the real sequence of steps, the workarounds, the rework, the emails that bypass the system, the invoices that sit in someone's inbox for 11 days — that's invisible.
+
+Process mining makes it visible.
+
+## What it actually is
+
+Process mining is a technique that takes event logs from your existing systems — ERP, CRM, ticketing, whatever — and reconstructs what actually happened. Not what should have happened. Not what people say happened in interviews. What the data says happened.
+
+Every time someone creates a purchase order, approves an invoice, escalates a ticket, or ships an order, your systems log that event. There's a timestamp, a case ID, an activity name, and usually a user. Process mining takes those logs — millions of events across thousands of cases — and reconstructs the actual flow.
+
+The output is a process map built from data, not from workshops. It shows you every path every transaction took. Every variant. Every loop. Every deviation from the ideal.
+
+<Exhibit
+  n={1}
+  title="Process mining sees what other tools can't"
+  subtitle="Coverage by analysis approach"
+  source="Deloitte Global Process Mining Survey 2025; PwC Process Mining Survey; Gartner 2025"
+>
+  <HBarChart
+    data={[
+      { label: "Process mining", value: 95, displayValue: "Full process flow", color: "#047A55" },
+      { label: "BI / dashboards", value: 40, displayValue: "KPIs only", color: "#6B7268" },
+      { label: "Manual audits", value: 25, displayValue: "Periodic samples", color: "#6B7268" },
+      { label: "BPM modeling", value: 30, displayValue: "Ideal state only", color: "#6B7268" },
+      { label: "RPA logs", value: 20, displayValue: "Automated steps only", color: "#6B7268" }
+    ]}
+    maxValue={100}
+  />
+</Exhibit>
+
+Here's the difference in concrete terms:
+
+**Dashboards** tell you your on-time payment rate is 91%. Process mining tells you *why* 9% are late — that 42% of invoices touch five or more people before payment, that the three-way match fails on 23% of POs because of a unit-of-measure mismatch, and that invoices from three specific suppliers account for 60% of all late payments.
+
+**BPM tools** model the ideal process — the three-step happy path from requisition to payment. Process mining shows you the reality: 14 variants, with the most common "happy path" accounting for only 35% of cases. The other 65% take detours through manual overrides, escalations, resubmissions, and workarounds that nobody designed but everyone uses.
+
+**Audits** check a sample of transactions once a quarter. Process mining checks every transaction continuously. An auditor might catch that 2% of purchase orders bypass approval. Process mining shows you that 2% represents $14M in annual spend, that it's concentrated in one business unit, and that it started increasing after an org restructuring six months ago.
+
+**RPA** automates specific steps without understanding the process around them. Process mining shows you which steps are worth automating (and which aren't — some manual steps exist for good reasons), and after you automate, it shows you whether the automation actually reduced cycle time or just moved the bottleneck.
+
+## Where the money hides
+
+This is where it gets interesting. Every process has waste. Not because people are doing bad work — because complex processes with many handoffs, systems, and rules develop inefficiencies that are invisible at the individual transaction level. You can only see them in aggregate, across thousands of cases.
+
+Here are the specific levers, with real numbers from real companies:
+
+**Cash discount capture.** Most companies negotiate early payment discounts with suppliers — typically 2% off if you pay within 10 days (called "2/10 Net 30"). But invoices get stuck in approval queues, three-way matches fail, and the discount window closes. Deutsche Telekom was capturing about 60% of available discounts. After process mining identified the specific bottlenecks, they got to 96%. On EUR 7 billion in spend, that's EUR 40 million per year in captured discounts.
+
+**Duplicate payments.** When the same invoice gets entered twice, or a credit memo doesn't match correctly, companies pay the same bill twice. Deutsche Telekom found EUR 3 million in duplicates. An industrial manufacturer recovered $620K in a single quarter and prevented $300K per quarter going forward. This isn't rare — it's happening in every company with more than a few hundred suppliers.
+
+**Rework and cycle time.** When a purchase order gets rejected and resubmitted, that's rework. When an invoice bounces between AP and the business unit three times before getting approved, that's rework. Tech Data reduced their P2P cycle time by 57% in one year. Accenture cut their request-to-order time by 50%. The savings come from removing unnecessary steps and fixing the root causes of rework.
+
+**Maverick spend.** Purchases made outside the approved procurement process — no PO, no contract, no competitive bid. A global medical device company found over $1 million in maverick spend in three months using process mining to identify purchases that bypassed the standard flow.
+
+**Working capital.** IQVIA increased their days payable outstanding by 32 days, freeing $600K in working capital immediately. A French automotive company identified EUR 33 million in working capital impact from early payment identification.
+
+<Exhibit
+  n={2}
+  title="Where $2-4M hides in a typical $500M company"
+  subtitle="Annual value by lever, conservative benchmarks"
+  source="Forrester TEI 2025; Deloitte 2025; Deutsche Telekom, IQVIA, Tech Data case studies"
+>
+  <WaterfallChart
+    data={[
+      { label: "Cash discounts", value: 900, displayValue: "$900K" },
+      { label: "Duplicate payments", value: 400, displayValue: "$400K" },
+      { label: "Cycle time", value: 600, displayValue: "$600K" },
+      { label: "Maverick spend", value: 500, displayValue: "$500K" },
+      { label: "Working capital", value: 400, displayValue: "$400K" },
+      { label: "Total", value: 0, isTotal: true, displayValue: "$2.8M" }
+    ]}
+  />
+</Exhibit>
+
+These aren't theoretical numbers. Celonis has $8.1 billion in CFO-verified realized value across their customer base. GE Healthcare freed $1.3 billion in free cash flow in a single year. The Forrester Total Economic Impact study found a composite $20 billion company generating $44.1 million in benefits over three years — a 383% ROI with a payback period under six months.
+
+The reason the numbers are so large is that these levers compound across every transaction. A 2% improvement in cash discount capture on $500 million in annual spend is $10 million over the discount-eligible portion. A 20-day reduction in DSO on $1 billion in receivables, at a 10% cost of capital, frees $5.5 million in working capital.
+
+## So why isn't everyone doing this?
+
+Here's where it gets honest. Process mining has a value problem and a delivery problem. The value is proven. The delivery is broken.
+
+<Exhibit
+  n={3}
+  title="The market is growing fast, but 75% of enterprises haven't adopted"
+  subtitle="Key market statistics, 2025-2026"
+  source="Gartner 2025; Deloitte Global Survey 2025; HFS Research"
+>
+  <StatRow
+    data={[
+      { value: "$2.3B", label: "Market size", sublabel: "2025" },
+      { value: "33%", label: "Annual growth", sublabel: "CAGR" },
+      { value: "75%", label: "Not yet adopted", sublabel: "of enterprises" },
+      { value: "67%", label: "Disappoint", sublabel: "of implementations" }
+    ]}
+  />
+</Exhibit>
+
+Those last two numbers are the ones that matter. Three quarters of enterprises haven't adopted process mining. And two thirds of the implementations that do happen deliver disappointing results. That's not a technology problem — it's a delivery problem.
+
+**Data preparation eats the project.** IBM research and multiple academic studies consistently find that 60-80% of a process mining project is spent on data preparation — extracting event logs from source systems, cleaning timestamps, mapping activities, resolving case IDs across systems. If a project takes six months, four to five months are spent getting the data ready. The actual analysis is a fraction of the effort.
+
+<Exhibit
+  n={4}
+  title="80% of project time is data preparation — that's the real problem to solve"
+  subtitle="Typical time allocation in a 6-month process mining project"
+  source="IBM Research; Eindhoven University / Fluxicon; multiple academic studies"
+>
+  <HBarChart
+    data={[
+      { label: "Data extraction", value: 25, displayValue: "25%", color: "#B45309" },
+      { label: "Data cleaning", value: 20, displayValue: "20%", color: "#B45309" },
+      { label: "Data transformation", value: 20, displayValue: "20%", color: "#B45309" },
+      { label: "Event log creation", value: 15, displayValue: "15%", color: "#B45309" },
+      { label: "Analysis & insights", value: 12, displayValue: "12%", color: "#047A55" },
+      { label: "Action & monitoring", value: 8, displayValue: "8%", color: "#047A55" }
+    ]}
+    maxValue={30}
+  />
+</Exhibit>
+
+**The skills gap is massive.** PwC found that 52% of companies cite a lack of tooling or expertise as their top barrier. You need process experts, source system experts, data engineers, analytics developers, and value management professionals — all on one team. It's rare to have all that expertise in one person, let alone one team at a mid-market company.
+
+**Management isn't buying in.** This one is counterintuitive. The Deloitte 2025 survey found that management buy-in is now the #1 barrier at 41%, up from 26% in 2021. Front-line employees increasingly see the value. But management views process mining as "useful but not critical." The bottleneck flipped — it used to be awareness, now it's executive commitment.
+
+**The cost structure doesn't work for most companies.** Enterprise platforms like Celonis cost $1.5-5M in year one when you add up license fees, implementation, consulting, and the internal Center of Excellence team (15-20 FTEs). That ROI math works beautifully for a $20 billion company finding $44 million in savings. It doesn't work for a $500 million company where the total addressable value might be $3 million.
+
+## What's changing
+
+Three things are converging that will reshape this market:
+
+**AI is making it accessible.** 25% of organizations currently use AI with process mining. 74% plan to. The big shift: LLMs can translate natural language questions into process queries, generate analysis automatically, and explain findings without requiring a specialized analyst. "Show me why our invoice cycle time increased last quarter" becomes a prompt, not a PQL query.
+
+**Every major platform vendor bought a process mining company.** SAP acquired Signavio. Microsoft acquired Minit. IBM acquired myInvenio. UiPath acquired ProcessGold. Pega acquired EverFlow. This isn't a niche category anymore — it's being absorbed into the core enterprise platform stack.
+
+**The mid-market gap is wide open.** All the market leaders are built for enterprises with $1B+ revenue. Reviewers on G2 and PeerSpot consistently say the same thing: pricing needs to be more accessible, complexity needs to come down, time to value needs to be faster. There's no strong mid-market solution that combines enterprise analytical depth with a deployment model that works for a 3-person ops team.
+
+## How to know if this applies to you
+
+You don't need to buy anything to answer these questions. Just think about your current operations:
+
+**Do you know your actual process, or just your intended process?** If you drew your procure-to-pay flow on a whiteboard, would it match what actually happens in your ERP? If you're not sure, you probably have significant process variants you don't know about.
+
+**Are your KPIs healthy but something still feels slow?** On-time delivery at 92% sounds good. But if your cycle time has 4x variance across product lines, or your fastest transactions take 2 days while your slowest take 45, there's hidden waste in the tail.
+
+**Do you know where manual work happens?** In most companies, "automation" means automating the easy 60%. The other 40% — the exceptions, the workarounds, the "just email it to Sarah" steps — are invisible to management. Process mining finds them.
+
+**Have you tried to improve a process and it didn't stick?** Without seeing the actual root cause, most process improvement projects are guessing. They fix the symptom (add another approver) rather than the cause (the three-way match fails because of a data entry pattern in one business unit).
+
+**Do you have more than one ERP, CRM, or ticketing system?** Cross-system processes are where the most waste hides, because no single system has a complete view. An order might start in Salesforce, move to SAP, trigger a ServiceNow ticket, and close in a custom portal. Nobody sees the full path.
+
+If you answered yes to three or more of these, you have a process visibility problem. The question isn't whether process mining would find savings — it will. The question is whether the available tools match your budget, team, and timeline.
+
+[See how Sancalana approaches this for mid-market teams](/platform) or [talk to us about your processes](/contact).
