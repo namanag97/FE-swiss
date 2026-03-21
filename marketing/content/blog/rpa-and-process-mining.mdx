@@ -1,0 +1,232 @@
+---
+title: "RPA Without Process Mining Is Flying Blind"
+description: "70% of RPA projects underperform. The missing ingredient isn't better bots — it's knowing what to automate in the first place."
+date: "2026-03-15"
+author: "Naman Agarwal"
+tags: ["insights", "process-mining"]
+published: true
+---
+
+RPA has a success problem. By most analyst estimates, 30-50% of RPA projects fail outright, and another 20-30% deliver less than half their projected ROI. The technology works fine — bots click buttons, fill forms, and move data between systems exactly as instructed. The failure isn't in execution. It's in selection.
+
+Companies automate the wrong things because they don't know what the right things are.
+
+## What RPA actually does
+
+RPA is an execution layer. A bot logs into System A, copies a value, pastes it into System B, clicks submit. It does this faster, cheaper, and more reliably than a human. That's the entire value proposition.
+
+What RPA does not do:
+
+- Decide what should be automated
+- Identify where the bottlenecks are
+- Measure whether the automation actually helped
+- Detect when process behavior shifts and the bot becomes irrelevant
+
+RPA is a power tool. Useful when pointed at the right problem. Destructive when pointed at the wrong one.
+
+```
+  What RPA Does vs. What You Need
+  ==========================================
+
+  NEED:  "Which of our 400 process variants should we automate?"
+  RPA:   "Tell me which buttons to click."
+
+  NEED:  "Where are the 12-day delays hiding in our P2P process?"
+  RPA:   "Tell me which fields to fill."
+
+  NEED:  "Did automation actually reduce cycle time?"
+  RPA:   "I clicked the buttons you told me to click."
+```
+
+RPA executes. It doesn't think. The thinking has to come from somewhere else.
+
+## The 5-stage value chain
+
+Process improvement isn't a single step. It's a pipeline with five distinct stages, each requiring different capabilities.
+
+```
+  Process Improvement Value Chain
+  ==========================================
+
+  Stage 1: DISCOVER    "What does the process actually look like?"
+  Stage 2: DIAGNOSE    "Where are the bottlenecks and deviations?"
+  Stage 3: ANALYZE     "What's causing them and what's the impact?"
+  Stage 4: AUTOMATE    "Execute the fix — bots, rules, redesigns."
+  Stage 5: MONITOR     "Did it work? Is it still working?"
+```
+
+Now here's the question: which tools cover which stages?
+
+```
+  Tool Coverage Across the Value Chain
+  ==========================================
+
+  Stage          Process Mining    RPA    Consultants
+  -----------    --------------    ---    -----------
+  1. Discover         X                      X
+  2. Diagnose         X                      X
+  3. Analyze          X                     (X)
+  4. Automate                       X
+  5. Monitor          X
+
+  Process mining covers 4 of 5 stages.
+  RPA covers exactly 1.
+```
+
+Consultants can cover the first three stages, but at high cost and low repeatability. They interview stakeholders, draw swim-lane diagrams, and produce a report. Six months later, the process has drifted and the report is stale. Process mining does the same work from event data — continuously, at a fraction of the cost.
+
+RPA without process mining means you're outsourcing stages 1-3 to guesswork, consultant interviews, or the loudest person in the room. Then you build a bot. Then you hope.
+
+## The guesswork approach
+
+Here's how RPA projects typically start without process mining:
+
+1. A consultant or internal team interviews 8-12 stakeholders
+2. They compile a "process map" based on what people say happens
+3. They identify automation candidates based on perceived pain points
+4. They estimate ROI based on self-reported time-per-task
+5. They build the bot
+
+The problem at every step: people are bad at describing their own processes. They describe the happy path. They underestimate rework. They overestimate time spent on tasks that feel painful (but take 5 minutes) and underestimate time spent on tasks that feel routine (but take 2 hours because of waiting).
+
+```
+  The Guesswork Pipeline
+  ==========================================
+
+  Interviews        Assumed Process      Bot Target       Outcome
+  ----------        ---------------      ----------       -------
+  "We spend hours   "Data entry is       Bot fills        Bot saves
+   on data entry"    the bottleneck"      forms            10 min/case
+
+  Reality: Data entry takes 8 min. The 3-day wait for
+  manager approval is the actual bottleneck. The bot
+  saved $12K/year on a $200K investment.
+```
+
+This is why 30% of RPA projects fail. Not because the bots don't work. Because they automate 8-minute tasks while 3-day bottlenecks go untouched.
+
+## The data-driven approach
+
+With process mining, stages 1-3 are grounded in event data, not opinions.
+
+Process mining ingests event logs from your source systems — ERP, CRM, ITSM, whatever generates timestamped records. It reconstructs the actual process: every path, every loop, every deviation. It quantifies bottlenecks in hours and dollars, not adjectives.
+
+The automation decision becomes obvious:
+
+```
+  Data-Driven Pipeline
+  ==========================================
+
+  Event Log Analysis      Finding                  Action
+  ------------------      -------                  ------
+  847,000 cases mined     "Manual 3-Way Match"     Targeted RPA bot
+  23% follow Variant 7    adds 12 days to 23%      for 3-way match
+  Variant 7 has loop      of invoices              validation
+  at step 4
+
+  Projected savings: 12 days * 23% of cases * $85/day processing cost
+  Actual savings verified by process mining 90 days later.
+```
+
+No guesswork. No interviews. No six-month stale reports. Data in, decision out.
+
+## Concrete example: invoice processing
+
+Consider a real accounts payable process. A company runs 50,000 invoices per year through their ERP. They're considering RPA to "speed up invoice processing."
+
+Without process mining, the team interviews AP clerks, who report that manual data entry and vendor follow-ups consume most of their time. The RPA vendor builds a bot that automates invoice data entry from PDF to ERP. Cost: $180K. Projected savings: 4 minutes per invoice, or $150K/year.
+
+With process mining — using a tool like Sancalana to ingest the ERP event logs — the picture looks different:
+
+```
+  Invoice Processing: What the Data Shows
+  ==========================================
+
+  Total cases analyzed:     50,000
+  Distinct variants:        127
+  Median cycle time:        9 days
+
+  Top Bottleneck:
+  "Manual 3-Way Match" step in Variant 7
+  - Affects 11,500 cases (23%)
+  - Adds 12 days median delay
+  - Root cause: PO line items don't match goods receipt
+    quantities due to partial deliveries
+  - Total delay cost: ~$3.2M/year in late payment penalties
+    and lost early-payment discounts
+
+  Second Bottleneck:
+  "Manager Approval" step for invoices > $25K
+  - Affects 4,200 cases (8.4%)
+  - Adds 5 days median delay
+  - Root cause: 3 managers handle 4,200 approvals;
+    each averages 6 pending at any time
+
+  The data entry step the team wanted to automate?
+  - Takes 4 minutes per invoice
+  - Zero rework, zero delays
+  - Savings: $150K/year
+  - Ranking: #7 on the impact list
+```
+
+The right RPA target is the 3-way match. A bot that pulls PO data, goods receipt data, and invoice line items, reconciles quantities, and flags only genuine exceptions for human review. This bot addresses the 12-day delay on 23% of cases — reducing it to 2 days.
+
+Impact: ~$2.8M/year in recovered early-payment discounts and avoided penalties. That's 18x the ROI of automating data entry.
+
+Sancalana's variant analysis makes this visible in minutes. Without it, the team would have spent $180K automating the #7 bottleneck and claimed success because the bot worked perfectly — while the real problem persisted.
+
+## The monitoring gap
+
+Here's the part most RPA implementations miss entirely: verification.
+
+You deployed the bot. It's running. Is it actually helping?
+
+RPA tools can tell you the bot ran 11,500 times last month. They can't tell you whether the end-to-end cycle time actually decreased, whether the bottleneck shifted somewhere else, or whether a new process variant emerged that the bot doesn't handle.
+
+Process mining closes this loop. By continuously mining the event log after automation, you get objective measurement:
+
+```
+  Before/After: 3-Way Match Automation
+  ==========================================
+
+  Metric                    Before Bot    After Bot (90 days)
+  ----------------------    ----------    -------------------
+  Cases hitting 3-way
+   match step               23%           23% (unchanged — expected)
+  Median delay at step      12 days       1.8 days
+  Cases requiring human
+   exception handling        23%           4.1%
+  Overall median cycle
+   time                      9 days        5.2 days
+  New bottleneck             N/A          "Vendor Response" now
+                                          visible (was masked)
+```
+
+Two things happened here. First, the bot worked — 12 days dropped to 1.8. Second, a new bottleneck became visible. The 3-way match delay had been masking a vendor response delay that now accounts for the largest share of remaining cycle time. Without continuous process mining, you'd never see this. You'd just celebrate the bot deployment and move on.
+
+Sancalana runs this comparison automatically. Every data refresh updates the process model, so you see the effect of your interventions without building a single dashboard or running a manual analysis.
+
+## The bottom line
+
+RPA is a hammer. Process mining tells you where the nails are.
+
+Using RPA without process mining means spending $150K-500K on automation projects where you're guessing what to automate, hoping the ROI materializes, and having no systematic way to verify results. That's why 70% of RPA projects underperform.
+
+The fix isn't better bots. It's better targeting. Discover the real process. Diagnose the actual bottlenecks. Quantify the impact. Then — and only then — automate. And keep mining after deployment to verify and adapt.
+
+```
+  The Complete Approach
+  ==========================================
+
+  Step 1: Mine your process data         (weeks 1-2)
+  Step 2: Identify top 3 bottlenecks     (week 2)
+  Step 3: Quantify impact in dollars     (week 2)
+  Step 4: Build targeted RPA bot         (weeks 3-8)
+  Step 5: Monitor with process mining    (ongoing)
+
+  Repeat from Step 2.
+```
+
+The companies getting real ROI from RPA aren't the ones with the most bots. They're the ones that know exactly where to deploy them.
+
+[See how Sancalana identifies your highest-impact automation targets](/platform) or [bring your event data for a live analysis](/contact).
