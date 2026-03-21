@@ -1,0 +1,184 @@
+---
+title: "Your S/4HANA Migration Needs Process Mining — Here's Why"
+description: "SAP ECC end-of-maintenance hits in 2027. 60-70% of migrations overrun budget. Process mining is how you avoid being one of them."
+date: "2026-03-08"
+author: "Naman Agarwal"
+tags: ["insights", "process-mining"]
+published: true
+---
+
+SAP ends mainstream maintenance for ECC in 2027. That's not a soft sunset — it's a hard stop. After that date, you're on extended support with escalating fees and no functional updates. For the 15,000+ SAP customers in India alone, the clock is already uncomfortably close.
+
+Most enterprises know the deadline. Most have a migration plan. The problem is that most migration plans are built on a flawed assumption: that the organization understands its own processes.
+
+They don't. And that's where the budget overruns come from.
+
+## The overrun problem is not a technology problem
+
+Industry data is consistent: 60-70% of ERP migrations exceed their budget. The typical overrun is 50-100% above the original estimate. On a $10M migration, that's $5-10M in unplanned spend. For large enterprises running complex SAP landscapes, the numbers get worse.
+
+The instinct is to blame the technology. S/4HANA is complex. HANA in-memory architecture requires rethinking custom reports. Fiori UX needs redesign. The technical migration itself — converting BSEG cluster tables to transparent tables, adjusting for the new material ledger, handling business partner consolidation — is genuinely hard.
+
+But technology isn't where most overruns originate. The biggest source of cost escalation is process mismatch: the migrated system doesn't match how people actually work, and fixing that mismatch in production is exponentially more expensive than catching it in planning.
+
+```
+  Where Migration Overruns Come From
+  ==========================================
+
+  Technology issues         15-20%
+  (HANA sizing, custom code remediation,
+   integration breaks)
+
+  Data migration issues     15-20%
+  (data quality, master data harmonization,
+   historical data decisions)
+
+  Process mismatch          40-50%
+  (documented process ≠ actual process,
+   workarounds not captured, exception
+   paths not migrated, rework loops)
+
+  Change management         15-20%
+  (training gaps, user resistance,
+   organizational readiness)
+```
+
+Process mismatch is the plurality cause. And it's the one that process mining directly addresses.
+
+## Why documented processes can't be trusted
+
+Every SAP implementation starts with blueprinting. Consultants sit in rooms with process owners and document the to-be process. These blueprints become the basis for configuration, testing, and training.
+
+The problem: blueprints describe the intended process, not the actual one. Over the 10-15 years that most ECC systems have been running, the actual process has drifted. Users developed workarounds. Exceptions became standard practice. Unofficial approval paths emerged. Manual interventions were inserted at points where the system didn't quite fit.
+
+None of this is in the documentation.
+
+A procurement team might have a documented three-step approval chain. In practice, 35% of purchase orders bypass the second approval through a workaround involving a blanket PO that was set up in 2019 and never reviewed. The team knows this. The system integrator doing the S/4HANA migration does not. They migrate the three-step approval. Day one of go-live, 35% of POs get stuck.
+
+```
+  The Documentation Gap
+  ==========================================
+
+  Documented process (blueprint):
+  Create PR -> Approve (L1) -> Approve (L2) -> Approve (L3) -> Create PO
+
+  Actual process (from event log):
+  Create PR -> Approve (L1) -> Create PO                    [35% of cases]
+  Create PR -> Approve (L1) -> Approve (L2) -> Create PO    [28% of cases]
+  Create PR -> Approve (L1) -> Approve (L2) -> Approve (L3)
+            -> Create PO                                     [22% of cases]
+  Create PR -> Reject -> Revise -> Approve (L1) -> Create PO [9% of cases]
+  ...6 more variants                                         [6% of cases]
+
+  The "standard" 3-level approval is only 22% of actual behavior.
+```
+
+This isn't negligence. It's entropy. Processes evolve over a decade of use. The only way to know what's actually happening is to look at the data.
+
+## What process mining does for S/4HANA migrations
+
+Process mining reads directly from the SAP tables that record transactional activity. For order-to-cash, that's VBFA (document flow), VBAK/VBAP (sales orders), LIKP (deliveries), VBRK (billing). For procure-to-pay, it's EKKO/EKPO (purchase orders), EKBE (goods receipts), BSEG (accounting documents). For change tracking across all modules, CDHDR and CDPOS capture every field-level change with timestamps.
+
+This data already exists in your ECC system. Process mining turns it into a complete, evidence-based picture of how work actually flows.
+
+The value shows up across all three phases of migration.
+
+### Pre-migration: discover what you're actually migrating
+
+Before writing a single line of configuration, run process mining on your ECC event logs. You'll see every variant of every process — not the five you documented, but the fifty that actually execute.
+
+This gives you:
+
+- **Accurate scope**: which processes are complex enough to warrant custom configuration versus standard S/4HANA
+- **Exception path inventory**: every workaround, every rework loop, every unofficial shortcut that needs a decision — keep, redesign, or eliminate
+- **Baseline metrics**: current cycle times, throughput, automation rates, and rework percentages — so you can measure whether the migration made things better or worse
+- **Process harmonization opportunities**: if the same process runs three different ways across three plants, the migration is a chance to standardize — but only if you can see all three variants
+
+Sancalana's SAP connector extracts directly from VBFA, EKKO, BKPF, CDHDR, and other source tables, automatically correlating document flows into end-to-end process cases. What typically takes a consulting team weeks of interviews and workshopping takes Sancalana a few hours of data processing.
+
+### During migration: conformance monitoring
+
+Once S/4HANA is running in parallel or in a phased cutover, process mining provides real-time conformance checking. Is the new system producing the same process behavior as ECC? If the old system had a 4% rejection rate at the credit check step and the new system is showing 18%, something is misconfigured.
+
+```
+  Conformance Dashboard (Migration Phase)
+  ==========================================
+
+  Process: Order-to-Cash
+
+  Step                   ECC (baseline)    S/4HANA (current)    Status
+  -------------------    --------------    -----------------    ------
+  Order Creation              OK               OK               ✓
+  Credit Check           4.2% reject       17.8% reject         ✗
+  Availability Check     98% auto           97% auto            ✓
+  Delivery Creation      1.2 day avg        1.4 day avg         ~
+  Billing                99.1% auto         94.3% auto          ✗
+  Payment Receipt        23.4 day avg       24.1 day avg        ✓
+
+  2 deviations detected. Root cause analysis available.
+```
+
+Without process mining, these deviations surface as user complaints weeks after go-live. With process mining, they surface within the first snapshot cycle — hours, not weeks.
+
+### Post-migration: validation and continuous improvement
+
+After cutover, process mining shifts from migration assurance to operational intelligence. Did the migration introduce new bottlenecks? Are there processes that are slower in S/4HANA than they were in ECC? Has the harmonization actually reduced process variants, or have new workarounds already emerged?
+
+This is where the pre-migration baseline pays off. You have hard numbers from the old system. You can compare them directly to the new system. Every stakeholder claim — "the new system is slower," "approvals take longer," "we lost functionality" — can be validated or refuted with data.
+
+## PepsiCo didn't guess — they measured
+
+PepsiCo's S/4HANA migration is one of the more documented success stories, and process mining was central to the approach. By analyzing their order-to-cash process before migration, they identified that their order rejection rate was running at 30%. That's not a typo — nearly one in three orders was being rejected and reworked.
+
+Post-migration, with process redesign informed by the mining analysis, the rejection rate dropped to 4%. That's a 26-percentage-point improvement — not because S/4HANA is inherently better at order management, but because the migration forced a process review, and process mining ensured that review was based on evidence rather than assumptions.
+
+The financial impact of moving from 30% to 4% rejection on PepsiCo's order volume is substantial. Every rejected order means rework time, customer delays, and revenue recognition lag. Multiply that across hundreds of thousands of orders and the savings dwarf the cost of the process mining tooling.
+
+## The math on migration risk reduction
+
+Let's be conservative with the numbers.
+
+```
+  Migration Risk Calculation
+  ==========================================
+
+  Base migration budget:                    $10,000,000
+  Probability of overrun (industry avg):    65%
+  Average overrun when it occurs:           75%
+  Expected overrun cost:                    $4,875,000
+
+  Process mining impact:
+  - Pre-migration process discovery
+    reduces scope surprises:                -30% of overrun
+  - Conformance monitoring catches
+    issues before go-live:                  -25% of overrun
+  - Post-migration validation
+    prevents extended stabilization:        -15% of overrun
+
+  Total overrun reduction:                  ~40% (conservative)
+  Expected savings:                         $1,950,000
+
+  Sancalana annual license:                 Fraction of this.
+```
+
+A $10M migration with a 65% chance of a 75% overrun has an expected excess cost of $4.875M. Reducing the overrun probability and magnitude by 40% — which is conservative given the process mismatch data — saves roughly $1.95M. The process mining tooling pays for itself before the migration even starts.
+
+## Why this matters for India right now
+
+India has over 15,000 SAP customers. The country hosts one of the largest concentrations of Global Capability Centers (GCCs) in the world, many of which run their shared services operations on SAP ECC. These GCCs handle procure-to-pay, order-to-cash, and record-to-report processes for their parent companies globally.
+
+The 2027 deadline creates a compressed timeline. Many of these organizations are planning or actively executing S/4HANA migrations simultaneously, which means:
+
+- **System integrator capacity is constrained**. The best SAP migration consultants are already booked. The ones available may be less experienced. Process mining de-risks this by giving less experienced teams an evidence-based foundation to work from.
+- **GCC processes are often more complex than headquarters assumes**. The shared services model introduces process variants that don't exist in single-entity operations — inter-company transactions, multi-currency handling, regional compliance variations. These variants need to be discovered, not assumed.
+- **Parallel migrations across business units create coordination risk**. When three plants migrate in sequence, the process mining baseline from Plant 1 accelerates Plant 2 and Plant 3. Without it, each migration starts from scratch.
+
+Sancalana is built for this exact scenario — connecting to SAP source systems, extracting event logs at scale, and providing process intelligence that migration teams can act on immediately. The platform handles the complexity of SAP table structures so that process owners and migration consultants can focus on decisions, not data extraction.
+
+## The window is closing
+
+If your S/4HANA migration is planned for 2026 or 2027, the process discovery phase should have started already. Every month of delay compresses the timeline further, which increases the probability of the exact scope surprises and process mismatches that drive overruns.
+
+Process mining is not a nice-to-have for ERP migrations. It's the difference between migrating what you think you have and migrating what you actually have. The organizations that understand this will migrate on time and on budget. The rest will learn it the expensive way.
+
+[See how Sancalana maps your SAP processes](/platform) or [book a migration readiness assessment](/contact).
