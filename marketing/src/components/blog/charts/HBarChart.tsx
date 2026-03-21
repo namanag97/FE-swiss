@@ -1,3 +1,5 @@
+"use client";
+
 import { C } from "@/lib/colors";
 import { scaleBand, scaleLinear } from "@visx/scale";
 
@@ -6,45 +8,39 @@ export interface HBarDatum {
   value: number;
   displayValue?: string;
   color?: string;
-  annotation?: string;
 }
 
 interface HBarChartProps {
   data: HBarDatum[];
   formatValue?: (v: number) => string;
   maxValue?: number;
-  height?: number;
 }
 
-const FONT = "Inter, system-ui, sans-serif";
-const LABEL_WIDTH = 160;
-const VALUE_WIDTH = 70;
-const BAR_PADDING = 0.4;
+const MONO = "'Geist Mono', monospace";
+const SANS = "Inter, system-ui, sans-serif";
+const LABEL_W = 160;
+const VALUE_W = 70;
+const BAR_W = 340;
 
-export function HBarChart({ data, formatValue, maxValue, height }: HBarChartProps) {
-  const barAreaWidth = 400;
-  const totalWidth = LABEL_WIDTH + barAreaWidth + VALUE_WIDTH;
-  const barHeight = 28;
-  const rowHeight = barHeight + barHeight * BAR_PADDING;
-  const totalHeight = height ?? data.length * rowHeight + 8;
+export function HBarChart({ data, formatValue, maxValue }: HBarChartProps) {
+  const totalW = LABEL_W + BAR_W + VALUE_W;
+  const rowH = 36;
+  const totalH = data.length * rowH + 8;
+  const pad = 0.38;
 
   const yScale = scaleBand({
     domain: data.map((d) => d.label),
-    range: [4, totalHeight - 4],
-    padding: BAR_PADDING,
+    range: [4, totalH - 4],
+    padding: pad,
   });
 
   const max = maxValue ?? Math.max(...data.map((d) => d.value));
-  const xScale = scaleLinear({
-    domain: [0, max],
-    range: [0, barAreaWidth],
-  });
-
+  const xScale = scaleLinear({ domain: [0, max], range: [0, BAR_W] });
   const fmt = formatValue ?? ((v: number) => String(v));
 
   return (
     <svg
-      viewBox={`0 0 ${totalWidth} ${totalHeight}`}
+      viewBox={`0 0 ${totalW} ${totalH}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
@@ -59,25 +55,24 @@ export function HBarChart({ data, formatValue, maxValue, height }: HBarChartProp
 
         return (
           <g key={d.label}>
-            {/* Label */}
             <text
-              x={LABEL_WIDTH - 12}
+              x={LABEL_W - 12}
               y={y + bh / 2 + 1}
               textAnchor="end"
               dominantBaseline="middle"
-              fontSize={11}
-              fontFamily={FONT}
+              fontSize={9.5}
+              fontFamily={MONO}
               fontWeight={400}
-              fill={C.ink}
+              fill={C.inkMid}
+              letterSpacing="0.02em"
             >
               {d.label}
             </text>
 
-            {/* Bar background */}
             <rect
-              x={LABEL_WIDTH}
+              x={LABEL_W}
               y={y}
-              width={barAreaWidth}
+              width={BAR_W}
               height={bh}
               rx={1}
               fill={C.bg}
@@ -85,45 +80,29 @@ export function HBarChart({ data, formatValue, maxValue, height }: HBarChartProp
               strokeWidth={0.5}
             />
 
-            {/* Bar fill */}
             <rect
-              x={LABEL_WIDTH}
+              x={LABEL_W}
               y={y}
-              width={bw}
+              width={Math.max(bw, 2)}
               height={bh}
               rx={1}
               fill={fill}
-              opacity={0.8}
+              opacity={0.75}
             />
 
-            {/* Value label */}
             <text
-              x={LABEL_WIDTH + barAreaWidth + 8}
+              x={LABEL_W + BAR_W + 8}
               y={y + bh / 2 + 1}
               textAnchor="start"
               dominantBaseline="middle"
-              fontSize={11}
-              fontFamily={FONT}
-              fontWeight={500}
+              fontSize={10}
+              fontFamily={MONO}
+              fontWeight={400}
               fill={C.ink}
+              letterSpacing="0.01em"
             >
               {d.displayValue ?? fmt(d.value)}
             </text>
-
-            {/* Annotation */}
-            {d.annotation && (
-              <text
-                x={LABEL_WIDTH + bw + 6}
-                y={y + bh / 2 + 1}
-                dominantBaseline="middle"
-                fontSize={9}
-                fontFamily={FONT}
-                fontWeight={400}
-                fill={C.muted}
-              >
-                {d.annotation}
-              </text>
-            )}
           </g>
         );
       })}
