@@ -86,3 +86,88 @@
 }
 
 .prose img { border-radius: 0; border: 1px solid var(--border); }
+
+/* ═══════════════════════════════════════════════════════════════
+   EXHIBIT — McKinsey-style chart wrapper for blog posts
+═══════════════════════════════════════════════════════════════ */
+.exhibit { margin: 2.5em 0; }
+.exhibit-caption { margin-bottom: 0.75rem; }
+.exhibit-label {
+  font-family: var(--sans);
+  font-size: var(--fs-2xs);
+  font-weight: 400;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: var(--emerald);
+}
+.exhibit-title {
+  font-family: var(--sans);
+  font-size: var(--fs-md);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  margin: 0.3rem 0 0 0;
+}
+.exhibit-subtitle {
+  font-family: var(--sans);
+  font-size: var(--fs-xs);
+  color: var(--ink-faint);
+  display: block;
+  margin-top: 0.15rem;
+  letter-spacing: .04em;
+}
+.exhibit-body {
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+  background: var(--white);
+}
+.exhibit-source {
+  font-family: var(--sans);
+  font-size: var(--fs-2xs);
+  color: var(--ink-faint);
+  display: block;
+  margin-top: 0.4rem;
+  letter-spacing: .02em;
+  opacity: .7;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STAT ROW — big number cards
+═══════════════════════════════════════════════════════════════ */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.stat-row-cell {
+  background: var(--white);
+  padding: 1.125rem 0.75rem;
+  text-align: center;
+}
+.stat-row-value {
+  font-family: var(--sans);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+}
+.stat-row-label {
+  font-family: var(--sans);
+  font-size: var(--fs-2xs);
+  font-weight: 400;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-top: 0.4rem;
+}
+.stat-row-sub {
+  font-family: var(--sans);
+  font-size: var(--fs-2xs);
+  color: var(--ink-faint);
+  margin-top: 0.1rem;
+  letter-spacing: .02em;
+}
