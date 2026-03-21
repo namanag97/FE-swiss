@@ -1,0 +1,239 @@
+---
+title: "Beyond Case IDs: Why Object-Centric Process Mining Changes Everything"
+description: "Traditional process mining tracks one case at a time. Real processes don't work that way. OCEL 2.0 connects orders, items, invoices, and payments as they actually flow."
+date: "2026-03-01"
+author: "Naman Agarwal"
+tags: ["engineering", "process-mining"]
+published: true
+---
+
+Traditional process mining has a fundamental constraint baked into its data model: every event belongs to exactly one case. You pick a case ID — a purchase order number, an invoice number, a ticket ID — and the algorithm traces the sequence of events for that case from start to finish.
+
+This works beautifully for simple, linear processes. But most enterprise processes are not simple or linear. A single purchase order spawns multiple goods receipts. Those goods receipts generate multiple invoices. Those invoices trigger multiple payments. The moment you try to flatten this reality into a single case ID, you're lying to yourself about how your process actually works.
+
+## The one-case-ID problem
+
+Consider a standard Procure-to-Pay process. Here's what actually happens:
+
+```
+  Reality: Objects diverge and converge
+  ==========================================
+
+  PO-5001 (Purchase Order)
+     |
+     +---> GR-7001 (Goods Receipt, partial delivery)
+     |        |
+     +---> GR-7002 (Goods Receipt, remaining delivery)
+     |        |
+     |        +---> INV-3001 (Invoice, covers GR-7001 + GR-7002)
+     |
+     +---> GR-7003 (Goods Receipt, replacement item)
+              |
+              +---> INV-3002 (Invoice, covers GR-7003)
+                       |
+                       +---> PAY-9001 (Payment, covers INV-3001 + INV-3002)
+```
+
+One purchase order. Three goods receipts. Two invoices. One payment that consolidates both invoices. Now: what is the "case" here?
+
+If you use the PO number as the case ID, you get one case with all events jammed into a single sequence. But the three goods receipts happened in parallel, not sequentially. The process map shows false sequential dependencies.
+
+If you use the invoice number as the case ID, you get two separate cases. But both invoices trace back to the same PO, and the payment covers both. You've lost the connection between them. You can't answer "what was the total cycle time from order to payment?" because the payment lives in one case but relates to both.
+
+If you use the payment number as the case ID, you have one case — but it starts midway through the process. The PO creation and goods receipt events either get duplicated across cases or dropped entirely.
+
+No matter which case ID you pick, you're compressing a many-to-many reality into a one-to-many model. This is the convergence/divergence problem, and it's not an edge case. It's how every cross-functional enterprise process actually works.
+
+## OCEL 2.0: events relate to objects, not cases
+
+The Object-Centric Event Log (OCEL) standard, formalized as OCEL 2.0 by the IEEE Task Force on Process Mining, replaces the case ID with a richer data model. Instead of each event belonging to one case, each event can relate to multiple objects, and objects can relate to each other.
+
+The data model has four core concepts:
+
+```
+  OCEL 2.0 Data Model
+  ==========================================
+
+  +-----------+         +------------+
+  |  Events   |         |  Objects   |
+  |-----------|         |------------|
+  | event_id  |         | object_id  |
+  | activity  |         | object_type|
+  | timestamp |         | attributes |
+  | attributes|         +------+-----+
+  +-----+-----+                |
+        |                      |
+        |    +----------+      |
+        +--->|   E2O    |<-----+
+             |----------|
+             | event_id |          +-----------+
+             | object_id|          |    O2O    |
+             | qualifier|          |-----------|
+             +----------+          | source_id |
+                                   | target_id |
+                                   | qualifier |
+                                   +-----------+
+```
+
+**Events** are things that happened: "Create Purchase Order," "Receive Goods," "Post Invoice." They have a timestamp and attributes, just like traditional event logs.
+
+**Objects** are the business entities involved: a purchase order, a line item, an invoice, a vendor, a payment. Each object has a type and its own attributes (amount, status, category).
+
+**E2O (Event-to-Object)** relations link events to the objects they involve. A "Receive Goods" event might link to a PO object, an Item object, and a Vendor object simultaneously. The qualifier describes the relationship — "related to," "created by," "consumed by."
+
+**O2O (Object-to-Object)** relations capture structural relationships between objects. A line item belongs to a purchase order. An invoice references a goods receipt. These relationships exist independent of events and let you navigate the object graph.
+
+## Concrete example: P2P with OCEL
+
+Here's the same Procure-to-Pay process, now represented in OCEL 2.0.
+
+Events table:
+
+```
+event_id   activity              timestamp
+---------- --------------------- ---------------------
+e1         Create Purchase Order 2026-01-10 08:00:00
+e2         Approve Purchase Order2026-01-10 14:30:00
+e3         Goods Receipt         2026-01-15 09:00:00
+e4         Goods Receipt         2026-01-18 11:00:00
+e5         Goods Receipt         2026-01-20 10:00:00
+e6         Invoice Received      2026-01-22 08:30:00
+e7         Invoice Received      2026-01-23 09:00:00
+e8         Three-Way Match       2026-01-22 09:15:00
+e9         Three-Way Match       2026-01-23 10:00:00
+e10        Payment Executed      2026-01-30 06:00:00
+```
+
+Objects table:
+
+```
+object_id  object_type    attributes
+---------- -------------- ----------------------------
+PO-5001    PurchaseOrder  {amount: 45000, dept: "Mfg"}
+ITEM-A     LineItem       {material: "Steel Rod"}
+ITEM-B     LineItem       {material: "Bearing"}
+GR-7001    GoodsReceipt   {quantity: 100}
+GR-7002    GoodsReceipt   {quantity: 50}
+GR-7003    GoodsReceipt   {quantity: 25}
+INV-3001   Invoice        {amount: 32000}
+INV-3002   Invoice        {amount: 13000}
+PAY-9001   Payment        {amount: 45000}
+VEND-42    Vendor         {name: "Acme Corp"}
+```
+
+E2O (Event-to-Object) relations:
+
+```
+event_id   object_id   qualifier
+---------- ----------- -----------
+e1         PO-5001     created
+e1         VEND-42     involves
+e2         PO-5001     approved
+e3         PO-5001     relates_to
+e3         ITEM-A      received
+e3         GR-7001     created
+e4         PO-5001     relates_to
+e4         ITEM-A      received
+e4         GR-7002     created
+e5         PO-5001     relates_to
+e5         ITEM-B      received
+e5         GR-7003     created
+e6         INV-3001    created
+e6         GR-7001     relates_to
+e6         GR-7002     relates_to
+e7         INV-3002    created
+e7         GR-7003     relates_to
+e8         INV-3001    matched
+e9         INV-3002    matched
+e10        PAY-9001    created
+e10        INV-3001    paid
+e10        INV-3002    paid
+```
+
+Now look at what you can do. You can analyze this process from any object's perspective:
+
+**PO perspective**: Follow PO-5001 through all events it touches. You see the full lifecycle from creation to final payment — including the three parallel goods receipts and two invoices. Cycle time: 20 days.
+
+**Item perspective**: Follow ITEM-A. It was received in two shipments (GR-7001, GR-7002), both covered by INV-3001. Follow ITEM-B separately — it had one receipt, one invoice, same payment. You can compare throughput times per material.
+
+**Vendor perspective**: Follow VEND-42 across all POs, all receipts, all invoices. You can compute vendor-level KPIs — average delivery time, invoice accuracy rate, payment cycle — without duplicating events or losing connections.
+
+Same data. Three different process maps. Each one is correct for its perspective.
+
+## Why this is technically hard
+
+OCEL sounds elegant in theory. Implementing it at scale is a different story.
+
+**Many-to-many joins**: Traditional process mining sorts events by (case_id, timestamp). With OCEL, a single event relates to N objects. To reconstruct the event sequence for one object, you join Events to E2O, filter by object_id, and sort by timestamp. That's manageable. But to discover the process model across all objects of a type, you need to compute variants where the same event appears in multiple object lifecycles simultaneously. The join cardinality explodes.
+
+**Object state tracking**: In traditional logs, a case has a state implicitly defined by its last event. In OCEL, an object's state depends on which events have touched it — and those events might also touch other objects in different states. If PO-5001 is "partially received" and INV-3001 is "pending match," the compound state space grows multiplicatively.
+
+**Variant explosion**: With traditional case IDs, a process with 20 activities might produce 800 variants. With OCEL, each object type has its own variant space, and the interactions between object types create cross-object variant patterns. A PO variant depends on how many items it has, how many invoices were generated, and whether payments were consolidated. The number of unique patterns grows rapidly.
+
+**Performance at scale**: Enterprise P2P processes generate millions of events with complex object graphs. Computing an object-centric process map means traversing this graph for every query, every filter, every drill-down. Without careful indexing and pre-computation, response times become unusable.
+
+## How Sancalana stores OCEL natively
+
+Most process mining platforms were built on the traditional case-ID model and have tried to retrofit object-centric capabilities. Celonis introduced Object-Centric Process Mining (OCPM) in 2023, layering it on top of their existing architecture. The result works but carries the weight of backward compatibility — the underlying data model still thinks in cases.
+
+Sancalana was designed from the ground up with OCEL 2.0 as the native storage format. Our Iceberg-backed data layer uses four core tables:
+
+```sql
+-- Core event storage
+CREATE TABLE ocel_events (
+    event_id        STRING,
+    activity        STRING,
+    event_timestamp TIMESTAMP,
+    source_system   STRING,
+    attributes      MAP<STRING, STRING>
+) USING iceberg
+PARTITIONED BY (days(event_timestamp));
+
+-- Object registry
+CREATE TABLE ocel_objects (
+    object_id       STRING,
+    object_type     STRING,
+    created_at      TIMESTAMP,
+    attributes      MAP<STRING, STRING>
+) USING iceberg
+PARTITIONED BY (object_type);
+
+-- Event-to-Object relationships
+CREATE TABLE ocel_e2o (
+    event_id        STRING,
+    object_id       STRING,
+    object_type     STRING,
+    qualifier       STRING
+) USING iceberg
+PARTITIONED BY (object_type);
+
+-- Object-to-Object relationships
+CREATE TABLE ocel_o2o (
+    source_object_id STRING,
+    target_object_id STRING,
+    source_type      STRING,
+    target_type      STRING,
+    qualifier        STRING
+) USING iceberg
+PARTITIONED BY (source_type, target_type);
+```
+
+Partitioning by `object_type` in the E2O and O2O tables is the key design choice. When a user asks "show me the process from the Invoice perspective," the query engine reads only the Invoice partition of `ocel_e2o`, joins to `ocel_events`, and computes the process map. It never touches PurchaseOrder or Payment E2O records. This partition pruning keeps queries fast even when the total E2O table has hundreds of millions of rows.
+
+The Iceberg format gives us time travel (compare the process model last month versus this month), schema evolution (add new object types without migration), and efficient append-only ingestion from streaming sources.
+
+## What this means in practice
+
+Object-centric process mining isn't an academic exercise. It solves real analytical problems that traditional process mining either answers incorrectly or can't answer at all:
+
+**Correct throughput time**: "What's the average time from PO creation to final payment?" requires following the PO through all its goods receipts, invoices, and payments. With a case-ID model, you either undercount (using PO as case, missing the payment consolidation) or overcount (duplicating events across invoice-level cases).
+
+**Root cause across object boundaries**: "Why are payments delayed?" might be because of slow goods receipts (PO-level problem), invoice matching errors (invoice-level problem), or vendor-specific payment terms (vendor-level problem). OCEL lets you pivot across these perspectives in a single analysis.
+
+**Accurate conformance checking**: "Does every PO go through approval before goods receipt?" In traditional logs, if the PO and GR are in different cases, you can't check this constraint. In OCEL, the E2O links connect them explicitly.
+
+The OCEL 2.0 standard is where process mining needed to go. Real operations don't run on isolated case tracks — they run on interconnected objects moving through shared processes. The data model should reflect that reality, not force it into a simpler shape.
+
+Sancalana's native OCEL architecture means you get these capabilities without the performance penalties of a retrofitted solution. The object graph is a first-class citizen, not an afterthought.
+
+[Explore how Sancalana handles your process data](/platform) or [talk to our team](/contact).
