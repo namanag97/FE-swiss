@@ -2,6 +2,9 @@ import { compile, run } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
+import { Exhibit, HBarChart, WaterfallChart, StatRow } from "./charts";
+
+const mdxComponents = { Exhibit, HBarChart, WaterfallChart, StatRow };
 
 interface Props {
   source: string;
@@ -20,7 +23,7 @@ export async function BlogContent({ source }: Props) {
       baseUrl: import.meta.url,
     });
 
-    return <MDXContent />;
+    return <MDXContent components={mdxComponents} />;
   } catch {
     return (
       <div className="card-feature">
