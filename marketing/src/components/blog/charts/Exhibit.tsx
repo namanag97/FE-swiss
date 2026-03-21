@@ -1,5 +1,3 @@
-"use client";
-
 interface ExhibitProps {
   n: number;
   title: string;
