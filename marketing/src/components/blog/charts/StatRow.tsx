@@ -1,5 +1,3 @@
-"use client";
-
 export interface StatDatum {
   value: string;
   label: string;
