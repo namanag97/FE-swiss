@@ -12,7 +12,9 @@ export const metadata: Metadata = {
   description:
     "From raw event logs to automated action. Process discovery, conformance checking, visual analytics, and AI-powered insights in one platform.",
   alternates: { canonical: "/platform" },
-  openGraph: { images: ["/og.png"] },
+  openGraph: {
+    images: ["/og.png"],
+  },
 };
 
 const illustrations: Record<string, ReactNode> = {
