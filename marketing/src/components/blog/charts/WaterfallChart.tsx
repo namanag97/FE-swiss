@@ -1,5 +1,3 @@
-"use client";
-
 import { C } from "@/lib/colors";
 import { scaleBand, scaleLinear } from "@visx/scale";
 
