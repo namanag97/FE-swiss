@@ -1,0 +1,182 @@
+---
+title: "What ServiceNow Dashboards Don't Tell You About Your Incidents"
+description: "Your MTTR is 18 hours. But why? Process mining reveals the ping-pong patterns, routing failures, and reopen loops hiding behind aggregate metrics."
+date: "2026-03-12"
+author: "Naman Agarwal"
+tags: ["product", "process-mining"]
+published: true
+---
+
+Your ServiceNow Performance Analytics dashboard says MTTR is 18 hours. SLA compliance is 87%. There are 342 open incidents. The leadership team reviews these numbers every Monday morning, nods, and moves on.
+
+But none of these numbers explain why P2 network incidents take three times longer than P2 application incidents. Or why 15% of your incidents bounce between three or more assignment groups before resolution. Or why incidents opened after 5 PM consistently breach SLA at twice the rate of daytime incidents.
+
+The data to answer these questions is already in ServiceNow. It's sitting in `sys_audit`. Nobody's looking at it the right way.
+
+## ServiceNow stores everything
+
+Every time anything changes on an incident record, ServiceNow writes a row to the `sys_audit` table. State changes, assignment group updates, priority adjustments, reassignments, work notes, SLA clock pauses — all of it, timestamped to the millisecond.
+
+```
+  sys_audit sample for INC0074821
+  ==========================================
+
+  tablename    fieldname          oldvalue            newvalue            sys_created_on
+  ----------   ----------------   -----------------   -----------------  -------------------
+  incident     state              New                 In Progress        2026-02-10 08:14:32
+  incident     assignment_group   Service Desk        Network Ops        2026-02-10 08:14:32
+  incident     assigned_to        [empty]             J.Martinez         2026-02-10 08:15:01
+  incident     assignment_group   Network Ops         Database Team      2026-02-10 09:42:18
+  incident     assigned_to        J.Martinez          R.Chen             2026-02-10 09:42:18
+  incident     assignment_group   Database Team       Network Ops        2026-02-10 14:31:05
+  incident     assigned_to        R.Chen              K.Patel            2026-02-10 14:31:05
+  incident     state              In Progress         Pending            2026-02-10 16:20:44
+  incident     state              Pending             In Progress        2026-02-11 09:05:12
+  incident     state              In Progress         Resolved           2026-02-11 15:48:33
+  incident     state              Resolved            In Progress        2026-02-12 08:22:10
+  incident     state              In Progress         Resolved           2026-02-12 11:40:07
+  incident     state              Resolved            Closed             2026-02-15 11:40:07
+```
+
+That's 13 audit rows for a single incident. Multiply by 50,000 incidents per year and you're looking at millions of rows of process execution data. It's a complete record of how every incident actually moved through your organization.
+
+## But dashboards only show the ending
+
+ServiceNow's built-in reporting and Performance Analytics operate on the `incident` table — the current state of each record. They can tell you:
+
+- **MTTR**: 18 hours (average across all resolved incidents last month)
+- **SLA compliance**: 87% (percentage that met the response and resolution targets)
+- **Open count**: 342 (snapshot of what's unresolved right now)
+- **By priority**: P1 MTTR is 4.2 hours, P2 is 14.6 hours, P3 is 38 hours
+
+These are useful monitoring metrics. They tell you the score. They don't tell you how the game was played. The INC0074821 example above resolves with an MTTR of roughly 52 hours — but the dashboard can't show you that it bounced between Network Ops and Database Team twice, sat idle for 17 hours overnight, and was reopened once after premature resolution.
+
+That incident doesn't show up as a routing problem, a staffing gap, or a quality issue. It shows up as one data point in an 18-hour average.
+
+## Process mining reconstructs the journey
+
+Process mining takes the `sys_audit` data and transforms it into an event log — one row per activity per incident, ordered by timestamp. The case ID is the incident number. The activity is derived from the field change (state transition, assignment change, escalation). The timestamp comes from `sys_created_on`.
+
+From that event log, process mining algorithms reconstruct the actual paths incidents take through your organization. Not the paths documented in your incident management playbook. The real ones.
+
+Here's what becomes visible.
+
+## Variant analysis: the happy path vs. the swamp
+
+Variant analysis groups incidents by the exact sequence of activities they followed. In a typical IT organization processing 50,000 incidents per year, you'll find 200-400 distinct variants. But the distribution is heavily skewed.
+
+```
+  Incident Variant Distribution
+  ==========================================
+
+  Variant 1 — Happy Path (45% of incidents)
+  Create -> Assign L1 -> Work L1 -> Resolve -> Close
+  Median MTTR: 4.1 hours
+
+  Variant 2 — Standard Escalation (18% of incidents)
+  Create -> Assign L1 -> Work L1 -> Escalate L2 -> Work L2 -> Resolve -> Close
+  Median MTTR: 11.3 hours
+
+  Variant 3 — Ping-Pong (9% of incidents)
+  Create -> Assign L1 -> Reassign -> Reassign -> Work -> Resolve -> Close
+  Median MTTR: 28.4 hours
+
+  Variant 4 — Reopen Loop (6% of incidents)
+  Create -> Assign -> Work -> Resolve -> Reopen -> Work -> Resolve -> Close
+  Median MTTR: 48.2 hours
+
+  Variant 5 — Escalation + Ping-Pong (5% of incidents)
+  Create -> Assign L1 -> Escalate L2 -> Reassign -> Reassign ->
+    Escalate L3 -> Work -> Resolve -> Close
+  Median MTTR: 62.7 hours
+
+  ...187 more variants (17% of incidents combined)
+```
+
+Your MTTR is 18 hours. But 45% of your incidents resolve in 4 hours. The average is dragged up by the 20% that ping-pong, reopen, or get stuck in escalation chains. Those are the incidents worth investigating — and dashboards make them invisible because they're buried in the aggregate.
+
+## Root cause: wrong routing kills resolution time
+
+Filter the process map by incidents that involve two or more reassignments. Now overlay the category and assignment group data from the incident record. A pattern jumps out immediately.
+
+Network P2 incidents assigned to the Database Team first have a median MTTR of 34 hours. Network P2 incidents routed directly to Network Ops have a median MTTR of 6 hours. The difference is the initial misroute — and it happens on 23% of all network incidents.
+
+Why? The assignment rules in ServiceNow use subcategory to route, and "connectivity" maps to Database Team because someone set it up that way three years ago when the connectivity subcategory was mostly database connection pool issues. The infrastructure has changed. The routing hasn't.
+
+```
+  Routing Analysis: Network P2 Incidents
+  ==========================================
+
+  Correctly routed (77%)
+  Create -> Assign Network Ops -> Work -> Resolve
+  Median MTTR: 6.1 hours
+
+  Misrouted (23%)
+  Create -> Assign DB Team -> [wait 3-8 hrs] -> Reassign Network Ops -> Work -> Resolve
+  Median MTTR: 34.2 hours
+
+  Impact: 23% of network incidents carry 28 hours of unnecessary delay
+  Fix: Update assignment rule for "connectivity" subcategory
+  Effort: 15 minutes in ServiceNow assignment rule config
+```
+
+A 15-minute configuration change that process mining surfaced from audit data. No ServiceNow dashboard would ever show this because it requires analyzing the sequence of assignments, not just the final resolution group.
+
+## Bottleneck: the overnight gap
+
+Overlay timestamps on the L1-to-L2 escalation transitions. Incidents escalated between 5 PM and 8 AM have a median wait of 12.4 hours before L2 picks them up. Incidents escalated during business hours wait 1.8 hours.
+
+The cause is straightforward: the L2 team has no night shift coverage. Incidents escalated at 5:30 PM sit in queue until the next morning. But this isn't visible in the MTTR dashboard because it's blended into the overall average. You'd have to build a custom report that segments by escalation time-of-day, and even then you'd see the correlation without understanding that the specific bottleneck is the L1-to-L2 handoff — not L2 work time itself.
+
+```
+  L1 → L2 Escalation Wait Time by Hour of Day
+  ==========================================
+
+  08:00 - 12:00    1.4 hours avg wait
+  12:00 - 17:00    2.1 hours avg wait
+  17:00 - 20:00    8.7 hours avg wait
+  20:00 - 00:00   13.1 hours avg wait
+  00:00 - 08:00   11.8 hours avg wait
+
+  Cases escalated after 5 PM: 31% of all escalations
+  SLA breach rate for after-5 PM escalations: 44%
+  SLA breach rate for business-hours escalations: 11%
+```
+
+This bottleneck analysis directly informs a staffing decision: adding L2 on-call coverage for the 5 PM to midnight window would impact 31% of all escalations and cut their wait time by 10+ hours.
+
+## Conformance: what's being skipped
+
+Your incident management process requires work notes at every state transition for P1 and P2 incidents. Audit requirements, compliance obligations, knowledge management — there are good reasons for the policy.
+
+Process mining can check conformance by comparing every incident's actual event sequence against the expected model. The result: 25% of P1 incidents and 18% of P2 incidents skip work notes on at least one state transition. The worst offender is the Resolve transition — agents close the ticket without documenting what they did.
+
+That's a compliance risk sitting in plain sight, quantified to exact percentages, broken down by assignment group and shift. No amount of dashboard watching finds this. It requires comparing the actual process to the prescribed process, incident by incident, at scale.
+
+## The numbers from production
+
+This isn't theoretical. Organizations running process mining on ITSM data are seeing measurable results.
+
+LinkedIn applied process mining to their IT service management operations and recovered over 300,000 working hours by identifying and eliminating process inefficiencies — redundant approvals, unnecessary escalations, and routing loops that had accumulated over years of organic process growth.
+
+MOL Group, a multinational oil and gas company, used process mining on their incident and service request data to reduce SLA breaches by 60%. The primary driver was identifying bottleneck transitions and misrouting patterns — the same categories of insight described above, applied to their specific operational context.
+
+These aren't process redesign projects that took years. They're routing table fixes, staffing adjustments, and automation rule updates — changes that take days to implement once you can see exactly where the process breaks down.
+
+## How Sancalana connects the dots
+
+Sancalana ships with a native ServiceNow connector that extracts from `sys_audit`, `incident`, `sys_user_group`, and `cmdb_ci` tables. The connector handles the event log transformation automatically — mapping state field changes to activities, correlating assignment group changes to reassignment events, and linking parent-child relationships across incident, problem, and change records.
+
+The default ITSM process model ships with pre-configured variant analysis (happy path, escalation, ping-pong, reopen), bottleneck detection on every group-to-group transition, and conformance checking against ITIL-aligned reference models. You can customize all of it — add activities, change the reference model, adjust thresholds — but the out-of-the-box configuration covers the patterns described in this post.
+
+Time from ServiceNow connection to first actionable process map: under an hour. Not because the analysis is simple, but because the hard parts — audit log parsing, activity mapping, case correlation — are handled by the connector, and the discovery algorithms run on Sancalana's backend infrastructure rather than inside ServiceNow.
+
+## The 18-hour MTTR is a starting point, not an answer
+
+Your dashboards aren't lying to you. The MTTR really is 18 hours. SLA compliance really is 87%. But these numbers are the end of the story in a dashboard and the beginning of the story in process mining.
+
+The 18-hour average contains 4-hour happy paths and 62-hour escalation nightmares. The 87% SLA compliance hides that after-hours escalations breach at 44%. The open count of 342 doesn't tell you that 58 of them have been reassigned three or more times and are unlikely to resolve without intervention.
+
+Every insight in this post came from data already sitting in `sys_audit`. The difference is the analytical method: reconstructing the process from event-level data instead of summarizing the outcome from record-level data.
+
+[See how Sancalana maps your incident process from ServiceNow data](/platform) or [connect your instance for a live analysis](/contact).
