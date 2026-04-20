@@ -6,6 +6,7 @@ import posthog from "posthog-js";
 
 export function NewsletterForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const emailRef = useRef<HTMLInputElement>(null);
 
@@ -15,7 +16,7 @@ export function NewsletterForm() {
     return () => clearTimeout(t);
   }, [submitted]);
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
     const email = emailRef.current?.value?.trim();
@@ -27,9 +28,27 @@ export function NewsletterForm() {
       return;
     }
 
-    try { posthog.capture("newsletter_signup", { email }); } catch { /* analytics unavailable */ }
-    setSubmitted(true);
-    if (emailRef.current) emailRef.current.value = "";
+    setSubmitting(true);
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        const payload = await response.json().catch(() => null);
+        throw new Error(payload?.error || "Newsletter signup failed.");
+      }
+
+      try { posthog.capture("newsletter_signup"); } catch { /* analytics unavailable */ }
+      setSubmitted(true);
+      if (emailRef.current) emailRef.current.value = "";
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Newsletter signup failed.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (submitted) {
@@ -52,8 +71,8 @@ export function NewsletterForm() {
           aria-label="Email address"
           className="input-dark flex-1 min-w-0 border-r-0"
         />
-        <button type="submit" className="btn btn-dark shrink-0 border-l-0">
-          Subscribe
+        <button type="submit" className="btn btn-dark shrink-0 border-l-0" disabled={submitting}>
+          {submitting ? "Saving" : "Subscribe"}
         </button>
       </form>
       {error && (

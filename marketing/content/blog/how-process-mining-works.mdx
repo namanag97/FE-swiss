@@ -7,9 +7,11 @@ tags: ["product", "process-mining"]
 published: true
 ---
 
-Process mining sounds abstract until you see it in action. At its core, the technique takes timestamped records of what happened in your business systems and reconstructs the actual process — not the one drawn on a whiteboard, but the one that really runs in production.
+Process mining sounds abstract until someone loads real event data and the map starts disagreeing with the official process diagram.
 
-Here's how the pipeline works, from raw data to actionable insight.
+That is the point. The technique takes timestamped records from business systems and reconstructs the process that actually ran - including the rework, waiting, loops, skipped steps, and awkward exceptions that never make it into the slide deck.
+
+Here is how the pipeline works, from raw data to something a team can act on.
 
 ## Step 1: Event log extraction
 
@@ -109,6 +111,8 @@ The full pipeline — extraction, correlation, mapping, discovery, rendering —
 
 The technical challenge at scale is variant analysis. With 500,000 cases and 4,000 variants, the naive approach of comparing every case to every other case is O(n^2) and doesn't work. Sancalana uses a trie-based variant index that computes variant frequencies in linear time and supports incremental updates as new events arrive.
 
-The result is a system where you connect your data source, configure the mapping, and within minutes have a full process model with variants, bottlenecks, and conformance analysis — ready to act on.
+The result is a system where you connect a data source, configure the mapping, and within minutes have a process model with variants, bottlenecks, and conformance analysis.
+
+The important part is not that the model exists. It is that the team can point to a specific path, delay, or deviation and decide what to change next.
 
 [Explore the platform](/platform) or [connect your data](/contact) to see your processes mapped live.

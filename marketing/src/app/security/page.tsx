@@ -6,8 +6,8 @@ import { PageHero } from "@/components/layout/PageHero";
 import { SecurityArchSvg } from "@/components/illustrations";
 
 export const metadata: Metadata = {
-  title: "Security — SOC 2, Encryption & Data Ownership",
-  description: "Your data stays yours. SOC 2 Type II, AES-256 encryption, customer-managed keys, and full data ownership. Built for enterprise process data.",
+  title: "Security — Encryption, Access Controls & Data Ownership",
+  description: "Your data stays yours. AES-256 encryption, access controls, audit readiness, and full data ownership. Built for enterprise process data.",
   alternates: { canonical: "/security" },
 };
 
@@ -37,7 +37,7 @@ export default function SecurityPage() {
         <div className="gi section-pad">
           <div className="security-grid">
             {[
-              { icon: Shield, title: "SOC 2 Type II", desc: "Audit in progress. Designed from day one around SOC 2 controls for security, availability, and confidentiality." },
+              { icon: Shield, title: "SOC 2 Readiness", desc: "Audit preparation in progress. Designed from day one around SOC 2 controls for security, availability, and confidentiality." },
               { icon: Lock, title: "Encryption", desc: "AES-256 encryption at rest. TLS 1.3 in transit. Customer-managed encryption keys planned for Enterprise tier." },
               { icon: Server, title: "Infrastructure", desc: "Hosted on AWS with isolated VPCs, multi-AZ deployment, and automated backups. Targeting 99.9% uptime SLA at GA." },
               { icon: Key, title: "Access Controls", desc: "Role-based access control, SSO (SAML 2.0, OIDC), multi-factor authentication, and audit logging." },
@@ -83,7 +83,7 @@ export default function SecurityPage() {
       {/* CTA */}
       <CtaBand
         heading={<>Need more <em>detail?</em></>}
-        description="We're happy to share SOC 2 reports, answer security questionnaires, or walk through our architecture with your team."
+        description="We're happy to answer security questionnaires or walk through our architecture and audit-readiness program with your team."
       />
     </>
   );

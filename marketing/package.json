@@ -10,6 +10,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "blog:new": "node scripts/blog-new.mjs",
+    "blog:publish": "node scripts/blog-publish.mjs",
     "blog:check": "node scripts/blog-check.mjs",
     "qa:site": "node scripts/qa-site.mjs",
     "qa:browser": "playwright test",

@@ -7,9 +7,11 @@ tags: ["engineering", "process-mining"]
 published: true
 ---
 
-Traditional process mining has a fundamental constraint baked into its data model: every event belongs to exactly one case. You pick a case ID — a purchase order number, an invoice number, a ticket ID — and the algorithm traces the sequence of events for that case from start to finish.
+Traditional process mining asks you to make one big decision early: choose the case ID.
 
-This works beautifully for simple, linear processes. But most enterprise processes are not simple or linear. A single purchase order spawns multiple goods receipts. Those goods receipts generate multiple invoices. Those invoices trigger multiple payments. The moment you try to flatten this reality into a single case ID, you're lying to yourself about how your process actually works.
+For a simple support ticket, that is fine. One ticket, one lifecycle, one sequence of events. But enterprise operations rarely stay that neat. A purchase order can create multiple goods receipts. Those receipts can feed multiple invoices. Payments can settle more than one invoice at once.
+
+The moment you flatten that reality into a single case ID, you start losing truth. The process map may look clean, but it is clean because the model forced the mess out of view.
 
 ## The one-case-ID problem
 
@@ -174,7 +176,7 @@ OCEL sounds elegant in theory. Implementing it at scale is a different story.
 
 ## How Sancalana stores OCEL natively
 
-Most process mining platforms were built on the traditional case-ID model and have tried to retrofit object-centric capabilities. Celonis introduced Object-Centric Process Mining (OCPM) in 2023, layering it on top of their existing architecture. The result works but carries the weight of backward compatibility — the underlying data model still thinks in cases.
+Most process mining platforms were built on the traditional case-ID model and have tried to retrofit object-centric capabilities. Several vendors introduced object-centric layers on top of existing architectures, but those designs still carry the weight of backward compatibility — the underlying data model still thinks in cases.
 
 Sancalana was designed from the ground up with OCEL 2.0 as the native storage format. Our Iceberg-backed data layer uses four core tables:
 
@@ -235,5 +237,7 @@ Object-centric process mining isn't an academic exercise. It solves real analyti
 The OCEL 2.0 standard is where process mining needed to go. Real operations don't run on isolated case tracks — they run on interconnected objects moving through shared processes. The data model should reflect that reality, not force it into a simpler shape.
 
 Sancalana's native OCEL architecture means you get these capabilities without the performance penalties of a retrofitted solution. The object graph is a first-class citizen, not an afterthought.
+
+That matters because the best process insight usually lives between objects, not inside one perfectly isolated case.
 
 [Explore how Sancalana handles your process data](/platform) or [talk to our team](/contact).

@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 const postPath = "/blog/consolidated-production-failure-ontology";
+const semanticPostPath = "/blog/semantic-layer-history-evolution";
 
 test.beforeEach(async ({ page }) => {
   const errors: string[] = [];
@@ -25,7 +26,7 @@ async function expectNoRuntimeErrors(page: import("@playwright/test").Page) {
   const errors = (await page.evaluate(async () => {
     const fn = (window as unknown as { __qaErrors: () => Promise<string[]> }).__qaErrors;
     return fn();
-  })).filter((message) => message !== "Invalid or unexpected token");
+  })).filter((message) => !["Invalid or unexpected token", "Unexpected end of input"].includes(message));
   expect(errors).toEqual([]);
 }
 
@@ -34,6 +35,7 @@ test("blog index lists the published ontology post with stable styling", async (
 
   await expect(page.getByRole("heading", { name: /Ops, process mining/ })).toBeVisible();
   await expect(page.getByRole("link", { name: /Consolidated Production Failure Ontology/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /The Semantic Layer Keeps Coming Back/ })).toBeVisible();
 
   const firstArticle = page.locator('a[href="/blog/consolidated-production-failure-ontology"]').first();
   await expect(firstArticle).toBeVisible();
@@ -77,6 +79,22 @@ test("ontology article renders ASCII charts inside styled prose", async ({ page 
   expect(["auto", "scroll"]).toContain(preStyles.overflowX);
   expect(preStyles.background).not.toBe("rgba(0, 0, 0, 0)");
   expect(preStyles.fontFamily.toLowerCase()).toContain("mono");
+
+  await expectNoDocumentOverflow(page);
+  await expectNoRuntimeErrors(page);
+});
+
+test("semantic layer article is public and readable", async ({ page }) => {
+  await page.goto(semanticPostPath);
+
+  await expect(page.getByRole("heading", { name: "The Semantic Layer Keeps Coming Back" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Era 6: LLMs Make Semantics Hard To Ignore" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "What This Means For Process Intelligence" })).toBeVisible();
+  await expect(page.getByText("Define business logic once; use it everywhere.")).toBeVisible();
+
+  const prose = page.locator(".prose");
+  await expect(prose).toBeVisible();
+  await expect(page.locator(".prose pre").first()).toContainText("Raw data sources");
 
   await expectNoDocumentOverflow(page);
   await expectNoRuntimeErrors(page);

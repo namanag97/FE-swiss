@@ -8,7 +8,7 @@ export function SecurityArchSvg() {
     { label: "API GATEWAY", detail: "Rate limiting · JWT · RBAC", fill: C.white },
     { label: "APPLICATION LAYER", detail: "Isolated VPC · WAF · IDS", fill: C.greenLight },
     { label: "DATA LAYER", detail: "AES-256 at rest · TLS in transit · Customer-managed keys", fill: C.white },
-    { label: "INFRASTRUCTURE", detail: "AWS · SOC 2 · Multi-AZ · Automated backups", fill: C.bg },
+    { label: "INFRASTRUCTURE", detail: "AWS · SOC 2 controls · Multi-AZ · Automated backups", fill: C.bg },
   ];
 
   return (

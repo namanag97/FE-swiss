@@ -7,9 +7,13 @@ tags: ["engineering"]
 published: true
 ---
 
-When we started building Sancalana, we had a clear problem statement: process mining at enterprise scale is computationally hard, and the existing approaches either compromise on interactivity or on data volume. We wanted both — real-time exploration of process models derived from tens of millions of events.
+The first version of Sancalana could draw a process map. That was the easy part.
 
-Here are the architecture decisions we made and why.
+The hard part was making the map stay useful after the data became real: millions of events, messy activity names, long-running cases, rework loops, filters that users expect to feel instant, and source systems that were never designed for process analysis.
+
+So the architecture had to do two things at once. It had to treat process mining as a serious data-engineering problem, and it had to keep the product interactive enough for an operations leader to explore without waiting on a batch job.
+
+These are the decisions that shaped the system.
 
 ## Columnar storage, not row-based
 
@@ -155,6 +159,8 @@ No architecture survives contact with reality unchanged. A few things we've lear
 
 **The trie needs garbage collection.** Cases that complete drop out of the active variant trie, but we initially kept all historical variants in memory. For long-running deployments, the trie grew unboundedly. We added a compaction step that archives completed variants to disk-based storage.
 
-Building a process mining engine is an exercise in applied data engineering. The algorithms are well-understood. The challenge is making them work at scale, interactively, on messy enterprise data. That's the engineering problem we're solving at Sancalana.
+The lesson is that process mining is not just a graph problem. It is storage, ingestion, indexing, modeling, rendering, and product latency all stacked together. The algorithms matter, but the architecture around them decides whether anyone can actually use the output.
+
+That is the engineering problem we are solving at Sancalana: make messy enterprise process data fast enough, stable enough, and clear enough that people can reason from it while the problem is still fresh.
 
 [See the platform in action](/platform) or [talk to our engineering team](/contact).

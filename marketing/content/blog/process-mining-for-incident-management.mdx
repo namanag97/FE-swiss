@@ -7,11 +7,11 @@ tags: ["product", "process-mining"]
 published: true
 ---
 
-Your ServiceNow Performance Analytics dashboard says MTTR is 18 hours. SLA compliance is 87%. There are 342 open incidents. The leadership team reviews these numbers every Monday morning, nods, and moves on.
+Your ServiceNow dashboard says MTTR is 18 hours. SLA compliance is 87%. There are 342 open incidents.
 
-But none of these numbers explain why P2 network incidents take three times longer than P2 application incidents. Or why 15% of your incidents bounce between three or more assignment groups before resolution. Or why incidents opened after 5 PM consistently breach SLA at twice the rate of daytime incidents.
+Those numbers matter, but they do not explain the Monday morning argument. Why do P2 network incidents take three times longer than P2 application incidents? Why do some tickets bounce between three assignment groups before anyone owns them? Why do incidents opened after 5 PM breach SLA at twice the daytime rate?
 
-The data to answer these questions is already in ServiceNow. It's sitting in `sys_audit`. Nobody's looking at it the right way.
+The data to answer those questions is already in ServiceNow. It is sitting in `sys_audit`. Most teams are just looking at it through the wrong lens.
 
 ## ServiceNow stores everything
 
@@ -177,6 +177,6 @@ Your dashboards aren't lying to you. The MTTR really is 18 hours. SLA compliance
 
 The 18-hour average contains 4-hour happy paths and 62-hour escalation nightmares. The 87% SLA compliance hides that after-hours escalations breach at 44%. The open count of 342 doesn't tell you that 58 of them have been reassigned three or more times and are unlikely to resolve without intervention.
 
-Every insight in this post came from data already sitting in `sys_audit`. The difference is the analytical method: reconstructing the process from event-level data instead of summarizing the outcome from record-level data.
+Every insight in this post comes from data that already exists in `sys_audit`. The difference is the analytical method: reconstructing the process from event-level data instead of summarizing the outcome from record-level data.
 
 [See how Sancalana maps your incident process from ServiceNow data](/platform) or [connect your instance for a live analysis](/contact).

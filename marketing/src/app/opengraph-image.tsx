@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
+import { siteConfig } from "@/lib/config";
 
 export const runtime = "edge";
-export const alt = "Sancalana — See how your business actually runs.";
+export const alt = `Sancalana — ${siteConfig.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -63,7 +64,7 @@ export default function OgImage() {
             textAlign: "center",
           }}
         >
-          See how your business actually runs.
+          {siteConfig.tagline}
         </div>
       </div>
     ),

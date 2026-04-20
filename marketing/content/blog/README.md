@@ -6,6 +6,14 @@ Blog posts live in this folder as MDX files. Use the helper command from the `ma
 npm run blog:new
 ```
 
+Create drafts with `published: false`. When a draft is ready to go live, publish it locally with:
+
+```bash
+npm run blog:publish -- my-post-slug
+```
+
+That command sets `published: true`, updates the publish date to today, and runs `npm run blog:check`.
+
 Before opening a pull request, run:
 
 ```bash
@@ -42,8 +50,15 @@ Allowed tags are defined in `schema.json`.
 - The slug matches the final URL.
 - All internal links point to real routes or files.
 - Images are stored under `public/blog/<slug>/`.
+- Drafts are published with `npm run blog:publish -- <slug>`.
 - `npm run blog:check` passes.
 - The pull request includes a preview link.
+
+## Production Deploys
+
+This blog is Git-backed MDX. Vercel needs a deployment build before a new or changed post appears on the production site because Next.js reads these files during build and static generation.
+
+You can avoid a remote Vercel build only by building locally and deploying prebuilt output with the Vercel CLI. You cannot make new Git-backed MDX content appear on production with no build at all unless the site is changed to load content from a runtime CMS/API and revalidate pages on demand.
 
 ## Renaming Posts
 

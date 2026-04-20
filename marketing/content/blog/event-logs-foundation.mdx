@@ -7,7 +7,11 @@ tags: ["engineering"]
 published: true
 ---
 
-Every process mining analysis starts with the same thing: an event log. It's a deceptively simple data structure — just rows of what happened, to what, and when. But the quality of your event log determines the quality of everything downstream. Bad logs produce misleading process maps. Good logs reveal the truth about how your operations actually work.
+Every process mining project eventually comes down to a boring-looking table.
+
+Rows of what happened. To which object. At what time.
+
+That table is the event log, and it decides whether the analysis is useful or misleading. A clean event log reveals how work actually moves. A weak one produces confident-looking process maps that are wrong in exactly the places leaders care about.
 
 ## The minimum viable event log
 
@@ -136,6 +140,6 @@ The event log is the foundation. Every insight downstream — every bottleneck i
 
 This is why Sancalana invests heavily in the extraction and normalization layer. We'd rather spend engineering effort on getting the data right than on building flashier visualizations on top of bad data.
 
-If you're evaluating process mining tools, start by asking how they handle extraction. The discovery algorithm matters, but the event log matters more.
+If you're evaluating process mining tools, start by asking how they handle extraction. The discovery algorithm matters, but the event log matters more. The best visualization in the world cannot rescue a bad definition of "what happened."
 
 [See how Sancalana connects to your systems](/platform) or [talk to our team about your data](/contact).

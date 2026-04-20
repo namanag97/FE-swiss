@@ -51,8 +51,8 @@ export default function PrivacyPage() {
       <p>
         All data is encrypted at rest using AES-256 encryption and in transit using TLS 1.3. Our
         infrastructure is hosted on AWS within isolated Virtual Private Clouds, with multi-availability-zone
-        redundancy and automated daily backups. We maintain SOC 2 Type II compliance and conduct regular
-        vulnerability assessments. Access to production systems is restricted to authorized personnel through
+        redundancy and automated daily backups. We are preparing for SOC 2 Type II audit readiness and conduct
+        regular vulnerability assessments. Access to production systems is restricted to authorized personnel through
         multi-factor authentication and is logged for audit purposes.
       </p>
 

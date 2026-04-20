@@ -7,9 +7,11 @@ tags: ["engineering"]
 published: true
 ---
 
-Process mining is computationally expensive. Discovering process models from event logs, checking conformance, computing variant frequencies — these operations touch every event in the dataset. At enterprise scale, that means millions of events.
+Small process mining demos are deceptively easy. Load a CSV, discover a process map, click around, declare victory.
 
-Here's how we built Sancalana's infrastructure to handle it.
+Enterprise logs are different. Discovery, conformance checking, bottleneck analysis, and variant frequency all touch large parts of the dataset. At that scale, the product stops being a visualization problem and becomes an infrastructure problem.
+
+Here is how we built Sancalana to handle 10 million events per day without making the user wait on every question.
 
 ## Architecture
 
@@ -132,3 +134,5 @@ We pre-compute the most common query patterns (variant frequencies, bottleneck d
 3. **Pre-compute aggressively.** The process model itself changes rarely (only when new data arrives). Compute it once, cache it, serve it fast.
 
 4. **Show fast results first.** Users prefer seeing a rough model in 3 seconds over waiting 15 seconds for a perfect one. Progressive refinement beats blocking computation.
+
+The main lesson is simple: performance is part of the product, not an implementation detail. If exploration feels slow, people stop asking the second and third questions - which are usually where the real insight is.

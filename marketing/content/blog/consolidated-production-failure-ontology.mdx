@@ -7,7 +7,7 @@ tags: ["engineering", "research"]
 published: true
 ---
 
-Most production incidents feel specific while they are happening.
+Most production incidents feel painfully specific while they are happening.
 
 The dashboard says Postgres is slow. Kafka is rebalancing. A deployment is rolling back. Customers see timeouts. A queue is growing. An upstream dependency is technically up, but every tenth request takes forever.
 
@@ -15,7 +15,7 @@ Then the postmortem lands and the story becomes familiar. A retry loop amplified
 
 Different stack. Same failure shape.
 
-That is the reason to maintain a production failure ontology. Not because taxonomy is fun, and not because a list of 380 hazards makes a system safer by itself. The value is that it gives architecture reviews a better question:
+That is the reason to maintain a production failure ontology. Not because taxonomy is fun, and not because a long list of hazards makes a system safer by itself. The value is that it gives architecture reviews a better question:
 
 > What kind of failure is this path allowed to have, and what primitive absorbs it?
 
@@ -40,7 +40,7 @@ So the ontology groups failures by causal signature:
 +------------------+------------------+------------------+
 ```
 
-This is the difference between "Kafka had an incident" and "we allowed a coordination failure to become a write-safety failure." The second sentence is much more useful.
+This is the difference between "Kafka had an incident" and "we allowed a coordination failure to become a write-safety failure." The second sentence is the one that changes the next design.
 
 ## The 18 Buckets
 
@@ -221,4 +221,4 @@ The ontology is useful only if it changes engineering behavior. The practical ba
 - No critical path without a known failure-shape map.
 - No green check unless the primitive actually enforces the invariant.
 
-This does not make production safe. Nothing does. It makes the unsafe parts named, reviewable, testable, and owned.
+This does not make production safe. Nothing does. It makes the unsafe parts named, reviewable, testable, and owned. That is the difference between hoping the system behaves and knowing where it is allowed to break.

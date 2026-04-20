@@ -1,9 +1,11 @@
 const BASE_URL = (process.env.QA_BASE_URL || "http://localhost:3001").replace(/\/$/, "");
 const NEW_POST = "/blog/consolidated-production-failure-ontology";
+const SEMANTIC_POST = "/blog/semantic-layer-history-evolution";
 const REQUIRED_ROUTES = [
   "/",
   "/blog",
   NEW_POST,
+  SEMANTIC_POST,
   "/admin/index.html",
   "/admin/config.yml",
   "/feed.xml",
@@ -74,21 +76,29 @@ async function main() {
 
   const blogHtml = htmlByRoute.get("/blog");
   const postHtml = htmlByRoute.get(NEW_POST);
+  const semanticPostHtml = htmlByRoute.get(SEMANTIC_POST);
   const sitemap = htmlByRoute.get("/sitemap.xml");
   const feed = htmlByRoute.get("/feed.xml");
   const adminConfig = htmlByRoute.get("/admin/config.yml");
 
   assert(blogHtml.includes("Consolidated Production Failure Ontology"), "Blog index does not list the new post");
+  assert(blogHtml.includes("The Semantic Layer Keeps Coming Back"), "Blog index does not list the semantic layer post");
   assert(postHtml.includes("Coverage Matrix"), "New post is missing the coverage matrix section");
   assert(postHtml.includes("<pre"), "New post did not render ASCII chart code blocks");
   assert(postHtml.includes("Data integrity"), "New post is missing ontology content");
   assert(postHtml.includes("class=\"prose\"") || postHtml.includes("class=\"prose "), "New post is missing prose styling");
+  assert(semanticPostHtml.includes("LLMs Make Semantics Hard To Ignore"), "Semantic layer post is missing the LLM section");
+  assert(semanticPostHtml.includes("What This Means For Process Intelligence"), "Semantic layer post is missing the Sancalana section");
+  assert(semanticPostHtml.includes("<pre"), "Semantic layer post did not render ASCII chart code blocks");
   assert(sitemap.includes(NEW_POST), "Sitemap does not include the new published post");
+  assert(sitemap.includes(SEMANTIC_POST), "Sitemap does not include the semantic layer post");
   assert(feed.includes("Consolidated Production Failure Ontology"), "RSS feed does not include the new published post");
+  assert(feed.includes("The Semantic Layer Keeps Coming Back"), "RSS feed does not include the semantic layer post");
   assert(adminConfig.includes("namanag97/FE-swiss"), "Admin CMS config is not pointing at the GitHub repo");
 
   await checkAssets(blogHtml);
   await checkAssets(postHtml);
+  await checkAssets(semanticPostHtml);
   await checkRedirect();
 
   console.log(`Site QA passed against ${BASE_URL}`);
