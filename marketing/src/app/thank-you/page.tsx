@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function ThankYouPage() {
   return (
     <section className="gr section-pad">
-      <div className="gi" style={{ maxWidth: 720 }}>
+      <div className="gi max-w-[720px]">
         <span className="eyebrow eyebrow-bracket">Received</span>
         <h1 className="type-display mt-3">
           We&apos;ll take it from <em>here</em>.

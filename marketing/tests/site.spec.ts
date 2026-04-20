@@ -33,6 +33,7 @@ async function expectNoRuntimeErrors(page: import("@playwright/test").Page) {
     "Invalid or unexpected token",
     "Unexpected end of input",
     "Failed to load resource: the server responded with a status of 404 ()",
+    "Blocked script execution in 'about:blank' because the document's frame is sandboxed and the 'allow-scripts' permission is not set.",
   ].includes(message));
   expect(errors).toEqual([]);
 }

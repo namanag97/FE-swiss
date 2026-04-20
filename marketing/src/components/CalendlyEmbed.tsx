@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { siteConfig } from "@/lib/config";
 import { captureMarketingEvent } from "@/lib/analytics";
 
-const EMBED_HEIGHT = 660;
 const LOAD_TIMEOUT = 10000;
 
 export function CalendlyEmbed() {
@@ -48,7 +47,7 @@ export function CalendlyEmbed() {
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center gap-[var(--sp-3)] border border-[var(--border)]" style={{ height: EMBED_HEIGHT }}>
+      <div className="flex h-[660px] flex-col items-center justify-center gap-[var(--sp-3)] border border-[var(--border)]">
         <p className="type-body-sm text-mid">
           Unable to load scheduler.
         </p>
@@ -70,18 +69,17 @@ export function CalendlyEmbed() {
   }
 
   return (
-    <div style={{ minHeight: EMBED_HEIGHT }}>
+    <div className="min-h-[660px]">
       {!loaded && (
-        <div className="flex items-center justify-center border border-[var(--border)]" style={{ height: EMBED_HEIGHT }}>
+        <div className="flex h-[660px] items-center justify-center border border-[var(--border)]">
           <p className="type-body-sm text-[color:var(--ink-muted)]">
             Loading scheduler&hellip;
           </p>
         </div>
       )}
       <div
-        className="calendly-inline-widget"
+        className={`calendly-inline-widget h-[660px] min-w-[320px] ${loaded ? "block" : "hidden"}`}
         data-url={siteConfig.calendlyUrl}
-        style={{ minWidth: 320, height: EMBED_HEIGHT, display: loaded ? "block" : "none" }}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 export interface ComparisonCard {
   title: string;
   desc: string;
-  tone: string;
+  tone: "faint" | "muted" | "emerald";
 }
 
 export interface SpeedPhase {
@@ -17,9 +17,9 @@ export interface UseCaseCard {
 }
 
 export const comparisonCards: ComparisonCard[] = [
-  { title: "Dashboards", desc: "\"Revenue slipped. SLA missed. Nobody knows which path caused it.\"", tone: "var(--ink-faint)" },
-  { title: "Static process maps", desc: "\"Looks tidy on paper. Breaks immediately in the real workflow.\"", tone: "var(--ink-muted)" },
-  { title: "Sancalana", desc: "\"Here is the exact variant, the deviation cost, and the next action.\"", tone: "var(--emerald)" },
+  { title: "Dashboards", desc: "\"Revenue slipped. SLA missed. Nobody knows which path caused it.\"", tone: "faint" },
+  { title: "Static process maps", desc: "\"Looks tidy on paper. Breaks immediately in the real workflow.\"", tone: "muted" },
+  { title: "Sancalana", desc: "\"Here is the exact variant, the deviation cost, and the next action.\"", tone: "emerald" },
 ];
 
 export const connectors: string[] = ["SAP", "Oracle", "ServiceNow", "Salesforce", "Jira", "Postgres", "Snowflake", "BigQuery"];

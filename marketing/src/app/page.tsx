@@ -12,6 +12,12 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  const comparisonToneClass = {
+    faint: "text-[color:var(--ink-faint)]",
+    muted: "text-[color:var(--ink-muted)]",
+    emerald: "text-[color:var(--emerald)]",
+  } as const;
+
   const switchCards = [
     {
       title: "Less services overhead",
@@ -60,7 +66,7 @@ export default function HomePage() {
             {comparisonCards.map((c) => (
               <Reveal key={c.title}>
                 <div className="card-feature h-full">
-                  <span className="type-label" style={{ color: c.tone }}>{c.title}</span>
+                  <span className={`type-label ${comparisonToneClass[c.tone]}`}>{c.title}</span>
                   <p className="tagline">
                     {c.desc}
                   </p>

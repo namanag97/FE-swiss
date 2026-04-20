@@ -15,7 +15,6 @@ interface HBarChartProps {
 }
 
 const MONO = "'Geist Mono', monospace";
-const SANS = "Inter, system-ui, sans-serif";
 const LABEL_W = 160;
 const VALUE_W = 70;
 const BAR_W = 340;
@@ -43,7 +42,7 @@ export function HBarChart({ data, formatValue, maxValue }: HBarChartProps) {
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       aria-label="Horizontal bar chart"
-      style={{ width: "100%", height: "auto" }}
+      className="h-auto w-full"
     >
       {data.map((d) => {
         const y = yScale(d.label) ?? 0;
