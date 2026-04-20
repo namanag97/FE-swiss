@@ -26,11 +26,11 @@ export function CtaBand({
         {description}
       </p>
       <div className="flex gap-[var(--sp-3)] justify-center">
-        <Link href={buttonHref} className="btn btn-primary">
+        <Link href={buttonHref} className="btn btn-primary" data-track="cta_clicked" data-track-location="cta-band">
           {buttonText}
         </Link>
         {secondaryText && secondaryHref && (
-          <Link href={secondaryHref} className="btn btn-ghost">
+          <Link href={secondaryHref} className="btn btn-ghost" data-track="secondary_cta_clicked" data-track-location="cta-band">
             {secondaryText}
           </Link>
         )}

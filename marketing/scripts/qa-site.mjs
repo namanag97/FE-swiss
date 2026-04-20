@@ -3,6 +3,8 @@ const NEW_POST = "/blog/consolidated-production-failure-ontology";
 const SEMANTIC_POST = "/blog/semantic-layer-history-evolution";
 const REQUIRED_ROUTES = [
   "/",
+  "/contact",
+  "/thank-you",
   "/blog",
   NEW_POST,
   SEMANTIC_POST,
@@ -17,9 +19,10 @@ function assert(condition, message) {
 }
 
 async function request(pathname, options = {}) {
+  const startedAt = Date.now();
   const response = await fetch(`${BASE_URL}${pathname}`, options);
   const body = await response.text();
-  return { response, body };
+  return { response, body, durationMs: Date.now() - startedAt };
 }
 
 function localAssets(html) {
@@ -38,12 +41,14 @@ function localAssets(html) {
 }
 
 async function checkRoute(pathname) {
-  const { response, body } = await request(pathname);
+  const { response, body, durationMs } = await request(pathname);
   assert(response.ok, `${pathname} returned ${response.status}`);
+  assert(durationMs < 10_000, `${pathname} took ${durationMs}ms`);
 
   if (response.headers.get("content-type")?.includes("text/html")) {
     assert(!body.includes("This post could not be rendered"), `${pathname} hit the MDX render fallback`);
     assert(!body.includes("Application error"), `${pathname} rendered an application error`);
+    assert(body.length < 1_500_000, `${pathname} HTML exceeded 1.5MB`);
   }
 
   return body;
@@ -77,6 +82,8 @@ async function main() {
   const blogHtml = htmlByRoute.get("/blog");
   const postHtml = htmlByRoute.get(NEW_POST);
   const semanticPostHtml = htmlByRoute.get(SEMANTIC_POST);
+  const contactHtml = htmlByRoute.get("/contact");
+  const thanksHtml = htmlByRoute.get("/thank-you");
   const sitemap = htmlByRoute.get("/sitemap.xml");
   const feed = htmlByRoute.get("/feed.xml");
   const adminConfig = htmlByRoute.get("/admin/config.yml");
@@ -86,15 +93,20 @@ async function main() {
   assert(postHtml.includes("Coverage Matrix"), "New post is missing the coverage matrix section");
   assert(postHtml.includes("<pre"), "New post did not render ASCII chart code blocks");
   assert(postHtml.includes("Data integrity"), "New post is missing ontology content");
+  assert(postHtml.includes("Book architecture review"), "New post is missing the article CTA");
   assert(postHtml.includes("class=\"prose\"") || postHtml.includes("class=\"prose "), "New post is missing prose styling");
   assert(semanticPostHtml.includes("LLMs Make Semantics Hard To Ignore"), "Semantic layer post is missing the LLM section");
   assert(semanticPostHtml.includes("What This Means For Process Intelligence"), "Semantic layer post is missing the Sancalana section");
   assert(semanticPostHtml.includes("<pre"), "Semantic layer post did not render ASCII chart code blocks");
+  assert(semanticPostHtml.includes("Book architecture review"), "Semantic layer post is missing the article CTA");
   assert(sitemap.includes(NEW_POST), "Sitemap does not include the new published post");
   assert(sitemap.includes(SEMANTIC_POST), "Sitemap does not include the semantic layer post");
   assert(feed.includes("Consolidated Production Failure Ontology"), "RSS feed does not include the new published post");
   assert(feed.includes("The Semantic Layer Keeps Coming Back"), "RSS feed does not include the semantic layer post");
   assert(adminConfig.includes("namanag97/FE-swiss"), "Admin CMS config is not pointing at the GitHub repo");
+  assert(contactHtml.includes("Send process brief"), "Contact page is missing the intake form");
+  assert(contactHtml.includes("Open scheduler"), "Contact page is missing the calendar CTA");
+  assert(thanksHtml.includes("take it from"), "Thank-you page did not render");
 
   await checkAssets(blogHtml);
   await checkAssets(postHtml);

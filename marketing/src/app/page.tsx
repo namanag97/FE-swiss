@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { OODALoop } from "@/components/home/OODALoop";
 import { PlatformTabs } from "@/components/home/PlatformTabs";
 import { Reveal } from "@/components/ui/Reveal";
 import { CtaBand } from "@/components/layout/CtaBand";
@@ -8,30 +7,43 @@ import { PageHero } from "@/components/layout/PageHero";
 import { comparisonCards, connectors, speedPhases, useCaseCards } from "@/data/home";
 
 export const metadata: Metadata = {
-  description: "See how your business actually runs. Connect your ERP, CRM, or ITSM — get a living map of every process, bottleneck, and workaround. Built automatically from your data.",
+  description: "Process intelligence for operations and transformation teams. Connect your systems, map the real process, find deviations, and act faster.",
   alternates: { canonical: "/" },
 };
 
 export default function HomePage() {
+  const switchCards = [
+    {
+      title: "Less services overhead",
+      body: "Built for lean process and operations teams that want answers without staffing a program around the tool.",
+    },
+    {
+      title: "Faster time to value",
+      body: "Move from event data to process visibility in weeks, not quarter-long discovery cycles.",
+    },
+    {
+      title: "Operator-ready outputs",
+      body: "Show the variant, the deviation cost, and the next step so teams can act instead of admiring the graph.",
+    },
+  ];
+
   return (
     <>
-      {/* ── Hero ── */}
       <PageHero
         eyebrow="Early access"
-        heading={<>See how your business <em>actually runs</em></>}
-        description="Connect your ERP, CRM, or ITSM. Get a living map of every process, every bottleneck, every workaround — built automatically from the data you already have."
+        heading={<>See how work <em>actually flows</em></>}
+        description="Connect SAP, Oracle, ServiceNow, Salesforce, or your warehouse. See the real process paths, bottlenecks, rework loops, and SLA risks hiding inside your operations data."
         maxWidth={540}
       >
         <div className="flex justify-center gap-[var(--sp-3)] mt-[var(--sp-6)]">
-          <Link href="/contact" className="btn btn-primary">Request early access</Link>
-          <Link href="/platform" className="btn btn-ghost">How it works</Link>
+          <Link href="/contact" className="btn btn-primary" data-track="homepage_primary_cta_clicked" data-track-location="hero">Request early access</Link>
+          <Link href="/platform" className="btn btn-ghost" data-track="homepage_secondary_cta_clicked" data-track-location="hero">See the product</Link>
         </div>
         <p className="type-body-sm mt-[var(--sp-3)]">
-          No credit card &middot; No consultants &middot; First process map in under an hour
+          Process discovery &middot; Conformance &middot; SLA risk &middot; Action
         </p>
       </PageHero>
 
-      {/* ── Three levels of seeing ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi section-pad">
@@ -39,8 +51,8 @@ export default function HomePage() {
             <div className="section-center">
               <span className="eyebrow eyebrow-bracket">The problem</span>
               <h2 className="type-h2 mt-5">
-                Dashboards tell you <em>what.</em><br />
-                We show you <em>why.</em>
+                Dashboards show the KPI.<br />
+                We show the <em>path that caused it.</em>
               </h2>
             </div>
           </Reveal>
@@ -59,7 +71,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── The Gap ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi section-pad">
@@ -83,13 +94,12 @@ export default function HomePage() {
           </Reveal>
           <Reveal>
             <p className="tagline text-center max-w-[500px] mx-auto mt-[var(--sp-7)]">
-              Sancalana shows you the second one. Automatically. From your own data.
+              Sancalana reconstructs the second one automatically from your event data.
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* ── Connectors ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi section-pad-sm">
@@ -108,30 +118,27 @@ export default function HomePage() {
 
       <div className="ascii-divider">&middot; &middot; &middot; &nbsp; &middot; &middot; &middot; &nbsp; &middot; &middot; &middot;</div>
 
-      {/* ── Continuous Intelligence ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi section-pad">
           <Reveal>
             <div className="section-center">
-              <span className="eyebrow eyebrow-bracket">Continuous</span>
+              <span className="eyebrow eyebrow-bracket">Product</span>
               <h2 className="type-h2 mt-5">
-                It never stops <em>watching</em>
+                From discovery to <em>operating action</em>
               </h2>
               <p className="type-body mt-5 text-mid max-w-[500px] mx-auto">
-                Sancalana doesn&apos;t generate a report and walk away. It observes
-                your processes continuously, detects when something drifts,
-                predicts what breaks next, and recommends what to fix.
+                Map the path, isolate the deviation, understand the cost, and
+                decide what to do next. That is the whole product story.
               </p>
             </div>
           </Reveal>
           <Reveal>
-            <OODALoop />
+            <PlatformTabs />
           </Reveal>
         </div>
       </section>
 
-      {/* ── Speed ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi section-pad">
@@ -139,7 +146,7 @@ export default function HomePage() {
             <div className="section-center">
               <span className="eyebrow eyebrow-bracket">Speed</span>
               <h2 className="type-h2 mt-5">
-                Not months. <em>Minutes.</em>
+                Weeks to value. <em>Not quarters.</em>
               </h2>
             </div>
           </Reveal>
@@ -157,41 +164,49 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Platform ── */}
-      <section className="gr">
-        <div className="h-rule h-rule--bottom" />
-        <div className="gi section-pad">
-          <div className="section-center">
-            <span className="eyebrow eyebrow-bracket">Platform</span>
-            <h2 className="type-h2 mt-3">
-              From raw data to <em>action</em>
-            </h2>
-          </div>
-          <PlatformTabs />
-        </div>
-      </section>
-
-      <div className="ascii-divider">&middot; &middot; &middot; &nbsp; &middot; &middot; &middot; &nbsp; &middot; &middot; &middot;</div>
-
-      {/* ── Use Cases ── */}
       <section className="gr">
         <div className="h-rule h-rule--bottom" />
         <div className="gi section-pad">
           <Reveal>
             <div className="section-center">
-              <span className="eyebrow eyebrow-bracket">Use cases</span>
-              <h2 className="type-h2 mt-5">
-                Where it <em>hits</em>
+              <span className="eyebrow eyebrow-bracket">Why Sancalana</span>
+              <h2 className="type-h2 mt-3">
+                The point is not more software.<br />
+                It&apos;s <em>faster operational clarity.</em>
               </h2>
             </div>
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 reveal-stagger gap-[var(--sp-4)]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[var(--sp-4)]">
+            {switchCards.map((card) => (
+              <div key={card.title} className="card-feature h-full">
+                <h3 className="type-h3">{card.title}</h3>
+                <p className="type-body mt-3 text-mid">{card.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="ascii-divider">&middot; &middot; &middot; &nbsp; &middot; &middot; &middot; &nbsp; &middot; &middot; &middot;</div>
+
+      <section className="gr">
+        <div className="h-rule h-rule--bottom" />
+        <div className="gi section-pad">
+          <Reveal>
+            <div className="section-center">
+              <span className="eyebrow eyebrow-bracket">Solutions</span>
+              <h2 className="type-h2 mt-5">
+                Where teams start <em>first</em>
+              </h2>
+            </div>
+          </Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 reveal-stagger gap-[var(--sp-4)]">
             {useCaseCards.map((uc) => (
               <Reveal key={uc.title}>
                 <div className="card-feature h-full">
                   <h3 className="type-h3">{uc.title}</h3>
                   <p className="type-body mt-3 text-mid">{uc.desc}</p>
-                  <Link href={`/use-cases${uc.anchor}`} className="type-label text-[color:var(--emerald)] mt-4 inline-block">
+                  <Link href={`/use-cases${uc.anchor}`} className="type-label text-[color:var(--emerald)] mt-4 inline-block" data-track="use_case_card_clicked" data-track-location={uc.title}>
                     Learn more &rarr;
                   </Link>
                 </div>
@@ -201,12 +216,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
       <CtaBand
-        heading={<>Your processes are talking. <em>Start listening.</em></>}
-        description="We're building the intelligence layer for operations. Be among the first to see it."
+        heading={<>See the process. Find the drift. <em>Act faster.</em></>}
+        description="We are building process intelligence for teams that need to see the real path behind operational performance."
         buttonText="Request early access"
-        secondaryText="Explore platform"
+        secondaryText="See the product"
         secondaryHref="/platform"
       />
     </>

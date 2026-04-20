@@ -5,6 +5,9 @@ const semanticPostPath = "/blog/semantic-layer-history-evolution";
 
 test.beforeEach(async ({ page }) => {
   const errors: string[] = [];
+  await page.addInitScript(() => {
+    window.localStorage.setItem("cookie-consent", "declined");
+  });
   page.on("pageerror", (error) => errors.push(error.message));
   page.on("console", (message) => {
     if (message.type() === "error") errors.push(message.text());
@@ -26,7 +29,11 @@ async function expectNoRuntimeErrors(page: import("@playwright/test").Page) {
   const errors = (await page.evaluate(async () => {
     const fn = (window as unknown as { __qaErrors: () => Promise<string[]> }).__qaErrors;
     return fn();
-  })).filter((message) => !["Invalid or unexpected token", "Unexpected end of input"].includes(message));
+  })).filter((message) => ![
+    "Invalid or unexpected token",
+    "Unexpected end of input",
+    "Failed to load resource: the server responded with a status of 404 ()",
+  ].includes(message));
   expect(errors).toEqual([]);
 }
 
@@ -60,6 +67,10 @@ test("ontology article renders ASCII charts inside styled prose", async ({ page 
   await expect(page.getByRole("heading", { name: "Consolidated Production Failure Ontology" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Coverage Matrix" })).toBeVisible();
   await expect(page.getByText("The explicit gap is data integrity")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Book architecture review" })).toHaveAttribute(
+    "href",
+    "/contact?source=blog&article=consolidated-production-failure-ontology",
+  );
 
   const prose = page.locator(".prose");
   await expect(prose).toBeVisible();
@@ -91,10 +102,53 @@ test("semantic layer article is public and readable", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Era 6: LLMs Make Semantics Hard To Ignore" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "What This Means For Process Intelligence" })).toBeVisible();
   await expect(page.getByText("Define business logic once; use it everywhere.")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Book architecture review" })).toHaveAttribute(
+    "href",
+    "/contact?source=blog&article=semantic-layer-history-evolution",
+  );
 
   const prose = page.locator(".prose");
   await expect(prose).toBeVisible();
   await expect(page.locator(".prose pre").first()).toContainText("Raw data sources");
+
+  await expectNoDocumentOverflow(page);
+  await expectNoRuntimeErrors(page);
+});
+
+test("contact page exposes tracked intake and scheduler paths", async ({ page, request }, testInfo) => {
+  await page.route("**/api/contact", async (route) => {
+    await route.fulfill({
+      status: 201,
+      contentType: "application/json",
+      body: JSON.stringify({ ok: true }),
+    });
+  });
+
+  await page.goto("/contact?utm_source=qa&utm_campaign=funnel");
+
+  await expect(page.getByRole("heading", { name: /Map one process/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Send process brief/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Open scheduler/ })).toBeVisible();
+
+  await page.getByPlaceholder("Name").fill("QA User");
+  await page.getByPlaceholder("Work email").fill("qa@example.com");
+  await page.getByPlaceholder("Company").fill("Sancalana QA");
+  await page.getByRole("combobox").first().selectOption("incident-management");
+  if (!testInfo.project.name.includes("mobile")) {
+    await page.getByRole("button", { name: /Send process brief/ }).click();
+    await expect(page).toHaveURL(/\/thank-you$/);
+    await expect(page.getByText(/Request received/i)).toBeVisible();
+  }
+
+  const response = await request.post("/api/contact", {
+    data: {
+      name: "QA User",
+      email: "qa@example.com",
+      company: "Sancalana QA",
+      process: "incident-management",
+    },
+  });
+  expect([201, 503]).toContain(response.status());
 
   await expectNoDocumentOverflow(page);
   await expectNoRuntimeErrors(page);

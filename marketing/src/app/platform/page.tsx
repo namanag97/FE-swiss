@@ -8,12 +8,12 @@ import { DiscoverySvg, ConformanceSvg, AnalyticsSvg, AiInsightsSvg } from "@/com
 import { platformFeatures } from "@/data/platform";
 
 export const metadata: Metadata = {
-  title: "Platform — Process Discovery, Conformance & AI Insights",
+  title: "Product — Discover, Diagnose, Predict & Act",
   description:
-    "From raw event logs to automated action. Process discovery, conformance checking, visual analytics, and AI-powered insights in one platform.",
+    "See how Sancalana turns process data into operational action: discovery, conformance, analysis, and intervention in one product.",
   alternates: { canonical: "/platform" },
   openGraph: {
-    images: ["/og.png"],
+    images: [{ url: "/opengraph-image" }],
   },
 };
 
@@ -29,9 +29,9 @@ export default function PlatformPage() {
     <>
       {/* Hero */}
       <PageHero
-        eyebrow="Platform"
-        heading={<>From raw event logs to <em>automated action</em></>}
-        description="Four modules. One platform. Connect your systems, see how work actually flows, find what's broken, fix it — before it costs you."
+        eyebrow="Product"
+        heading={<>From event logs to <em>operating decisions</em></>}
+        description="Four modules. One workflow. Connect your systems, surface the actual path, isolate the costly deviations, and move from insight to action faster."
       />
 
       {platformFeatures.map((f) => (
@@ -66,8 +66,10 @@ export default function PlatformPage() {
 
       {/* CTA Band */}
       <CtaBand
-        heading={<>See your processes <em>for the first time</em></>}
-        description="Connect your systems. Get your first process map in under an hour. No consultants required."
+        heading={<>Want the product tour <em>without the theater?</em></>}
+        description="Tell us the systems you run and the process that hurts. We will show you how Sancalana maps it."
+        secondaryText="See solutions"
+        secondaryHref="/use-cases"
       />
     </>
   );

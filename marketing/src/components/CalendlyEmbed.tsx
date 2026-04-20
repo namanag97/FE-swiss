@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { siteConfig } from "@/lib/config";
+import { captureMarketingEvent } from "@/lib/analytics";
 
 const EMBED_HEIGHT = 660;
 const LOAD_TIMEOUT = 10000;
@@ -22,8 +23,24 @@ export function CalendlyEmbed() {
       if (!loaded) setError(true);
     }, LOAD_TIMEOUT);
 
+    function onMessage(event: MessageEvent) {
+      if (event.origin !== "https://calendly.com") return;
+      const calendlyEvent = typeof event.data === "object" && event.data !== null
+        ? (event.data as { event?: string }).event
+        : "";
+      if (calendlyEvent === "calendly.date_and_time_selected") {
+        captureMarketingEvent("calendar_booking_started");
+      }
+      if (calendlyEvent === "calendly.event_scheduled") {
+        captureMarketingEvent("calendar_booking_completed");
+      }
+    }
+
+    window.addEventListener("message", onMessage);
+
     return () => {
       clearTimeout(timeout);
+      window.removeEventListener("message", onMessage);
       if (script.parentNode) script.parentNode.removeChild(script);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,10 +57,12 @@ export function CalendlyEmbed() {
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-primary"
+          data-track="calendar_direct_opened"
+          data-track-location="calendly-error"
         >
           Open scheduler directly
         </a>
-        <a href="mailto:hello@sancalana.com" className="type-label">
+        <a href="mailto:hello@sancalana.com" className="type-label" data-track="contact_mailto_clicked" data-track-location="calendly-error">
           or email hello@sancalana.com
         </a>
       </div>

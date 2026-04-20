@@ -41,7 +41,7 @@ export function NewsletterForm() {
         throw new Error(payload?.error || "Newsletter signup failed.");
       }
 
-      try { posthog.capture("newsletter_signup"); } catch { /* analytics unavailable */ }
+      try { posthog.capture("newsletter_signup", { source: "footer" }); } catch { /* analytics unavailable */ }
       setSubmitted(true);
       if (emailRef.current) emailRef.current.value = "";
     } catch (err) {
@@ -71,7 +71,7 @@ export function NewsletterForm() {
           aria-label="Email address"
           className="input-dark flex-1 min-w-0 border-r-0"
         />
-        <button type="submit" className="btn btn-dark shrink-0 border-l-0" disabled={submitting}>
+        <button type="submit" className="btn btn-dark shrink-0 border-l-0" disabled={submitting} data-track="newsletter_submit_clicked" data-track-location="footer">
           {submitting ? "Saving" : "Subscribe"}
         </button>
       </form>

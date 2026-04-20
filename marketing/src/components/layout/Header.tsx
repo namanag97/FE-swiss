@@ -30,7 +30,7 @@ export function Header() {
       <div className="banner">
         <span className="banner-text">Sancalana is now accepting early access requests</span>
         <div className="banner-dot" />
-        <Link href="/contact" className="banner-link">
+        <Link href="/contact" className="banner-link" data-track="cta_banner_apply_clicked" data-track-location="announcement-banner">
           Apply now
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
             <path d="M2 5h6M5 2.5L7.5 5 5 7.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
@@ -110,7 +110,7 @@ export function Header() {
             </Link>
           ))}
           <div className="mt-[var(--sp-3)] flex flex-col gap-[var(--sp-2)]">
-            <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary w-full text-center">
+            <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary w-full text-center" data-track="cta_mobile_header_clicked" data-track-location="mobile-header">
               Request early access
             </Link>
           </div>

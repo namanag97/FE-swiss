@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: "Sancalana",
-  tagline: "See how your business actually runs.",
+  tagline: "See how work actually flows.",
   description:
-    "See how your business actually runs. Process mining, visual analytics, and AI-powered insights — connect your systems and find what your dashboards can't show you.",
+    "Process intelligence for operations and transformation teams. Connect your systems, map the real process, find costly deviations, and act faster.",
   url: "https://sancalana.com",
   calendlyUrl: "https://calendly.com/sancalana/30min",
   links: {
@@ -10,16 +10,15 @@ export const siteConfig = {
     linkedin: "https://linkedin.com/company/sancalana",
   },
   nav: [
-    { label: "Platform", href: "/platform" },
-    { label: "Use Cases", href: "/use-cases" },
+    { label: "Product", href: "/platform" },
+    { label: "Solutions", href: "/use-cases" },
     { label: "Blog", href: "/blog" },
-    { label: "About", href: "/about" },
     { label: "Security", href: "/security" },
   ],
   footer: {
     platform: [
-      { label: "Overview", href: "/platform" },
-      { label: "Use Cases", href: "/use-cases" },
+      { label: "Product", href: "/platform" },
+      { label: "Solutions", href: "/use-cases" },
       { label: "Security", href: "/security" },
     ],
     solutions: [

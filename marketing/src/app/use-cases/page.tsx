@@ -9,9 +9,9 @@ import { IntroSvg, O2cSvg, P2pSvg, ItsmSvg, PatientSvg } from "@/components/illu
 import { useCases } from "@/data/use-cases";
 
 export const metadata: Metadata = {
-  title: "Use Cases — O2C, P2P, ITSM & Patient Journey",
+  title: "Solutions — O2C, P2P, ITSM & Patient Journey",
   description:
-    "See how Sancalana maps real workflows. Order-to-Cash, Procure-to-Pay, IT Service Management, and Patient Journey — find what your dashboards can't show you.",
+    "See where Sancalana pays off first: Order-to-Cash, Procure-to-Pay, IT Service Management, and patient flow.",
   alternates: { canonical: "/use-cases" },
 };
 
@@ -27,9 +27,9 @@ export default function UseCasesPage() {
     <>
       {/* Hero */}
       <PageHero
-        eyebrow="Use Cases"
-        heading={<>Built for <em>real workflows</em></>}
-        description="Wherever there's a sequence of events, there's a process hiding in your data. These are the workflows where making it visible changes everything."
+        eyebrow="Solutions"
+        heading={<>Start where process drag <em>hurts most</em></>}
+        description="Revenue operations, procurement, service delivery, and patient flow all leave behind event histories. These are the workflows where seeing the real path changes the operating conversation fast."
       />
 
       {/* Intro Diagram */}
@@ -71,7 +71,9 @@ export default function UseCasesPage() {
       {/* CTA Band */}
       <CtaBand
         heading={<>Which process is costing you <em>the most?</em></>}
-        description="Tell us what you run. We'll show you what's hiding in it."
+        description="Start with the workflow that is already creating noise, delay, or missed targets. We will show you the path underneath it."
+        secondaryText="See the product"
+        secondaryHref="/platform"
       />
     </>
   );

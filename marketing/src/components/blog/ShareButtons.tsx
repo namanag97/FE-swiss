@@ -27,6 +27,8 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
         target="_blank"
         rel="noopener noreferrer"
         className="share-btn"
+        data-track="share_clicked"
+        data-track-location="twitter"
       >
         X / Twitter
       </a>
@@ -35,10 +37,12 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
         target="_blank"
         rel="noopener noreferrer"
         className="share-btn"
+        data-track="share_clicked"
+        data-track-location="linkedin"
       >
         LinkedIn
       </a>
-      <button onClick={copyLink} className="share-btn">
+      <button onClick={copyLink} className="share-btn" data-track="share_clicked" data-track-location="copy-link">
         {copied ? <Check className="w-3 h-3" /> : <Link2 className="w-3 h-3" />}
         {copied ? "Copied" : "Copy link"}
       </button>

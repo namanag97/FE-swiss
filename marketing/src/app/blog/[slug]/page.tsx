@@ -9,6 +9,7 @@ import { siteConfig } from "@/lib/config";
 import { BlogContent } from "@/components/blog/BlogContent";
 import { TableOfContents } from "@/components/blog/TableOfContents";
 import { ShareButtons } from "@/components/blog/ShareButtons";
+import { ArticleCta } from "@/components/blog/ArticleCta";
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -151,6 +152,15 @@ export default async function BlogPostPage({ params }: Props) {
                 <TableOfContents content={post.content} />
               </div>
             </aside>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Article CTA ── */}
+      <div className="gr">
+        <div className="gi pb-[var(--sp-6)]">
+          <div style={{ maxWidth: 680 }}>
+            <ArticleCta post={post} />
           </div>
         </div>
       </div>
