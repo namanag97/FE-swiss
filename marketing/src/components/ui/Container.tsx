@@ -4,7 +4,6 @@ interface ContainerProps {
   children: React.ReactNode;
   className?: string;
   size?: "content" | "wide" | "full";
-  style?: React.CSSProperties;
 }
 
 const widths = {
@@ -13,9 +12,9 @@ const widths = {
   full: "max-w-full",
 } as const;
 
-export function Container({ children, className, size = "wide", style }: ContainerProps) {
+export function Container({ children, className, size = "wide" }: ContainerProps) {
   return (
-    <div className={cn("mx-auto px-[var(--sp-5)]", widths[size], className)} style={style}>
+    <div className={cn("mx-auto px-[var(--sp-5)]", widths[size], className)}>
       {children}
     </div>
   );

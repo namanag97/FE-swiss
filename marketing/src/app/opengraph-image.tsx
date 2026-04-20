@@ -1,3 +1,5 @@
+/* eslint-disable react/forbid-dom-props */
+
 import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/config";
 

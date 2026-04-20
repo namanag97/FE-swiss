@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -8,21 +8,7 @@ import { siteConfig } from "@/lib/config";
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
   const path = usePathname();
-
-  /* Smooth mobile menu open/close */
-  useEffect(() => {
-    const el = menuRef.current;
-    if (!el) return;
-    if (open) {
-      el.style.maxHeight = el.scrollHeight + "px";
-      el.style.opacity = "1";
-    } else {
-      el.style.maxHeight = "0";
-      el.style.opacity = "0";
-    }
-  }, [open]);
 
   return (
     <>
@@ -59,8 +45,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-1 whitespace-nowrap transition-colors font-[var(--body)] font-normal text-[length:var(--fs-md)] tracking-[-0.015em] px-[var(--sp-4)] h-[var(--nav-h)] border-l border-[var(--border)]"
-                style={{ color: path === item.href ? 'var(--emerald)' : 'var(--ink)' }}
+                className={`flex h-[var(--nav-h)] items-center gap-1 whitespace-nowrap border-l border-[var(--border)] px-[var(--sp-4)] font-[var(--body)] text-[length:var(--fs-md)] font-normal tracking-[-0.015em] transition-colors ${path === item.href ? "text-[color:var(--emerald)]" : "text-[color:var(--ink)]"}`}
               >
                 {item.label}
               </Link>
@@ -87,24 +72,14 @@ export function Header() {
 
         {/* Mobile menu — always rendered, animated via max-height */}
         <div
-          ref={menuRef}
-          className="border-t border-[var(--border)] bg-[var(--bg)] px-[var(--sp-5)] md:hidden"
-          style={{
-            maxHeight: 0,
-            opacity: 0,
-            overflow: "hidden",
-            transition: "max-height var(--t-slow), opacity var(--t-slow), padding var(--t-slow)",
-            paddingTop: open ? "var(--sp-3)" : 0,
-            paddingBottom: open ? "var(--sp-5)" : 0,
-          }}
+          className={`overflow-hidden border-t border-[var(--border)] bg-[var(--bg)] px-[var(--sp-5)] transition-[max-height,opacity,padding] duration-300 md:hidden ${open ? "max-h-[420px] pb-[var(--sp-5)] pt-[var(--sp-3)] opacity-100" : "max-h-0 py-0 opacity-0"}`}
         >
           {siteConfig.nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="block py-[var(--sp-3)] transition-colors font-[var(--body)] text-[length:var(--fs-md)]"
-              style={{ color: path === item.href ? 'var(--emerald)' : 'var(--ink)' }}
+              className={`block py-[var(--sp-3)] font-[var(--body)] text-[length:var(--fs-md)] transition-colors ${path === item.href ? "text-[color:var(--emerald)]" : "text-[color:var(--ink)]"}`}
             >
               {item.label}
             </Link>

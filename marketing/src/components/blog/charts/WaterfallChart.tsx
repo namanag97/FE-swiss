@@ -53,7 +53,7 @@ export function WaterfallChart({ data }: WaterfallChartProps) {
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       aria-label="Waterfall chart"
-      style={{ width: "100%", height: "auto" }}
+      className="h-auto w-full"
     >
       {/* Baseline */}
       <line

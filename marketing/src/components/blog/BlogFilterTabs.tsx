@@ -57,8 +57,7 @@ export function BlogFilterTabs({ posts }: { posts: Post[] }) {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group grid items-start gap-[var(--sp-5)] py-[var(--sp-5)] border-b border-[var(--border)] transition-colors"
-              style={{ gridTemplateColumns: "1fr auto" }}
+              className="group grid grid-cols-[1fr_auto] items-start gap-[var(--sp-5)] border-b border-[var(--border)] py-[var(--sp-5)] transition-colors"
             >
               <div className="flex flex-col gap-[var(--sp-2)]">
                 <h2 className="type-h3">{post.title}</h2>

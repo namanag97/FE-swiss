@@ -1,3 +1,5 @@
+/* eslint-disable react/forbid-dom-props */
+
 import { C } from "@/lib/colors";
 import { SvgNode, SvgArrow } from "@/components/svg/SvgPrimitives";
 

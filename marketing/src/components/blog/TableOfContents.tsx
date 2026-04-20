@@ -55,8 +55,7 @@ export function TableOfContents({ content }: { content: string }) {
             <li key={h.id}>
               <a
                 href={`#${h.id}`}
-                className={`toc-link -ml-px ${activeId === h.id ? "toc-link--active" : ""}`}
-                style={{ paddingLeft: h.level === 3 ? 'var(--sp-5)' : 'var(--sp-4)' }}
+                className={`toc-link -ml-px ${h.level === 3 ? "pl-[var(--sp-5)]" : "pl-[var(--sp-4)]"} ${activeId === h.id ? "toc-link--active" : ""}`}
               >
                 {h.text}
               </a>
@@ -81,8 +80,7 @@ export function TableOfContents({ content }: { content: string }) {
                 <a
                   href={`#${h.id}`}
                   onClick={() => setOpen(false)}
-                  className="toc-link"
-                  style={{ paddingLeft: h.level === 3 ? 'var(--sp-4)' : 0 }}
+                  className={`toc-link ${h.level === 3 ? "pl-[var(--sp-4)]" : "pl-0"}`}
                 >
                   {h.text}
                 </a>

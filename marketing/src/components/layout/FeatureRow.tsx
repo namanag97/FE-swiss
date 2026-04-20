@@ -12,7 +12,7 @@ interface FeatureRowProps {
 
 export function FeatureRow({ eyebrow, title, tagline, description, items, children, illustration, reverse, id }: FeatureRowProps) {
   return (
-    <section id={id} className="gr" style={id ? { scrollMarginTop: "var(--header-h)" } : undefined}>
+    <section id={id} className={`gr ${id ? "scroll-mt-[var(--header-h)]" : ""}`}>
       <div className="gi">
         <div className={`feature-row${reverse ? " feature-row--reverse" : ""}`}>
           {reverse ? (

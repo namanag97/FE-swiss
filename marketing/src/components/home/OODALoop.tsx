@@ -1,3 +1,5 @@
+/* eslint-disable react/forbid-dom-props */
+
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";

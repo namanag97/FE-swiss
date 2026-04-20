@@ -1,46 +1,40 @@
 import { Container } from "@/components/ui/Container";
 
 export default function BlogPostLoading() {
+  const lineWidths = ["w-[92%]", "w-[84%]", "w-[88%]", "w-[72%]", "w-[80%]", "w-[65%]", "w-[90%]", "w-[74%]", "w-[82%]", "w-[68%]", "w-[76%]", "w-[60%]"];
+  const lineOpacity = ["opacity-100", "opacity-95", "opacity-90", "opacity-85", "opacity-80", "opacity-75", "opacity-70", "opacity-65", "opacity-60", "opacity-55", "opacity-50", "opacity-45"];
+
   return (
     <article className="gr">
-      <Container size="wide" style={{ padding: "var(--sp-7) var(--sp-5)" }}>
+      <Container size="wide" className="py-[var(--sp-7)]">
         {/* Back link */}
-        <div style={{ width: 80, height: 16, background: "var(--border)", borderRadius: 2 }} />
+        <div className="h-4 w-20 rounded-sm bg-[var(--border)]" />
 
         {/* Tags */}
         <div className="mt-8 flex gap-1.5">
-          <div style={{ width: 80, height: 22, background: "var(--border)", borderRadius: 2 }} />
-          <div style={{ width: 64, height: 22, background: "var(--border)", borderRadius: 2 }} />
+          <div className="h-[22px] w-20 rounded-sm bg-[var(--border)]" />
+          <div className="h-[22px] w-16 rounded-sm bg-[var(--border)]" />
         </div>
 
         {/* Title */}
-        <div style={{ marginTop: "var(--sp-3)" }}>
-          <div style={{ width: "80%", height: 28, background: "var(--border)", borderRadius: 2 }} />
-          <div style={{ width: "50%", height: 28, background: "var(--border)", borderRadius: 2, marginTop: 8 }} />
+        <div className="mt-[var(--sp-3)]">
+          <div className="h-7 w-4/5 rounded-sm bg-[var(--border)]" />
+          <div className="mt-2 h-7 w-1/2 rounded-sm bg-[var(--border)]" />
         </div>
 
         {/* Meta */}
-        <div style={{ marginTop: "var(--sp-3)", display: "flex", gap: "var(--sp-3)" }}>
-          <div style={{ width: 100, height: 14, background: "var(--border)", borderRadius: 2 }} />
-          <div style={{ width: 80, height: 14, background: "var(--border)", borderRadius: 2 }} />
-          <div style={{ width: 60, height: 14, background: "var(--border)", borderRadius: 2 }} />
+        <div className="mt-[var(--sp-3)] flex gap-[var(--sp-3)]">
+          <div className="h-3.5 w-[100px] rounded-sm bg-[var(--border)]" />
+          <div className="h-3.5 w-20 rounded-sm bg-[var(--border)]" />
+          <div className="h-3.5 w-[60px] rounded-sm bg-[var(--border)]" />
         </div>
 
         <div className="divider-h my-8" />
 
         {/* Body lines */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 680 }}>
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div
-              key={i}
-              style={{
-                width: `${60 + Math.random() * 40}%`,
-                height: 14,
-                background: "var(--border)",
-                borderRadius: 2,
-                opacity: 1 - i * 0.05,
-              }}
-            />
+        <div className="flex max-w-[680px] flex-col gap-3">
+          {lineWidths.map((width, i) => (
+            <div key={width} className={`${width} ${lineOpacity[i]} h-3.5 rounded-sm bg-[var(--border)]`} />
           ))}
         </div>
       </Container>

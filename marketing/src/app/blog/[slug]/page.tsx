@@ -91,12 +91,12 @@ export default async function BlogPostPage({ params }: Props) {
       {/* ── Article header ── */}
       <header className="gr">
         <div className="h-rule h-rule--bottom" />
-        <div className="gi section-pad" style={{ maxWidth: 680 }}>
-          <h1 className="type-h2" style={{ maxWidth: '20ch' }}>
+        <div className="gi section-pad max-w-[680px]">
+          <h1 className="type-h2 max-w-[20ch]">
             {post.title}
           </h1>
 
-          <p className="type-body mt-4" style={{ maxWidth: '32rem' }}>
+          <p className="type-body mt-4 max-w-[32rem]">
             {post.description}
           </p>
 
@@ -143,12 +143,12 @@ export default async function BlogPostPage({ params }: Props) {
       {/* ── Article body + sidebar TOC ── */}
       <div className="gr">
         <div className="gi section-pad">
-          <div className="grid gap-12 lg:grid-cols-[1fr_200px]" style={{ maxWidth: 920 }}>
+          <div className="grid max-w-[920px] gap-12 lg:grid-cols-[1fr_200px]">
             <div className="prose">
               <BlogContent source={post.content} />
             </div>
             <aside className="hidden lg:block">
-              <div className="sticky" style={{ top: 'calc(var(--header-h) + var(--sp-3))' }}>
+              <div className="sticky top-[calc(var(--header-h)+var(--sp-3))]">
                 <TableOfContents content={post.content} />
               </div>
             </aside>
@@ -159,7 +159,7 @@ export default async function BlogPostPage({ params }: Props) {
       {/* ── Article CTA ── */}
       <div className="gr">
         <div className="gi pb-[var(--sp-6)]">
-          <div style={{ maxWidth: 680 }}>
+          <div className="max-w-[680px]">
             <ArticleCta post={post} />
           </div>
         </div>

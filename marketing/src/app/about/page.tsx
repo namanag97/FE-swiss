@@ -100,7 +100,7 @@ export default function AboutPage() {
           </div>
           <div className="max-w-[560px] mx-auto">
             {timeline.map((t, i) => (
-              <div key={t.year} className="about-timeline-row" style={{ paddingBottom: i < timeline.length - 1 ? "var(--sp-5)" : 0 }}>
+              <div key={t.year} className={`about-timeline-row ${i < timeline.length - 1 ? "pb-[var(--sp-5)]" : "pb-0"}`}>
                 <span className="font-[var(--sans)] text-[length:var(--fs-sm)] text-[color:var(--emerald)] text-right font-medium">
                   {t.year}
                 </span>

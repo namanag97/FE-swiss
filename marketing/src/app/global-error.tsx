@@ -11,72 +11,27 @@ export default function GlobalError({
 }) {
   return (
     <html lang="en">
-      <body
-        style={{
-          margin: 0,
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontFamily: "Inter, system-ui, sans-serif",
-          backgroundColor: "#FAFBF8",
-          color: "#2E3B36",
-        }}
-      >
-        <div style={{ textAlign: "center", padding: "2rem" }}>
-          <p
-            style={{
-              fontSize: 64,
-              fontWeight: 200,
-              color: "#D7DAD7",
-              margin: 0,
-            }}
-          >
+      <body className="m-0 flex min-h-screen items-center justify-center bg-[#FAFBF8] font-sans text-[#2E3B36]">
+        <div className="p-8 text-center">
+          <p className="m-0 text-[64px] font-extralight text-[#D7DAD7]">
             500
           </p>
-          <h1 style={{ fontSize: 20, fontWeight: 500, marginTop: 16 }}>
+          <h1 className="mt-4 text-xl font-medium">
             Something went wrong
           </h1>
-          <p style={{ color: "#6B7268", marginTop: 8, fontSize: 14 }}>
+          <p className="mt-2 text-sm text-[#6B7268]">
             An unexpected error occurred. Please try again.
           </p>
-          <div
-            style={{
-              display: "flex",
-              gap: 12,
-              justifyContent: "center",
-              marginTop: 24,
-            }}
-          >
+          <div className="mt-6 flex justify-center gap-3">
             <button
               onClick={reset}
-              style={{
-                padding: "8px 20px",
-                fontSize: 12,
-                fontWeight: 500,
-                textTransform: "uppercase",
-                letterSpacing: "0.06em",
-                background: "#072A20",
-                color: "#FAFBF8",
-                border: "1px solid #072A20",
-                cursor: "pointer",
-              }}
+              className="cursor-pointer border border-[#072A20] bg-[#072A20] px-5 py-2 text-xs font-medium uppercase tracking-[0.06em] text-[#FAFBF8]"
             >
               Try again
             </button>
             <a
               href="/"
-              style={{
-                padding: "8px 20px",
-                fontSize: 12,
-                fontWeight: 500,
-                textTransform: "uppercase",
-                letterSpacing: "0.06em",
-                background: "transparent",
-                color: "#2E3B36",
-                border: "1px solid #D7DAD7",
-                textDecoration: "none",
-              }}
+              className="border border-[#D7DAD7] bg-transparent px-5 py-2 text-xs font-medium uppercase tracking-[0.06em] text-[#2E3B36] no-underline"
             >
               Go home
             </a>

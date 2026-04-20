@@ -1,3 +1,5 @@
+/* eslint-disable react/forbid-dom-props */
+
 import { C } from "@/lib/colors";
 
 export function AnalyticsSvg() {

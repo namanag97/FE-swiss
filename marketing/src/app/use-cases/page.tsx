@@ -59,7 +59,7 @@ export default function UseCasesPage() {
 
       <section className="gr">
         <div className="gi py-[var(--sp-5)] text-center">
-          <p className="type-body-sm text-[color:var(--ink-faint)] mb-[var(--sp-4)]" style={{ maxWidth: 560, margin: '0 auto var(--sp-4)' }}>
+          <p className="type-body-sm mx-auto mb-[var(--sp-4)] max-w-[560px] text-[color:var(--ink-faint)]">
             ¹ Metrics reflect published industry benchmarks from process mining research (IEEE Task Force on Process Mining, Gartner). Actual results vary by organization.
           </p>
           <Link href="/platform" className="type-label text-[color:var(--emerald)]">
