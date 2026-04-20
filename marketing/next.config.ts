@@ -7,6 +7,10 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 const isProduction = process.env.NODE_ENV === "production";
+const remoteImageHosts = (process.env.BLOG_IMAGE_HOSTS || "pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev,raw.githubusercontent.com")
+  .split(",")
+  .map((host) => host.trim())
+  .filter(Boolean);
 
 interface BlogRedirect {
   source: string;
@@ -26,7 +30,10 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   images: {
-    remotePatterns: [],
+    remotePatterns: remoteImageHosts.map((hostname) => ({
+      protocol: "https",
+      hostname,
+    })),
   },
   experimental: {
     optimizePackageImports: ["lucide-react", "posthog-js"],
@@ -70,7 +77,7 @@ const nextConfig: NextConfig = {
                 "https://assets.calendly.com https://us.i.posthog.com https://unpkg.com",
               ].filter(Boolean).join(" "),
               "style-src 'self' 'unsafe-inline' https://assets.calendly.com",
-              "img-src 'self' data: blob: https://avatars.githubusercontent.com https://pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev",
+              `img-src 'self' data: blob: https://avatars.githubusercontent.com ${remoteImageHosts.map((host) => `https://${host}`).join(" ")}`,
               "font-src 'self' data:",
               "frame-src https://calendly.com",
               "connect-src 'self' https://us.i.posthog.com https://calendly.com https://api.github.com https://api.netlify.com",

@@ -22,6 +22,16 @@ export interface BlogPost {
 const CONTENT_DIR = path.join(process.cwd(), "content/blog");
 const PUBLIC_DIR = path.join(process.cwd(), "public");
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+const GITHUB_REPO = process.env.BLOG_GITHUB_REPO || "namanag97/FE-swiss";
+const GITHUB_REF = process.env.BLOG_GITHUB_REF || process.env.VERCEL_GIT_COMMIT_REF || "main";
+const GITHUB_CONTENT_DIR = process.env.BLOG_GITHUB_CONTENT_DIR || "marketing/content/blog";
+const BLOG_CONTENT_SOURCE = process.env.BLOG_CONTENT_SOURCE || (process.env.VERCEL ? "github" : "local");
+const APPROVED_REMOTE_IMAGE_HOSTS = (process.env.BLOG_IMAGE_HOSTS || "pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev,raw.githubusercontent.com")
+  .split(",")
+  .map((host) => host.trim().toLowerCase())
+  .filter(Boolean);
+export const BLOG_CACHE_TAG = "blog-content";
+export const BLOG_REVALIDATE_SECONDS = Number(process.env.BLOG_REVALIDATE_SECONDS || 300);
 
 export const allowedBlogTags = blogSchema.allowedTags;
 export const allowedBlogAuthors = blogSchema.authors;
@@ -63,6 +73,15 @@ function stringField(data: Frontmatter, field: string): string | undefined {
 }
 
 function validateImagePath(image: string): string | undefined {
+  if (image.startsWith("https://")) {
+    try {
+      const url = new URL(image);
+      if (APPROVED_REMOTE_IMAGE_HOSTS.includes(url.hostname.toLowerCase())) return undefined;
+      return `image host must be one of: ${APPROVED_REMOTE_IMAGE_HOSTS.join(", ")}`;
+    } catch {
+      return "image URL is invalid";
+    }
+  }
   if (!image.startsWith("/blog/")) return "image must start with /blog/";
   if (image.includes("..")) return "image cannot contain path traversal";
   const filePath = path.join(PUBLIC_DIR, image);
@@ -136,9 +155,7 @@ function isVisiblePost(post: BlogPost, now = new Date()): boolean {
   return post.published && new Date(`${post.date}T00:00:00.000Z`).getTime() <= now.getTime();
 }
 
-function parseFile(file: string): BlogPost {
-  const slug = file.replace(/\.mdx$/, "");
-  const raw = fs.readFileSync(path.join(CONTENT_DIR, file), "utf-8");
+function parseRawPost(slug: string, raw: string): BlogPost {
   const { data, content } = matter(raw);
   assertValidPost(data, slug, content);
   const tags = normalizeTags(data.tags);
@@ -159,28 +176,127 @@ function parseFile(file: string): BlogPost {
   } satisfies BlogPost;
 }
 
-let _cachedAllPosts: BlogPost[] | null = null;
-/** Get every valid blog post, including drafts and future-dated posts. */
-export function getAllBlogPosts(): BlogPost[] {
-  if (_cachedAllPosts) return _cachedAllPosts;
+function parseFile(file: string): BlogPost {
+  const slug = file.replace(/\.mdx$/, "");
+  const raw = fs.readFileSync(path.join(CONTENT_DIR, file), "utf-8");
+  return parseRawPost(slug, raw);
+}
+
+interface GitHubContentItem {
+  name: string;
+  path: string;
+  type: string;
+}
+
+type NextFetchInit = RequestInit & {
+  next?: {
+    revalidate?: number;
+    tags?: string[];
+  };
+};
+
+function githubHeaders(accept: string): HeadersInit {
+  const headers: Record<string, string> = {
+    accept,
+    "user-agent": "sancalana-marketing-runtime-cms",
+  };
+  if (process.env.BLOG_GITHUB_TOKEN) {
+    headers.authorization = `Bearer ${process.env.BLOG_GITHUB_TOKEN}`;
+  }
+  return headers;
+}
+
+function githubContentsUrl(contentPath = GITHUB_CONTENT_DIR): string {
+  const encodedPath = contentPath.split("/").map(encodeURIComponent).join("/");
+  return `https://api.github.com/repos/${GITHUB_REPO}/contents/${encodedPath}?ref=${encodeURIComponent(GITHUB_REF)}`;
+}
+
+function githubFetchInit(accept: string): NextFetchInit {
+  return {
+    headers: githubHeaders(accept),
+    next: {
+      revalidate: BLOG_REVALIDATE_SECONDS,
+      tags: [BLOG_CACHE_TAG],
+    },
+  };
+}
+
+async function getGithubFiles(): Promise<GitHubContentItem[]> {
+  const response = await fetch(githubContentsUrl(), githubFetchInit("application/vnd.github+json"));
+  if (!response.ok) throw new Error(`GitHub content list failed with ${response.status}`);
+  const json = await response.json();
+  if (!Array.isArray(json)) throw new Error("GitHub content list did not return an array");
+  return json
+    .filter((item): item is GitHubContentItem => {
+      return Boolean(
+        item &&
+        typeof item === "object" &&
+        item.type === "file" &&
+        typeof item.name === "string" &&
+        typeof item.path === "string" &&
+        item.name.endsWith(".mdx"),
+      );
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+async function getGithubPostRaw(item: GitHubContentItem): Promise<string> {
+  const response = await fetch(
+    githubContentsUrl(item.path),
+    githubFetchInit("application/vnd.github.raw"),
+  );
+  if (!response.ok) throw new Error(`GitHub content fetch failed for ${item.path} with ${response.status}`);
+  return response.text();
+}
+
+async function getGithubBlogPosts(): Promise<BlogPost[]> {
+  const files = await getGithubFiles();
+  const posts = await Promise.all(files.map(async (item) => {
+    const slug = item.name.replace(/\.mdx$/, "");
+    const raw = await getGithubPostRaw(item);
+    return parseRawPost(slug, raw);
+  }));
+
+  return posts
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+function getLocalBlogPosts(): BlogPost[] {
   if (!fs.existsSync(CONTENT_DIR)) return [];
-
   const files = fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith(".mdx"));
-
-  _cachedAllPosts = files
+  return files
     .map(parseFile)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
 
-  return _cachedAllPosts;
+/** Get every valid blog post, including drafts and future-dated posts. */
+export async function getAllBlogPosts(): Promise<BlogPost[]> {
+  if (BLOG_CONTENT_SOURCE === "github") {
+    try {
+      return await getGithubBlogPosts();
+    } catch (error) {
+      console.error(error);
+      return getLocalBlogPosts();
+    }
+  }
+
+  return getLocalBlogPosts();
 }
 
 /** Get visible published blog posts sorted by date (newest first). */
-export function getAllPosts(): BlogPost[] {
-  return getAllBlogPosts().filter((post) => isVisiblePost(post));
+export async function getAllPosts(): Promise<BlogPost[]> {
+  const posts = await getAllBlogPosts();
+  return posts.filter((post) => isVisiblePost(post));
 }
 
 /** Get a single post by slug */
-export function getPostBySlug(slug: string): BlogPost | undefined {
+export async function getPostBySlug(slug: string): Promise<BlogPost | undefined> {
+  if (BLOG_CONTENT_SOURCE === "github") {
+    const posts = await getAllBlogPosts();
+    const post = posts.find((candidate) => candidate.slug === slug);
+    return post && isVisiblePost(post) ? post : undefined;
+  }
+
   const file = `${slug}.mdx`;
   const filePath = path.join(CONTENT_DIR, file);
   if (!fs.existsSync(filePath)) return undefined;
@@ -189,8 +305,8 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
 }
 
 /** Get all unique tags */
-export function getAllTags(): string[] {
-  const posts = getAllPosts();
+export async function getAllTags(): Promise<string[]> {
+  const posts = await getAllPosts();
   const tags = new Set(posts.flatMap((p) => p.tags));
   return Array.from(tags).sort();
 }

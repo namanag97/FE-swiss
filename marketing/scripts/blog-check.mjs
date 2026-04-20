@@ -14,6 +14,10 @@ const REDIRECTS_PATH = path.join(CONTENT_DIR, "redirects.json");
 const schema = JSON.parse(fs.readFileSync(SCHEMA_PATH, "utf8"));
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const APPROVED_REMOTE_IMAGE_HOSTS = (process.env.BLOG_IMAGE_HOSTS || "pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev,raw.githubusercontent.com")
+  .split(",")
+  .map((host) => host.trim().toLowerCase())
+  .filter(Boolean);
 
 function mdxFiles() {
   return fs.readdirSync(CONTENT_DIR).filter((file) => file.endsWith(".mdx")).sort();
@@ -88,7 +92,16 @@ function validateFrontmatter(file, slug, data, content) {
   }
   if (typeof data.published !== "boolean") errors.push("published must be true or false");
   if (image) {
-    if (!image.startsWith("/blog/")) errors.push("image must start with /blog/");
+    if (image.startsWith("https://")) {
+      try {
+        const url = new URL(image);
+        if (!APPROVED_REMOTE_IMAGE_HOSTS.includes(url.hostname.toLowerCase())) {
+          errors.push(`image host must be one of: ${APPROVED_REMOTE_IMAGE_HOSTS.join(", ")}`);
+        }
+      } catch {
+        errors.push("image URL is invalid");
+      }
+    } else if (!image.startsWith("/blog/")) errors.push("image must start with /blog/ or https://");
     else if (image.includes("..")) errors.push("image cannot contain path traversal");
     else if (!publicFileExists(image)) errors.push(`image file does not exist at public${image}`);
   }

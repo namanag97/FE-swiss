@@ -42,6 +42,8 @@ updatedAt: "2026-04-20"
 
 `image`, `canonical`, and `updatedAt` are optional. Keep drafts as `published: false`. Future-dated posts stay hidden until their date.
 
+For no-build publishing, prefer externally hosted images on the approved media host. New files placed under `public/blog/<slug>/` still require a deployment build before Vercel can serve them.
+
 Allowed tags are defined in `schema.json`.
 
 ## Publishing Checklist
@@ -49,16 +51,36 @@ Allowed tags are defined in `schema.json`.
 - The post has a clear title and description.
 - The slug matches the final URL.
 - All internal links point to real routes or files.
-- Images are stored under `public/blog/<slug>/`.
+- Images are already deployed under `public/blog/<slug>/` or hosted on the approved media host.
 - Drafts are published with `npm run blog:publish -- <slug>`.
 - `npm run blog:check` passes.
 - The pull request includes a preview link.
 
-## Production Deploys
+## Runtime Publishing
 
-This blog is Git-backed MDX. Vercel needs a deployment build before a new or changed post appears on the production site because Next.js reads these files during build and static generation.
+The site can read blog MDX from GitHub at runtime after the runtime content architecture is deployed once. In production, set:
 
-You can avoid a remote Vercel build only by building locally and deploying prebuilt output with the Vercel CLI. You cannot make new Git-backed MDX content appear on production with no build at all unless the site is changed to load content from a runtime CMS/API and revalidate pages on demand.
+```bash
+BLOG_CONTENT_SOURCE=github
+BLOG_GITHUB_REPO=namanag97/FE-swiss
+BLOG_GITHUB_REF=main
+BLOG_GITHUB_CONTENT_DIR=marketing/content/blog
+BLOG_REVALIDATE_SECONDS=300
+BLOG_REVALIDATE_SECRET=<shared webhook secret>
+BLOG_IMAGE_HOSTS=pub-0c8dadde61494a1b8933d138cdc802f7.r2.dev,raw.githubusercontent.com
+```
+
+`BLOG_GITHUB_TOKEN` is optional for public repos and recommended for private repos or higher GitHub API limits.
+
+After this runtime code is live, text-only blog changes can go through Git and appear without a new Vercel build. The site refreshes from GitHub on the revalidate interval. For immediate refresh, POST to `/api/blog/revalidate` with the shared secret:
+
+```bash
+curl -X POST https://sancalana.com/api/blog/revalidate \
+  -H "content-type: application/json" \
+  -d '{"secret":"<shared webhook secret>","slug":"my-post-slug"}'
+```
+
+Vercel still needs one deployment to ship changes to the application code itself. New local media files, styles, components, routes, or MDX component changes also require a deployment build.
 
 ## Renaming Posts
 

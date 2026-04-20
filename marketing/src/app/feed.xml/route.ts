@@ -2,8 +2,10 @@ import { Feed } from "feed";
 import { getAllPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/config";
 
+export const revalidate = 300;
+
 export async function GET() {
-  const posts = getAllPosts();
+  const posts = await getAllPosts();
 
   const feed = new Feed({
     title: `${siteConfig.name} Blog`,

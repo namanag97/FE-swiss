@@ -12,13 +12,12 @@ import { ShareButtons } from "@/components/blog/ShareButtons";
 
 interface Props { params: Promise<{ slug: string }> }
 
-export async function generateStaticParams() {
-  return getAllPosts().map((p) => ({ slug: p.slug }));
-}
+export const dynamicParams = true;
+export const revalidate = 300;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
   if (!post) return {};
   return {
     title: post.title,
@@ -47,10 +46,10 @@ const tagClass: Record<string, string> = {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
   if (!post) notFound();
 
-  const allPosts = getAllPosts();
+  const allPosts = await getAllPosts();
   const related = allPosts
     .filter((p) => p.slug !== slug && p.tags.some((t) => post.tags.includes(t)))
     .slice(0, 2);

@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/blog" },
 };
 
+export const revalidate = 300;
+
 const tagClass: Record<string, string> = {
   announcement: "blog-tag--announcements",
   engineering: "blog-tag--engineering",
@@ -20,8 +22,8 @@ const tagClass: Record<string, string> = {
   insights: "blog-tag--insights",
 };
 
-export default function BlogPage() {
-  const allPosts = getAllPosts();
+export default async function BlogPage() {
+  const allPosts = await getAllPosts();
   const featured = allPosts[0];
   const rest = allPosts.slice(1);
 

@@ -2,8 +2,11 @@ import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/config";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const posts = getAllPosts().map((p) => ({
+export const revalidate = 300;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const allPosts = await getAllPosts();
+  const posts = allPosts.map((p) => ({
     url: `${siteConfig.url}/blog/${p.slug}`,
     lastModified: new Date(p.date),
     changeFrequency: "monthly" as const,
