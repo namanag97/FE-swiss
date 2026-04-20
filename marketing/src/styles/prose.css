@@ -42,6 +42,7 @@
 }
 
 .prose pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   background: var(--ink-dark);
   color: var(--on-dark);
   border-radius: 0;
@@ -53,7 +54,7 @@
   border: 1px solid var(--on-dark-border);
 }
 .prose pre code {
-  font-family: var(--sans);
+  font-family: inherit;
   font-variant-ligatures: none;
   font-feature-settings: "liga" 0, "calt" 0;
   background: none; border: none; padding: 0;

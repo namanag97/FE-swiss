@@ -1,0 +1,224 @@
+---
+title: "Consolidated Production Failure Ontology"
+description: "A practical taxonomy for reviewing production systems by failure shape, not by which component happened to break."
+date: "2026-04-20"
+author: "Sancalana Team"
+tags: ["engineering", "research"]
+published: true
+---
+
+Most production incidents feel specific while they are happening.
+
+The dashboard says Postgres is slow. Kafka is rebalancing. A deployment is rolling back. Customers see timeouts. A queue is growing. An upstream dependency is technically up, but every tenth request takes forever.
+
+Then the postmortem lands and the story becomes familiar. A retry loop amplified load. A leader lease went stale. A lock convoy formed around a hot path. An ambiguous write was retried as if it had definitely failed. A monitor missed the only signal that mattered.
+
+Different stack. Same failure shape.
+
+That is the reason to maintain a production failure ontology. Not because taxonomy is fun, and not because a list of 380 hazards makes a system safer by itself. The value is that it gives architecture reviews a better question:
+
+> What kind of failure is this path allowed to have, and what primitive absorbs it?
+
+If nobody can answer that, the system is relying on luck.
+
+## The Useful Unit Is The Failure Shape
+
+Teams usually organize reliability work by component: database, queue, API, frontend, deploy pipeline, cloud provider. That is useful for ownership, but weak for prevention. The same causal pattern crosses those boundaries.
+
+A retry storm can start in an HTTP client, a Kafka consumer, a background worker, or a database driver. A stale authority problem can appear as a leader-election bug, a stale cache entry, a bad lease, or a fencing-token bypass. A data-integrity problem can come from storage, replication, application serialization, or a silent dependency bug.
+
+So the ontology groups failures by causal signature:
+
+```text
++------------------+------------------+------------------+
+| Failure mode     | Causal signature | Required answer  |
++------------------+------------------+------------------+
+| Retry storm      | Positive feedback| Budget + jitter  |
+| Stale lease      | Split authority  | Fencing token    |
+| Silent bit flip  | Integrity loss   | End-to-end check |
+| Bad deploy       | Change blast     | Canary + rollback|
++------------------+------------------+------------------+
+```
+
+This is the difference between "Kafka had an incident" and "we allowed a coordination failure to become a write-safety failure." The second sentence is much more useful.
+
+## The 18 Buckets
+
+The full ontology has roughly 380 distinct failure modes. The compressed version has 18 macro-categories. These are not product areas. They are recurring ways production systems lose control.
+
+```text
++----+----------------------+----------------------+
+| 01 | Resource exhaustion  | Memory, CPU, FD, IO |
+| 02 | Concurrency          | Races, locks, order |
+| 03 | Time and ordering    | Clocks, deadlines   |
+| 04 | Network transport    | DNS, TLS, routing   |
+| 05 | Partial failure      | Ambiguous outcomes  |
+| 06 | Cascade and retry    | Amplified load      |
++----+----------------------+----------------------+
+```
+
+The first six are the everyday incident generators. They are the reason bounded queues, deadline propagation, idempotency keys, connection-pool limits, and retry budgets exist. A surprising number of incidents are just one of these primitives missing, bypassed, or configured as a suggestion instead of a boundary.
+
+```text
++----+----------------------+----------------------+
+| 07 | Metastable failure   | Bad equilibrium      |
+| 08 | Gray and bimodal     | Slow partial health  |
+| 09 | Leader and fencing   | Split authority      |
+| 10 | Consistency anomaly  | Bad interleavings    |
+| 11 | Data integrity       | Corruption or drift  |
+| 12 | Saga and workflow    | Orphaned steps       |
++----+----------------------+----------------------+
+```
+
+The middle six are where mature systems still get hurt. They do not always look like outages at first. A gray dependency still returns 200s. A metastable system still accepts work while it digs the hole deeper. A stale leader still believes it is allowed to write. A saga still completes most of its steps, which is exactly why the missing step is expensive.
+
+```text
++----+----------------------+----------------------+
+| 13 | Load shedding        | Harmful admission    |
+| 14 | Storage-specific     | PG, Kafka, S3, Redis |
+| 15 | Security             | Auth, SSRF, secrets  |
+| 16 | Compliance           | Retention, erasure   |
+| 17 | Deploy and config    | Rollout blast radius |
+| 18 | Ops and observability| Missing signal       |
++----+----------------------+----------------------+
+```
+
+The last six are where engineering, infrastructure, security, and operations meet. This is where a technically correct service still creates a regulatory leak, a telemetry bill, a security incident, or a deployment rollback that cannot actually roll back.
+
+Three extra axes cut across all of them:
+
+```text
++----------------------+--------------------------------+
+| Capacity and scaling | Hot partition, cold start,     |
+|                      | autoscaler lag, stampede.      |
++----------------------+--------------------------------+
+| Performance          | O(n^2), serialization, new     |
+| regression           | sync point, spurious locking.  |
++----------------------+--------------------------------+
+| Dependency           | Upstream down, gray downstream,|
+|                      | DNS, CDN, CA, package outage.  |
++----------------------+--------------------------------+
+```
+
+Those axes explain why a small bug becomes a large incident. The system was already near a boundary, the workload changed shape, or a dependency failed in a way that did not match the happy-path contract.
+
+## Coverage Matrix
+
+The point is not coverage theater.
+
+The obvious misuse of an ontology is to turn it into a spreadsheet where every row gets a green check.
+
+That is worse than not having the taxonomy. Green checks create false confidence when the right answer is really "partial," "unknown," or "this belongs to infrastructure, not application code."
+
+The coverage matrix should be blunt:
+
+```text
++--------+---------------------------------------------+
+| Mark   | Meaning                                     |
++--------+---------------------------------------------+
+| Y      | The primitive exists and enforces the shape.|
+| P      | Detection exists, or coverage is conditional.|
+| N      | This is a real gap.                         |
+| -      | Outside platform-code scope.                |
++--------+---------------------------------------------+
+```
+
+Here is the condensed version for a strong service foundation:
+
+```text
++-------------------------+----------+------------------------+
+| Failure class           | Coverage | Why                    |
++-------------------------+----------+------------------------+
+| Resource exhaustion     | Y        | Hard bounds exist.     |
+| Concurrency             | Y        | Types and tests help.  |
+| Partial failure         | Y        | Outbox and idempotency.|
+| Cascade and retry       | Y        | Budgets and breakers.  |
+| Leader and fencing      | Y        | Storage-enforced fence.|
+| Saga and workflow       | Y        | Ledger plus terminal   |
+|                         |          | failure states.        |
+| Security                | Y        | Fail-closed authz and  |
+|                         |          | safe IO primitives.    |
+| Ops and observability   | Y        | Health, cardinality,   |
+|                         |          | redaction, burn alerts.|
++-------------------------+----------+------------------------+
+```
+
+The partially covered classes are where review should slow down:
+
+```text
++-------------------------+----------+------------------------+
+| Failure class           | Coverage | Residual risk          |
++-------------------------+----------+------------------------+
+| Time and ordering       | P        | OS and clock behavior. |
+| Network transport       | P        | Routing and providers. |
+| Metastability           | P        | No universal defense.  |
+| Gray failure            | P        | Detection is hard.     |
+| Consistency anomalies   | P        | DB config and tests.   |
+| Load shedding           | P        | Priority can be wrong. |
+| Storage-specific        | P        | Each system has traps. |
+| Compliance              | P        | Recovery paths matter. |
+| Deploy and config       | P        | Rollout is infra too.  |
+| Capacity and dependency | P        | Crosses ownership.     |
++-------------------------+----------+------------------------+
+```
+
+And one row should remain uncomfortable:
+
+```text
++-------------------------+----------+------------------------+
+| Failure class           | Coverage | Gap                    |
++-------------------------+----------+------------------------+
+| Data integrity          | N        | Storage checks are not |
+|                         |          | the same as end-to-end |
+|                         |          | application integrity. |
++-------------------------+----------+------------------------+
+```
+
+The explicit gap is data integrity. Storage systems expose checksums, CRCs, manifests, and replication signals. Those are necessary, but not sufficient. If the application cannot independently detect that what came back is the thing it meant to write, silent corruption can hide behind healthy infrastructure.
+
+## A Better Architecture Review
+
+The ontology turns architecture review from taste into a repeatable interrogation.
+
+```text
++-------------+     +-------------+     +-------------+
+| New change  | --> | Map shapes  | --> | Check cover |
++-------------+     +------+------+     +------+------+
+                            |                   |
+                            v                   v
+                    +-------------+     +-------------+
+                    | Add tests   |     | Own gap,    |
+                    | and signals |     | drill, risk |
+                    +-------------+     +-------------+
+```
+
+For every serious production path, the review should leave behind four artifacts:
+
+1. The failure shapes in scope.
+2. The primitive that defends each one.
+3. The signal that proves the primitive is working.
+4. The owner of the residual risk.
+
+That sounds heavier than a normal design review, but it often makes the review shorter. Instead of arguing over whether a retry policy "seems reasonable," the team asks whether retries have a budget, whether the deadline is propagated, whether ambiguous writes reconcile instead of retrying blindly, and whether the monitor detects the bad equilibrium.
+
+## What This Catches Early
+
+A taxonomy like this catches the awkward failures before they become postmortems.
+
+It catches retry logic with no global budget. It catches background jobs that claim work but do not make the claim durable. It catches workflows where compensation can fail but has no terminal state. It catches systems that shed load by dropping the highest-value tenant first. It catches compliance gaps where deletion only affects the primary table, not analytics replicas or traces.
+
+It also catches observability theater. If the only alert says "service unhealthy," but the failure shape is "queue saturation with successful HTTP 200s," the signal is missing. If the only metric says "Kafka lag," but the actual risk is "rebalance storm after deploy," the signal is too late.
+
+## The Practical Bar
+
+The ontology is useful only if it changes engineering behavior. The practical bar is simple:
+
+- No retry without a budget.
+- No workflow step without idempotency.
+- No leadership claim without fencing.
+- No high-cardinality label without a guard.
+- No ambiguous write without reconciliation.
+- No critical path without a known failure-shape map.
+- No green check unless the primitive actually enforces the invariant.
+
+This does not make production safe. Nothing does. It makes the unsafe parts named, reviewable, testable, and owned.

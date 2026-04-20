@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
@@ -22,14 +23,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title,
     description: post.description,
-    alternates: { canonical: `/blog/${slug}` },
+    alternates: { canonical: post.canonical ?? `/blog/${slug}` },
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
       publishedTime: post.date,
+      modifiedTime: post.updatedAt,
       authors: [post.author],
       url: `${siteConfig.url}/blog/${slug}`,
+      images: post.image ? [{ url: post.image }] : undefined,
     },
   };
 }
@@ -59,10 +62,11 @@ export default async function BlogPostPage({ params }: Props) {
     headline: post.title,
     description: post.description,
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified: post.updatedAt ?? post.date,
     author: { "@type": "Person", name: post.author },
     publisher: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
     url: articleUrl,
+    image: post.image ? `${siteConfig.url}${post.image}` : undefined,
     mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
   };
 
@@ -95,6 +99,17 @@ export default async function BlogPostPage({ params }: Props) {
           <p className="type-body mt-4" style={{ maxWidth: '32rem' }}>
             {post.description}
           </p>
+
+          {post.image && (
+            <Image
+              src={post.image}
+              alt=""
+              width={1200}
+              height={675}
+              className="mt-[var(--sp-5)] aspect-[16/9] w-full object-cover border border-[var(--border)]"
+              priority
+            />
+          )}
 
           {/* Byline */}
           <div className="mt-[var(--sp-5)] flex flex-wrap items-center gap-[var(--sp-2)]">

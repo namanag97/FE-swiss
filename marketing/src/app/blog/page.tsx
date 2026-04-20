@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getAllPosts } from "@/lib/blog";
@@ -67,6 +68,16 @@ export default function BlogPage() {
             >
               <div className="grid md:grid-cols-[1fr_260px]">
                 <div className="p-[var(--sp-5)] md:p-[var(--sp-6)] flex flex-col justify-between gap-[var(--sp-6)]">
+                  {featured.image && (
+                    <Image
+                      src={featured.image}
+                      alt=""
+                      width={1200}
+                      height={675}
+                      className="mb-[var(--sp-5)] aspect-[16/9] w-full object-cover border border-[var(--border)]"
+                      priority
+                    />
+                  )}
                   <div>
                     <div className="flex items-center gap-[var(--sp-3)] mb-[var(--sp-5)]">
                       <span className={`blog-tag ${tagClass[featured.tags[0]?.toLowerCase() ?? ""] ?? "blog-tag--engineering"}`}>
@@ -136,6 +147,16 @@ export default function BlogPage() {
                         href={`/blog/${post.slug}`}
                         className="group flex flex-col border border-[var(--border)] bg-[var(--white)] transition-[border-color] duration-300 hover:border-[var(--border-mid)]"
                       >
+                        {post.image && (
+                          <Image
+                            src={post.image}
+                            alt=""
+                            width={1200}
+                            height={675}
+                            className="aspect-[16/9] w-full object-cover border-b border-[var(--border)]"
+                            loading="lazy"
+                          />
+                        )}
                         <div className="p-[var(--sp-4)] flex flex-col flex-1 gap-[var(--sp-3)]">
                           <div className="flex items-start justify-between gap-[var(--sp-3)]">
                             <span className={`blog-tag ${tagClass[post.tags[0]?.toLowerCase() ?? ""] ?? "blog-tag--engineering"}`}>
